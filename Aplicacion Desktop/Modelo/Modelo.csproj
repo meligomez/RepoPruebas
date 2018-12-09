@@ -51,6 +51,7 @@
     <Compile Include="Comun\IEliminadoSuave.cs" />
     <Compile Include="Comun\MensajesToolTip.cs" />
     <Compile Include="Comun\Seguridad.cs" />
+    <Compile Include="Dominio\Documento.cs" />
     <Compile Include="Dominio\Empresa.cs" />
     <Compile Include="Dominio\Domicilio.cs" />
     <Compile Include="Dominio\Cliente.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Dominio\Rol.cs" />
     <Compile Include="Dominio\RolXFunc.cs" />
     <Compile Include="Dominio\Rubro.cs" />
+    <Compile Include="Dominio\Tarjeta.cs" />
     <Compile Include="Dominio\TipoUbicacion.cs" />
     <Compile Include="Dominio\Ubicacion.cs" />
     <Compile Include="Dominio\Usuario.cs" />
