@@ -69,11 +69,11 @@
     <Compile Include="Abm Cliente\ModificacionCliente.Designer.cs">
       <DependentUpon>ModificacionCliente.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Cliente\ModificarClienteElegido.cs">
+    <Compile Include="Abm Cliente\ModificarClienteSeleccionado.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Cliente\ModificarClienteElegido.Designer.cs">
-      <DependentUpon>ModificarClienteElegido.cs</DependentUpon>
+    <Compile Include="Abm Cliente\ModificarClienteSeleccionado.Designer.cs">
+      <DependentUpon>ModificarClienteSeleccionado.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Empresa Espectaculo\ABMEmpresa.cs">
       <SubType>Form</SubType>
@@ -252,8 +252,8 @@
     <EmbeddedResource Include="Abm Cliente\ModificacionCliente.resx">
       <DependentUpon>ModificacionCliente.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm Cliente\ModificarClienteElegido.resx">
-      <DependentUpon>ModificarClienteElegido.cs</DependentUpon>
+    <EmbeddedResource Include="Abm Cliente\ModificarClienteSeleccionado.resx">
+      <DependentUpon>ModificarClienteSeleccionado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Empresa Espectaculo\ABMEmpresa.resx">
       <DependentUpon>ABMEmpresa.cs</DependentUpon>

@@ -74,32 +74,45 @@ namespace Modelo.Dominio
 
 		public int Alta()
 		{
-			int retorno=9;
+			int retorno = 9;
 			try
 			{
 				DaoSP dao = new DaoSP();
 				DataTable dt = new DataTable();
-				Direccion dire = cliente.Cli_Dir;
-				if (dao.EjecutarSP("dropeadores.Domicilio_Cli_Alta", dire.calle, dire.numero, dire.piso, dire.dpto, dire.localidad, dire.cp) > 0)
-				{
-					dt = dao.ObtenerDatosSP("dropeadores.DireCli_ObtenerId");
-					DataRow row = dt.Rows[0];
-					int idDireClienteInsertado = int.Parse(row["Id"].ToString());
-					if (dao.EjecutarSP("dropeadores.Cli_Alta", cliente.Cli_Nombre, cliente.Cli_Apellido, cliente.Cli_Dni, cliente.Cli_Mail, cliente.Cli_Fecha_Nac, cliente.Cli_CUIL, cliente.Cli_Telefono, idDireClienteInsertado) > 0)
-					{
-						dt = dao.ObtenerDatosSP("dropeadores.Cli_ObtenerId");
-						DataRow row2 = dt.Rows[0];
-						int idClienteInsertado = int.Parse(row2["Id"].ToString());
-						if (dao.EjecutarSP("dropeadores.Usuario_Alta", idClienteInsertado, this.username, this.password,this.fechaCreacionPsw,this.creadoPor) > 0)
-						{
-							retorno = 0;
-						}
-						else
-						{
-							retorno = -1;
-						}
-					}
+				Usuario usuario = new Usuario();
+				Cliente cli = new Cliente();
+				Domicilio dire = cliente.Cli_Dir;
+				Tarjeta tar = new Tarjeta();
 
+				int cant = cli.existEmpresa(cliente.cuil, cliente.numeroDocumento);
+
+				//  if (dao.EjecutarSP("dropeadores.ExistCliente",cliente.cuil,cliente.numeroDocumento)==0)
+				if (cant == 0)
+				{
+					if (dao.EjecutarSP("dropeadores.Domicilio_Cli_Alta", dire.calle, dire.numero, dire.piso, dire.dpto, dire.localidad, dire.cp) > 0)
+					{
+						dt = dao.ObtenerDatosSP("dropeadores.DireCli_ObtenerId");
+						DataRow row = dt.Rows[0];
+						int idDireClienteInsertado = int.Parse(row["Id"].ToString());
+						if (dao.EjecutarSP("dropeadores.Cli_Alta", cliente.nombre, cliente.apellido, cliente.tipoDocumento, cliente.numeroDocumento, cliente.mail, cliente.fechaNacimiento, cliente.cuil, cliente.telefono, idDireClienteInsertado, this.fechaCreacionPsw) > 0)
+						{
+							dt = dao.ObtenerDatosSP("dropeadores.Cli_ObtenerId", idDireClienteInsertado);
+							DataRow row2 = dt.Rows[0];
+							int idClienteInsertado = int.Parse(row2["Id"].ToString());
+							if (dao.EjecutarSP("dropeadores.Cliente_Alta_Tarjeta", cliente.Cli_Tar.propietario, cliente.Cli_Tar.numero, cliente.Cli_Tar.fechaVencimiento, cliente.numeroDocumento) > 0)
+							{
+								if (dao.EjecutarSP("dropeadores.Usuario_Alta", cliente.numeroDocumento, this.username, this.password, this.fechaCreacionPsw, this.creadoPor) > 0)
+								{
+									retorno = 0;
+								}
+								else
+								{
+									retorno = -1;
+								}
+							}
+						}
+
+					}
 				}
 
 
@@ -111,7 +124,6 @@ namespace Modelo.Dominio
 				return -1;
 			}
 		}
-
 		public int EditarPsw(Usuario user,string nuevaPsw)
 		{
 			DaoSP dao = new DaoSP();

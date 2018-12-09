@@ -89,7 +89,7 @@ namespace Modelo.Servicio
 				u.password = row["password"].ToString();
 				u.cambioPsw = int.Parse(row["cambioPsw"].ToString());
 				u.creadoPor = row["creadoPor"].ToString();
-				u.cliente.Id_Cliente = int.Parse(row["clienteId"].ToString());
+				u.cliente.numeroDocumento = int.Parse(row["clienteId"].ToString());
 				u.empresa.Empresa_Cuit = row["CuitEmpresa"].ToString();
 				return u;
 			}
