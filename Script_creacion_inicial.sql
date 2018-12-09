@@ -118,7 +118,7 @@ creadoPor nvarchar(255),
 estado  int default 1,
 intentos int default 0,
 clienteId int,
-CuitEmpresa nvarchar(255),
+CuitEmpresa varchar(255),
 Baja bit default 1,
 Fecha_Password datetime,
 )
