@@ -42,6 +42,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.botonBuscar = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEmpresa)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -171,12 +173,34 @@
             this.botonBuscar.UseVisualStyleBackColor = true;
             this.botonBuscar.Click += new System.EventHandler(this.botonBuscar_Click);
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(191, 162);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(116, 13);
+            this.label9.TabIndex = 109;
+            this.label9.Text = "Razon Social Nº: X";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Location = new System.Drawing.Point(552, 166);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(111, 13);
+            this.label21.TabIndex = 110;
+            this.label21.Text = "XX-XXXXXXXX-XX";
+            // 
             // EliminarEmpresa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(845, 522);
+            this.Controls.Add(this.label21);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.botonBuscar);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label5);
@@ -218,5 +242,7 @@
 		private System.Windows.Forms.Label label7;
 		private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button botonBuscar;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label21;
 	}
 }

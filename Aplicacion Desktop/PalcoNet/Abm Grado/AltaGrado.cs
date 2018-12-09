@@ -56,5 +56,10 @@ namespace PalcoNet.Abm_Grado
 				MessageBox.Show("Error: " + ex.Message, "ERROR", MessageBoxButtons.OK);
 			}
 		}
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
 	}
 }

@@ -1,0 +1,33 @@
+
+Datos Faltantes: Debido a nuevas capacidades del modelo, 
+fue necesario agregar datos por defecto durante la migración, 
+DNIs para tipos de documentos, las fechas de creaciones para las contraseñas, etc.
+
+
+Gestion de Usuarios
+Usuario --> Contiene los usuarios del sistema
+Rol: Contiene los distintos tipos de roles.
+RolXUsuario: Relaciona un usuario con uno o más roles.
+Funcionalidad: Contiene las funcionalidades del sistema.
+FuncionalidadXRol: Relaciona las funcionalidades con los roles.
+Empresa --> Contiene las empresas del sistema
+Cliente --> Contiene los clientes del sistema
+Facturas: Contiene las facturas realizadas.
+Items_Factura: Contiene los ítems de las facturas realizadas.
+
+
+
+Se crearon varios procedures a fin de servir como una interfaz del modelo de datos ante la Aplicación.
+ Debido a esto, por cada tabla principal, se realizaron 4 procedures básicos: get, insert, delete y update.
+  Todos poseen las siguientes condiciones:
+ Si se ingresan campos como -1 para los numéricos y ‘’ para los varchar() se los considera como “elementos neutros” o nulos.
+ Los procedures delete son lógicos (pone en 0 su CampoBaja) en su mayoría.
+
+
+
+REVISIONES
+
+ABM Cliente
+ABM Empresa
+ABM Grado
+Compras filtrar por categoria, fecha y descripcion 

@@ -226,5 +226,10 @@ namespace PalcoNet.Abm_Cliente
         {
 
         }
+
+        private void label22_Click(object sender, EventArgs e)
+        {
+
+        }
 	}
 }
