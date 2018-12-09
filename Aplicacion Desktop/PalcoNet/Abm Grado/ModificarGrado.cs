@@ -117,5 +117,10 @@ namespace PalcoNet.Abm_Grado
 			}
 			return tabla_Cliente;
 		}
+
+		private void btCancelar_Click(object sender, EventArgs e)
+		{
+			this.Hide();
+		}
 	}
 }
