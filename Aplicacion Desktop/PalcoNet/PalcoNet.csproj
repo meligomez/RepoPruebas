@@ -69,11 +69,11 @@
     <Compile Include="Abm Cliente\ModificacionCliente.Designer.cs">
       <DependentUpon>ModificacionCliente.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Cliente\ModificarClienteSeleccionado.cs">
+    <Compile Include="Abm Cliente\ModificarClienteElegido.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Cliente\ModificarClienteSeleccionado.Designer.cs">
-      <DependentUpon>ModificarClienteSeleccionado.cs</DependentUpon>
+    <Compile Include="Abm Cliente\ModificarClienteElegido.Designer.cs">
+      <DependentUpon>ModificarClienteElegido.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Empresa Espectaculo\ABMEmpresa.cs">
       <SubType>Form</SubType>
@@ -159,11 +159,17 @@
     <Compile Include="Canje Puntos\CanjePuntos.Designer.cs">
       <DependentUpon>CanjePuntos.cs</DependentUpon>
     </Compile>
-    <Compile Include="Comprar\Comprar.cs">
+    <Compile Include="Comprar\ComprarPPAL.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Comprar\Comprar.Designer.cs">
-      <DependentUpon>Comprar.cs</DependentUpon>
+    <Compile Include="Comprar\ComprarPPAL.Designer.cs">
+      <DependentUpon>ComprarPPAL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comprar\SeleccionCategorias.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Comprar\SeleccionCategorias.Designer.cs">
+      <DependentUpon>SeleccionCategorias.cs</DependentUpon>
     </Compile>
     <Compile Include="ConfigGlobal.cs" />
     <Compile Include="Editar Publicacion\EditarPublicacion.cs">
@@ -252,8 +258,8 @@
     <EmbeddedResource Include="Abm Cliente\ModificacionCliente.resx">
       <DependentUpon>ModificacionCliente.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm Cliente\ModificarClienteSeleccionado.resx">
-      <DependentUpon>ModificarClienteSeleccionado.cs</DependentUpon>
+    <EmbeddedResource Include="Abm Cliente\ModificarClienteElegido.resx">
+      <DependentUpon>ModificarClienteElegido.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Empresa Espectaculo\ABMEmpresa.resx">
       <DependentUpon>ABMEmpresa.cs</DependentUpon>
@@ -294,8 +300,11 @@
     <EmbeddedResource Include="Canje Puntos\CanjePuntos.resx">
       <DependentUpon>CanjePuntos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Comprar\Comprar.resx">
-      <DependentUpon>Comprar.cs</DependentUpon>
+    <EmbeddedResource Include="Comprar\ComprarPPAL.resx">
+      <DependentUpon>ComprarPPAL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comprar\SeleccionCategorias.resx">
+      <DependentUpon>SeleccionCategorias.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Editar Publicacion\EditarPublicacion.resx">
       <DependentUpon>EditarPublicacion.cs</DependentUpon>
