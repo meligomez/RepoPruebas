@@ -31,7 +31,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
 
         private void cargarDatos()
-        {
+        {  //empresa_Seleccionada.Empresa_estado = true;
             textRazonSocial.Text = empresa_Seleccionada.Empresa_razon_social;
             textCUIT.Text = empresa_Seleccionada.Empresa_Cuit;
             textTelefono.Text = empresa_Seleccionada.Empresa_telefono.ToString();
@@ -43,6 +43,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             textPiso.Text = empresa_Seleccionada.Empresa_Dom.piso.ToString();
             textDepto.Text = empresa_Seleccionada.Empresa_Dom.dpto.ToString();
             textCP.Text = empresa_Seleccionada.Empresa_Dom.cp.ToString();
+
             checkBaja.Checked = empresa_Seleccionada.Empresa_estado;
             if (empresa_Seleccionada.Empresa_Dom.calle != "''")
                 textDepto.Text = empresa_Seleccionada.Empresa_Dom.dpto.ToString();
@@ -69,6 +70,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
         public static DataTable obtenerTabla(string cuit)
         {
 
+
             DaoSP dao = new DaoSP();
             return dao.ObtenerDatosSP("dropeadores.ObtenerEmpresaEspecifica", cuit);
         }
@@ -89,13 +91,15 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                 Empresa empresa = new Empresa();
                 empresa.Empresa_Cuit = Convert.ToString(fila["empresa_Cuit"]);
                 empresa.Empresa_razon_social = Convert.ToString(fila["empresa_razon_social"]);
-                dom.calle = Convert.ToString(fila["Emp_Dom_Calle"]);
-                dom.numero = Convert.ToInt32(fila["Emp_Nro_Calle"]);
-                dom.piso= Convert.ToInt32(fila["Emp_Piso"]);
-                dom.dpto = Convert.ToString(fila["Emp_Depto"]);
-                dom.localidad = Convert.ToString(fila["Emp_Localidad"]);
-                dom.cp = Convert.ToInt32(fila["Emp_Cod_Postal"]);
-                dom.ciudad = Convert.ToString(fila["Emp_Ciudad"]);
+                empresa.Empresa_estado = Convert.ToBoolean(fila["empresa_estado"]);
+                dom.calle = Convert.ToString(fila["calle"]);
+                dom.numero = Convert.ToInt32(fila["numero"]);
+                dom.piso = Convert.ToInt32(fila["piso"]);
+                dom.dpto = Convert.ToString(fila["departamento"]);
+                dom.localidad = Convert.ToString(fila["localidad"]);
+                dom.cp = Convert.ToInt32(fila["codigoPostal"]);
+                dom.ciudad = Convert.ToString(fila["ciudad"]);
+
                 empresa.Empresa_Dom = dom;
                 //Campos Nulleables  (CHECKEAR)
                 if (!(fila["empresa_telefono"] is DBNull))
@@ -112,27 +116,31 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
         }
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-          
+
             if (true)
             {
-                 empresa_Seleccionada.Empresa_razon_social=textRazonSocial.Text;
-                 empresa_Seleccionada.Empresa_Cuit = textCUIT.Text;
-                 empresa_Seleccionada.Empresa_telefono = Int32.Parse(textTelefono.Text);
-                 empresa_Seleccionada.Empresa_mail = textMail.Text;
-                 empresa_Seleccionada.Empresa_Dom.ciudad = textCiudad.Text;
-                 empresa_Seleccionada.Empresa_Dom.calle = textDireccion.Text;
-                 empresa_Seleccionada.Empresa_Dom.numero = Int32.Parse(txtNro.Text);
-                 empresa_Seleccionada.Empresa_Dom.localidad = textLocalidad.Text;
-                 empresa_Seleccionada.Empresa_Dom.piso = Int32.Parse(textPiso.Text);
-                 empresa_Seleccionada.Empresa_Dom.dpto = textDepto.Text;
-                 empresa_Seleccionada.Empresa_Dom.cp = Int32.Parse(textCP.Text);
+                empresa_Seleccionada.Empresa_razon_social = textRazonSocial.Text;
+                empresa_Seleccionada.Empresa_Cuit = textCUIT.Text;
+                empresa_Seleccionada.Empresa_telefono = Int32.Parse(textTelefono.Text);
+                empresa_Seleccionada.Empresa_mail = textMail.Text;
+                empresa_Seleccionada.Empresa_Dom.ciudad = textCiudad.Text;
+                empresa_Seleccionada.Empresa_Dom.calle = textDireccion.Text;
+                empresa_Seleccionada.Empresa_Dom.numero = Int32.Parse(txtNro.Text);
+                empresa_Seleccionada.Empresa_Dom.localidad = textLocalidad.Text;
+                empresa_Seleccionada.Empresa_Dom.piso = Int32.Parse(textPiso.Text);
+                empresa_Seleccionada.Empresa_Dom.dpto = textDepto.Text;
+                empresa_Seleccionada.Empresa_Dom.cp = Int32.Parse(textCP.Text);
 
-                 if (textPiso.Text != "")
-                     empresa_Seleccionada.Empresa_Dom.piso = Int32.Parse(textPiso.Text);
+                if (textPiso.Text != "")
+                    empresa_Seleccionada.Empresa_Dom.piso = Int32.Parse(textPiso.Text);
                 if (textDepto.Text != "")
                     empresa_Seleccionada.Empresa_Dom.dpto = textDepto.Text;
 
-                empresa_Seleccionada.Empresa_estado = checkBaja.Checked;
+                if (checkBaja.Checked)
+                {
+                    empresa_Seleccionada.Empresa_estado = checkBaja.Checked;
+                }
+
                 if (!Empresa.actualizar(empresa_Seleccionada))
                 {
                     MessageBox.Show("Error al modificar la empresa.", "Error al Modificar empresa",
@@ -161,8 +169,8 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            ModificacionEmpresa modEmp = new ModificacionEmpresa();
-            modEmp.Show();
+           // ModificacionEmpresa modEmp = new ModificacionEmpresa();
+           // modEmp.Show();
             this.Hide();
         }
 	}

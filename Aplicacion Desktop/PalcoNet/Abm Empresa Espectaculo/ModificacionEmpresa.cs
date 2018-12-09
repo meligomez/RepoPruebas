@@ -23,6 +23,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
         private void cargarTabla()
         {
 
+
             DaoSP prueba = new DaoSP();
 
             CargarData.cargarGridView(dataGridViewEmpresa, prueba.ConsultarConQuery("select * from dropeadores.Empresa"));
@@ -45,7 +46,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             switch (dr)
             {
                 case DialogResult.Yes:
-                   
+
                     ModificarEmpresaSeleccionada(cuit);
                     break;
                 case DialogResult.No: break;
@@ -68,7 +69,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
         {
             DaoSP prueba = new DaoSP();
 
-            CargarData.cargarGridView(dataGridViewEmpresa, prueba.ConsultarConQuery("select * from dropeadores.Empresa E join dropeadores.Empresa_Domicilio D on (E.empresa_domicilio=D.Id_Domicilio)"));
+            CargarData.cargarGridView(dataGridViewEmpresa, prueba.ConsultarConQuery("select * from dropeadores.Empresa E join dropeadores.Domicilio D on (E.empresa_domicilio=D.id)"));
 
            
 

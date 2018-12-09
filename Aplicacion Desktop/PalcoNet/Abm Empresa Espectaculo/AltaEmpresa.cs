@@ -62,9 +62,10 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-              try
+            try
             {
-                if (todosCamposCompletos())
+                //if (todosCamposCompletos())
+                if (true)
                 {
                     Usuario usuario = new Usuario();
                     if (rolLogueado != "sin Rol")
@@ -88,19 +89,25 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                     empresa.Empresa_estado = true;
                     usuario.username = textUsername.Text;
                     usuario.password = textPassword.Text;
-					dom.calle = textDireccion.Text;
-                    dom.numero = int.Parse(txtNro.Text); 
-					dom.piso = int.Parse(textPiso.Text);
-					dom.dpto = textDepto.Text;
-					dom.localidad = textLocalidad.Text;
-					dom.cp = int.Parse(textCP.Text);
+                    dom.calle = textDireccion.Text;
+                    dom.numero = int.Parse(txtNro.Text);
+                    dom.piso = int.Parse(textPiso.Text);
+                    dom.dpto = textDepto.Text;
+                    dom.localidad = textLocalidad.Text;
+                    dom.cp = int.Parse(textCP.Text);
                     dom.ciudad = textCiudad.Text;
                     empresa.Empresa_Dom = dom;
-					usuario.empresa = empresa;
-					int resp = usuario.AltaEmpresa();
-                    if (resp != 0)
+                    usuario.empresa = empresa;
+                    int resp = usuario.AltaEmpresa();
+                    if (resp == -1)
                     {
                         MessageBox.Show("Error al conectarse con la DB. No se ha creado el Usuario.", "Error al crear Nuevo Usuario",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    if (resp == 0)
+                    {
+                        MessageBox.Show("Error. No se ha creado el Usuario. El cuit o Razon Social Ya han sido creados anteriormente!", "Error al crear Nuevo Usuario",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
@@ -108,7 +115,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
                 MessageBox.Show("Empresa: " + textCUIT.Text + " creada satisfactoriamente.", "Alta de Usuario",
                 MessageBoxButtons.OK);
-               
+
             }
             catch (Exception ex)
             {
