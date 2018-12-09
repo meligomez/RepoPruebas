@@ -28,7 +28,7 @@ namespace PalcoNet.Abm_Rol
 		private void Form1_Load(object sender, EventArgs e)
 		{
 			DaoSP dao = new DaoSP();
-			DataTable roles=dao.ConsultarConQuery("SELECT * FROM dropeadores.Funcionalidad");
+			DataTable roles=dao.ConsultarConQuery("SELECT Id_Funcionalidad,descripcion FROM dropeadores.Funcionalidad");
 			CargarData.cargarGridView(dgvFuncionalidades,roles);
 			CargarData.AddCheckColumn(dgvFuncionalidades,"Seleccionar");
 		}

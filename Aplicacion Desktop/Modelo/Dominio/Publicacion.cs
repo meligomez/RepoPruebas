@@ -15,7 +15,7 @@ namespace Modelo.Dominio
 		public int stock { get; set; }
 		public DateTime fechaPublicacion { get; set; }
 		public DateTime fechaEspectaculo { get; set; }
-
+		public List<DateTime> fechaEspectaculoLote { get; set; }
 		//public decimal precio { get; set; }
 		public string direccion { get; set; }
 		public int rubroId { get; set; }

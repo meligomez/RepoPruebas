@@ -29,9 +29,6 @@
 		private void InitializeComponent()
 		{
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-			this.menuRegistroUsuario = new System.Windows.Forms.ToolStripMenuItem();
-			this.altaDeUsuarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.cambiarContraseñaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuABMCliente = new System.Windows.Forms.ToolStripMenuItem();
 			this.altaDeClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.bajaDeClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,6 +64,10 @@
 			this.label2 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.menuRegistroUsuario = new System.Windows.Forms.ToolStripMenuItem();
+			this.registroDeClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.registroDeEmpresaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.cambiarContraselaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
@@ -91,34 +92,9 @@
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
 			this.menuStrip1.Padding = new System.Windows.Forms.Padding(6, 2, 0, 5);
-			this.menuStrip1.Size = new System.Drawing.Size(1203, 29);
+			this.menuStrip1.Size = new System.Drawing.Size(1203, 31);
 			this.menuStrip1.TabIndex = 0;
 			this.menuStrip1.Text = "menuStrip";
-			// 
-			// menuRegistroUsuario
-			// 
-			this.menuRegistroUsuario.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.altaDeUsuarioToolStripMenuItem,
-            this.cambiarContraseñaToolStripMenuItem});
-			this.menuRegistroUsuario.Font = new System.Drawing.Font("Raleway", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.menuRegistroUsuario.Name = "menuRegistroUsuario";
-			this.menuRegistroUsuario.Size = new System.Drawing.Size(162, 22);
-			this.menuRegistroUsuario.Text = "Registro de Usuarios";
-			this.menuRegistroUsuario.Click += new System.EventHandler(this.menuRegistroUsuario_Click);
-			// 
-			// altaDeUsuarioToolStripMenuItem
-			// 
-			this.altaDeUsuarioToolStripMenuItem.Name = "altaDeUsuarioToolStripMenuItem";
-			this.altaDeUsuarioToolStripMenuItem.Size = new System.Drawing.Size(222, 26);
-			this.altaDeUsuarioToolStripMenuItem.Text = "Alta de Usuario";
-			this.altaDeUsuarioToolStripMenuItem.Click += new System.EventHandler(this.altaUsuario_Click);
-			// 
-			// cambiarContraseñaToolStripMenuItem
-			// 
-			this.cambiarContraseñaToolStripMenuItem.Name = "cambiarContraseñaToolStripMenuItem";
-			this.cambiarContraseñaToolStripMenuItem.Size = new System.Drawing.Size(222, 26);
-			this.cambiarContraseñaToolStripMenuItem.Text = "Cambiar Contraseña";
-			this.cambiarContraseñaToolStripMenuItem.Click += new System.EventHandler(this.cambiarPsw_Click);
 			// 
 			// menuABMCliente
 			// 
@@ -128,7 +104,7 @@
             this.modificacionDeClienteToolStripMenuItem});
 			this.menuABMCliente.Font = new System.Drawing.Font("Raleway", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.menuABMCliente.Name = "menuABMCliente";
-			this.menuABMCliente.Size = new System.Drawing.Size(135, 22);
+			this.menuABMCliente.Size = new System.Drawing.Size(135, 24);
 			this.menuABMCliente.Text = "ABM de Clientes";
 			// 
 			// altaDeClienteToolStripMenuItem
@@ -160,7 +136,7 @@
             this.modificacionDeEmpresaToolStripMenuItem});
 			this.menuABMEmpresa.Font = new System.Drawing.Font("Raleway", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.menuABMEmpresa.Name = "menuABMEmpresa";
-			this.menuABMEmpresa.Size = new System.Drawing.Size(140, 22);
+			this.menuABMEmpresa.Size = new System.Drawing.Size(140, 24);
 			this.menuABMEmpresa.Text = "ABM de Empresa";
 			// 
 			// altaDeEmpresaToolStripMenuItem
@@ -193,7 +169,7 @@
             this.aBMGradoDePublicacionToolStripMenuItem});
 			this.menuPublicacion.Font = new System.Drawing.Font("Raleway", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.menuPublicacion.Name = "menuPublicacion";
-			this.menuPublicacion.Size = new System.Drawing.Size(99, 22);
+			this.menuPublicacion.Size = new System.Drawing.Size(99, 24);
 			this.menuPublicacion.Text = "Publicacion";
 			// 
 			// generarPublicacionToolStripMenuItem
@@ -230,14 +206,14 @@
             this.realizarCompraToolStripMenuItem});
 			this.menuComprar.Font = new System.Drawing.Font("Raleway", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.menuComprar.Name = "menuComprar";
-			this.menuComprar.Size = new System.Drawing.Size(80, 22);
+			this.menuComprar.Size = new System.Drawing.Size(80, 24);
 			this.menuComprar.Text = "Comprar";
 			this.menuComprar.Click += new System.EventHandler(this.comprar_Click);
 			// 
 			// realizarCompraToolStripMenuItem
 			// 
 			this.realizarCompraToolStripMenuItem.Name = "realizarCompraToolStripMenuItem";
-			this.realizarCompraToolStripMenuItem.Size = new System.Drawing.Size(195, 26);
+			this.realizarCompraToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
 			this.realizarCompraToolStripMenuItem.Text = "Realizar Compra";
 			this.realizarCompraToolStripMenuItem.Click += new System.EventHandler(this.VentanaAdmin_Load);
 			// 
@@ -248,7 +224,7 @@
             this.canjeDePuntosToolStripMenuItem});
 			this.menuCliente.Font = new System.Drawing.Font("Raleway", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.menuCliente.Name = "menuCliente";
-			this.menuCliente.Size = new System.Drawing.Size(69, 22);
+			this.menuCliente.Size = new System.Drawing.Size(69, 24);
 			this.menuCliente.Text = "Cliente";
 			// 
 			// historialDelClienteToolStripMenuItem
@@ -271,7 +247,7 @@
             this.generarPagosDeComisionesToolStripMenuItem});
 			this.menuPagos.Font = new System.Drawing.Font("Raleway", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.menuPagos.Name = "menuPagos";
-			this.menuPagos.Size = new System.Drawing.Size(62, 22);
+			this.menuPagos.Size = new System.Drawing.Size(62, 24);
 			this.menuPagos.Text = "Pagos";
 			// 
 			// generarPagosDeComisionesToolStripMenuItem
@@ -287,13 +263,13 @@
             this.listadoEstadisticoToolStripMenuItem});
 			this.menuEstadisticas.Font = new System.Drawing.Font("Raleway", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.menuEstadisticas.Name = "menuEstadisticas";
-			this.menuEstadisticas.Size = new System.Drawing.Size(99, 22);
+			this.menuEstadisticas.Size = new System.Drawing.Size(99, 24);
 			this.menuEstadisticas.Text = "Estadisticas";
 			// 
 			// listadoEstadisticoToolStripMenuItem
 			// 
 			this.listadoEstadisticoToolStripMenuItem.Name = "listadoEstadisticoToolStripMenuItem";
-			this.listadoEstadisticoToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+			this.listadoEstadisticoToolStripMenuItem.Size = new System.Drawing.Size(209, 26);
 			this.listadoEstadisticoToolStripMenuItem.Text = "Listado Estadistico";
 			this.listadoEstadisticoToolStripMenuItem.Click += new System.EventHandler(this.listadoEstadistico_Click);
 			// 
@@ -305,27 +281,27 @@
             this.modifcacionDeRolToolStripMenuItem});
 			this.aBMRolToolStripMenuItem.Font = new System.Drawing.Font("Raleway", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.aBMRolToolStripMenuItem.Name = "aBMRolToolStripMenuItem";
-			this.aBMRolToolStripMenuItem.Size = new System.Drawing.Size(80, 22);
+			this.aBMRolToolStripMenuItem.Size = new System.Drawing.Size(80, 24);
 			this.aBMRolToolStripMenuItem.Text = "ABM Rol";
 			// 
 			// altaDeRolToolStripMenuItem
 			// 
 			this.altaDeRolToolStripMenuItem.Name = "altaDeRolToolStripMenuItem";
-			this.altaDeRolToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+			this.altaDeRolToolStripMenuItem.Size = new System.Drawing.Size(215, 26);
 			this.altaDeRolToolStripMenuItem.Text = "Alta de Rol";
 			this.altaDeRolToolStripMenuItem.Click += new System.EventHandler(this.altaRol_Click);
 			// 
 			// bajaDeRolToolStripMenuItem
 			// 
 			this.bajaDeRolToolStripMenuItem.Name = "bajaDeRolToolStripMenuItem";
-			this.bajaDeRolToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+			this.bajaDeRolToolStripMenuItem.Size = new System.Drawing.Size(215, 26);
 			this.bajaDeRolToolStripMenuItem.Text = "Baja de Rol";
 			this.bajaDeRolToolStripMenuItem.Click += new System.EventHandler(this.bajaRol_Click);
 			// 
 			// modifcacionDeRolToolStripMenuItem
 			// 
 			this.modifcacionDeRolToolStripMenuItem.Name = "modifcacionDeRolToolStripMenuItem";
-			this.modifcacionDeRolToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+			this.modifcacionDeRolToolStripMenuItem.Size = new System.Drawing.Size(215, 26);
 			this.modifcacionDeRolToolStripMenuItem.Text = "Modifcacion de Rol";
 			this.modifcacionDeRolToolStripMenuItem.Click += new System.EventHandler(this.modifRol_Click);
 			// 
@@ -337,28 +313,28 @@
             this.modificacionGradoToolStripMenuItem});
 			this.ABMGradoToolStripMenuItem.Font = new System.Drawing.Font("Raleway", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.ABMGradoToolStripMenuItem.Name = "ABMGradoToolStripMenuItem";
-			this.ABMGradoToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
+			this.ABMGradoToolStripMenuItem.Size = new System.Drawing.Size(99, 24);
 			this.ABMGradoToolStripMenuItem.Text = "ABM Grado";
 			this.ABMGradoToolStripMenuItem.Click += new System.EventHandler(this.ABMGradoToolStripMenuItem_Click);
 			// 
 			// altaGradoToolStripMenuItem
 			// 
 			this.altaGradoToolStripMenuItem.Name = "altaGradoToolStripMenuItem";
-			this.altaGradoToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+			this.altaGradoToolStripMenuItem.Size = new System.Drawing.Size(215, 26);
 			this.altaGradoToolStripMenuItem.Text = "Alta Grado";
 			this.altaGradoToolStripMenuItem.Click += new System.EventHandler(this.altaGradoToolStripMenuItem_Click);
 			// 
 			// bajaGradoToolStripMenuItem
 			// 
 			this.bajaGradoToolStripMenuItem.Name = "bajaGradoToolStripMenuItem";
-			this.bajaGradoToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+			this.bajaGradoToolStripMenuItem.Size = new System.Drawing.Size(215, 26);
 			this.bajaGradoToolStripMenuItem.Text = "Baja Grado";
 			this.bajaGradoToolStripMenuItem.Click += new System.EventHandler(this.bajaGradoToolStripMenuItem_Click);
 			// 
 			// modificacionGradoToolStripMenuItem
 			// 
 			this.modificacionGradoToolStripMenuItem.Name = "modificacionGradoToolStripMenuItem";
-			this.modificacionGradoToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+			this.modificacionGradoToolStripMenuItem.Size = new System.Drawing.Size(215, 26);
 			this.modificacionGradoToolStripMenuItem.Text = "Modificacion Grado";
 			this.modificacionGradoToolStripMenuItem.Click += new System.EventHandler(this.modificaciónGradoToolStripMenuItem_Click);
 			// 
@@ -366,7 +342,7 @@
 			// 
 			this.salirToolStripMenuItem.Font = new System.Drawing.Font("Raleway", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-			this.salirToolStripMenuItem.Size = new System.Drawing.Size(53, 22);
+			this.salirToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
 			this.salirToolStripMenuItem.Text = "Salir ";
 			this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
 			// 
@@ -410,6 +386,38 @@
 			this.panel1.TabIndex = 6;
 			this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
 			// 
+			// menuRegistroUsuario
+			// 
+			this.menuRegistroUsuario.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.registroDeClienteToolStripMenuItem,
+            this.registroDeEmpresaToolStripMenuItem,
+            this.cambiarContraselaToolStripMenuItem});
+			this.menuRegistroUsuario.Font = new System.Drawing.Font("Raleway", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.menuRegistroUsuario.Name = "menuRegistroUsuario";
+			this.menuRegistroUsuario.Size = new System.Drawing.Size(162, 24);
+			this.menuRegistroUsuario.Text = "Registro de Usuarios";
+			// 
+			// registroDeClienteToolStripMenuItem
+			// 
+			this.registroDeClienteToolStripMenuItem.Name = "registroDeClienteToolStripMenuItem";
+			this.registroDeClienteToolStripMenuItem.Size = new System.Drawing.Size(226, 26);
+			this.registroDeClienteToolStripMenuItem.Text = "Registro de Cliente";
+			this.registroDeClienteToolStripMenuItem.Click += new System.EventHandler(this.altaCliente_Click);
+			// 
+			// registroDeEmpresaToolStripMenuItem
+			// 
+			this.registroDeEmpresaToolStripMenuItem.Name = "registroDeEmpresaToolStripMenuItem";
+			this.registroDeEmpresaToolStripMenuItem.Size = new System.Drawing.Size(226, 26);
+			this.registroDeEmpresaToolStripMenuItem.Text = "Registro de Empresa";
+			this.registroDeEmpresaToolStripMenuItem.Click += new System.EventHandler(this.altaEmpresa_Click);
+			// 
+			// cambiarContraselaToolStripMenuItem
+			// 
+			this.cambiarContraselaToolStripMenuItem.Name = "cambiarContraselaToolStripMenuItem";
+			this.cambiarContraselaToolStripMenuItem.Size = new System.Drawing.Size(226, 26);
+			this.cambiarContraselaToolStripMenuItem.Text = "Cambiar Contraseña";
+			this.cambiarContraselaToolStripMenuItem.Click += new System.EventHandler(this.cambiarPsw_Click);
+			// 
 			// panelContenedor
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 21F);
@@ -440,8 +448,6 @@
 		#endregion
 
 		private System.Windows.Forms.MenuStrip menuStrip1;
-		private System.Windows.Forms.ToolStripMenuItem menuRegistroUsuario;
-		private System.Windows.Forms.ToolStripMenuItem altaDeUsuarioToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem menuABMCliente;
 		private System.Windows.Forms.ToolStripMenuItem altaDeClienteToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem bajaDeClienteToolStripMenuItem;
@@ -469,7 +475,6 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.PictureBox iconmaximizar;
-		private System.Windows.Forms.ToolStripMenuItem cambiarContraseñaToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem aBMRolToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem altaDeRolToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem bajaDeRolToolStripMenuItem;
@@ -479,5 +484,9 @@
 		private System.Windows.Forms.ToolStripMenuItem altaGradoToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem bajaGradoToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem modificacionGradoToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem menuRegistroUsuario;
+		private System.Windows.Forms.ToolStripMenuItem registroDeClienteToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem registroDeEmpresaToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem cambiarContraselaToolStripMenuItem;
 	}
 }

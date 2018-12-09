@@ -121,7 +121,7 @@ namespace PalcoNet.Abm_Cliente
 		{
 			int documento = Int32.Parse(nroDoc);
 			this.Hide();
-			new ModificarClienteSeleccionado(tipoDoc, documento).Show();
+			new ModificarClienteElegido(tipoDoc, documento).Show();
 
 		}
 		private void btnModificar_Click(object sender, EventArgs e)

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,8 @@ namespace PalcoNet.Generar_Publicacion
 	{
 		public Usuario userLogueado;
 		public Panel panel;
+		public List<DateTime> fechasValidas = new List<DateTime>();
+		Publicacion publicacion = new Publicacion();
 		public GenerarPublicacion(Usuario userLog,Panel panel1)
 		{
 			panel = panel1;
@@ -26,7 +29,6 @@ namespace PalcoNet.Generar_Publicacion
 	
 		}
 		
-
 
 		private void CategoriaUbicacion_Load(object sender, EventArgs e)
 		{
@@ -43,6 +45,7 @@ namespace PalcoNet.Generar_Publicacion
 			//CargarData.cargarComboBox(comboBox1, dtTipoUbicacion, "Ubicacion_Tipo_Descripcion", "Ubicacion_Tipo_Descripcion");
 			lblEstado.Visible = true;
 			lblUserLogueado.Visible = true;
+			btnSubirTxt.Visible = false;
 			//BUSCAR LA EMPRESAAAA!!
 			lblUserLogueado.Text = userLogueado.empresa.Empresa_Cuit;
 			lblEstado.Text = "Borrador";
@@ -59,13 +62,18 @@ namespace PalcoNet.Generar_Publicacion
 				lblFechaEspectaculo.Visible = true;
 				dateTimePickerEspectaculo.Visible = true;
 			}
+			if (radioSi.Checked)
+			{
+				btnSubirTxt.Visible = true;
+			}
 		}
 
 		private void btnSiguiente_Click(object sender, EventArgs e)
 		{
 			if (this.validarData())
 			{
-				Publicacion publicacion = new Publicacion();
+				try
+				{
 				publicacion.estado = 0;
 				publicacion.descripcion = textDescripcion.Text;
 				publicacion.direccion = textDireccion.Text;
@@ -76,40 +84,26 @@ namespace PalcoNet.Generar_Publicacion
 				publicacion.empresaId = userLogueado.empresa.Empresa_Cuit;
 				if (radioNo.Checked)
 				{
+					List<DateTime> fechasNull = new List<DateTime>();
+						publicacion.fechaEspectaculoLote = fechasNull;
 					publicacion.fechaEspectaculo = dateTimePickerEspectaculo.Value;
 					//dateTimePickerEspectaculo.Value.Hour;
 				}
-				else
+				if (radioSi.Checked)
 				{
-					//lo hace javier.
+						publicacion.fechaEspectaculoLote=fechasValidas;
+					//publicacion.fechaEspectaculo = dateTimePickerEspectaculo.Value;
+					//dateTimePickerEspectaculo.Value.Hour;
 				}
-				try
-				{
-					int idPublicacionInsertado = 0;
-					idPublicacionInsertado = publicacion.altaPublicacion();
-					publicacion.codigo = idPublicacionInsertado;
-					if (idPublicacionInsertado>0)
-					{
-						CategoriaUbicacion categoria = new CategoriaUbicacion(userLogueado, publicacion);
-						categoria.Dock = DockStyle.Fill;
-						categoria.TopLevel = false;
-						categoria.FormBorderStyle = FormBorderStyle.None;
-						this.panel.Controls.Add(categoria);
-						this.panel.Tag = categoria;
-						categoria.Show();
 
-						this.Hide();
-					}
-					else
-					{
-						MessageBox.Show("Error..", "¡Advertencia!",
-							MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-					
-					}
-					//if (textDescripcion.Text=="")
-					//{
-				
-
+					CategoriaUbicacion categoria = new CategoriaUbicacion(userLogueado, publicacion);
+					categoria.Dock = DockStyle.Fill;
+					categoria.TopLevel = false;
+					categoria.FormBorderStyle = FormBorderStyle.None;
+					this.panel.Controls.Add(categoria);
+					this.panel.Tag = categoria;
+					categoria.Show();
+						this.Hide();	
 				}
 				catch (Exception ex)
 				{
@@ -130,18 +124,18 @@ namespace PalcoNet.Generar_Publicacion
 				MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				return false;
 			}
-			//if (textDescripcion.Text=="")
-			//{
-			//	MessageBox.Show("Debe escribir una descripcion.", "¡Advertencia!",
-			//	MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-			//	return false;
-			//}
-			//if (textDireccion.Text == "")
-			//{
-			//	MessageBox.Show("Debe escribir una direccion del espectáculo.", "¡Advertencia!",
-			//	MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-			//	return false;
-			//}
+			if (textDescripcion.Text == "")
+			{
+				MessageBox.Show("debe escribir una descripcion", "¡Advertencia!",
+				MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				return false;
+			}
+			if (textDireccion.Text == "")
+			{
+				MessageBox.Show("debe escribir una direccion", "¡Advertencia!",
+				MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				return false;
+			}
 			if (comboGradoPublicacion.SelectedIndex==0)
 			{
 				MessageBox.Show("Debe seleccionar un Grado de publicacion", "¡Advertencia!",
@@ -206,5 +200,158 @@ namespace PalcoNet.Generar_Publicacion
 		{
 			this.Hide();
 		}
+		private void btnSubirTxt_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				//creamos un objeto OpenDialog que es un cuadro de dialogo para buscar archivos
+				OpenFileDialog dialog = new OpenFileDialog();
+				dialog.Filter = "Archivos de Texto (*.txt)|*.txt"; //le indicamos el tipo de filtro en este caso que busque
+																   //solo los archivos excel
+
+				dialog.Title = "Seleccione el archivo de Text";//le damos un titulo a la ventana
+				dialog.FileName = string.Empty;//inicializamos con vacio el nombre del archivo
+											   //si al seleccionar el archivo damos Ok
+				if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+				{
+					List<string> FechaIncorrectas = new List<string>();
+					using (StreamReader sr = new StreamReader(dialog.FileName, false))
+					{
+						//string[] separarFecha = horaIngresada.ToString("HH:mm:ss").Split(':');//DateTime.Now.ToString("HH:mm:ss").Split(':');
+						//string hor = separarFecha[0];
+						//string minutos = separarFecha[1];
+						//int horas = int.Parse(hor);
+						//int horas =0;
+						string line;
+						while ((line = sr.ReadLine()) != null)
+						{
+							//MessageBox.Show(line);
+							DateTime fechaTxt = Convert.ToDateTime(line);
+							//Valido las fechas
+							ConfigGlobal conf = new ConfigGlobal();
+
+							if (fechaTxt >= conf.getFechaSistema())
+							{
+								fechasValidas.Add(fechaTxt);
+								//publicacion.fechaEspectaculoLote.Add(fechaTxt);
+								MessageBox.Show("Fecha y hora del espectaculo "+fechaTxt);
+							}
+							else { FechaIncorrectas.Add(line); }
+						}
+					}
+					for (int i = 0; i < FechaIncorrectas.Count; i++)
+					{
+						MessageBox.Show("Fecha incorrecta "+ FechaIncorrectas[i]);
+					}
+				}
+
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+
+		//private void SubirExcel_Click(object sender, EventArgs e)
+		//{
+		//	LeerExcel();
+		//    }
+		//private void LeerExcel() {
+		//	try
+		//	{
+		//		//creamos un objeto OpenDialog que es un cuadro de dialogo para buscar archivos
+		//		OpenFileDialog dialog = new OpenFileDialog();
+		//		dialog.Filter = "Archivos de Excel (*.xls;*.xlsx)|*.xls;*.xlsx"; //le indicamos el tipo de filtro en este caso que busque
+		//																		 //solo los archivos excel
+
+		//		dialog.Title = "Seleccione el archivo de Excel";//le damos un titulo a la ventana
+		//		dialog.FileName = string.Empty;//inicializamos con vacio el nombre del archivo
+		//									   //si al seleccionar el archivo damos Ok
+		//		if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+		//		{
+		//			LLenarGrid(dialog.FileName, "Hoja1"); //se manda a llamar al metodo
+		//												  //columnas al ancho del DataGridview para que no quede espacio en blanco (opcional)
+		//		}
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+		//	}
+		//}
+		//private void LLenarGrid(string archivo, string hoja)
+		//{
+		//	//declaramos las variables         
+		//	System.Data.OleDb.OleDbConnection conexion = null;
+		//	DataSet dataSet = null;
+		//	System.Data.OleDb.OleDbDataAdapter dataAdapter = null;
+		//	string consultaHojaExcel = "Select * from [" + hoja + "$]";
+		//	//esta cadena es para archivos excel 2007 y 2010
+		//	string cadenaConexionArchivoExcel = "provider=Microsoft.ACE.OLEDB.12.0;Data Source='" + archivo + "';Extended Properties=Excel 12.0;";
+		//	//para archivos de 97-2003 usar la siguiente cadena
+		//	//string cadenaConexionArchivoExcel = "provider=Microsoft.Jet.OLEDB.4.0;Data Source='" + archivo + "';Extended Properties=Excel 8.0;";
+		//	//Validamos que el usuario ingrese el nombre de la hoja del archivo de excel a leer
+		//	if (string.IsNullOrEmpty(hoja))
+		//	{
+		//		MessageBox.Show("No hay una hoja para leer");
+		//	}
+		//	else
+		//	{
+		//		try
+		//		{
+		//			//Si el usuario escribio el nombre de la hoja se procedera con la busqueda
+		//			conexion = new System.Data.OleDb.OleDbConnection(cadenaConexionArchivoExcel);//creamos la conexion con la hoja de excel
+		//			conexion.Open(); //abrimos la conexion
+		//			dataAdapter = new System.Data.OleDb.OleDbDataAdapter(consultaHojaExcel, conexion); //traemos los datos de la hoja y las guardamos en un dataSdapter
+		//			dataSet = new DataSet(); // creamos la instancia del objeto DataSet
+		//			dataAdapter.Fill(dataSet, hoja);//llenamos el dataset
+		//			procesarDatos(dataSet.Tables[0]); //le asignamos al DataGridView el contenido del dataSet
+		//			conexion.Close();//cerramos la conexion
+		//	    }
+		//		catch (Exception ex)
+		//		{
+		//			//en caso de haber una excepcion que nos mande un mensaje de error
+		//			MessageBox.Show("Error, Verificar el archivo o el nombre de la hoja", ex.Message);
+		//		}
+		//		finally
+		//		{
+		//			//Funcione o no, cerramos la cadena de conexión
+		//			conexion.Close();
+		//		}
+		//	}
+		//}
+		//private void procesarDatos(DataTable dt) {
+		//	try
+		//	{
+		//		List<string> FechaIncorrectas = new List<string>();
+		//		string[] separarFecha = DateTime.Now.ToString("HH:mm:ss").Split(':');
+		//		string hor = separarFecha[0];
+		//		//string minutos = separarFecha[1];
+		//		int horas = int.Parse(hor);
+		//		for (int fila = 0; fila < dt.Rows.Count - 1; fila++)
+		//		{
+		//				//Obtien el valor de la primera columna del excel
+		//				string valor = dt.Rows[fila]["fecha"].ToString();
+		//				DateTime endDate = Convert.ToDateTime(valor);
+		//			//Valido las fechas
+		//			if (endDate >= DateTime.Now)
+		//			{
+		//				//Agrego a la fecha del excel la hora inicial del campo y la voy incrementando
+		//				endDate = endDate.AddHours(horas);
+		//				horas = horas + 1;
+		//			}
+		//			else { FechaIncorrectas.Add(valor); }
+		//		}
+		//		for (int i = 0; i < FechaIncorrectas.Count; i++)
+		//		{
+		//			MessageBox.Show(FechaIncorrectas[i]);
+		//		}
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		//en caso de haber una excepcion que nos mande un mensaje de error
+		//		MessageBox.Show("Error, Verificar el archivo o el nombre de la hoja", ex.Message);
+		//	}
+		//}
+
 	}
 }

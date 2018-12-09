@@ -23,6 +23,7 @@ namespace PalcoNet.Generar_Publicacion
 		List<TipoUbicacion> tiposDeUbicacionPorPublicacion= new List<TipoUbicacion>();
 		public TipoUbicacion tipoUbicacion;
 		int botonesSinCategoria = 0;
+		TipoUbicacion tu = new TipoUbicacion();
 		public CategoriaUbicacion(Usuario userLog,Publicacion publi)
         {
 			userLogueado = userLog;
@@ -867,22 +868,76 @@ namespace PalcoNet.Generar_Publicacion
 		}
 		private void btnGuardar_Click(object sender, EventArgs e)
 		{
-			List<Ubicacion> ubicaciones = this.buscarButtons();
 			if (this.validarData())
 			{
-				Ubicacion u = new Ubicacion();
-				if(u.altaUbicaciones(ubicaciones, publicacion.codigo)==0)
+				foreach (TipoUbicacion tub in tiposDeUbicacionPorPublicacion)
 				{
-					
-					MessageBox.Show("Se ha creado la publicación correctamente, el número es: " + publicacion.codigo, "¡Correcto!",
-							MessageBoxButtons.OK, MessageBoxIcon.None);
-					this.Hide();
+					tub.codigo = tub.darAltaPrecioPorCategoria(tub.precio, tub.descripcion);
+				}
+
+				List<Ubicacion> ubicaciones = this.buscarButtons();
+				List<DateTime> fechasEspectaculos = new List<DateTime>();
+				fechasEspectaculos = publicacion.fechaEspectaculoLote;
+
+				//significa q no es por lote.
+				if (fechasEspectaculos.Count==0)
+				{
+					int idPublicacionInsertado = 0;
+					idPublicacionInsertado = publicacion.altaPublicacion();
+					publicacion.codigo = idPublicacionInsertado;
+					if (idPublicacionInsertado > 0)
+					{
+						Ubicacion u = new Ubicacion();
+						if (u.altaUbicaciones(ubicaciones, publicacion.codigo) == 0)
+						{
+
+							MessageBox.Show("Se ha creado la publicación correctamente, el número es: " + publicacion.codigo, "¡Correcto!",
+									MessageBoxButtons.OK, MessageBoxIcon.None);
+							this.Hide();
+						}
+						else
+						{
+							MessageBox.Show("Error al crear la Publicacion.", "¡Error!",
+									MessageBoxButtons.OK, MessageBoxIcon.Error);
+						}
+					}
+					else
+					{
+						MessageBox.Show("Error al crear la Publicacion.", "¡Error!",
+									MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
 				}
 				else
 				{
-					MessageBox.Show("Error al crear la Publicacion.", "¡Error!",
-							MessageBoxButtons.OK, MessageBoxIcon.Error);
+					//es por lote. tengo q hacer un INSERT DE PUBLICACION POR CADA fecha distinta. onda lo unico q cambia es la fecha.
+					foreach (DateTime unaFechaEspectaculo in fechasEspectaculos)
+					{
+						publicacion.fechaEspectaculo = unaFechaEspectaculo;
+						int idPublicacionInsertado = 0;
+						idPublicacionInsertado = publicacion.altaPublicacion();
+						publicacion.codigo = idPublicacionInsertado;
+						if (idPublicacionInsertado > 0)
+						{
+							
+
+							Ubicacion u = new Ubicacion();
+							if (u.altaUbicaciones(ubicaciones, publicacion.codigo) == 0)
+							{
+
+								MessageBox.Show("Se ha creado la publicación correctamente, el número es: " + publicacion.codigo, "¡Correcto!",
+										MessageBoxButtons.OK, MessageBoxIcon.None);
+								this.Hide();
+							}
+							else
+							{
+								MessageBox.Show("Error al crear la Publicacion.", "¡Error!",
+										MessageBoxButtons.OK, MessageBoxIcon.Error);
+							}
+						}
+					}
+					
 				}
+				
 				//asociar el id del tipo de ubicacion con la ubicacion 
 				//despues tengo q dar de alta a esa publicacion 
 
@@ -952,8 +1007,8 @@ namespace PalcoNet.Generar_Publicacion
 						else
 						{
 							//tengo que dar de alta a esa categoria con ese precio.
-							TipoUbicacion tu = new TipoUbicacion();
-							tu.codigo = tu.darAltaPrecioPorCategoria(decimal.Parse(textPrecio.Text), comboBox1.SelectedValue.ToString());
+							
+							
 							tu.descripcion = comboBox1.SelectedValue.ToString();
 							tu.precio = decimal.Parse(textPrecio.Text);
 							tiposDeUbicacionPorPublicacion.Add(tu);

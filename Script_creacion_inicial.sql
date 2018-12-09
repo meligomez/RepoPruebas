@@ -29,8 +29,29 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.F
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Rol'))
     DROP TABLE dropeadores.Rol
 
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.TarjetaCredito'))
-    DROP TABLE dropeadores.TarjetaCredito
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Factura'))
+    DROP TABLE dropeadores.Factura   
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Item_Factura'))
+    DROP TABLE dropeadores.Item_Factura    
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.PremioXUsuario'))
+    DROP TABLE dropeadores.PremioXUsuario 
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.HistorialCliente'))
+    DROP TABLE dropeadores.HistorialCliente
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Ubicacion'))
+    DROP TABLE dropeadores.Ubicacion	
+	
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.TipoUbicacion'))
+    DROP TABLE dropeadores.TipoUbicacion
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Premio'))
+    DROP TABLE dropeadores.Premio  
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Publicacion'))
+    DROP TABLE dropeadores.Publicacion
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Rubro'))
     DROP TABLE dropeadores.Rubro
@@ -41,11 +62,17 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.G
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Compra'))
     DROP TABLE dropeadores.Compra
 
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Cliente'))
-    DROP TABLE dropeadores.Cliente
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Puntos'))
+    DROP TABLE dropeadores.Puntos
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.TarjetaCredito'))
+    DROP TABLE dropeadores.TarjetaCredito
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Domicilio'))
     DROP TABLE dropeadores.Domicilio 
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Cliente'))
+    DROP TABLE dropeadores.Cliente
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Empresa'))
     DROP TABLE dropeadores.Empresa
@@ -53,32 +80,7 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.E
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Usuario'))
     DROP TABLE dropeadores.Usuario
 
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Publicacion'))
-    DROP TABLE dropeadores.Publicacion
-
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Puntos'))
-    DROP TABLE dropeadores.Puntos
-
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.TipoUbicacion'))
-    DROP TABLE dropeadores.TipoUbicacion
-
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Ubicacion'))
-    DROP TABLE dropeadores.Ubicacion	
-
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.HistorialCliente'))
-    DROP TABLE dropeadores.HistorialCliente
-
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.PremioXUsuario'))
-    DROP TABLE dropeadores.PremioXUsuario 
-
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Premio'))
-    DROP TABLE dropeadores.Premio  
-	
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Factura'))
-    DROP TABLE dropeadores.Factura     
-
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Item_Factura'))
-    DROP TABLE dropeadores.Item_Factura      
+  
 ----------------------------------------------------------------------------------------------
 							/** FIN VALIDACION DE TABLAS **/
 ----------------------------------------------------------------------------------------------
@@ -188,7 +190,7 @@ estado bit DEFAULT 1 not null)
 
 CREATE TABLE [dropeadores].[Publicacion](
     [id]  int primary key identity,
-    [empresaId] [nvarchar](255) NOT NULL  references [dropeadores].Empresa,
+    [empresaId] [varchar](255) ,
     [rubroId] [int] not null references [dropeadores].Rubro,
     [gradoId] [int] not null references [dropeadores].Grado,
     [descripcion] [nvarchar](250) NULL,
@@ -196,18 +198,10 @@ CREATE TABLE [dropeadores].[Publicacion](
     [fechaPublicacion] [datetime] NULL,
     [fechaEspectaculo] [datetime] NULL,
     [estado] [int] NULL,
-    [direccion] [nvarchar](250) NULL
+    [direccion] [nvarchar](250) NULL,
+    FOREIGN KEY (empresaId) REFERENCES [dropeadores].Empresa(empresa_Cuit),
 )
 
-create table dropeadores.Puntos(
- Puntos int,
- Descripcion nvarchar(255),
- PuntosVigentes int,
- FechaVencimiento datetime,
- Id_Compra int references dropeadores.Compra,
- Id_Cliente int references dbo.Clientes,
- primary key(Id_Compra,Id_Cliente)
- )
 
 CREATE TABLE [dropeadores].[TipoUbicacion](
 	[codigo] int primary key NOT NULL,
@@ -243,6 +237,15 @@ FOREIGN KEY (compra_numero_documento) REFERENCES [dropeadores].Cliente(numeroDoc
 )
 
 
+create table dropeadores.Puntos(
+ Puntos int,
+ Descripcion nvarchar(255),
+ PuntosVigentes int,
+ FechaVencimiento datetime,
+ Id_Compra int references dropeadores.Compra,
+ Id_Cliente  numeric(18,0)  references dropeadores.Cliente,
+ primary key(Id_Compra,Id_Cliente)
+ )
 -- CREATE TABLE dropeadores.FormaPago(
 -- Id int primary key not null identity,
 -- Descripcion nvarchar(255),
@@ -253,37 +256,39 @@ FOREIGN KEY (compra_numero_documento) REFERENCES [dropeadores].Cliente(numeroDoc
 
 
 create table dropeadores.HistorialCliente(
-Id_Cliente int not null references dropeadores.Clientes,
+Id_Cliente numeric(18,0) not null references dropeadores.Cliente,
 Id_Compra int not null references dropeadores.Compra,
 PRIMARY KEY (Id_Cliente,Id_Compra))
 
-create table dropeadores.PremioXUsuario(
-Id int not null primary key identity,
-clienteId int not null references dropeadores.Clientes,
-premioId int not null references dropeadores.Premio)
-   
 create table dropeadores.Premio(
 Id int not null primary key identity,
 descripcion nvarchar(255),
 puntos int)
 
+create table dropeadores.PremioXUsuario(
+Id int not null primary key identity,
+clienteId numeric(18,0) not null references dropeadores.Cliente,
+premioId int not null references dropeadores.Premio)
+   
+
 -- HAY QUE LEER BIEN EL ENUNCIADO Y FIJARSE Q ONDA ESTAS TABLAS
 
-Create table dropeadores.Factura(
-Numero int primary key not null,
-Fecha datetime,
-Total decimal(10,2),
-Empresa_Id nvarchar(255) not null references dropeadores.Empresa
---,Forma_Pago int not null references dropeadores.FormaPago
-)
+--Create table dropeadores.Factura(
+--Numero int primary key not null,
+--Fecha datetime,
+--Total decimal(10,2),
+--Empresa_Id nvarchar(255) not null references dropeadores.Empresa
+----,Forma_Pago int not null references dropeadores.FormaPago
+--)
 
-create table dropeadores.Item_Factura(
-Id int primary key not null identity,
-Cantidad int default 1,
-Monto decimal(10,2),
-Compra_Id int not null references dropeadores.Compra,
-Factura_Id int not null references dropeadores.Factura
-)
+--create table dropeadores.Item_Factura(
+--Id int primary key not null identity,
+--Cantidad int default 1,
+--Monto decimal(10,2),
+--Compra_Id int not null references dropeadores.Compra,
+--Factura_Id int not null references dropeadores.Factura
+--)
+
 
 
 -----------------------------------------------------------------------------------------------------
@@ -306,12 +311,12 @@ insert into dropeadores.Funcionalidad (descripcion,menu) values
 ('ABM de Rol','aBMRolToolStripMenuItem'),
 ('ABM de Clientes','menuABMCliente'),
 ('ABM de Empresas','menuABMEmpresa'),
-('ABM de Rubro'),
+('ABM de Rubro',''),
 ('ABM de Grado de Publicacion','ABMGradoToolStripMenuItem'),
 ('Generar Publicacion','menuPublicacion'),
 ('Editar Publicacion','menuPublicacion'),
 ('Comprar','menuComprar'),
-('Historial de Cliente','	'),
+('Historial de Cliente',''),
 ('Canje y Administracion de puntos','menuCliente'),
 ('Generar rendicion de comisiones','menuPagos'),
 ('Facturar Publicaciones','menuEstadisticas');
@@ -327,7 +332,7 @@ insert into [dropeadores].FuncionalidadXRol (rolId, funcionalidadId) values
 
 /*usuarios creados por el grupo*/ 
 go		
-INSERT [dropeadores].[Usuario] ([Id], [username], [password], [cambioPsw], [creadoPor], [estado], [intentos], [clienteId], [CuitEmpresa], [Baja], [Fecha_Password]) VALUES (1, N'admin', N'w23e', 0, NULL, 1, 3, NULL, NULL, 1, NULL)
+INSERT [dropeadores].[Usuario] ([username], [password], [cambioPsw], [creadoPor], [estado], [intentos], [clienteId], [CuitEmpresa], [Baja], [Fecha_Password]) VALUES ( N'admin', N'w23e', 0, NULL, 1, 3, NULL, NULL, 1, NULL)
 
 				
 				/*UsuariosXRoles*/
@@ -345,13 +350,11 @@ insert into [dropeadores].Domicilio(calle,numero,codigoPostal,departamento,piso)
 select distinct Cli_Dom_Calle, Cli_Nro_Calle, Cli_Cod_Postal, Cli_Depto, Cli_Piso
 from gd_esquema.Maestra m 
 
-
-					/*Empresa*/
-insert into [dropeadores].Empresa (empresa_Cuit,empresa_mail,empresa_razon_social,empresa_domicilio)
-select distinct Espec_Empresa_Cuit,Espec_Empresa_Mail,Espec_Empresa_Razon_Social,d.id
-from gd_esquema.Maestra m join dropeadores.Domicilio d on (m.Cli_Dom_Calle=d.calle and m.Cli_Nro_Calle=d.numero and m.Cli_Cod_Postal=d.codigoPostal and m.Cli_Depto=d.departamento)
-where Espec_Empresa_Cuit is not null 
-
+						/*Empresa*/
+insert into [dropeadores].Empresa (empresa_Cuit,empresa_mail,empresa_razon_social)
+select distinct Espec_Empresa_Cuit,Espec_Empresa_Mail,Espec_Empresa_Razon_Social
+from gd_esquema.Maestra m 
+where Espec_Empresa_Cuit is not null
 
 					/*Cliente*/
 insert into [dropeadores].Cliente(NumeroDocumento,Nombre,Apellido,fechaNacimiento,mail,cliente_domicilio)
@@ -361,7 +364,7 @@ where Cli_Dni is not null
 
 				/*Rubro Espectaculo*/
 go
-insert into dropeadores.Rubro(descripcion)
+insert into dropeadores.Rubro(rubro_Descripcion)
 select distinct Espectaculo_Rubro_Descripcion from gd_esquema.Maestra where Espectaculo_Rubro_Descripcion not like ''
 insert into dropeadores.Rubro(rubro_Descripcion) values
 ('Musical'),
@@ -387,24 +390,11 @@ insert into dropeadores.Premio (descripcion,puntos) values ('50% de Descuento en
 insert into dropeadores.Premio (descripcion,puntos) values ('3 Cuotas sin Interés en la proxima compra',8984)
 insert into dropeadores.Premio (descripcion,puntos) values ('6 Cuotas sin Interés en la proxima compra',9874)  
 
-
-				
-				/*Ubicacion*/
-insert  into dropeadores.Ubicacion (fila,asiento,sinNumerar,estado,publicacionId,tipoUbicacion)
-select distinct  Ubicacion_Fila,Ubicacion_Asiento,Ubicacion_Sin_numerar,1
-, p.id
-,( select top 1 codigo from dropeadores.TipoUbicacion)
-from gd_esquema.Maestra m
-join dropeadores.Publicacion p on(p.id=m.Espectaculo_Cod)
-
-					
 				/*Tipo Ubicacion */
 insert into dropeadores.TipoUBicacion (codigo,descripcion,precio)
 SELECT distinct Ubicacion_Tipo_Codigo,Ubicacion_Tipo_Descripcion,1 from gd_esquema.Maestra
 
-
-
-			
+							
 				/*Publicacion*/
 SET IDENTITY_INSERT [dropeadores].Publicacion ON
 INSERT INTO dropeadores.Publicacion (id,empresaId,rubroId,gradoId,descripcion,stock,fechaPublicacion,fechaEspectaculo,estado,direccion)
@@ -421,6 +411,17 @@ END
 m join dropeadores.Empresa e on(e.empresa_Cuit=m.Espec_Empresa_Cuit)
 SET IDENTITY_INSERT [dropeadores].Publicacion OFF
  
+				/*Ubicacion*/
+insert  into dropeadores.Ubicacion (fila,asiento,sinNumerar,estado,publicacionId,tipoUbicacion)
+select distinct  Ubicacion_Fila,Ubicacion_Asiento,Ubicacion_Sin_numerar,1
+, p.id
+,( select top 1 codigo from dropeadores.TipoUbicacion)
+from gd_esquema.Maestra m
+join dropeadores.Publicacion p on(p.id=m.Espectaculo_Cod)
+
+					
+
+
 								/*************************************************************/	
 								/*************************************************************/
 								/*************************************************************/		
@@ -436,28 +437,28 @@ SET IDENTITY_INSERT [dropeadores].Publicacion OFF
 								/*************************************************************/	
 
 						/*Puntos*/	
---Solo agregue el Id de premio 1..... habrá q ver como hacer para insertar todos los premios.
- INSERT INTO dropeadores.Puntos (puntos,PuntosVigentes,FechaVencimiento,Id_Compra,Id_Cliente)
-SELECT distinct  50,0,DATEADD(DAY,5,c.Fecha_Compra) ,Id_Compra,Id_Cliente
-  FROM dropeadores.Compra c
-  --Aca le modifico los puntos vigentes como la suma de los puntos de las compras de ese cliente.
-UPDATE dropeadores.Puntos set PuntosVigentes=(select SUM(puntos) from dropeadores.Puntos p2 where p2.Id_Cliente=Puntos.Id_Cliente) 
-alter table dropeadores.Puntos add constraint CK_puntosPositivos check (puntos>=0)
+-- --Solo agregue el Id de premio 1..... habrá q ver como hacer para insertar todos los premios.
+--  INSERT INTO dropeadores.Puntos (puntos,PuntosVigentes,FechaVencimiento,Id_Compra,Id_Cliente)
+-- SELECT distinct  50,0,DATEADD(DAY,5,c.Fecha_Compra) ,Id_Compra,Id_Cliente
+--   FROM dropeadores.Compra c
+--   --Aca le modifico los puntos vigentes como la suma de los puntos de las compras de ese cliente.
+-- UPDATE dropeadores.Puntos set PuntosVigentes=(select SUM(puntos) from dropeadores.Puntos p2 where p2.Id_Cliente=Puntos.Id_Cliente) 
+-- alter table dropeadores.Puntos add constraint CK_puntosPositivos check (puntos>=0)
 
 
-				/*Factura*/
+-- 				/*Factura*/
 
-insert into dropeadores.Factura (Numero,Fecha,Total,Forma_Pago,Cliente_Id)
-SELECT distinct Factura_Nro,Factura_Fecha,Factura_Total,1,c.Id_Cliente from gd_esquema.Maestra m
-join dbo.Clientes c on(c.Cli_Dni=m.Cli_Dni)
-where Item_Factura_Cantidad is not null
-order by Factura_Nro
+-- insert into dropeadores.Factura (Numero,Fecha,Total,Forma_Pago,Cliente_Id)
+-- SELECT distinct Factura_Nro,Factura_Fecha,Factura_Total,1,c.Id_Cliente from gd_esquema.Maestra m
+-- join dropeadores.Cliente c on(c.Cli_Dni=m.Cli_Dni)
+-- where Item_Factura_Cantidad is not null
+-- order by Factura_Nro
 
 
-				/*Item Factura*/
-INSERT INTO dropeadores.Item_Factura (Cantidad,Monto,Descripcion,Espectaculo_Id,Factura_Id)
-SELECT distinct Item_Factura_Cantidad ,Item_Factura_Monto, Item_Factura_Descripcion,Espectaculo_Cod,Factura_Nro from gd_esquema.Maestra
-where Item_Factura_Cantidad is not null
+-- 				/*Item Factura*/
+-- INSERT INTO dropeadores.Item_Factura (Cantidad,Monto,Descripcion,Espectaculo_Id,Factura_Id)
+-- SELECT distinct Item_Factura_Cantidad ,Item_Factura_Monto, Item_Factura_Descripcion,Espectaculo_Cod,Factura_Nro from gd_esquema.Maestra
+-- where Item_Factura_Cantidad is not null
 
 				
 	
@@ -550,7 +551,7 @@ end
 
 /**********************INICIO ALTA PUBLICACION **********************/
 GO
-ALTER procedure [dropeadores].[altaPublicacion](
+CREATE procedure [dropeadores].[altaPublicacion](
 @descripcion nvarchar(255), 
 @stock int, @fechaPublicacion datetime, @fechaEspectaculo datetime,
  @direccion nvarchar(255), 
@@ -571,7 +572,7 @@ end
 /**********************INICIO ALTA ROL POR FUNCIONALIDAD **********************/
 
 GO
-ALTER procedure [dropeadores].[AltaRolPorFuncionalidad]
+CREATE procedure [dropeadores].[AltaRolPorFuncionalidad]
 (@idRol int,@idFunc int)
 as
 begin
@@ -583,7 +584,7 @@ end
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER procedure [dropeadores].[altaTipoUbicacion](@categoria nvarchar(255),@precio decimal(12,2))
+CREATE procedure [dropeadores].[altaTipoUbicacion](@categoria nvarchar(255),@precio decimal(12,2))
 as
 begin
 INSERT INTO DROPEADORES.TipoUbicacion (descripcion,precio) VALUES (@categoria,@precio)
@@ -594,7 +595,7 @@ end
 
 /**********************INICIO AltaUbicacion **********************/
 GO
-ALTER procedure [dropeadores].[AltaUbicacion] 
+CREATE procedure [dropeadores].[AltaUbicacion] 
 (@asiento int, @fila nvarchar(3), @estado bit,@tipoUbicacionId int,
 @idPublicacion int)
 as
@@ -608,7 +609,7 @@ end
 
 /**********************INICIO DescontarPuntosPorCompra  **********************/
 GO
-ALTER procedure [dropeadores].[DescontarPuntosPorCompra] (@idCliente int, @idCompra int)
+CREATE procedure [dropeadores].[DescontarPuntosPorCompra] (@idCliente int, @idCompra int)
 as
 begin
 delete dropeadores.Puntos where Id_Compra = @idCompra and Id_Cliente=@idCliente
@@ -618,7 +619,7 @@ End
 
 /**********************INICIO getFuncionalidadPorRol  **********************/
 GO
- ALTER procedure [dropeadores].[getFuncionalidadPorRol] (@rolId int)
+ CREATE procedure [dropeadores].[getFuncionalidadPorRol] (@rolId int)
  as
  begin
  select funcionalidadId from dropeadores.FuncionalidadXRol fxr where fxr.rolId=@rolId
@@ -627,7 +628,7 @@ GO
 
 /**********************INICIO getIdByDescripcion  **********************/
 GO
-ALTER procedure [dropeadores].[getIdByDescripcion] (@descripcion nvarchar(255))
+CREATE procedure [dropeadores].[getIdByDescripcion] (@descripcion nvarchar(255))
 as
 begin
 select codigo as 'Id' from dropeadores.TipoUBicacion where descripcion=@descripcion
@@ -636,7 +637,7 @@ end
 
 /**********************INICIO obtenerRolByName  **********************/
 GO
-ALTER procedure [dropeadores].[obtenerRolByName]
+CREATE procedure [dropeadores].[obtenerRolByName]
 (@nombrerol nvarchar(255))
 as
 begin
@@ -648,7 +649,7 @@ end
 
 /**********************INICIO obtenerUsuarioByUsername  **********************/
 GO
-ALTER procedure [dropeadores].[obtenerUsuarioByUsername]
+CREATE procedure [dropeadores].[obtenerUsuarioByUsername]
 @usname nvarchar(255)
 as
 select u.id,u.username,u.password,u.estado,u.intentos,cambioPsw,creadoPor,ISNULL(clienteId,0) as clienteId,ISNULL(CuitEmpresa,0) as CuitEmpresa
@@ -657,7 +658,7 @@ from Usuario u where u.username=@usname
 
 /**************INICIO PASAR USUARIO A INHABILITADO*****************/
 GO
-ALTER procedure [dropeadores].[pasarAInhabilitado] (@user nvarchar(255))
+CREATE procedure [dropeadores].[pasarAInhabilitado] (@user nvarchar(255))
 as
 begin
 update dropeadores.Usuario set estado=0 where username=@user
@@ -666,7 +667,7 @@ end
 
 /**************INICIO Rol_ObtenerId*****************/
 GO
-ALTER procedure [dropeadores].[Rol_ObtenerId]
+CREATE procedure [dropeadores].[Rol_ObtenerId]
 as
 begin
 	Select Max(Id_Rol)as'Id'from dropeadores.Rol
@@ -677,7 +678,7 @@ end
 /**************INICIO Usuario_UpdatePsw*****************/
 
 GO
-ALTER procedure [dropeadores].[Usuario_UpdatePsw]
+CREATE procedure [dropeadores].[Usuario_UpdatePsw]
 (@username nvarchar(255), @passNueva nvarchar(255))
 as
 begin

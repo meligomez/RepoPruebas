@@ -56,7 +56,7 @@
 			this.textStock = new System.Windows.Forms.TextBox();
 			this.label17 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
-			this.txtHoraEspectaculo = new System.Windows.Forms.MaskedTextBox();
+			this.btnSubirTxt = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.SuspendLayout();
@@ -76,7 +76,7 @@
 			this.groupBox1.Controls.Add(this.radioSi);
 			this.groupBox1.Controls.Add(this.radioNo);
 			this.groupBox1.Font = new System.Drawing.Font("Raleway", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.groupBox1.Location = new System.Drawing.Point(40, 436);
+			this.groupBox1.Location = new System.Drawing.Point(49, 436);
 			this.groupBox1.Name = "groupBox1";
 			this.groupBox1.Size = new System.Drawing.Size(537, 91);
 			this.groupBox1.TabIndex = 96;
@@ -226,7 +226,7 @@
 			// 
 			this.lblFechaEspectaculo.AutoSize = true;
 			this.lblFechaEspectaculo.Font = new System.Drawing.Font("Raleway", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblFechaEspectaculo.Location = new System.Drawing.Point(37, 470);
+			this.lblFechaEspectaculo.Location = new System.Drawing.Point(45, 470);
 			this.lblFechaEspectaculo.Name = "lblFechaEspectaculo";
 			this.lblFechaEspectaculo.Size = new System.Drawing.Size(289, 24);
 			this.lblFechaEspectaculo.TabIndex = 81;
@@ -332,16 +332,17 @@
 			this.label3.TabIndex = 105;
 			this.label3.Text = "*El Stock debe ser Múltiplo de 10";
 			// 
-			// txtHoraEspectaculo
+			// btnSubirTxt
 			// 
-			this.txtHoraEspectaculo.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
-			this.txtHoraEspectaculo.Location = new System.Drawing.Point(526, 470);
-			this.txtHoraEspectaculo.Mask = "00:00";
-			this.txtHoraEspectaculo.Name = "txtHoraEspectaculo";
-			this.txtHoraEspectaculo.Size = new System.Drawing.Size(75, 23);
-			this.txtHoraEspectaculo.TabIndex = 109;
-			this.txtHoraEspectaculo.ValidatingType = typeof(System.DateTime);
-			this.txtHoraEspectaculo.Visible = false;
+			this.btnSubirTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+			this.btnSubirTxt.Location = new System.Drawing.Point(49, 455);
+			this.btnSubirTxt.Margin = new System.Windows.Forms.Padding(4);
+			this.btnSubirTxt.Name = "btnSubirTxt";
+			this.btnSubirTxt.Size = new System.Drawing.Size(181, 38);
+			this.btnSubirTxt.TabIndex = 111;
+			this.btnSubirTxt.Text = "Subir Txt";
+			this.btnSubirTxt.UseVisualStyleBackColor = true;
+			this.btnSubirTxt.Click += new System.EventHandler(this.btnSubirTxt_Click);
 			// 
 			// GenerarPublicacion
 			// 
@@ -351,8 +352,8 @@
 			this.BackColor = System.Drawing.Color.Silver;
 			this.ClientSize = new System.Drawing.Size(653, 640);
 			this.Controls.Add(this.groupBox1);
-			this.Controls.Add(this.txtHoraEspectaculo);
 			this.Controls.Add(this.label3);
+			this.Controls.Add(this.btnSubirTxt);
 			this.Controls.Add(this.textStock);
 			this.Controls.Add(this.label17);
 			this.Controls.Add(this.btnVolver);
@@ -416,6 +417,6 @@
 		private System.Windows.Forms.TextBox textStock;
 		private System.Windows.Forms.Label label17;
 		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.MaskedTextBox txtHoraEspectaculo;
+		private System.Windows.Forms.Button btnSubirTxt;
 	}
 }

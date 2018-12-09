@@ -312,9 +312,9 @@ namespace PalcoNet.VentanasPorRol
 		}
 		private void cambiarPsw_Click(object sender, EventArgs e)
 		{
-			//UsuarioCambiarPsw cambiarPsw = new UsuarioCambiarPsw();
-			//cambiarPsw.FormClosed += new FormClosedEventHandler(mostrarlogoAlCerrarForm);
-			//AbrirFormInPanel(cambiarPsw);
+			UsuarioCambiarPsw cambiarPsw = new UsuarioCambiarPsw(userLog);
+			cambiarPsw.FormClosed += new FormClosedEventHandler(mostrarlogoAlCerrarForm);
+			AbrirFormInPanel(cambiarPsw);
 			//listadoEst.Show();
 			//this.Hide();
 		}
