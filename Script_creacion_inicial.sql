@@ -149,6 +149,8 @@ mail nvarchar(255),
 fechaNacimiento datetime,
 fechaCreacion datetime,
 cliente_domicilio int,
+telefono int,
+estado bit
 )
 
 CREATE TABLE [DROPEADORES].[Domicilio] (
@@ -173,7 +175,7 @@ fechaVencimiento datetime,
 
 create table [dropeadores].Rubro(
 id int primary key identity,
-descripcion varchar(255) not null,
+rubro_Descripcion varchar(255) not null,
 )
 
 
