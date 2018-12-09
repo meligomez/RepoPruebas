@@ -1,0 +1,216 @@
+\\VBOXSVR\PalcoNet\src\PalcoNet\bin\Debug\PalcoNet.exe.config
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.csprojAssemblyReference.cache
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Login.resources
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Properties.Resources.resources
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Registro_de_Usuario.UsuarioAlta.resources
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.csproj.GenerateResource.cache
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.csproj.CoreCompileInputs.cache
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\bin\Debug\PalcoNet.exe.config
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\bin\Debug\PalcoNet.exe
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\bin\Debug\PalcoNet.pdb
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.exe
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.pdb
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.ABMCliente.resources
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.AltaCliente.resources
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.EliminarCliente.resources
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.ModificacionCliente.resources
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.ModificarClienteElegido.resources
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.ABMEmpresa.resources
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.AltaEmpresa.resources
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.EliminarEmpresa.resources
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.ModificacionEmpresa.resources
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.ModificarEmpresaElegida.resources
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Rol.RolEliminar.resources
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Rol.Form1.resources
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Rol.RolPorFuncionalidadesModificar.resources
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Canje_Puntos.CanjePuntos.resources
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Comprar.Comprar.resources
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Editar_Publicacion.EditarPublicacion.resources
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Generar_Publicacion.GenerarPublicacion.resources
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Generar_Rendicion_Comisiones.GenerarRendicionComisiones.resources
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Historial_Cliente.HistorialCliente.resources
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Listado_Estadistico.ListadoEstadistico.resources
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Registro_de_Usuario.UsuarioCambiarPsw.resources
+D:\DATOS\2018\MELI\TP PalcoNet Frba 1.0 - 2C 2018\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.VentanasPorRol.VentanaAdmin.resources
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\bin\Debug\PalcoNet.exe.config
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\bin\Debug\PalcoNet.exe
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\bin\Debug\PalcoNet.pdb
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.csprojAssemblyReference.cache
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.ABMCliente.resources
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.AltaCliente.resources
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.EliminarCliente.resources
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.ModificacionCliente.resources
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.ModificarClienteElegido.resources
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.ABMEmpresa.resources
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.AltaEmpresa.resources
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.EliminarEmpresa.resources
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.ModificacionEmpresa.resources
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.ModificarEmpresaElegida.resources
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Grado.Form1.resources
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Rol.RolEliminar.resources
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Rol.Form1.resources
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Rol.RolPorFuncionalidadesModificar.resources
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Canje_Puntos.CanjePuntos.resources
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Comprar.Comprar.resources
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Editar_Publicacion.EditarPublicacion.resources
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Generar_Publicacion.GenerarPublicacion.resources
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Generar_Rendicion_Comisiones.GenerarRendicionComisiones.resources
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Historial_Cliente.HistorialCliente.resources
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Listado_Estadistico.ListadoEstadistico.resources
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Login.resources
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Properties.Resources.resources
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Registro_de_Usuario.UsuarioAlta.resources
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Registro_de_Usuario.UsuarioCambiarPsw.resources
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.VentanasPorRol.VentanaAdmin.resources
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.csproj.GenerateResource.cache
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.csproj.CoreCompileInputs.cache
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.exe
+D:\DATOS\2018\MELI\PalcoNet-v1\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.pdb
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\bin\Debug\PalcoNet.exe.config
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.exe
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.pdb
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\bin\Debug\PalcoNet.exe
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\bin\Debug\PalcoNet.pdb
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.csprojResolveAssemblyReference.cache
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.ABMCliente.resources
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.AltaCliente.resources
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.EliminarCliente.resources
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.ModificacionCliente.resources
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.ModificarClienteElegido.resources
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.ABMEmpresa.resources
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.AltaEmpresa.resources
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.EliminarEmpresa.resources
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.ModificacionEmpresa.resources
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.ModificarEmpresaElegida.resources
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Grado.Form1.resources
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Rol.RolEliminar.resources
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Rol.Form1.resources
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Rol.RolPorFuncionalidadesModificar.resources
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Canje_Puntos.CanjePuntos.resources
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Comprar.Comprar.resources
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Editar_Publicacion.EditarPublicacion.resources
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Generar_Publicacion.GenerarPublicacion.resources
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Generar_Rendicion_Comisiones.GenerarRendicionComisiones.resources
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Historial_Cliente.HistorialCliente.resources
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Listado_Estadistico.ListadoEstadistico.resources
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Login.resources
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Properties.Resources.resources
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Registro_de_Usuario.UsuarioAlta.resources
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Registro_de_Usuario.UsuarioCambiarPsw.resources
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.VentanasPorRol.VentanaAdmin.resources
+C:\Users\David\Documents\gestion\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.csproj.GenerateResource.Cache
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\bin\Debug\PalcoNet.exe.config
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\bin\Debug\PalcoNet.exe
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\bin\Debug\PalcoNet.pdb
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\bin\Debug\Modelo.dll
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\bin\Debug\Modelo.pdb
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.csprojAssemblyReference.cache
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.ABMCliente.resources
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.AltaCliente.resources
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.EliminarCliente.resources
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.ModificacionCliente.resources
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.ModificarClienteElegido.resources
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.ABMEmpresa.resources
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.AltaEmpresa.resources
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.EliminarEmpresa.resources
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.ModificacionEmpresa.resources
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.ModificarEmpresaElegida.resources
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Rol.RolEliminar.resources
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Rol.RolPorFuncionalidadesModificar.resources
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Canje_Puntos.CanjePuntos.resources
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Comprar.Comprar.resources
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Editar_Publicacion.EditarPublicacion.resources
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Generar_Publicacion.GenerarPublicacion.resources
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Generar_Rendicion_Comisiones.GenerarRendicionComisiones.resources
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Historial_Cliente.HistorialCliente.resources
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Listado_Estadistico.ListadoEstadistico.resources
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Login.resources
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Properties.Resources.resources
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Registro_de_Usuario.UsuarioAlta.resources
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Registro_de_Usuario.UsuarioCambiarPsw.resources
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.csproj.GenerateResource.cache
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.csproj.CoreCompileInputs.cache
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.csproj.CopyComplete
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.exe
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.pdb
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.VentanasPorRol.panelContenedor.resources
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.VentanasPorRol.FormLogo.resources
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\bin\Debug\PalcoNet.exe.config
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.exe
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.pdb
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.csprojResolveAssemblyReference.cache
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.ABMCliente.resources
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.AltaCliente.resources
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.EliminarCliente.resources
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.ModificacionCliente.resources
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.ModificarClienteElegido.resources
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.ABMEmpresa.resources
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.AltaEmpresa.resources
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.EliminarEmpresa.resources
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.ModificacionEmpresa.resources
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.ModificarEmpresaElegida.resources
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Grado.Form1.resources
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Rol.RolEliminar.resources
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Rol.Form1.resources
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Rol.RolPorFuncionalidadesModificar.resources
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Canje_Puntos.CanjePuntos.resources
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Comprar.Comprar.resources
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Editar_Publicacion.EditarPublicacion.resources
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Generar_Publicacion.GenerarPublicacion.resources
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Generar_Rendicion_Comisiones.GenerarRendicionComisiones.resources
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Historial_Cliente.HistorialCliente.resources
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Listado_Estadistico.ListadoEstadistico.resources
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Login.resources
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Properties.Resources.resources
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Registro_de_Usuario.UsuarioAlta.resources
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Registro_de_Usuario.UsuarioCambiarPsw.resources
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.VentanasPorRol.FormLogo.resources
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.VentanasPorRol.panelContenedor.resources
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.csproj.GenerateResource.Cache
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\bin\Debug\PalcoNet.exe
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\bin\Debug\PalcoNet.pdb
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\bin\Debug\Modelo.dll
+C:\Users\David\Documents\gestion\2doCUATRIMESTRE2018\gdd2c\Aplicacion Desktop\PalcoNet\bin\Debug\Modelo.pdb
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\bin\Debug\PalcoNet.exe.config
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\bin\Debug\PalcoNet.exe
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\bin\Debug\PalcoNet.pdb
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\bin\Debug\Modelo.dll
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\bin\Debug\Modelo.pdb
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.csprojResolveAssemblyReference.cache
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.ABMCliente.resources
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.AltaCliente.resources
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.EliminarCliente.resources
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.ModificacionCliente.resources
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.ModificarClienteElegido.resources
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.ABMEmpresa.resources
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.AltaEmpresa.resources
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.EliminarEmpresa.resources
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.ModificacionEmpresa.resources
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.ModificarEmpresaElegida.resources
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Grado.Form1.resources
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Rol.RolEliminar.resources
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Rol.Form1.resources
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Rol.RolPorFuncionalidadesModificar.resources
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Canje_Puntos.CanjePuntos.resources
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Comprar.Comprar.resources
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Editar_Publicacion.EditarPublicacion.resources
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Generar_Publicacion.GenerarPublicacion.resources
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Generar_Rendicion_Comisiones.GenerarRendicionComisiones.resources
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Historial_Cliente.HistorialCliente.resources
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Listado_Estadistico.ListadoEstadistico.resources
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Login.resources
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Properties.Resources.resources
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Registro_de_Usuario.UsuarioAlta.resources
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Registro_de_Usuario.UsuarioCambiarPsw.resources
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.VentanasPorRol.FormLogo.resources
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.VentanasPorRol.panelContenedor.resources
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.csproj.GenerateResource.Cache
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.exe
+C:\Users\David\Documents\gestion\1erCUATRIMESTE2018\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.pdb
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Rol.RolPorFuncionalidad.resources
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Generar_Publicacion.CategoriaUbicacion.resources
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Editar_Publicacion.btnEditPublic.resources
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Grado.AltaGrado.resources
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Grado.BajaGrado.resources
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Grado.ModificarGrado.resources
+D:\DATOS\2018\MELI\gdd2c\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Grado.ModificarGradoElegido.resources

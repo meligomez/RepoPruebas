@@ -1,0 +1,14 @@
+{
+  "ProjectFilePath": "d:\\DATOS\\2018\\MELI\\gdd2c\\Aplicacion Desktop\\PalcoNet\\PalcoNet.csproj",
+  "TargetFramework": "v4.5",
+  "TagHelpers": [],
+  "Configuration": {
+    "ConfigurationName": "UnsupportedRazor",
+    "LanguageVersion": "1.0",
+    "Extensions": [
+      {
+        "ExtensionName": "UnsupportedRazorExtension"
+      }
+    ]
+  }
+}
