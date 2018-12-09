@@ -150,7 +150,7 @@ namespace PalcoNet
 
 		private void RegistrobtnCli_Click(object sender, EventArgs e)
 		{
-			AltaClienteh altaCliente = new AltaClienteh("sin Rol");
+			AltaCliente altaCliente = new AltaCliente("sin Rol");
 			altaCliente.Show();
 			this.Hide();
 		}
