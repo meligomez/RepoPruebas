@@ -18,8 +18,8 @@ namespace PalcoNet.Historial_Cliente
         }
 		private void HistorialCliente_Load(object sender, EventArgs e)
 		{
-			//RolesService servicio = new RolesService();
-			//dtSource = servicio.GetRoles();
+		//	RolesService servicio = new RolesService();
+		//	dtSource = servicio.GetRoles();
 			FillGrid();
 		}
 		//Variables necesarias para el manejo de paginado

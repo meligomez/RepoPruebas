@@ -178,6 +178,12 @@ namespace PalcoNet.Generar_Publicacion
 				MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				return false;
 			}
+			if (publicacion.existeFechayHoraSinLote())
+			{
+				MessageBox.Show("Ya existe un espectaculo en esa fecha y hora, ingrese otra.", "¡Error!",
+								MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+
 			return true;
 		}
 

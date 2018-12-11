@@ -108,5 +108,26 @@ namespace Modelo.Dominio
 			}
 			return -1;
 		}
+
+		public bool existeFechayHoraSinLote()
+		{
+			try
+			{
+				DaoSP dao = new DaoSP();
+				DataTable dt = new DataTable();
+				string query = "SELECT fechaEspectaculo from dropeadores.Publicacion WHERE datepart(YEAR,fechaEspectaculo)= " + (this.fechaEspectaculo).Year
+					+ " AND datepart(month,fechaEspectaculo) =" + this.fechaEspectaculo.Month
+					+ " AND datepart(DAY,fechaEspectaculo) =" + this.fechaEspectaculo.Day
+					+ " AND datepart(HOUR,fechaEspectaculo) =" + this.fechaEspectaculo.Hour;
+				dt = dao.ConsultarConQuery(query);
+				return dt.Rows.Count > 0;
+			}
+			catch (Exception ex )
+			{
+
+				throw ex;
+			}
+			
+		}
 	}
 }
