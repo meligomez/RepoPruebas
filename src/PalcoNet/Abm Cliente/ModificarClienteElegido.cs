@@ -39,7 +39,15 @@ namespace PalcoNet.Abm_Cliente
         {
 
             DaoSP dao = new DaoSP();
-            return dao.ObtenerDatosSP("dropeadores.ObtenerClienteEspecifico", tipoDoc, nroDoc);
+            if (dao.EjecutarSP("dropeadores.ExistTarjetaCliente", nroDoc) > 0)
+            {
+                return dao.ObtenerDatosSP("dropeadores.ObtenerClienteEspecifico", tipoDoc, nroDoc);
+            }
+            else
+            {
+                return dao.ObtenerDatosSP("dropeadores.ObtenerClienteSinTarjeta", tipoDoc, nroDoc);
+            }
+           
         }
 
         public static Cliente obtener(string tipoDoc, int nroDoc)
@@ -52,9 +60,11 @@ namespace PalcoNet.Abm_Cliente
         public static List<Cliente> transductor(DataTable tabla)
         {
             List<Cliente> lista = new List<Cliente>();
+            DaoSP dao = new DaoSP();
             foreach (DataRow fila in tabla.Rows)
             {
                 Domicilio dom = new Domicilio();
+                ConfigGlobal archivoDeConfig = new ConfigGlobal();
                 Cliente cli = new Cliente();
                 Tarjeta tar = new Tarjeta();
                 cli.apellido = Convert.ToString(fila["apellido"]);
@@ -65,9 +75,7 @@ namespace PalcoNet.Abm_Cliente
                 dom.calle = Convert.ToString(fila["calle"]);
                 dom.piso = Convert.ToInt32(fila["piso"]);
                 dom.numero = Convert.ToInt32(fila["numero"]);
-                tar.propietario = Convert.ToString(fila["propietario"]);
-                tar.numero = Convert.ToString(fila["numero"]);
-                tar.fechaVencimiento = Convert.ToDateTime(fila["fechaVencimiento"]);
+                
                 //Campos Nulleables  (CHECKEAR)
                 if (!(fila["telefono"] is DBNull))
                     cli.telefono = Convert.ToInt32(fila["telefono"]);
@@ -80,6 +88,18 @@ namespace PalcoNet.Abm_Cliente
                 if (!(fila["codigoPostal"] is DBNull))
                     dom.cp = Convert.ToInt32(fila["codigoPostal"]);
                 cli.Cli_Dir = dom;
+                if (dao.EjecutarSP("dropeadores.ExistTarjetaCliente", cli.numeroDocumento) > 0)
+                {
+                    tar.propietario = Convert.ToString(fila["propietario"]);
+                    tar.numero = Convert.ToString(fila["numero"]);
+                    tar.fechaVencimiento = Convert.ToDateTime(fila["fechaVencimiento"]);
+                }
+                else
+                {
+                    tar.propietario = " ";
+                    tar.numero = " ";
+                    tar.fechaVencimiento = archivoDeConfig.getFechaSistema();
+                }
                 cli.Cli_Tar = tar;
                 lista.Add(cli);
             }
@@ -143,6 +163,9 @@ namespace PalcoNet.Abm_Cliente
 				cliente_seleccionado.Cli_Dir.localidad = textLocalidad.Text;
                 if (txtCP.Text != "")
                     cliente_seleccionado.Cli_Dir.cp = Int32.Parse(txtCP.Text);
+                cliente_seleccionado.Cli_Tar.propietario = txtTarjProp.Text;
+                cliente_seleccionado.Cli_Tar.numero =(txtTarjNum.Text);
+                cliente_seleccionado.Cli_Tar.fechaVencimiento = DateTime.Parse(dateTimePickerVenc.Text);
 				cliente_seleccionado.estado = checkBaja.Checked;
 				if (!Cliente.actualizar(cliente_seleccionado))
 				{

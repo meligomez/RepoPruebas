@@ -350,6 +350,8 @@ insert into [dropeadores].Domicilio(calle,numero,codigoPostal,departamento,piso)
 select distinct Cli_Dom_Calle, Cli_Nro_Calle, Cli_Cod_Postal, Cli_Depto, Cli_Piso
 from gd_esquema.Maestra m 
 
+
+
 						/*Empresa*/
 insert into [dropeadores].Empresa (empresa_Cuit,empresa_mail,empresa_razon_social)
 select distinct Espec_Empresa_Cuit,Espec_Empresa_Mail,Espec_Empresa_Razon_Social
@@ -732,6 +734,38 @@ begin
 end
 
 ------------------
+USE [GD2C2018]
+GO
+/****** Object:  StoredProcedure [dropeadores].[ObtenerClienteEspecifico]    Script Date: 10/12/2018 23:03:38 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dropeadores].[ObtenerClienteSinTarjeta]
+	@tipoDoc nvarchar(50),
+	@nroDoc numeric(18, 0)
+AS
+	--SI RECIBE -1, MUESTRA TODOS LOS Clientes
+	IF (@nroDoc = 0)
+		SELECT * FROM dropeadores.Cliente c join dropeadores.Domicilio D on(C.cliente_domicilio=D.id)									
+	ELSE
+		SELECT * FROM dropeadores.Cliente c join dropeadores.Domicilio D on(C.cliente_domicilio=D.id)	
+		WHERE c.tipoDocumento = @tipoDoc and c.numeroDocumento= @nroDoc
+
+
+----------------------------------
+
+GO
+Create procedure [dropeadores].[ExistTarjetaCliente]
+@dni numeric(18, 0)
+as
+select count(T.Id)
+from dropeadores.TarjetaCredito T 
+join dropeadores.Cliente C on (C.NumeroDocumento=T.clieteId) 
+where T.clieteId=@dni
+
+--------------------------------------------
+
 
 GO
 /****** Object:  StoredProcedure [dropeadores].[Cli_Alta]    Script Date: 07/12/2018 19:59:49 ******/
@@ -934,6 +968,39 @@ AS
 		WHERE E.empresa_Cuit = @cuit
 
 ------------------------
+
+USE [GD2C2018]
+GO
+/****** Object:  StoredProcedure [dropeadores].[updateTarjetaCliente]    Script Date: 10/12/2018 23:56:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dropeadores].[updateTarjetaCliente]
+			@idCliente numeric(18, 0),
+			@propietario nvarchar(255),
+            @numero varchar(19),
+            @fechaVencimiento datetime
+AS
+	BEGIN
+		IF(@propietario != '')
+			UPDATE dropeadores.TarjetaCredito
+				SET propietario=UPPER(@propietario)
+				where clieteId= @idCliente
+					
+		IF(@numero != -1)
+			UPDATE dropeadores.TarjetaCredito
+				SET numero = UPPER(@numero)
+				where clieteId= @idCliente
+
+		IF(@fechaVencimiento IS NOT NULL)
+			UPDATE dropeadores.TarjetaCredito
+				SET fechaVencimiento = @fechaVencimiento
+				where clieteId= @idCliente
+	END
+
+
+----------------------------
 
 
 GO

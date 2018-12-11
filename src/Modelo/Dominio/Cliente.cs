@@ -57,11 +57,13 @@ namespace Modelo.Dominio
 			int piso = cliente_seleccionado.Cli_Dir.piso;
 			string depto = cliente_seleccionado.Cli_Dir.dpto;
 			string localidad = cliente_seleccionado.Cli_Dir.localidad;
-			string ciudad = cliente_seleccionado.Cli_Dir.ciudad;
+            
+            string ciudad = cliente_seleccionado.Cli_Dir.ciudad;
 			int cp = cliente_seleccionado.Cli_Dir.cp;
 			string propietarioTar = cliente_seleccionado.Cli_Tar.propietario;
 			string numeroTar = cliente_seleccionado.Cli_Tar.numero;
 			DateTime fecha_vencimiento = cliente_seleccionado.Cli_Tar.fechaVencimiento;
+
 			//  string fecha_vencimiento = (cliente_seleccionado.Cli_Tar.Fecha_vencimiento_struct != null) ? cliente_seleccionado.Cli_Tar.Fecha_vencimiento : cadena_nula;
 			int campoBaja = (cliente_seleccionado.estado) ? 1 : 1;
 			//SEGUIR MODIFICANDO 
