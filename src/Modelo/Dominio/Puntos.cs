@@ -77,7 +77,7 @@ namespace Modelo.Dominio
 		{
 			DaoSP dao = new DaoSP();
 			DataTable dtPuntos = new DataTable();
-			dtPuntos = dao.ConsultarConQuery("select top 1 PuntosVigentes from dropeadores.Puntos where PuntosVigentes>0 and Id_Cliente =" + IdCliente
+			dtPuntos = dao.ConsultarConQuery("select top 1 PuntosVigentes from dropeadores.Puntos where PuntosVigentes>0 and numeroDocumento =" + IdCliente
 				+ "and FechaVencimiento > '" + fechaDelSistema + "'");
 			DataRow rowPuntos = dtPuntos.Rows[0];
 			this.PuntosVigentes = int.Parse(rowPuntos["PuntosVigentes"].ToString());

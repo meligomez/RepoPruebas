@@ -59,26 +59,29 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.R
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Grado'))
     DROP TABLE dropeadores.Grado
 
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Compra'))
-    DROP TABLE dropeadores.Compra
-
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Puntos'))
     DROP TABLE dropeadores.Puntos
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Compra'))
+    DROP TABLE dropeadores.Compra
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.TarjetaCredito'))
     DROP TABLE dropeadores.TarjetaCredito
 
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Domicilio'))
-    DROP TABLE dropeadores.Domicilio 
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Cliente'))
     DROP TABLE dropeadores.Cliente
-
+    
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Empresa'))
     DROP TABLE dropeadores.Empresa
+    
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Domicilio'))
+    DROP TABLE dropeadores.Domicilio 
+
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Usuario'))
     DROP TABLE dropeadores.Usuario
+
 
   
 ----------------------------------------------------------------------------------------------
@@ -892,7 +895,7 @@ end
 
 
 ------------
-
+Go
 CREATE procedure [dropeadores].[ExistCuitandRazonSocial]
 @cuit nvarchar(255),
 @razonSocial nvarchar(255)

@@ -34,7 +34,7 @@ namespace PalcoNet.Canje_Puntos
 			DaoSP dao = new DaoSP();
 			lblPuntosACanjear.Visible = false;
 			//Busco los puntos de ese cliente
-			//puntosVigentes = puntos.consultarPuntosVigentes(fechaDelSistema, userLogueado.cliente.Id_Cliente);
+			puntosVigentes = puntos.consultarPuntosVigentes(fechaDelSistema, userLogueado.cliente.numeroDocumento);
 			lblPuntosVigentes.Text = puntosVigentes.ToString();
 
 			//Busco los premios que pueda a llegar a canjear un cliente,
