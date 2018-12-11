@@ -882,44 +882,12 @@ namespace PalcoNet.Generar_Publicacion
 				//significa q no es por lote.
 				if (fechasEspectaculos.Count==0)
 				{
-					int idPublicacionInsertado = 0;
-					idPublicacionInsertado = publicacion.altaPublicacion();
-					publicacion.codigo = idPublicacionInsertado;
-					if (idPublicacionInsertado > 0)
-					{
-						Ubicacion u = new Ubicacion();
-						if (u.altaUbicaciones(ubicaciones, publicacion.codigo) == 0)
-						{
-
-							MessageBox.Show("Se ha creado la publicación correctamente, el número es: " + publicacion.codigo, "¡Correcto!",
-									MessageBoxButtons.OK, MessageBoxIcon.None);
-							this.Hide();
-						}
-						else
-						{
-							MessageBox.Show("Error al crear la Publicacion.", "¡Error!",
-									MessageBoxButtons.OK, MessageBoxIcon.Error);
-						}
-					}
-					else
-					{
-						MessageBox.Show("Error al crear la Publicacion.", "¡Error!",
-									MessageBoxButtons.OK, MessageBoxIcon.Error);
-					}
-				}
-				else
-				{
-					//es por lote. tengo q hacer un INSERT DE PUBLICACION POR CADA fecha distinta. onda lo unico q cambia es la fecha.
-					foreach (DateTime unaFechaEspectaculo in fechasEspectaculos)
-					{
-						publicacion.fechaEspectaculo = unaFechaEspectaculo;
+					
 						int idPublicacionInsertado = 0;
 						idPublicacionInsertado = publicacion.altaPublicacion();
 						publicacion.codigo = idPublicacionInsertado;
 						if (idPublicacionInsertado > 0)
 						{
-							
-
 							Ubicacion u = new Ubicacion();
 							if (u.altaUbicaciones(ubicaciones, publicacion.codigo) == 0)
 							{
@@ -934,7 +902,52 @@ namespace PalcoNet.Generar_Publicacion
 										MessageBoxButtons.OK, MessageBoxIcon.Error);
 							}
 						}
+						else
+						{
+							MessageBox.Show("Error al crear la Publicacion.", "¡Error!",
+										MessageBoxButtons.OK, MessageBoxIcon.Error);
+						}
+					
+					
+				}
+				else
+				{
+					//es por lote. tengo q hacer un INSERT DE PUBLICACION POR CADA fecha distinta. onda lo unico q cambia es la fecha.
+					foreach (DateTime unaFechaEspectaculo in fechasEspectaculos)
+					{
+						publicacion.fechaEspectaculo = unaFechaEspectaculo;
+						//if (publicacion.existeFechayHoraSinLote())
+						//{
+							
+							int idPublicacionInsertado = 0;
+							idPublicacionInsertado = publicacion.altaPublicacion();
+							publicacion.codigo = idPublicacionInsertado;
+							if (idPublicacionInsertado > 0)
+							{
+
+
+								Ubicacion u = new Ubicacion();
+								if (u.altaUbicaciones(ubicaciones, publicacion.codigo) == 0)
+								{
+
+									MessageBox.Show("Se ha creado la publicación correctamente, el número es: " + publicacion.codigo, "¡Correcto!",
+											MessageBoxButtons.OK, MessageBoxIcon.None);
+									this.Hide();
+								}
+								else
+								{
+									MessageBox.Show("Error al crear la Publicacion.", "¡Error!",
+											MessageBoxButtons.OK, MessageBoxIcon.Error);
+								}
+							}
+						//}
+						//else
+						//{
+						//	MessageBox.Show("Error, hay fechas en las cuales ya existe otro espectáculo.", "¡Error!",
+						//					MessageBoxButtons.OK, MessageBoxIcon.Error);
+						//}
 					}
+
 					
 				}
 				
