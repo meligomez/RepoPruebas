@@ -18,6 +18,8 @@ namespace PalcoNet.Abm_Cliente
 		public AltaCliente(string rol)
 		{
 			InitializeComponent();
+            foreach (string tipo in Documento.string_docu)
+                comboTipoDoc.Items.Add(tipo);
 			ConfigGlobal cg = new ConfigGlobal();
 			DateTime fechaSistema = cg.getFechaSistema();
 			lblFechaSistema.Visible = true;
@@ -86,7 +88,6 @@ namespace PalcoNet.Abm_Cliente
 		{
 			textNombre.Text = "";
 			textApellido.Text = "";
-			txtTipoDoc.Text = "";
 			textNroIdentificacion.Text = "";
 			dateTimePickerFechaNac.Text = "";
 			textMail.Text = "";
@@ -115,12 +116,14 @@ namespace PalcoNet.Abm_Cliente
 						usuario.password = textNroIdentificacion.Text;
 						usuario.creadoPor = "admin";
 					}
-					else
-					{
+					
+                    if ( usuariosCompletos() && rolLogueado == "sin Rol")
+                    {  
+                       
 						usuario.username = textUsername.Text;
 						usuario.password = textPassword.Text;
 						usuario.creadoPor = "cliente";
-					}
+                    }
 					//Carga de datos
 					Domicilio dire = new Domicilio();
 					Cliente cli = new Cliente();
@@ -128,19 +131,49 @@ namespace PalcoNet.Abm_Cliente
 					ConfigGlobal archivoDeConfig = new ConfigGlobal();
 					cli.apellido = textApellido.Text;
 					cli.nombre = textNombre.Text;
-					cli.tipoDocumento = txtTipoDoc.Text;
-					cli.numeroDocumento = int.Parse(textNroIdentificacion.Text);
+                    cli.tipoDocumento = Documento.string_docu[comboTipoDoc.SelectedIndex];
+                    cli.numeroDocumento = int.Parse(textNroIdentificacion.Text);
 					cli.mail = textMail.Text;
 					cli.fechaNacimiento = dateTimePickerFechaNac.Value;
 					cli.cuil = textCUIL.Text;
-					cli.telefono = int.Parse(textTelefono.Text);
+                    if (textTelefono.Text == "")
+                    {
+                        cli.telefono = -1;
+                    }
+                    else
+                    {
+                        cli.telefono = int.Parse(textTelefono.Text);
+                    }
+					
 					usuario.fechaCreacionPsw = archivoDeConfig.getFechaSistema();
 					dire.calle = textDireccion.Text;
-					dire.piso = int.Parse(textPiso.Text);
-					dire.dpto = textDepto.Text;
+                    if (textPiso.Text == "")
+                    {
+                        dire.piso = -1;
+                    }
+                    else
+                    {
+                        dire.piso = int.Parse(textPiso.Text);
+                    }
+                    if (textDepto.Text == "")
+                    {
+                        dire.dpto = " ";
+                    }
+                    else
+                    {
+                        dire.dpto = textDepto.Text;
+                    }
 					dire.localidad = textLocalidad.Text;
-					dire.cp = int.Parse(textCP.Text);
-					dire.numero = int.Parse(txtNro.Text);
+                    if (textCP.Text == "")
+                    {
+                        dire.cp = -1;
+                    }
+                    else
+                    {
+                        dire.cp = int.Parse(textCP.Text);
+                    }
+					//dire.cp = int.Parse(textCP.Text);
+                    dire.numero = int.Parse(txtNro.Text);
 					cli.Cli_Dir = dire;
 					usuario.cliente = cli;
 					tar.propietario = txtTarjProp.Text;
@@ -178,44 +211,113 @@ namespace PalcoNet.Abm_Cliente
 		}
 		private bool todosCamposCompletos()
 		{
-			//if (textNombre.Text.Trim() == "")
-			//{
-			//	MessageBox.Show("Debe ingresar un nombre.", "Error al crear Nuevo Usuario",
-			//			MessageBoxButtons.OK, MessageBoxIcon.Error);
-			//	return false;
-			//}
-			//if (textApellido.Text.Trim() == "")
-			//{
-			//	MessageBox.Show("Debe ingresar un apellido.", "Error al crear Nuevo Usuario",
-			//			MessageBoxButtons.OK, MessageBoxIcon.Error);
-			//	return false;
-			//}
-			//if (textMail.Text.Trim() == "")
-			//{
-			//	MessageBox.Show("Debe ingresar un mail.", "Error al crear Nuevo Usuario",
-			//			MessageBoxButtons.OK, MessageBoxIcon.Error);
-			//	return false;
-			//}
-			//if (textPassword.Text.Trim() == "")
-			//{
-			//	MessageBox.Show("Debe ingresar una contraseña.", "Error al crear Nuevo Usuario",
-			//			MessageBoxButtons.OK, MessageBoxIcon.Error);
-			//	return false;
-			//}
-			//if (textCUIL.Text.Trim() == "" )
-			//{
-			//	MessageBox.Show("Debe ingresar un CUIL.", "Error al crear Nuevo Usuario",
-			//			MessageBoxButtons.OK, MessageBoxIcon.Error);
-			//	return false;
-			//}
-			//if (dateTimePickerFechaNac.Value == null)
-			//{
-			//	MessageBox.Show("Debe ingresar una fecha de nacimiento.", "Error al crear Nuevo Usuario",
-			//			MessageBoxButtons.OK, MessageBoxIcon.Error);
-			//	return false;
-			//}
-			return true;
+			if (textNombre.Text.Trim() == "")
+			{
+				MessageBox.Show("Debe ingresar un nombre.", "Error al crear Nuevo Usuario",
+						MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return false;
+			}
+			if (textApellido.Text.Trim() == "")
+			{
+				MessageBox.Show("Debe ingresar un apellido.", "Error al crear Nuevo Usuario",
+						MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return false;
+			}
+			if (textMail.Text.Trim() == "")
+			{
+				MessageBox.Show("Debe ingresar un mail.", "Error al crear Nuevo Usuario",
+						MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return false;
+			}
+           
+			if (textCUIL.Text.Trim() == "" )
+			{
+				MessageBox.Show("Debe ingresar un CUIL.", "Error al crear Nuevo Usuario",
+						MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return false;
+			}
+			if (dateTimePickerFechaNac.Value == null)
+			{
+				MessageBox.Show("Debe ingresar una fecha de nacimiento.", "Error al crear Nuevo Usuario",
+						MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return false;
+			}
+            if (textDireccion.Text.Trim() == "")
+            {
+                MessageBox.Show("Debe ingresar una calle.", "Error al crear Nuevo Usuario",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (txtNro.Text.Trim() == "")
+            {
+                MessageBox.Show("Debe ingresar un numero de direccion.", "Error al crear Nuevo Usuario",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (textLocalidad.Text.Trim() == "")
+            {
+                MessageBox.Show("Debe ingresar una localidad.", "Error al crear Nuevo Usuario",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (txtTarjProp.Text.Trim() == "")
+            {
+                MessageBox.Show("Debe ingresar un propietario de tarjeta.", "Error al crear Nuevo Usuario",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (txtTarjNum.Text.Trim() == "")
+            {
+                MessageBox.Show("Debe ingresar un numero de tarjeta.", "Error al crear Nuevo Usuario",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (dateTimePickerVenc.Value == null)
+			{
+				MessageBox.Show("Debe ingresar una fecha de nacimiento.", "Error al crear Nuevo Usuario",
+						MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return false;
+			}
+
+            Usuario usuario = new Usuario();
+            if (rolLogueado != "sin Rol")
+            {
+                usuario.username = textNroIdentificacion.Text;
+                usuario.password = textNroIdentificacion.Text;
+                usuario.creadoPor = "admin";
+            }
+            else
+            {
+                if (usuariosCompletos())
+                {
+
+                    usuario.username = textUsername.Text;
+                    usuario.password = textPassword.Text;
+                    usuario.creadoPor = "cliente";
+                }
+                else
+                {
+                    return false;
+                }
+            }
+           return true;
 		}
+        private bool usuariosCompletos()
+        {
+            if (textUsername.Text.Trim() == "")
+            {
+                MessageBox.Show("Debe ingresar una contraseña.", "Error al crear Nuevo Usuario",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (textPassword.Text.Trim() == "")
+            {
+                MessageBox.Show("Debe ingresar una contraseña.", "Error al crear Nuevo Usuario",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            return true;
+        }
 
 		private void btnVolver_Click(object sender, EventArgs e)
 		{

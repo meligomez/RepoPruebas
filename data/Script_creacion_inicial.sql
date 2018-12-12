@@ -739,7 +739,6 @@ end
 ------------------
 USE [GD2C2018]
 GO
-/****** Object:  StoredProcedure [dropeadores].[ObtenerClienteEspecifico]    Script Date: 10/12/2018 23:03:38 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1166,26 +1165,29 @@ END
 
 ------------------------
 
+USE [GD2C2018]
 GO
-/****** Object:  StoredProcedure [dropeadores].[ObtenerClienteEspecifico]    Script Date: 07/12/2018 20:09:18 ******/
+/****** Object:  StoredProcedure [dropeadores].[ObtenerClienteEspecifico]    Script Date: 11/12/2018 23:06:15 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE PROCEDURE [dropeadores].[ObtenerClienteEspecifico]
+ALTER PROCEDURE [dropeadores].[ObtenerClienteEspecifico]
 	@tipoDoc nvarchar(50),
 	@nroDoc numeric(18, 0)
 AS
 	--SI RECIBE -1, MUESTRA TODOS LOS HUESPEDES
-	IF (@nroDoc = 0)
+
+	IF ((select count(T.Id)
+		from dropeadores.TarjetaCredito T 
+		join dropeadores.Cliente C on (C.NumeroDocumento=T.clieteId) 
+		where T.clieteId=@nroDoc) = 0)
 		SELECT * FROM dropeadores.Cliente c join dropeadores.Domicilio D on(C.cliente_domicilio=D.id)	
-											join dropeadores.TarjetaCredito T on (T.clieteId=C.numeroDocumento)		
+											--join dropeadores.TarjetaCredito T on (T.clieteId=C.numeroDocumento)		
 	ELSE
 		SELECT * FROM dropeadores.Cliente c join dropeadores.Domicilio D on(C.cliente_domicilio=D.id)	
 											join dropeadores.TarjetaCredito T on (T.clieteId=C.numeroDocumento)		
 		WHERE c.tipoDocumento = @tipoDoc and c.numeroDocumento= @nroDoc
-
-
 -----------------------------
 
 GO

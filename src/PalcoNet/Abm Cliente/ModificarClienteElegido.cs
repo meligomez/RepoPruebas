@@ -39,13 +39,13 @@ namespace PalcoNet.Abm_Cliente
         {
 
             DaoSP dao = new DaoSP();
-            if (dao.EjecutarSP("dropeadores.ExistTarjetaCliente", nroDoc) > 0)
+            if (dao.EjecutarSP("dropeadores.ExistTarjetaCliente", nroDoc) == 0)
             {
-                return dao.ObtenerDatosSP("dropeadores.ObtenerClienteEspecifico", tipoDoc, nroDoc);
+                return dao.ObtenerDatosSP("dropeadores.ObtenerClienteSinTarjeta", tipoDoc, nroDoc);
             }
             else
             {
-                return dao.ObtenerDatosSP("dropeadores.ObtenerClienteSinTarjeta", tipoDoc, nroDoc);
+                return dao.ObtenerDatosSP("dropeadores.ObtenerClienteEspecifico", tipoDoc, nroDoc);
             }
            
         }
@@ -71,6 +71,7 @@ namespace PalcoNet.Abm_Cliente
                 cli.nombre = Convert.ToString(fila["nombre"]);
                 cli.numeroDocumento = Convert.ToInt32(fila["numeroDocumento"]);
                 cli.fechaNacimiento = Convert.ToDateTime(fila["fechaNacimiento"]);
+                cli.estado = Convert.ToBoolean(fila["estado"]);
                 cli.cuil = Convert.ToString(fila["cuil"]);
                 dom.calle = Convert.ToString(fila["calle"]);
                 dom.piso = Convert.ToInt32(fila["piso"]);
@@ -88,17 +89,18 @@ namespace PalcoNet.Abm_Cliente
                 if (!(fila["codigoPostal"] is DBNull))
                     dom.cp = Convert.ToInt32(fila["codigoPostal"]);
                 cli.Cli_Dir = dom;
-                if (dao.EjecutarSP("dropeadores.ExistTarjetaCliente", cli.numeroDocumento) > 0)
-                {
-                    tar.propietario = Convert.ToString(fila["propietario"]);
-                    tar.numero = Convert.ToString(fila["numero"]);
-                    tar.fechaVencimiento = Convert.ToDateTime(fila["fechaVencimiento"]);
-                }
-                else
+                if (dao.EjecutarSP("dropeadores.ExistTarjetaCliente", cli.numeroDocumento) <=0)
                 {
                     tar.propietario = " ";
                     tar.numero = " ";
-                    tar.fechaVencimiento = archivoDeConfig.getFechaSistema();
+                    tar.fechaVencimiento = archivoDeConfig.getFechaSistema(); 
+                }
+                else
+                {
+                    //tar.propietario = Convert.ToString(fila["propietario"]);
+                    //tar.numero = Convert.ToString(fila["numero"]);
+                    //tar.fechaVencimiento = Convert.ToDateTime(fila["fechaVencimiento"]);
+                 
                 }
                 cli.Cli_Tar = tar;
                 lista.Add(cli);
@@ -111,6 +113,7 @@ namespace PalcoNet.Abm_Cliente
 			txtNombre.Text = cliente_seleccionado.nombre;
 			txtApellido.Text = cliente_seleccionado.apellido;
 			txtNroIdentificacion.Text = cliente_seleccionado.numeroDocumento.ToString();
+            comboTipoDoc.SelectedIndex = (int)cliente_seleccionado.TipoDocu_enum;
 			textCUIL.Text = cliente_seleccionado.cuil;
 			textTelefono.Text = cliente_seleccionado.telefono.ToString();
 			textMail.Text = cliente_seleccionado.mail;
@@ -123,8 +126,7 @@ namespace PalcoNet.Abm_Cliente
 			txtTarjProp.Text = cliente_seleccionado.Cli_Tar.propietario;
 			txtTarjNum.Text = cliente_seleccionado.Cli_Tar.numero.ToString();
 			dateTimePickerVenc.Value = cliente_seleccionado.Cli_Tar.fechaVencimiento;
-
-			checkBaja.Checked = cliente_seleccionado.estado;
+            checkBaja.Checked = cliente_seleccionado.estado;
 			if (cliente_seleccionado.Cli_Dir.dpto != "''")
 				textDepto.Text = cliente_seleccionado.Cli_Dir.dpto.ToString();
 			if (cliente_seleccionado.Cli_Dir.piso != -1)
@@ -142,8 +144,7 @@ namespace PalcoNet.Abm_Cliente
 		private void btnGuardar_Click(object sender, EventArgs e)
 		{
 
-			//    if (chequearDatos())
-			if (true)
+			if (chequearDatos())
 			{
 
 				cliente_seleccionado.nombre = txtNombre.Text;
@@ -182,6 +183,80 @@ namespace PalcoNet.Abm_Cliente
 			}
 		}
 
+
+        private bool chequearDatos()
+        {
+            if (txtNombre.Text.Trim() == "")
+            {
+                MessageBox.Show("Debe ingresar un nombre.", "Error al crear Nuevo Usuario",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (txtApellido.Text.Trim() == "")
+            {
+                MessageBox.Show("Debe ingresar un apellido.", "Error al crear Nuevo Usuario",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (textMail.Text.Trim() == "")
+            {
+                MessageBox.Show("Debe ingresar un mail.", "Error al crear Nuevo Usuario",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (textCUIL.Text.Trim() == "")
+            {
+                MessageBox.Show("Debe ingresar un CUIL.", "Error al crear Nuevo Usuario",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (dateTimePickerFechaNac.Value == null)
+            {
+                MessageBox.Show("Debe ingresar una fecha de nacimiento.", "Error al crear Nuevo Usuario",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (textDireccion.Text.Trim() == "")
+            {
+                MessageBox.Show("Debe ingresar una calle.", "Error al crear Nuevo Usuario",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (txtNro.Text.Trim() == "")
+            {
+                MessageBox.Show("Debe ingresar un numero de direccion.", "Error al crear Nuevo Usuario",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (textLocalidad.Text.Trim() == "")
+            {
+                MessageBox.Show("Debe ingresar una localidad.", "Error al crear Nuevo Usuario",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (txtTarjProp.Text.Trim() == "")
+            {
+                MessageBox.Show("Debe ingresar un propietario de tarjeta.", "Error al crear Nuevo Usuario",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (txtTarjNum.Text.Trim() == "")
+            {
+                MessageBox.Show("Debe ingresar un numero de tarjeta.", "Error al crear Nuevo Usuario",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (dateTimePickerVenc.Value == null)
+            {
+                MessageBox.Show("Debe ingresar una fecha de nacimiento.", "Error al crear Nuevo Usuario",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            return true;
+        }
+        
 		private void btnVolver_Click(object sender, EventArgs e)
 		{
 			this.Hide();

@@ -21,9 +21,10 @@ namespace Modelo.Dominio
 		private DateTime? fecha_nacimiento = null;
 		public DateTime fechaCreacion { get; set; }
 		public int telefono { get; set; }
-
+        private Documento documento=new Documento();
 		public Domicilio Cli_Dir { get; set; }
 		public Tarjeta Cli_Tar { get; set; }
+        
 
 		public string Fecha_nacimiento
 		{
@@ -35,6 +36,11 @@ namespace Modelo.Dominio
 			get { return fecha_nacimiento; }
 			set { fecha_nacimiento = value; }
 		}
+        public DocumentoTipoEnum TipoDocu_enum
+        {
+            get { return documento.Tipo; }
+            set { documento.Tipo = value; }
+        }
 
 		public static bool actualizar(Cliente cliente_seleccionado)
 		{
@@ -42,7 +48,7 @@ namespace Modelo.Dominio
 			DaoSP dao = new DaoSP();
 			DataTable dt, dr = new DataTable();
 			int IDcliente = 000000;
-			string cadena_nula = "";
+			//string cadena_nula = "";
 			string nombre = cliente_seleccionado.nombre;
 			string apellido = cliente_seleccionado.apellido;
 			string tipoDocumento = cliente_seleccionado.tipoDocumento;
