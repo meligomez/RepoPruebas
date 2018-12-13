@@ -34,7 +34,9 @@ namespace PalcoNet.Comprar
             DaoSP tj = new DaoSP();
             DataTable dt = new DataTable();
             string medioDePago = "";
-            dt = tj.ConsultarConQuery("select t.tipo as 'tipoTarjeta' from dropeadores.Cliente c join dropeadores.TarjetaCredito t on (t.clieteId=c.numeroDocumento) where c.numeroDocumento=" + usuario.cliente.numeroDocumento);
+            //dt = tj.ConsultarConQuery("select t.tipo as 'tipoTarjeta' from dropeadores.Cliente c join dropeadores.TarjetaCredito t on (t.clieteId=c.numeroDocumento) where c.numeroDocumento=" + usuario.cliente.numeroDocumento);
+            dt = tj.ConsultarConQuery("select * from dropeadores.Cliente c left join dropeadores.TarjetaCredito t on (t.clieteId=c.numeroDocumento)");
+            
             foreach (DataRow row in dt.Rows)
             {
                 medioDePago = Convert.ToString(row["tipoTarjeta"]);
@@ -219,6 +221,39 @@ namespace PalcoNet.Comprar
         {
 
         }
+
+        private void buttonVOLVER_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
+
+        private void buttonPAGAR_Click_1(object sender, EventArgs e)
+        {
+           
+            if (dataGridViewCompras.CurrentRow == null)
+            {
+                MessageBox.Show("Seleccione una compra a modificar.",
+                "", MessageBoxButtons.OK);
+                return;
+            }
+            string cuit = dataGridViewCompras.CurrentRow.Cells["CUIT"].Value.ToString();
+            DialogResult dr = MessageBox.Show("Desea realizar la siguiente compra?", "", MessageBoxButtons.YesNo);
+            switch (dr)
+            {
+                case DialogResult.Yes:
+                    ConfirmarCompra(cuit);
+                    break;
+                case DialogResult.No: break;
+            }
+
+        }
+        private void ConfirmarCompra(string cuit)
+        {
+            this.Hide();
+            new ConfirmarCompra(cuit).Show();
+
+        }
+
 
     }
 }

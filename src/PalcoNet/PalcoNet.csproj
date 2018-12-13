@@ -165,6 +165,12 @@
     <Compile Include="Comprar\ComprarPPAL.Designer.cs">
       <DependentUpon>ComprarPPAL.cs</DependentUpon>
     </Compile>
+    <Compile Include="Comprar\ConfirmarCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Comprar\ConfirmarCompra.Designer.cs">
+      <DependentUpon>ConfirmarCompra.cs</DependentUpon>
+    </Compile>
     <Compile Include="Comprar\SeleccionCategorias.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -302,6 +308,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Comprar\ComprarPPAL.resx">
       <DependentUpon>ComprarPPAL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comprar\ConfirmarCompra.resx">
+      <DependentUpon>ConfirmarCompra.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Comprar\SeleccionCategorias.resx">
       <DependentUpon>SeleccionCategorias.cs</DependentUpon>

@@ -140,7 +140,7 @@ namespace PalcoNet.VentanasPorRol
 		}
 		private void VentanaAdmin_Load(object sender, EventArgs e)
 		{
-
+            
 		}
 		
 		private void label3_Click(object sender, EventArgs e)
@@ -273,10 +273,13 @@ namespace PalcoNet.VentanasPorRol
 		}
 		private void comprar_Click(object sender, EventArgs e)
 		{
-			//Comprar comp = new Comprar();
-			//comp.Show();
-			//MessageBox.Show("You are selected Comprar ");
-			//this.Hide();
+            ComprarPPAL compra = new ComprarPPAL(userLog);
+            compra.Show();
+            AbrirFormInPanel(compra);
+            //Comprar comp = new Comprar();
+            //comp.Show();
+            //MessageBox.Show("You are selected Comprar ");
+            //this.Hide();
 		}
 		private void historialCliente_Click(object sender, EventArgs e)
 		{

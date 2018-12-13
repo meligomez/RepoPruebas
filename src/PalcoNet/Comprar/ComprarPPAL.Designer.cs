@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ComprarPPAL));
-            this.labelMedioPago = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.labelCategorias = new System.Windows.Forms.Label();
             this.buttonCategoria = new System.Windows.Forms.Button();
@@ -42,31 +41,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.lblPuntos = new System.Windows.Forms.Label();
-            this.lblImporte = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.btnBuscar = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.btnNuevoMedioPago = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.dataGridViewCompras = new System.Windows.Forms.DataGridView();
+            this.buttonPAGAR = new System.Windows.Forms.Button();
+            this.buttonVOLVER = new System.Windows.Forms.Button();
+            this.labelMedioPago = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCompras)).BeginInit();
             this.SuspendLayout();
-            // 
-            // labelMedioPago
-            // 
-            this.labelMedioPago.AutoSize = true;
-            this.labelMedioPago.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.labelMedioPago.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelMedioPago.Location = new System.Drawing.Point(314, 536);
-            this.labelMedioPago.MaximumSize = new System.Drawing.Size(200, 23);
-            this.labelMedioPago.MinimumSize = new System.Drawing.Size(200, 23);
-            this.labelMedioPago.Name = "labelMedioPago";
-            this.labelMedioPago.Size = new System.Drawing.Size(200, 23);
-            this.labelMedioPago.TabIndex = 114;
-            this.labelMedioPago.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // groupBox1
             // 
@@ -188,95 +172,80 @@
             this.label7.TabIndex = 123;
             this.label7.Text = "COMPRAR";
             // 
-            // lblPuntos
-            // 
-            this.lblPuntos.AutoSize = true;
-            this.lblPuntos.Location = new System.Drawing.Point(731, 596);
-            this.lblPuntos.Name = "lblPuntos";
-            this.lblPuntos.Size = new System.Drawing.Size(193, 20);
-            this.lblPuntos.TabIndex = 122;
-            this.lblPuntos.Text = "suma de puntos(readonly)";
-            // 
-            // lblImporte
-            // 
-            this.lblImporte.AutoSize = true;
-            this.lblImporte.Location = new System.Drawing.Point(731, 532);
-            this.lblImporte.Name = "lblImporte";
-            this.lblImporte.Size = new System.Drawing.Size(205, 20);
-            this.lblImporte.TabIndex = 121;
-            this.lblImporte.Text = "suma de importes(readonly)";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(511, 596);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(165, 20);
-            this.label6.TabIndex = 120;
-            this.label6.Text = "Puntos para el cliente:";
-            // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(1034, 300);
+            this.btnBuscar.Location = new System.Drawing.Point(730, 599);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(131, 55);
             this.btnBuscar.TabIndex = 115;
-            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.Text = "BUSCAR";
             this.btnBuscar.UseVisualStyleBackColor = true;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(573, 539);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(103, 20);
-            this.label5.TabIndex = 119;
-            this.label5.Text = "Importe total:";
-            // 
-            // btnNuevoMedioPago
-            // 
-            this.btnNuevoMedioPago.Location = new System.Drawing.Point(155, 585);
-            this.btnNuevoMedioPago.Name = "btnNuevoMedioPago";
-            this.btnNuevoMedioPago.Size = new System.Drawing.Size(290, 42);
-            this.btnNuevoMedioPago.TabIndex = 118;
-            this.btnNuevoMedioPago.Text = "Asociar Medio de Pago";
-            this.btnNuevoMedioPago.UseVisualStyleBackColor = true;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(71, 539);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(219, 20);
-            this.label2.TabIndex = 117;
-            this.label2.Text = "Seleccione un medio de Pago";
             // 
             // dataGridViewCompras
             // 
             this.dataGridViewCompras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewCompras.Location = new System.Drawing.Point(75, 283);
+            this.dataGridViewCompras.Location = new System.Drawing.Point(128, 279);
             this.dataGridViewCompras.Name = "dataGridViewCompras";
             this.dataGridViewCompras.RowTemplate.Height = 24;
             this.dataGridViewCompras.Size = new System.Drawing.Size(953, 236);
             this.dataGridViewCompras.TabIndex = 116;
+            // 
+            // buttonPAGAR
+            // 
+            this.buttonPAGAR.Location = new System.Drawing.Point(975, 599);
+            this.buttonPAGAR.Name = "buttonPAGAR";
+            this.buttonPAGAR.Size = new System.Drawing.Size(131, 55);
+            this.buttonPAGAR.TabIndex = 126;
+            this.buttonPAGAR.Text = "PAGAR";
+            this.buttonPAGAR.UseVisualStyleBackColor = true;
+            this.buttonPAGAR.Click += new System.EventHandler(this.buttonPAGAR_Click_1);
+            // 
+            // buttonVOLVER
+            // 
+            this.buttonVOLVER.Location = new System.Drawing.Point(112, 599);
+            this.buttonVOLVER.Name = "buttonVOLVER";
+            this.buttonVOLVER.Size = new System.Drawing.Size(131, 55);
+            this.buttonVOLVER.TabIndex = 127;
+            this.buttonVOLVER.Text = "VOLVER";
+            this.buttonVOLVER.UseVisualStyleBackColor = true;
+            this.buttonVOLVER.Click += new System.EventHandler(this.buttonVOLVER_Click);
+            // 
+            // labelMedioPago
+            // 
+            this.labelMedioPago.AutoSize = true;
+            this.labelMedioPago.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.labelMedioPago.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.labelMedioPago.Location = new System.Drawing.Point(526, 539);
+            this.labelMedioPago.MaximumSize = new System.Drawing.Size(200, 23);
+            this.labelMedioPago.MinimumSize = new System.Drawing.Size(200, 23);
+            this.labelMedioPago.Name = "labelMedioPago";
+            this.labelMedioPago.Size = new System.Drawing.Size(200, 23);
+            this.labelMedioPago.TabIndex = 129;
+            this.labelMedioPago.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(283, 542);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(219, 20);
+            this.label2.TabIndex = 130;
+            this.label2.Text = "Seleccione un medio de Pago";
             // 
             // ComprarPPAL
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(1370, 749);
+            this.ClientSize = new System.Drawing.Size(1181, 666);
             this.Controls.Add(this.labelMedioPago);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.buttonVOLVER);
+            this.Controls.Add(this.buttonPAGAR);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.lblPuntos);
-            this.Controls.Add(this.lblImporte);
-            this.Controls.Add(this.label6);
             this.Controls.Add(this.btnBuscar);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.btnNuevoMedioPago);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.dataGridViewCompras);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -294,7 +263,6 @@
 
         #endregion
 
-        public System.Windows.Forms.Label labelMedioPago;
         private System.Windows.Forms.GroupBox groupBox1;
         public System.Windows.Forms.Label labelCategorias;
         private System.Windows.Forms.Button buttonCategoria;
@@ -307,13 +275,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label lblPuntos;
-        private System.Windows.Forms.Label lblImporte;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnBuscar;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button btnNuevoMedioPago;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dataGridViewCompras;
+        private System.Windows.Forms.Button buttonPAGAR;
+        private System.Windows.Forms.Button buttonVOLVER;
+        public System.Windows.Forms.Label labelMedioPago;
+        private System.Windows.Forms.Label label2;
     }
 }
