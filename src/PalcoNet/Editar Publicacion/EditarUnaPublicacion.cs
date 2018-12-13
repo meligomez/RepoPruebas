@@ -56,6 +56,8 @@ namespace PalcoNet.Editar_Publicacion
 
 		private void button2_Click(object sender, EventArgs e)
 		{
+			MessageBox.Show(" ", "¡Correcto!",
+				MessageBoxButtons.OK, MessageBoxIcon.None);
 			a.Visible = true;
 			b.Visible = true;
 			c.Visible = true;
@@ -110,8 +112,7 @@ namespace PalcoNet.Editar_Publicacion
 			estadoPublicacion.Visible = false;
 			button2.Visible = false;
 
-			MessageBox.Show("Cambios guardados correctamente.", "¡Correcto!",
-				MessageBoxButtons.OK, MessageBoxIcon.None);
+			
 		}
 
 		private void btnGuardar_Click(object sender, EventArgs e)

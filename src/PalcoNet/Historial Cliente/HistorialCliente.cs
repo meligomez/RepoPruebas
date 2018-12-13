@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Modelo.Dominio;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,16 +13,25 @@ namespace PalcoNet.Historial_Cliente
 {
     public partial class HistorialCliente : Form
     {
-        public HistorialCliente()
+		Usuario userLog = new Usuario();
+        public HistorialCliente(Usuario user)
         {
+			user = userLog;
             InitializeComponent();
         }
 		private void HistorialCliente_Load(object sender, EventArgs e)
 		{
-		//	RolesService servicio = new RolesService();
-		//	dtSource = servicio.GetRoles();
-			FillGrid();
+			
+			//dtSource = this.GetCompras(this.userLog.cliente.numeroDocumento);
+			//FillGrid();
 		}
+		//public DataTable getCompras(int numeroDoc)
+		//{
+			//Compra comprasCliente = new Compra();
+			//DataTable dtPremios = new DataTable();
+			//string query = "";
+			//dtPremios = dao.ConsultarConQuery(query);
+		//}
 		//Variables necesarias para el manejo de paginado
 		private DataTable dtSource;
 		private int PageCount;

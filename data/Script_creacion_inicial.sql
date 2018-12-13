@@ -213,14 +213,14 @@ CREATE TABLE [dropeadores].[TipoUbicacion](
 )
 
 CREATE TABLE [dropeadores].[Ubicacion](
-    [fila] [varchar](3) NULL,
-    [asiento] [numeric](18, 0) NULL,
+    [fila] [varchar](3) ,
+    [asiento] [numeric](18, 0) ,
     [sinNumerar] [bit] NULL,
     [precio] [numeric](18, 0) NULL,
     [estado] [bit] NULL,
     [publicacionId] int NOT NULL  references [dropeadores].Publicacion,
     [tipoUbicacion] int NOT NULL  references [dropeadores].TipoUbicacion,
-    [id]  int primary key identity
+     primary key (fila,asiento,publicacionId)
 )
 
 
@@ -235,7 +235,9 @@ compra_fecha datetime not null,
 compra_cantidad numeric(18,0) not null,
 compra_precio int not null,
 compra_puntosId int,
-compra_ubicacionId int,
+compra_ubicacionAsiento [numeric](18, 0),
+compra_ubicacionFila [varchar](3),
+compra_ubicacionPublic int,
 FOREIGN KEY (compra_numero_documento) REFERENCES [dropeadores].Cliente(numeroDocumento),
 )
 
@@ -421,14 +423,22 @@ m join dropeadores.Empresa e on(e.empresa_Cuit=m.Espec_Empresa_Cuit)
 SET IDENTITY_INSERT [dropeadores].Publicacion OFF
  
 				/*Ubicacion*/
+
 insert  into dropeadores.Ubicacion (fila,asiento,sinNumerar,estado,publicacionId,tipoUbicacion)
 select distinct  Ubicacion_Fila,Ubicacion_Asiento,Ubicacion_Sin_numerar,1
 , p.id
 ,( select top 1 codigo from dropeadores.TipoUbicacion)
 from gd_esquema.Maestra m
 join dropeadores.Publicacion p on(p.id=m.Espectaculo_Cod)
-
 					
+				/*Compra*/
+insert into dropeadores.Compra(factura,compra_tipo_documento,compra_numero_documento,compra_fecha,compra_cantidad,compra_ubicacionAsiento,compra_ubicacionFila,compra_ubicacionPublic,compra_precio)
+select  m.Factura_Nro,'DNI',m.Cli_Dni,m.Compra_Fecha, m.Compra_Cantidad, m.Ubicacion_Asiento,m.Ubicacion_Fila,m.Espectaculo_Cod,tu.precio
+ from gd_esquema.Maestra m
+  join dropeadores.Ubicacion u on u.asiento = m.Ubicacion_Asiento and 
+  m.Ubicacion_Fila = u.fila and u.publicacionId = m.Espectaculo_Cod
+ join dropeadores.TipoUbicacion tu on(tu.codigo=m.Ubicacion_Tipo_Codigo)
+where (m.Compra_Fecha is not null) and (m.Factura_Fecha is not null)
 
 
 								/*************************************************************/	
@@ -737,7 +747,6 @@ begin
 end
 
 ------------------
-USE [GD2C2018]
 GO
 SET ANSI_NULLS ON
 GO
@@ -971,7 +980,6 @@ AS
 
 ------------------------
 
-USE [GD2C2018]
 GO
 /****** Object:  StoredProcedure [dropeadores].[updateTarjetaCliente]    Script Date: 10/12/2018 23:56:51 ******/
 SET ANSI_NULLS ON
@@ -1164,8 +1172,6 @@ VALUES (@tipoDoc,@nroDoc,GETDATE(),@tarjetaID,@cant,@precio)
 END
 
 ------------------------
-
-USE [GD2C2018]
 GO
 /****** Object:  StoredProcedure [dropeadores].[ObtenerClienteEspecifico]    Script Date: 11/12/2018 23:06:15 ******/
 SET ANSI_NULLS ON

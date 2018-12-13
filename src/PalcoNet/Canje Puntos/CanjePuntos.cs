@@ -41,36 +41,70 @@ namespace PalcoNet.Canje_Puntos
 			//tener en cuenta que los premios tienen su puntaje,
 			//por ende el cliente segun sus puntos es el premio que le corresponde.
 			DataTable dtPremios = new DataTable();
-			//dtPremios = dao.ConsultarConQuery("select distinct p.Id as IdPremio,p.descripcion as Descripcion,PuntosVigentes,p.puntos as Puntos,FechaVencimiento from dropeadores.Puntos pu, " +
-			//" dropeadores.Premio p where Id_Cliente =" + userLogueado.cliente.Id_Cliente +
-			//" and pu.PuntosVigentes > p.puntos and FechaVencimiento > '" + fechaDelSistema + "' ");
-			DataRow rowPremios = dtPremios.Rows[0];
-			premio.Id = int.Parse(rowPremios["IdPremio"].ToString());
-			premio.puntos = int.Parse(rowPremios["Puntos"].ToString());
-			premio.descripcion = rowPremios["Descripcion"].ToString();
+			string query = "select distinct p.Id as IdPremio,p.descripcion as Descripcion,PuntosVigentes,p.puntos as Puntos,FechaVencimiento from dropeadores.Puntos pu, " +
+			" dropeadores.Premio p where Id_Cliente =" + userLogueado.cliente.numeroDocumento +
+			" and pu.PuntosVigentes > p.puntos and FechaVencimiento > '" + fechaDelSistema + "' ";
+			dtPremios = dao.ConsultarConQuery(query);
+			if(dtPremios.Rows.Count<=0)
+			{
+				
+				MessageBox.Show("No existen puntos asociados al cliente.", "Error al cargar los puntos",
+								MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			else
+			{
+				DataRow rowPremios = dtPremios.Rows[0];
+				premio.Id = int.Parse(rowPremios["IdPremio"].ToString());
+				premio.puntos = int.Parse(rowPremios["Puntos"].ToString());
+				premio.descripcion = rowPremios["Descripcion"].ToString();
+				CargarData.cargarComboBox(cbxPremios, dtPremios, "Puntos", "descripcion");
 
-			CargarData.cargarComboBox(cbxPremios, dtPremios, "Puntos", "descripcion");
+			}
+
 
 			DataTable dtcli = new DataTable();
-			//dtcli = dao.ConsultarConQuery("select Cli_Nombre,Cli_Apeliido,Cli_Dni from dbo.Clientes where Id_Cliente= " + userLogueado.cliente.Id_Cliente);
-			//DataRow rowcli = dtcli.Rows[0];
-			//cliente.Cli_Nombre = rowcli["Cli_Nombre"].ToString();
-			//cliente.Cli_Apellido = rowcli["Cli_Apeliido"].ToString();
-			//cliente.Cli_Dni = int.Parse(rowcli["Cli_Dni"].ToString());
-			//lblCliente.Text = cliente.Cli_Nombre + " " + cliente.Cli_Apellido;
-			//lblDniCli.Text = cliente.Cli_Dni.ToString();
+			dtcli = dao.ConsultarConQuery("select nombre,apellido,NumeroDocumento from dropeadores.Cliente where NumeroDocumento= " + userLogueado.cliente.numeroDocumento);
+			DataRow rowcli = dtcli.Rows[0];
+			cliente.nombre = rowcli["nombre"].ToString();
+			cliente.apellido = rowcli["apellido"].ToString();
+			cliente.numeroDocumento = int.Parse(rowcli["NumeroDocumento"].ToString());
+			lblCliente.Text = cliente.nombre + " " + cliente.apellido;
+			lblDniCli.Text = cliente.numeroDocumento.ToString();
 		}
 
 		private void btnCanjear_Click(object sender, EventArgs e)
 		{
 			Puntos p = new Puntos();
 			int puntosVigentesActuales = 0;
-			//Premio.punto son los puntos seleccionados del cbx.
-			premio.puntos = int.Parse(cbxPremios.SelectedValue.ToString());
-			//p.actualizarPuntaje(userLogueado.cliente.Id_Cliente, premio.puntos, premio.Id);
-			//puntosVigentesActuales = puntos.consultarPuntosVigentes(fechaDelSistema, userLogueado.cliente.Id_Cliente);
-			lblPuntosVigentes.Text = puntosVigentesActuales.ToString();
-			lblPuntosActuales.Text = puntosVigentesActuales.ToString();
+			if(int.Parse(lblPuntosACanjear.Text) < int.Parse(lblPuntosVigentes.Text))
+			{
+				//Premio.punto son los puntos seleccionados del cbx.
+				premio.puntos = int.Parse(cbxPremios.SelectedValue.ToString());
+				p.actualizarPuntaje(userLogueado.cliente.numeroDocumento, premio.puntos, premio.Id, int.Parse(lblPuntosVigentes.Text.ToString()));
+				puntosVigentesActuales = puntos.consultarPuntosVigentes(fechaDelSistema, userLogueado.cliente.numeroDocumento);
+				lblPuntosVigentes.Text = puntosVigentesActuales.ToString();
+				lblPuntosActuales.Text = puntosVigentesActuales.ToString();
+			}
+			else
+			{
+				MessageBox.Show("El premio elegido excede los puntos vigentes.", "Error al canjear los puntos",
+								MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		
+		}
+		private void cbxPremios_Change(object sender, EventArgs e)
+		{
+			lblPuntosACanjear.Visible = true;
+			lblPuntosACanjear.Text = cbxPremios.SelectedValue.ToString();
+		}
+		private void groupBox1_Enter(object sender, EventArgs e)
+		{
+
+		}
+
+		private void btnVolver_Click(object sender, EventArgs e)
+		{
+			this.Hide();
 		}
 	}
 }

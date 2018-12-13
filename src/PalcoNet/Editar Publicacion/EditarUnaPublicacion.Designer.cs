@@ -60,6 +60,12 @@
 			this.lblEmpresa = new System.Windows.Forms.Label();
 			this.btnEditUbicacion = new System.Windows.Forms.Button();
 			this.button2 = new System.Windows.Forms.Button();
+			this.btnPrecioPorCategoria = new System.Windows.Forms.Button();
+			this.lblTextoCategoria = new System.Windows.Forms.Label();
+			this.textPrecio = new System.Windows.Forms.TextBox();
+			this.lblPrecio = new System.Windows.Forms.Label();
+			this.lblCategoria = new System.Windows.Forms.Label();
+			this.comboCategoria = new System.Windows.Forms.ComboBox();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
@@ -371,12 +377,78 @@
 			this.button2.UseVisualStyleBackColor = true;
 			this.button2.Click += new System.EventHandler(this.button2_Click);
 			// 
+			// btnPrecioPorCategoria
+			// 
+			this.btnPrecioPorCategoria.Location = new System.Drawing.Point(196, 471);
+			this.btnPrecioPorCategoria.Name = "btnPrecioPorCategoria";
+			this.btnPrecioPorCategoria.Size = new System.Drawing.Size(190, 38);
+			this.btnPrecioPorCategoria.TabIndex = 116;
+			this.btnPrecioPorCategoria.Text = "Guardar Precio";
+			this.btnPrecioPorCategoria.UseVisualStyleBackColor = true;
+			this.btnPrecioPorCategoria.Visible = false;
+			// 
+			// lblTextoCategoria
+			// 
+			this.lblTextoCategoria.AutoSize = true;
+			this.lblTextoCategoria.Font = new System.Drawing.Font("Raleway", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblTextoCategoria.Location = new System.Drawing.Point(64, 368);
+			this.lblTextoCategoria.Name = "lblTextoCategoria";
+			this.lblTextoCategoria.Size = new System.Drawing.Size(401, 22);
+			this.lblTextoCategoria.TabIndex = 113;
+			this.lblTextoCategoria.Text = "El precio de las ubicaciones es por categoria.";
+			this.lblTextoCategoria.Visible = false;
+			// 
+			// textPrecio
+			// 
+			this.textPrecio.Font = new System.Drawing.Font("Raleway", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.textPrecio.Location = new System.Drawing.Point(392, 414);
+			this.textPrecio.Name = "textPrecio";
+			this.textPrecio.Size = new System.Drawing.Size(89, 31);
+			this.textPrecio.TabIndex = 115;
+			this.textPrecio.Visible = false;
+			// 
+			// lblPrecio
+			// 
+			this.lblPrecio.AutoSize = true;
+			this.lblPrecio.Font = new System.Drawing.Font("Raleway", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblPrecio.Location = new System.Drawing.Point(314, 417);
+			this.lblPrecio.Name = "lblPrecio";
+			this.lblPrecio.Size = new System.Drawing.Size(72, 24);
+			this.lblPrecio.TabIndex = 114;
+			this.lblPrecio.Text = "Precio:";
+			this.lblPrecio.Visible = false;
+			// 
+			// lblCategoria
+			// 
+			this.lblCategoria.AutoSize = true;
+			this.lblCategoria.Location = new System.Drawing.Point(40, 414);
+			this.lblCategoria.Name = "lblCategoria";
+			this.lblCategoria.Size = new System.Drawing.Size(104, 24);
+			this.lblCategoria.TabIndex = 112;
+			this.lblCategoria.Text = "Categoria:";
+			this.lblCategoria.Visible = false;
+			// 
+			// comboCategoria
+			// 
+			this.comboCategoria.FormattingEnabled = true;
+			this.comboCategoria.Location = new System.Drawing.Point(150, 415);
+			this.comboCategoria.Name = "comboCategoria";
+			this.comboCategoria.Size = new System.Drawing.Size(143, 32);
+			this.comboCategoria.TabIndex = 111;
+			this.comboCategoria.Visible = false;
+			// 
 			// btnEditPublic
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 24F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.Silver;
 			this.ClientSize = new System.Drawing.Size(1070, 607);
+			this.Controls.Add(this.btnPrecioPorCategoria);
+			this.Controls.Add(this.lblTextoCategoria);
+			this.Controls.Add(this.textPrecio);
+			this.Controls.Add(this.lblPrecio);
+			this.Controls.Add(this.lblCategoria);
+			this.Controls.Add(this.comboCategoria);
 			this.Controls.Add(this.button2);
 			this.Controls.Add(this.btnEditUbicacion);
 			this.Controls.Add(this.lblEmpresa);
@@ -452,5 +524,11 @@
 		private System.Windows.Forms.Label lblEmpresa;
 		private System.Windows.Forms.Button btnEditUbicacion;
 		private System.Windows.Forms.Button button2;
+		private System.Windows.Forms.Button btnPrecioPorCategoria;
+		private System.Windows.Forms.Label lblTextoCategoria;
+		private System.Windows.Forms.TextBox textPrecio;
+		private System.Windows.Forms.Label lblPrecio;
+		private System.Windows.Forms.Label lblCategoria;
+		private System.Windows.Forms.ComboBox comboCategoria;
 	}
 }

@@ -283,7 +283,7 @@ namespace PalcoNet.VentanasPorRol
 		}
 		private void historialCliente_Click(object sender, EventArgs e)
 		{
-			HistorialCliente histCli = new HistorialCliente();
+			HistorialCliente histCli = new HistorialCliente(userLog);
 			histCli.FormClosed += new FormClosedEventHandler(mostrarlogoAlCerrarForm);
 			AbrirFormInPanel(histCli);
 			//histCli.Show();

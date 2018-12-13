@@ -58,7 +58,7 @@
 			// lblCantAVencer
 			// 
 			this.lblCantAVencer.AutoSize = true;
-			this.lblCantAVencer.Location = new System.Drawing.Point(302, 431);
+			this.lblCantAVencer.Location = new System.Drawing.Point(224, 431);
 			this.lblCantAVencer.Name = "lblCantAVencer";
 			this.lblCantAVencer.Size = new System.Drawing.Size(0, 17);
 			this.lblCantAVencer.TabIndex = 27;
@@ -66,7 +66,7 @@
 			// lblVencimientoProximo
 			// 
 			this.lblVencimientoProximo.AutoSize = true;
-			this.lblVencimientoProximo.Location = new System.Drawing.Point(414, 393);
+			this.lblVencimientoProximo.Location = new System.Drawing.Point(293, 393);
 			this.lblVencimientoProximo.Name = "lblVencimientoProximo";
 			this.lblVencimientoProximo.Size = new System.Drawing.Size(0, 17);
 			this.lblVencimientoProximo.TabIndex = 26;
@@ -74,7 +74,7 @@
 			// lblPuntosActuales
 			// 
 			this.lblPuntosActuales.AutoSize = true;
-			this.lblPuntosActuales.Location = new System.Drawing.Point(176, 351);
+			this.lblPuntosActuales.Location = new System.Drawing.Point(137, 351);
 			this.lblPuntosActuales.Name = "lblPuntosActuales";
 			this.lblPuntosActuales.Size = new System.Drawing.Size(0, 17);
 			this.lblPuntosActuales.TabIndex = 25;
@@ -105,6 +105,7 @@
 			this.btnVolver.TabIndex = 21;
 			this.btnVolver.Text = "Volver";
 			this.btnVolver.UseVisualStyleBackColor = true;
+			this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
 			// 
 			// lblPuntos
 			// 
@@ -161,11 +162,12 @@
 			this.groupBox1.TabIndex = 22;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Canje de Puntos";
+			this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
 			// 
 			// lblPuntosACanjear
 			// 
 			this.lblPuntosACanjear.AutoSize = true;
-			this.lblPuntosACanjear.Location = new System.Drawing.Point(760, 143);
+			this.lblPuntosACanjear.Location = new System.Drawing.Point(716, 140);
 			this.lblPuntosACanjear.Name = "lblPuntosACanjear";
 			this.lblPuntosACanjear.Size = new System.Drawing.Size(0, 17);
 			this.lblPuntosACanjear.TabIndex = 15;
@@ -173,7 +175,7 @@
 			// label9
 			// 
 			this.label9.AutoSize = true;
-			this.label9.Location = new System.Drawing.Point(595, 143);
+			this.label9.Location = new System.Drawing.Point(589, 140);
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(121, 17);
 			this.label9.TabIndex = 14;
@@ -182,7 +184,7 @@
 			// lblDniCli
 			// 
 			this.lblDniCli.AutoSize = true;
-			this.lblDniCli.Location = new System.Drawing.Point(404, 39);
+			this.lblDniCli.Location = new System.Drawing.Point(395, 39);
 			this.lblDniCli.Name = "lblDniCli";
 			this.lblDniCli.Size = new System.Drawing.Size(0, 17);
 			this.lblDniCli.TabIndex = 13;
@@ -199,7 +201,7 @@
 			// lblPuntosVigentes
 			// 
 			this.lblPuntosVigentes.AutoSize = true;
-			this.lblPuntosVigentes.Location = new System.Drawing.Point(187, 82);
+			this.lblPuntosVigentes.Location = new System.Drawing.Point(147, 82);
 			this.lblPuntosVigentes.Name = "lblPuntosVigentes";
 			this.lblPuntosVigentes.Size = new System.Drawing.Size(0, 17);
 			this.lblPuntosVigentes.TabIndex = 11;
@@ -207,7 +209,7 @@
 			// lblCliente
 			// 
 			this.lblCliente.AutoSize = true;
-			this.lblCliente.Location = new System.Drawing.Point(108, 39);
+			this.lblCliente.Location = new System.Drawing.Point(83, 39);
 			this.lblCliente.Name = "lblCliente";
 			this.lblCliente.Size = new System.Drawing.Size(0, 17);
 			this.lblCliente.TabIndex = 9;
@@ -252,10 +254,11 @@
 			// cbxPremios
 			// 
 			this.cbxPremios.FormattingEnabled = true;
-			this.cbxPremios.Location = new System.Drawing.Point(221, 140);
+			this.cbxPremios.Location = new System.Drawing.Point(183, 143);
 			this.cbxPremios.Name = "cbxPremios";
 			this.cbxPremios.Size = new System.Drawing.Size(353, 24);
 			this.cbxPremios.TabIndex = 6;
+			this.cbxPremios.SelectedIndexChanged += new System.EventHandler(this.cbxPremios_Change);
 			// 
 			// CanjePuntos
 			// 

@@ -77,10 +77,20 @@ namespace Modelo.Dominio
 		{
 			DaoSP dao = new DaoSP();
 			DataTable dtPuntos = new DataTable();
-			dtPuntos = dao.ConsultarConQuery("select top 1 PuntosVigentes from dropeadores.Puntos where PuntosVigentes>0 and numeroDocumento =" + IdCliente
-				+ "and FechaVencimiento > '" + fechaDelSistema + "'");
-			DataRow rowPuntos = dtPuntos.Rows[0];
-			this.PuntosVigentes = int.Parse(rowPuntos["PuntosVigentes"].ToString());
+			string query = "select top 1 PuntosVigentes from dropeadores.Puntos where PuntosVigentes>0 and Id_Cliente =" + IdCliente
+				+ " and FechaVencimiento > '" + fechaDelSistema + "'";
+			dtPuntos = dao.ConsultarConQuery(query);
+			if(dtPuntos.Rows.Count<=0)
+			{
+				this.PuntosVigentes = 0;
+
+			}
+			else
+			{
+				DataRow rowPuntos = dtPuntos.Rows[0];
+				this.PuntosVigentes = int.Parse(rowPuntos["PuntosVigentes"].ToString());
+			}
+			
 			return this.PuntosVigentes;
 		}
 	}
