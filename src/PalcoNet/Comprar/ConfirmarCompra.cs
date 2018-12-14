@@ -19,6 +19,7 @@ namespace PalcoNet.Comprar
         Usuario usuario = new Usuario();
         Cliente cliente = new Cliente();
         ConfigGlobal fech = new ConfigGlobal();
+        int IDtarjeta = 0;
 
 
         public ConfirmarCompra(List<Ubicacion> ubicacSeleccionadas, Usuario user)
@@ -30,11 +31,12 @@ namespace PalcoNet.Comprar
             DataTable dt = new DataTable();
             string medioDePago = "";
             InitializeComponent();
-            dt = tj.ConsultarConQuery("select t.descripcion as 'tipoTarjeta' from dropeadores.Cliente c join dropeadores.TarjetaCredito t on (t.clieteId=c.numeroDocumento) where c.numeroDocumento=" + usuario.cliente.numeroDocumento);
+            dt = tj.ConsultarConQuery("select t.descripcion as 'tipoTarjeta',Id as 'Id' from dropeadores.Cliente c join dropeadores.TarjetaCredito t on (t.clieteId=c.numeroDocumento) where c.numeroDocumento=" + usuario.cliente.numeroDocumento);
             
             foreach (DataRow row in dt.Rows)
             {
                 medioDePago = Convert.ToString(row["tipoTarjeta"]);
+                IDtarjeta = Convert.ToInt32(row["Id"]);
             }
             labelMedioPago.Text = medioDePago.ToString();
         }
@@ -66,12 +68,14 @@ namespace PalcoNet.Comprar
             lblImporte.Text = Convert.ToString(precioTotal);
             return 0;
         }
-        private void calcularPuntos()
+        private void calcularPuntos(int idCompra)
         {
             DaoSP dao = new DaoSP();
             int puntos = 5;
-            if (dao.EjecutarSP("dropeadores.insertPuntos", puntos, usuario.cliente.numeroDocumento, fech.getFechaSistema()) > 0)
+
+            if (dao.EjecutarSP("dropeadores.insertPuntos", puntos,idCompra, usuario.cliente.numeroDocumento, fech.getFechaSistema()) > 0)
             {
+                MessageBox.Show("Los puntos fueron realizada con éxito");
 
             }
         }
@@ -79,9 +83,12 @@ namespace PalcoNet.Comprar
         {
             cargarTabla();
            int x = calcularPrecio();
-           calcularPuntos();
+          
         }
-
+        private void bajaUbicacion()
+        {
+           
+        }
         private void label6_Click(object sender, EventArgs e)
         {
 
@@ -117,12 +124,28 @@ namespace PalcoNet.Comprar
             }
 
             int cantidadUbicacionesCompradas = ubicacionesSeleccionadas.Count;
-            if (tj.EjecutarSP("dropeadores.InsertCompra", tipoDoc, nroDoc, fech.getFechaSistema(), cantidadUbicacionesCompradas, lblImporte.Text) > 0)
+            DaoSP dao = new DaoSP();
+            foreach (DataGridViewRow row in dataGridViewCompra.Rows)
             {
-                //crear insert
-                MessageBox.Show("La compra fue realizada con éxito");
-        
+                string fila = row.Cells[0].Value.ToString();
+               int asiento = Convert.ToInt32(row.Cells[1].Value.ToString());
+                string publicacionID = row.Cells[5].Value.ToString();
+                dt = dao.ObtenerDatosSP("dropeadores.updateUbicacion", publicacionID, fila, asiento);
+                int IDubic = dao.EjecutarSP("dropeadores.getUbicacion", publicacionID, fila, asiento);
+                if (dao.EjecutarSP("dropeadores.InsertCompra", tipoDoc, nroDoc, fech.getFechaSistema(), IDtarjeta, cantidadUbicacionesCompradas, lblImporte.Text, IDubic) > 0)
+                {
+                    int IDcompra = dao.EjecutarSP("dropeadores.obtenerIDcompra", tipoDoc, nroDoc, fech.getFechaSistema(), IDtarjeta, cantidadUbicacionesCompradas, lblImporte.Text, IDubic);
+                    //DataRow row = dt.Rows[0];
+                    //int idCompra = int.Parse(row["Id"].ToString());
+                    calcularPuntos(IDcompra);
+                    dt = tj.ObtenerDatosSP("dropeadores.updatePuntos", usuario.cliente.numeroDocumento);
+                    //bajaUbicacion();
+                    MessageBox.Show("La compra fue realizada con éxito");
+
+                }
+
             }
+
 
          
 
