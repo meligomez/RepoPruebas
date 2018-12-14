@@ -16,26 +16,27 @@ namespace PalcoNet.Comprar
     public partial class ComprarPPAL : Form
     {
 
-        private int paginaActual;
         private bool CategoriaCargada;
         private bool UbicacionCargada;
         private DateTime fecDesde, fecHasta;
         List<String> listaCategorias = new List<String>();
-        List<String> IDSeleccionados;
+        List<Ubicacion> ubicacionesSeleccionadas = new List<Ubicacion>();
         List<String> IDs = new List<String>();
         ConfigGlobal fech = new ConfigGlobal();
-        Usuario usuario;
+        Usuario usuario = new Usuario();
 
 
         public ComprarPPAL(Usuario user)
         {
             InitializeComponent();
+            
             usuario = user;
+            string medioDePago = "";
+            usuario.cliente.numeroDocumento = 35550990;
             DaoSP tj = new DaoSP();
             DataTable dt = new DataTable();
-            string medioDePago = "";
-            //dt = tj.ConsultarConQuery("select t.tipo as 'tipoTarjeta' from dropeadores.Cliente c join dropeadores.TarjetaCredito t on (t.clieteId=c.numeroDocumento) where c.numeroDocumento=" + usuario.cliente.numeroDocumento);
-            dt = tj.ConsultarConQuery("select * from dropeadores.Cliente c left join dropeadores.TarjetaCredito t on (t.clieteId=c.numeroDocumento)");
+            dt = tj.ConsultarConQuery("select t.descripcion as 'tipoTarjeta' from dropeadores.Cliente c join dropeadores.TarjetaCredito t on (t.clieteId=c.numeroDocumento) where c.numeroDocumento=" + usuario.cliente.numeroDocumento);
+            //dt = tj.ConsultarConQuery("select * from dropeadores.Cliente c left join dropeadores.TarjetaCredito t on (t.clieteId=c.numeroDocumento)");
             
             foreach (DataRow row in dt.Rows)
             {
@@ -63,43 +64,6 @@ namespace PalcoNet.Comprar
 
         }
 
-        private void buttonCategoria_Click(object sender, EventArgs e)
-        {
-            ComprarPPAL comprar = this;
-            SeleccionCategorias cate = new SeleccionCategorias(labelCategorias.Text, comprar);
-            cate.Show();
-        }
-
-
-        private void btnBuscar_Click(object sender, EventArgs e)
-        {
-
-
-            if (dateTimePickerDesde.Value.Date > dateTimePickerHasta.Value.Date)
-            {
-                MessageBox.Show("La segunda fecha no puede ser inferior a la primera \nFECHA 1:" + dateTimePickerDesde.Text + "\nFECHA 2:" + dateTimePickerHasta.Text);
-                return;
-            }
-            DateTime hoy = DateTime.Today;
-            if (hoy > dateTimePickerDesde.Value.Date)
-            {
-                MessageBox.Show("La fecha inicial no puede ser menor que la actual");
-                return;
-            }
-
-
-            DataTable respuesta = FiltrarPublicacion(labelCategorias.Text, textDescripcion.Text, dateTimePickerDesde.Value, dateTimePickerHasta.Value, listaCategorias);
-            dataGridViewCompras.DataSource = respuesta;
-            if (dataGridViewCompras.CurrentRow == null)
-            {
-
-                MessageBox.Show("La empresa requerida no se encuentra.", "Baja de Empresa",
-                   MessageBoxButtons.OK);
-
-                cargarTabla();
-            }
-
-        }
 
 
         private void cargarTabla()
@@ -108,6 +72,8 @@ namespace PalcoNet.Comprar
             DaoSP prueba = new DaoSP();
 
             CargarData.cargarGridView(dataGridViewCompras, prueba.ObtenerDatosSP("dropeadores.getTablaPublicacion", fech.getFechaSistema()));
+
+            CargarData.AddButtonSeleccionar(dataGridViewCompras);
         }
 
         private DataTable FiltrarPublicacion(string CatElegidas, string descripcion, DateTime fechaDesde, DateTime fechaHasta, List<String> listaCat)
@@ -232,28 +198,110 @@ namespace PalcoNet.Comprar
            
             if (dataGridViewCompras.CurrentRow == null)
             {
-                MessageBox.Show("Seleccione una compra a modificar.",
+                MessageBox.Show("Seleccione la ubicacion del espectaculo que desea comprar.",
                 "", MessageBoxButtons.OK);
                 return;
             }
-            string cuit = dataGridViewCompras.CurrentRow.Cells["CUIT"].Value.ToString();
-            DialogResult dr = MessageBox.Show("Desea realizar la siguiente compra?", "", MessageBoxButtons.YesNo);
+           // string cuit = dataGridViewCompras.CurrentRow.Cells["CUIT"].Value.ToString();
+            DialogResult dr = MessageBox.Show("Seguro que desea realizar la compra?", "", MessageBoxButtons.YesNo);
             switch (dr)
             {
                 case DialogResult.Yes:
-                    ConfirmarCompra(cuit);
+                    ConfirmarCompra(ubicacionesSeleccionadas);
                     break;
                 case DialogResult.No: break;
             }
 
         }
-        private void ConfirmarCompra(string cuit)
+        private void ConfirmarCompra(List<Ubicacion> ubicSeleccionadas)
         {
             this.Hide();
-            new ConfirmarCompra(cuit).Show();
+            new ConfirmarCompra(ubicSeleccionadas,usuario).Show();
 
         }
 
+        private void buttonCategoria_Click_1(object sender, EventArgs e)
+        {
+            ComprarPPAL comprar = this;
+            SeleccionCategorias cate = new SeleccionCategorias(labelCategorias.Text, comprar);
+            cate.Show();
+        }
+
+        private void btnBuscar_Click_1(object sender, EventArgs e)
+        {
+
+            if (dateTimePickerDesde.Value.Date > dateTimePickerHasta.Value.Date)
+            {
+                MessageBox.Show("La segunda fecha no puede ser inferior a la primera \nFECHA 1:" + dateTimePickerDesde.Text + "\nFECHA 2:" + dateTimePickerHasta.Text);
+                return;
+            }
+            DateTime hoy = DateTime.Today;
+            if (hoy > dateTimePickerDesde.Value.Date)
+            {
+                MessageBox.Show("La fecha inicial no puede ser menor que la actual");
+                return;
+            }
+
+
+            DataTable respuesta = FiltrarPublicacion(labelCategorias.Text, textDescripcion.Text, dateTimePickerDesde.Value, dateTimePickerHasta.Value, listaCategorias);
+            dataGridViewCompras.DataSource = respuesta;
+            if (dataGridViewCompras.CurrentRow == null)
+            {
+
+                MessageBox.Show("La empresa requerida no se encuentra.", "Baja de Empresa",
+                   MessageBoxButtons.OK);
+
+                cargarTabla();
+            }
+
+
+        }
+
+        private void dataGridViewCompras_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            Cliente cliente = new Cliente();
+            var senderGrid = (DataGridView)sender;
+
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
+                e.RowIndex >= 0)
+            {
+                string descripcion = dataGridViewCompras.CurrentRow.Cells["DESCRIPCION"].Value.ToString();
+                string fila = dataGridViewCompras.CurrentRow.Cells["FILA"].Value.ToString();
+                string asiento = dataGridViewCompras.CurrentRow.Cells["ASIENTO"].Value.ToString();
+                string precio = dataGridViewCompras.CurrentRow.Cells["PRECIO"].Value.ToString();
+                DialogResult dr = MessageBox.Show("Desea seleccionar el espectaculo" + descripcion + " con la fila " + fila + " asiento " + asiento +  "?",
+                "", MessageBoxButtons.YesNo);
+                switch (dr)
+                {
+                    case DialogResult.Yes:
+                       if (dataGridViewCompras.Rows.Count != 0)
+                        {
+                            String ID = dataGridViewCompras.CurrentRow.Cells["CODIGO"].Value.ToString();
+                            Ubicacion ubicacion = new Ubicacion();
+                            ubicacion.publicacionId = Convert.ToInt32(ID);
+                            ubicacion.fila = Convert.ToChar(fila);
+                            ubicacion.asiento = Convert.ToInt32(asiento);
+                            ubicacion.precio = Convert.ToDouble(precio);
+                            ubicacionesSeleccionadas.Add(ubicacion);
+                            cliente.numeroDocumento = usuario.cliente.numeroDocumento;
+                            MessageBox.Show("La ubicación con ID " + ID + " fue añadida");
+                            int rowindex = dataGridViewCompras.CurrentCell.RowIndex;
+                            dataGridViewCompras.Rows.RemoveAt(rowindex);
+                        }
+                        break;
+
+                    case DialogResult.No:
+                        break;
+                }
+
+            }
+
+        }
+
+        private void groupBox1_Enter_1(object sender, EventArgs e)
+        {
+
+        }
 
     }
 }

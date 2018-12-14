@@ -125,7 +125,33 @@ namespace Modelo.Dominio
 			return cant;
 
 		}
-	}
+
+        public static int updateTarj(Cliente cli)
+        {
+            DataTable dt, dr = new DataTable();
+            DaoSP dao = new DaoSP();
+            string propietarioTar = cli.Cli_Tar.propietario;
+            string numeroTar = cli.Cli_Tar.numero;
+            DateTime fecha_vencimiento = cli.Cli_Tar.fechaVencimiento;
+            string descripcion = cli.Cli_Tar.descripcion;
+            int numeroDocumento = cli.numeroDocumento;
+
+            if (dao.EjecutarSP("dropeadores.asociarTarjetaCliente", numeroDocumento, propietarioTar, numeroTar, fecha_vencimiento, descripcion) > 0)
+            {
+
+                return 0;
+
+            }
+            else
+            {
+
+                return 1;
+
+            }
+  
+       
+        }
+    }
 
 
 }

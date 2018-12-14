@@ -51,6 +51,7 @@
     <Compile Include="Comun\IEliminadoSuave.cs" />
     <Compile Include="Comun\MensajesToolTip.cs" />
     <Compile Include="Comun\Seguridad.cs" />
+    <Compile Include="Dominio\medioPago.cs" />
     <Compile Include="Dominio\Compra.cs" />
     <Compile Include="Dominio\Documento.cs" />
     <Compile Include="Dominio\Empresa.cs" />

@@ -281,17 +281,21 @@ premioId int not null references dropeadores.Premio)
 --Create table dropeadores.Factura(
 --Numero int primary key not null,
 --Fecha datetime,
---Total decimal(10,2),
---Empresa_Id nvarchar(255) not null references dropeadores.Empresa
+--Total decimal(14,2),
+--FormaDePago nvarchar(255)
+--Cliente_Id numeric(18,0) references dropeadores.Cliente
+--Empresa_Id nvarchar(255) references dropeadores.Empresa
 ----,Forma_Pago int not null references dropeadores.FormaPago
 --)
 
 --create table dropeadores.Item_Factura(
 --Id int primary key not null identity,
 --Cantidad int default 1,
---Monto decimal(10,2),
---Compra_Id int not null references dropeadores.Compra,
---Factura_Id int not null references dropeadores.Factura
+--Monto decimal(16,2),
+--descripcion nvarchar(60)
+--Espectaculo_Id numeric(18,0)
+--Compra_Id int  references dropeadores.Compra,
+--Factura_Id int  references dropeadores.Factura
 --)
 
 
@@ -1478,6 +1482,55 @@ AS
 
 
 --------------------------
+
+
+USE [GD2C2018]
+GO
+/****** Object:  StoredProcedure [dropeadores].[getTablaPublicacion]    Script Date: 13/12/2018 20:48:47 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dropeadores].[getTablaPublicacion]
+	 @fechaSistema datetime
+	 
+AS
+	BEGIN
+	 
+ 		select p.id as 'CODIGO', p.descripcion as 'DESCRIPCION', p.fechaEspectaculo, p.direccion as 'DIRECCION', u.fila as 'FILA', u.asiento as 'ASIENTO',rubro_Descripcion as 'RUBRO_DESCRIPCION' FROM dropeadores.Publicacion p 
+		join dropeadores.Ubicacion u on (u.publicacionId = p.id)
+		join dropeadores.Grado g on(g.id=p.gradoId)
+		join dropeadores.Rubro r on (r.id=p.rubroId)
+		where p.fechaPublicacion >= @fechaSistema and u.estado=1 and p.estado=1
+		order by g.porcentaje desc
+
+	END
+--------------------------------------------
+USE [GD2C2018]
+GO
+/****** Object:  StoredProcedure [dropeadores].[getPublicacion]    Script Date: 13/12/2018 12:27:30 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dropeadores].[getPublicacion]
+	 @fechaSistema datetime,
+	 @fechaDesde datetime,
+	 @fechaHasta datetime
+AS
+	BEGIN
+	 
+ 		SELECT p.id as 'CODIGO', p.descripcion as 'DESCRIPCION', p.fechaEspectaculo, p.direccion as 'DIRECCION', u.fila as 'FILA', u.asiento as 'ASIENTO',rubro_Descripcion as 'RUBRO_DESCRIPCION'  FROM dropeadores.Publicacion p 
+		join dropeadores.Ubicacion u on (u.publicacionId = p.id)
+		join dropeadores.Grado g on(g.id=p.gradoId)
+		join dropeadores.Rubro r on (r.id=p.rubroId)
+		where p.fechaPublicacion >=@fechaSistema and year(fechaPublicacion) between year(@fechaDesde) and year(@fechaHasta)
+		and MONTH(fechaPublicacion) between month(@fechaDesde) and month(@fechaHasta)
+		and DAY(fechaPublicacion) between day(@fechaDesde) and day(@fechaHasta)
+		order by g.porcentaje desc
+	END
+-----------------------------------------------
+
 
 
 -----------------------------------------------------------------------------------------------------

@@ -45,6 +45,7 @@
             this.button1.TabIndex = 100;
             this.button1.Text = "Agregar Categoria";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // btnBuscar
             // 
@@ -54,6 +55,7 @@
             this.btnBuscar.TabIndex = 99;
             this.btnBuscar.Text = "Agregar Categorias Elegidas";
             this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click_1);
             // 
             // dataGridViewCategoria
             // 

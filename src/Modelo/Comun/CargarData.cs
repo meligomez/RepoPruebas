@@ -132,5 +132,17 @@ namespace Modelo.Comun
             dataGrid.Columns.Add(btnEliminar);
             btnEliminar.DisplayIndex = 0;
         }
+
+        public static void AddButtonSeleccionar(DataGridView dataGrid)
+        {
+
+            DataGridViewButtonColumn btnSeleccionar = new DataGridViewButtonColumn();
+            btnSeleccionar.HeaderText = "Seleccionar";
+            btnSeleccionar.Name = "Seleccionar";
+            btnSeleccionar.Text = "Seleccionar";
+            btnSeleccionar.UseColumnTextForButtonValue = true;
+            dataGrid.Columns.Add(btnSeleccionar);
+            btnSeleccionar.DisplayIndex = 0;
+        }
 	}
 }

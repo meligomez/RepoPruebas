@@ -12,7 +12,10 @@ namespace Modelo.Dominio
 		public string propietario { get; set; }
 		public string numero { get; set; }
 		public DateTime fechaVencimiento { get; set; }
+        public string descripcion { get; set; }
 		public DateTime? fecha_vencimiento = null;
+
+        public static string[] string_tipo= new string[2] { "DEBITO", "CREDITO"};
 
 
 		public string Fecha_vencimiento

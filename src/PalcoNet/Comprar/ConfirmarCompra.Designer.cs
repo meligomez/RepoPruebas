@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfirmarCompra));
             this.label7 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewCompra = new System.Windows.Forms.DataGridView();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.labelMedioPago = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -39,7 +39,8 @@
             this.lblImporte = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.buttonPAGAR = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCompra)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,19 +54,19 @@
             this.label7.TabIndex = 124;
             this.label7.Text = "CONFIRMACIÓN COMPRAR";
             // 
-            // dataGridView1
+            // dataGridViewCompra
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToResizeColumns = false;
-            this.dataGridView1.AllowUserToResizeRows = false;
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(132, 112);
-            this.dataGridView1.MultiSelect = false;
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(743, 263);
-            this.dataGridView1.TabIndex = 125;
+            this.dataGridViewCompra.AllowUserToAddRows = false;
+            this.dataGridViewCompra.AllowUserToDeleteRows = false;
+            this.dataGridViewCompra.AllowUserToResizeColumns = false;
+            this.dataGridViewCompra.AllowUserToResizeRows = false;
+            this.dataGridViewCompra.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewCompra.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewCompra.Location = new System.Drawing.Point(132, 84);
+            this.dataGridViewCompra.MultiSelect = false;
+            this.dataGridViewCompra.Name = "dataGridViewCompra";
+            this.dataGridViewCompra.Size = new System.Drawing.Size(743, 263);
+            this.dataGridViewCompra.TabIndex = 125;
             // 
             // pictureBox3
             // 
@@ -81,7 +82,7 @@
             this.labelMedioPago.AutoSize = true;
             this.labelMedioPago.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.labelMedioPago.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelMedioPago.Location = new System.Drawing.Point(286, 424);
+            this.labelMedioPago.Location = new System.Drawing.Point(244, 379);
             this.labelMedioPago.MaximumSize = new System.Drawing.Size(200, 23);
             this.labelMedioPago.MinimumSize = new System.Drawing.Size(200, 23);
             this.labelMedioPago.Name = "labelMedioPago";
@@ -92,7 +93,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(43, 427);
+            this.label2.Location = new System.Drawing.Point(43, 383);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(149, 13);
             this.label2.TabIndex = 128;
@@ -100,17 +101,18 @@
             // 
             // btnNuevoMedioPago
             // 
-            this.btnNuevoMedioPago.Location = new System.Drawing.Point(132, 488);
+            this.btnNuevoMedioPago.Location = new System.Drawing.Point(84, 438);
             this.btnNuevoMedioPago.Name = "btnNuevoMedioPago";
             this.btnNuevoMedioPago.Size = new System.Drawing.Size(290, 42);
             this.btnNuevoMedioPago.TabIndex = 129;
             this.btnNuevoMedioPago.Text = "Asociar Medio de Pago";
             this.btnNuevoMedioPago.UseVisualStyleBackColor = true;
+            this.btnNuevoMedioPago.Click += new System.EventHandler(this.btnNuevoMedioPago_Click);
             // 
             // lblPuntos
             // 
             this.lblPuntos.AutoSize = true;
-            this.lblPuntos.Location = new System.Drawing.Point(728, 491);
+            this.lblPuntos.Location = new System.Drawing.Point(703, 438);
             this.lblPuntos.Name = "lblPuntos";
             this.lblPuntos.Size = new System.Drawing.Size(128, 13);
             this.lblPuntos.TabIndex = 133;
@@ -119,29 +121,41 @@
             // lblImporte
             // 
             this.lblImporte.AutoSize = true;
-            this.lblImporte.Location = new System.Drawing.Point(728, 427);
+            this.lblImporte.Location = new System.Drawing.Point(703, 389);
             this.lblImporte.Name = "lblImporte";
             this.lblImporte.Size = new System.Drawing.Size(135, 13);
             this.lblImporte.TabIndex = 132;
             this.lblImporte.Text = "suma de importes(readonly)";
+            this.lblImporte.Click += new System.EventHandler(this.lblImporte_Click);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(508, 491);
+            this.label6.Location = new System.Drawing.Point(508, 438);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(112, 13);
             this.label6.TabIndex = 131;
             this.label6.Text = "Puntos para el cliente:";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(570, 434);
+            this.label5.Location = new System.Drawing.Point(552, 389);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(68, 13);
             this.label5.TabIndex = 130;
             this.label5.Text = "Importe total:";
+            // 
+            // buttonPAGAR
+            // 
+            this.buttonPAGAR.Location = new System.Drawing.Point(833, 469);
+            this.buttonPAGAR.Name = "buttonPAGAR";
+            this.buttonPAGAR.Size = new System.Drawing.Size(131, 55);
+            this.buttonPAGAR.TabIndex = 134;
+            this.buttonPAGAR.Text = "PAGAR";
+            this.buttonPAGAR.UseVisualStyleBackColor = true;
+            this.buttonPAGAR.Click += new System.EventHandler(this.buttonPAGAR_Click);
             // 
             // ConfirmarCompra
             // 
@@ -149,6 +163,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(1006, 576);
+            this.Controls.Add(this.buttonPAGAR);
             this.Controls.Add(this.lblPuntos);
             this.Controls.Add(this.lblImporte);
             this.Controls.Add(this.label6);
@@ -157,12 +172,12 @@
             this.Controls.Add(this.labelMedioPago);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.pictureBox3);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dataGridViewCompra);
             this.Controls.Add(this.label7);
             this.Name = "ConfirmarCompra";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.ConfirmarCompra_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCompra)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -172,7 +187,7 @@
         #endregion
 
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridViewCompra;
         private System.Windows.Forms.PictureBox pictureBox3;
         public System.Windows.Forms.Label labelMedioPago;
         private System.Windows.Forms.Label label2;
@@ -181,5 +196,6 @@
         private System.Windows.Forms.Label lblImporte;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button buttonPAGAR;
     }
 }

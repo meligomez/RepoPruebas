@@ -69,6 +69,7 @@
             this.groupBox1.TabIndex = 125;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de la Publicacion";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter_1);
             // 
             // labelCategorias
             // 
@@ -91,6 +92,7 @@
             this.buttonCategoria.TabIndex = 99;
             this.buttonCategoria.Text = "Elegir categorias";
             this.buttonCategoria.UseVisualStyleBackColor = true;
+            this.buttonCategoria.Click += new System.EventHandler(this.buttonCategoria_Click_1);
             // 
             // label8
             // 
@@ -180,6 +182,7 @@
             this.btnBuscar.TabIndex = 115;
             this.btnBuscar.Text = "BUSCAR";
             this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click_1);
             // 
             // dataGridViewCompras
             // 
@@ -189,6 +192,7 @@
             this.dataGridViewCompras.RowTemplate.Height = 24;
             this.dataGridViewCompras.Size = new System.Drawing.Size(953, 236);
             this.dataGridViewCompras.TabIndex = 116;
+            this.dataGridViewCompras.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCompras_CellContentClick_1);
             // 
             // buttonPAGAR
             // 

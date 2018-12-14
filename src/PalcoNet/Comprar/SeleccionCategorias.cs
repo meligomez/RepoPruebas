@@ -46,7 +46,12 @@ namespace PalcoNet.Comprar
         }
 
 
-        private void button1_Click(object sender, EventArgs e)
+        private void labelCategorias_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
         {
             int rowindex = dataGridViewCategoria.CurrentCell.RowIndex;
             int columnindex = dataGridViewCategoria.CurrentCell.ColumnIndex;
@@ -66,14 +71,10 @@ namespace PalcoNet.Comprar
             dataGridViewCategoria.Rows.RemoveAt(rowindex);
         }
 
-        private void btnBuscar_Click(object sender, EventArgs e)
+        private void btnBuscar_Click_1(object sender, EventArgs e)
         {
             compras.CompletarCategoríasSeleccionadas(lista);
             this.Close();
-        }
-
-        private void labelCategorias_Click(object sender, EventArgs e)
-        {
 
         }
     }
