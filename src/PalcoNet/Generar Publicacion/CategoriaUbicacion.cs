@@ -794,7 +794,9 @@ namespace PalcoNet.Generar_Publicacion
 								ubicacion1.asiento = int.Parse(numero);
 								ubicacion1.fila = cComponente2.Name[0];
 								//dado una descripcion me devuelva su id 
-								ubicacion1.tipoUbicacionId= tiposDeUbicacionPorPublicacion.First(unTipo => unTipo.descripcion == "Vip").codigo;	
+								//ubicacion1.tipoUbicacionId= tiposDeUbicacionPorPublicacion.First(unTipo => unTipo.descripcion == "Vip").codigo;
+								ubicacion1.tipoUbicacionId = tu.buscarCodigoCategoria("Vip");
+								ubicacion1.precio = tiposDeUbicacionPorPublicacion.First(unTipo => unTipo.descripcion == "Vip").precio;
 								ubicaciones.Add(ubicacion1);
 							}
 							if (cComponente2.BackColor == Color.Tomato)
@@ -803,7 +805,9 @@ namespace PalcoNet.Generar_Publicacion
 								string numero = soloNumeros(cComponente2.Name);
 								ubicacion2.asiento = int.Parse(numero);
 								ubicacion2.fila = cComponente2.Name[0];
-								ubicacion2.tipoUbicacionId = tiposDeUbicacionPorPublicacion.First(unTipo => unTipo.descripcion == "Cabecera").codigo;
+								//ubicacion2.tipoUbicacionId = tiposDeUbicacionPorPublicacion.First(unTipo => unTipo.descripcion == "Cabecera").codigo;
+								ubicacion2.tipoUbicacionId = tu.buscarCodigoCategoria("Cabecera");
+								ubicacion2.precio = tiposDeUbicacionPorPublicacion.First(unTipo => unTipo.descripcion == "Cabecera").precio;
 								//ubicacion.tipoDescripcion = "Cabecera";
 								ubicaciones.Add(ubicacion2);
 							}
@@ -813,7 +817,9 @@ namespace PalcoNet.Generar_Publicacion
 								string numero = soloNumeros(cComponente2.Name);
 								ubicacion3.asiento = int.Parse(numero); 
 								ubicacion3.fila = cComponente2.Name[0];
-								ubicacion3.tipoUbicacionId = tiposDeUbicacionPorPublicacion.First(unTipo => unTipo.descripcion == "Campo").codigo;
+								//ubicacion3.tipoUbicacionId = tiposDeUbicacionPorPublicacion.First(unTipo => unTipo.descripcion == "Campo").codigo;
+								ubicacion3.tipoUbicacionId = tu.buscarCodigoCategoria("Campo");
+								ubicacion3.precio = tiposDeUbicacionPorPublicacion.First(unTipo => unTipo.descripcion == "Campo").precio;
 								//ubicacion.tipoDescripcion = "Campo";
 								ubicaciones.Add(ubicacion3);
 							}
@@ -823,7 +829,8 @@ namespace PalcoNet.Generar_Publicacion
 								string numero = soloNumeros(cComponente2.Name);
 								ubicacion4.asiento = int.Parse(numero); ;
 								ubicacion4.fila = cComponente2.Name[0];
-								ubicacion4.tipoUbicacionId = tiposDeUbicacionPorPublicacion.First(unTipo => unTipo.descripcion == "Campo Vip").codigo;
+								ubicacion4.tipoUbicacionId = tu.buscarCodigoCategoria("Campo Vip");
+								ubicacion4.precio = tiposDeUbicacionPorPublicacion.First(unTipo => unTipo.descripcion == "Campo Vip").precio;
 								//ubicacion.tipoDescripcion = "Campo Vip";
 								ubicaciones.Add(ubicacion4);
 							}
@@ -833,7 +840,9 @@ namespace PalcoNet.Generar_Publicacion
 								string numero = soloNumeros(cComponente2.Name);
 								ubicacion5.asiento = int.Parse(numero); 
 								ubicacion5.fila = cComponente2.Name[0];
-								ubicacion5.tipoUbicacionId = tiposDeUbicacionPorPublicacion.First(unTipo => unTipo.descripcion == "Platea Alta").codigo;
+								//ubicacion5.tipoUbicacionId = tiposDeUbicacionPorPublicacion.First(unTipo => unTipo.descripcion == "Platea Alta").codigo;
+								ubicacion5.tipoUbicacionId = tu.buscarCodigoCategoria("Platea Alta");
+								ubicacion5.precio = tiposDeUbicacionPorPublicacion.First(unTipo => unTipo.descripcion == "Platea Alta").precio;
 								//ubicacion.tipoDescripcion = "Platea Alta";
 								ubicaciones.Add(ubicacion5);
 								//cantidadBotonesBeige++;
@@ -845,7 +854,9 @@ namespace PalcoNet.Generar_Publicacion
 								string numero = soloNumeros(cComponente2.Name);
 								ubicacion6.asiento = int.Parse(numero); ;
 								ubicacion6.fila = cComponente2.Name[0];
-								ubicacion6.tipoUbicacionId = tiposDeUbicacionPorPublicacion.First(unTipo => unTipo.descripcion == "Platea Baja").codigo;
+								//ubicacion6.tipoUbicacionId = tiposDeUbicacionPorPublicacion.First(unTipo => unTipo.descripcion == "Platea Baja").codigo;
+								ubicacion6.tipoUbicacionId = tu.buscarCodigoCategoria("Platea Baja");
+								ubicacion6.precio = tiposDeUbicacionPorPublicacion.First(unTipo => unTipo.descripcion == "Platea Baja").precio;
 								//ubicacion.tipoDescripcion = "Platea Baja";
 								ubicaciones.Add(ubicacion6);
 								//cantidadBotonesIndigo++;
@@ -857,7 +868,10 @@ namespace PalcoNet.Generar_Publicacion
 								string numero = soloNumeros(cComponente2.Name);
 								ubicacion7.asiento = int.Parse(numero); ;
 								ubicacion7.fila = cComponente2.Name[0];
-								ubicacion7.tipoUbicacionId = tiposDeUbicacionPorPublicacion.First(unTipo => unTipo.descripcion == "PullMan").codigo;
+								ubicacion7.tipoUbicacionId = tu.buscarCodigoCategoria("PullMan");
+								//ubicacion7.tipoUbicacionId = tiposDeUbicacionPorPublicacion.First(unTipo => unTipo.descripcion == "PullMan").codigo;
+								ubicacion7.tipoUbicacionId = tu.buscarCodigoCategoria("PullMan");
+								ubicacion7.precio = tiposDeUbicacionPorPublicacion.First(unTipo => unTipo.descripcion == "PullMan").precio;
 								//ubicacion.tipoDescripcion = "PullMan";
 								ubicaciones.Add(ubicacion7);
 								//cantidadBotonesRed++;
@@ -869,7 +883,9 @@ namespace PalcoNet.Generar_Publicacion
 								string numero = soloNumeros(cComponente2.Name);
 								ubicacion8.asiento = int.Parse(numero); 
 								ubicacion8.fila = cComponente2.Name[0];
-								ubicacion8.tipoUbicacionId = tiposDeUbicacionPorPublicacion.First(unTipo => unTipo.descripcion == "Super PullMan").codigo;
+								//ubicacion8.tipoUbicacionId = tiposDeUbicacionPorPublicacion.First(unTipo => unTipo.descripcion == "Super PullMan").codigo;
+								ubicacion8.tipoUbicacionId = tu.buscarCodigoCategoria("Super PullMan");
+								ubicacion8.precio = tiposDeUbicacionPorPublicacion.First(unTipo => unTipo.descripcion == "Super PullMan").precio;
 								//ubicacion.tipoDescripcion = "Super PullMan";
 								ubicaciones.Add(ubicacion8);
 								//cantidadBotonesPink++;
@@ -893,10 +909,11 @@ namespace PalcoNet.Generar_Publicacion
 		{
 			if (this.validarData())
 			{
-				foreach (TipoUbicacion tub in tiposDeUbicacionPorPublicacion)
-				{
-					tub.codigo = tub.darAltaPrecioPorCategoria(tub.precio, tub.descripcion);
-				}
+				//foreach (TipoUbicacion tub in tiposDeUbicacionPorPublicacion)
+				//{
+				//	//no dar el alta sino buscar la categoria....
+				//	//tub.codigo = tub.darAltaPrecioPorCategoria(tub.precio, tub.descripcion);
+				//}
 
 				List<Ubicacion> ubicaciones = this.buscarButtons();
 				List<DateTime> fechasEspectaculos = new List<DateTime>();
@@ -1043,11 +1060,10 @@ namespace PalcoNet.Generar_Publicacion
 						else
 						{
 							//tengo que dar de alta a esa categoria con ese precio.
-							
-							
-							tu.descripcion = comboBox1.SelectedValue.ToString();
-							tu.precio = decimal.Parse(textPrecio.Text);
-							tiposDeUbicacionPorPublicacion.Add(tu);
+							TipoUbicacion tu2 = new TipoUbicacion();
+							tu2.descripcion = comboBox1.SelectedValue.ToString();
+							tu2.precio = decimal.Parse(textPrecio.Text);
+							tiposDeUbicacionPorPublicacion.Add(tu2);
 							MessageBox.Show("Categoria: "+ comboBox1.SelectedValue.ToString()+" Precio :$"+ decimal.Parse(textPrecio.Text), "¡Correcto!",
 								MessageBoxButtons.OK, MessageBoxIcon.None);
 							precioAsignado = true;

@@ -12,9 +12,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PalcoNet.Generar_Rendicion_Comisiones
-{
-    public partial class GenerarRendicionComisiones : Form
+{ 
+	public partial class GenerarRendicionComisiones : Form
     {
+		public decimal total = 0;
+		public decimal totalConComision = 0;
 		Usuario userLog = new Usuario();
         public GenerarRendicionComisiones(Usuario u)
         {
@@ -42,15 +44,17 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
 
 		private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
 		{
+			
 			try
 			{
 				//int Codigo = int.Parse(dataGridView1.CurrentRow.Cells["Codigo"].Value.ToString());
 				//Seleccionando
 				if (this.dataGridView1.Columns[e.ColumnIndex].Name.Equals("seleccion"))
 				{
-					decimal total = 0;
 					total+= decimal.Parse(dataGridView1.CurrentRow.Cells["precio"].Value.ToString());
+					totalConComision += decimal.Parse(dataGridView1.CurrentRow.Cells["precio"].Value.ToString()) - (decimal.Parse(dataGridView1.CurrentRow.Cells["precio"].Value.ToString()) * decimal.Parse(dataGridView1.CurrentRow.Cells["porcentaje"].Value.ToString()));
 					lblTotal.Text = total.ToString();
+					lblTotalConComision.Text = totalConComision.ToString();
 				}
 			}
 			catch (Exception ex)

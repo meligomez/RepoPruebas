@@ -30,8 +30,8 @@ namespace PalcoNet.Editar_Publicacion
 			DataTable dtRubro = new DataTable();
 			DaoSP dao = new DaoSP();
 			dtGrado = dao.ConsultarConQuery("SELECT id, tipo FROM dropeadores.Grado");
-			dtRubro = dao.ConsultarConQuery("SELECT Codigo,Descripcion FROM dropeadores.Rubro");
-			CargarData.cargarComboBox(comboRubro, dtRubro, "Codigo", "Descripcion");
+			dtRubro = dao.ConsultarConQuery("SELECT id,rubro_descripcion FROM dropeadores.Rubro");
+			CargarData.cargarComboBox(comboRubro, dtRubro, "id", "rubro_descripcion");
 			CargarData.cargarComboBox(comboGradoPublicacion, dtGrado, "id", "tipo");
 			dateTimePicker1.Format = DateTimePickerFormat.Custom;
 			dateTimePicker1.CustomFormat = "MM/dd/yyyy hh:mm:ss";
@@ -111,7 +111,17 @@ namespace PalcoNet.Editar_Publicacion
 			textDireccion.Visible = false;
 			estadoPublicacion.Visible = false;
 			button2.Visible = false;
-			MessageBox.Show("Si ud quiere modificar las ubicaciones deberá generar una nueva publicacion.");
+			MessageBox.Show("Si ud quiere modificar las ubicaciones deberá generar una nueva publicacion. sólo podrá modificar el precio por categoria.");
+			DaoSP dao = new DaoSP();
+			DataTable dtCategoria = new DataTable();
+			dtCategoria = dao.ConsultarConQuery("SELECT codigo,descripcion FROM dropeadores.TipoUbicacion");
+			CargarData.cargarComboBox(comboCategoria, dtCategoria,"codigo","descripcion");
+			lblTextoCategoria.Visible = true;
+			lblCategoria.Visible = true;
+			lblPrecio.Visible = true;
+			comboCategoria.Visible = true;
+			textPrecio.Visible = true;
+			btnPrecioPorCategoria.Visible = true;
 
 		}
 
@@ -152,6 +162,20 @@ namespace PalcoNet.Editar_Publicacion
 		}
 
 		private void label7_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void btnPrecioPorCategoria_Click(object sender, EventArgs e)
+		{
+			TipoUbicacion tu = new TipoUbicacion();
+			Ubicacion u = new Ubicacion();
+			u.updatePreciosDeCategoria(publicacion.codigo, tu.getIdByDescripcion(comboCategoria.SelectedValue.ToString()), decimal.Parse(textPrecio.Text.ToString()));
+	
+			
+		}
+
+		private void comboRubro_SelectedIndexChanged(object sender, EventArgs e)
 		{
 
 		}

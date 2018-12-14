@@ -17,6 +17,7 @@ GO
 ----------------------------------------------------------------------------------------------
 								/** VALIDACION DE TABLAS **/
 ----------------------------------------------------------------------------------------------
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.FuncionalidadXRol'))
     DROP TABLE dropeadores.FuncionalidadXRol
 
@@ -28,12 +29,6 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.F
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Rol'))
     DROP TABLE dropeadores.Rol
-
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Factura'))
-    DROP TABLE dropeadores.Factura   
-
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Item_Factura'))
-    DROP TABLE dropeadores.Item_Factura    
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.PremioXUsuario'))
     DROP TABLE dropeadores.PremioXUsuario 
@@ -61,16 +56,18 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.G
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Puntos'))
     DROP TABLE dropeadores.Puntos
-
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Compra'))
+    
+ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Item_Factura'))
+    DROP TABLE dropeadores.Item_Factura       
+  
+  IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Compra'))
     DROP TABLE dropeadores.Compra
-
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.TarjetaCredito'))
-    DROP TABLE dropeadores.TarjetaCredito
-
-
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Cliente'))
+      
+  IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Cliente'))
     DROP TABLE dropeadores.Cliente
+     
+ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Factura'))
+    DROP TABLE dropeadores.Factura   
     
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Empresa'))
     DROP TABLE dropeadores.Empresa
@@ -78,6 +75,8 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.E
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Domicilio'))
     DROP TABLE dropeadores.Domicilio 
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.TarjetaCredito'))
+    DROP TABLE dropeadores.TarjetaCredito
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Usuario'))
     DROP TABLE dropeadores.Usuario
@@ -209,15 +208,14 @@ CREATE TABLE [dropeadores].[Publicacion](
 
 CREATE TABLE [dropeadores].[TipoUbicacion](
 	[codigo] int primary key identity NOT NULL,
-	[descripcion] [nvarchar](255) NULL,
-	[precio] [decimal](12, 2) NULL
+	[descripcion] [nvarchar](255) NULL
 )
 
 CREATE TABLE [dropeadores].[Ubicacion](
     [fila] [varchar](3) ,
     [asiento] [numeric](18, 0) ,
     [sinNumerar] [bit] NULL,
-    [precio] [numeric](18, 0) NULL,
+    [precio] [decimal](12, 2) NULL,
     [estado] [bit] NULL,
     [publicacionId] int NOT NULL  references [dropeadores].Publicacion,
     [tipoUbicacion] int NOT NULL  references [dropeadores].TipoUbicacion,
@@ -406,8 +404,8 @@ insert into dropeadores.Premio (descripcion,puntos) values ('6 Cuotas sin Inter√
 
 				/*Tipo Ubicacion */
 SET IDENTITY_INSERT [dropeadores].TipoUBicacion ON
-insert into dropeadores.TipoUBicacion (codigo,descripcion,precio)
-SELECT distinct Ubicacion_Tipo_Codigo,Ubicacion_Tipo_Descripcion,ubicacion_precio from gd_esquema.Maestra
+insert into dropeadores.TipoUBicacion (codigo,descripcion)
+SELECT distinct Ubicacion_Tipo_Codigo,Ubicacion_Tipo_Descripcion from gd_esquema.Maestra
 SET IDENTITY_INSERT [dropeadores].TipoUBicacion OFF
 							
 				/*Publicacion*/
@@ -428,20 +426,19 @@ SET IDENTITY_INSERT [dropeadores].Publicacion OFF
  
 				/*Ubicacion*/
 
-insert  into dropeadores.Ubicacion (fila,asiento,sinNumerar,estado,publicacionId,tipoUbicacion)
+insert  into dropeadores.Ubicacion (fila,asiento,sinNumerar,estado,publicacionId,tipoUbicacion,precio)
 select distinct  Ubicacion_Fila,Ubicacion_Asiento,Ubicacion_Sin_numerar,1
 , p.id
-,Ubicacion_Tipo_Codigo
+,Ubicacion_Tipo_Codigo,ubicacion_precio
 from gd_esquema.Maestra m
 join dropeadores.Publicacion p on(p.id=m.Espectaculo_Cod)
 					
 				/*Compra*/
 insert into dropeadores.Compra(factura,compra_tipo_documento,compra_numero_documento,compra_fecha,compra_cantidad,compra_ubicacionAsiento,compra_ubicacionFila,compra_ubicacionPublic,compra_precio)
-select  m.Factura_Nro,'DNI',m.Cli_Dni,m.Compra_Fecha, m.Compra_Cantidad, m.Ubicacion_Asiento,m.Ubicacion_Fila,m.Espectaculo_Cod,tu.precio
+select  m.Factura_Nro,'DNI',m.Cli_Dni,m.Compra_Fecha, m.Compra_Cantidad, m.Ubicacion_Asiento,m.Ubicacion_Fila,m.Espectaculo_Cod,u.precio
  from gd_esquema.Maestra m
   join dropeadores.Ubicacion u on u.asiento = m.Ubicacion_Asiento and 
   m.Ubicacion_Fila = u.fila and u.publicacionId = m.Espectaculo_Cod
- join dropeadores.TipoUbicacion tu on(tu.codigo=m.Ubicacion_Tipo_Codigo)
 where (m.Compra_Fecha is not null) and (m.Factura_Fecha is not null)
 
 						/*Puntos*/	
@@ -608,11 +605,11 @@ end
 GO
 CREATE procedure [dropeadores].[AltaUbicacion] 
 (@asiento int, @fila nvarchar(3), @estado bit,@tipoUbicacionId int,
-@idPublicacion int)
+@idPublicacion int,@precio numeric(18,2))
 as
 begin
-insert into dropeadores.Ubicacion (fila,asiento,estado,publicacionId,tipoUbicacion)
-values (@fila,@asiento,@estado,@idPublicacion,@tipoUbicacionId)
+insert into dropeadores.Ubicacion (fila,asiento,estado,publicacionId,tipoUbicacion,precio)
+values (@fila,@asiento,@estado,@idPublicacion,@tipoUbicacionId,@precio)
 end
 
 /**********************FIN AltaUbicacion  **********************/
@@ -827,6 +824,27 @@ end
 
 /**************FIN GetComprasPorEmpresa*****************/
 
+
+/**************INICIO buscarCodigoTipoUbicacion*****************/
+GO
+create procedure dropeadores.buscarCodigoTipoUbicacion ( @descripcion nvarchar(255))
+as 
+begin
+select codigo from dropeadores.tipoUbicacion where descripcion LIKE @descripcion
+end
+
+/**************FIN buscarCodigoTipoUbicacion*****************/
+
+
+/**************INICIO UpdatePrecioUbicacion*****************/
+GO
+create procedure dropeadores.UpdatePrecioUbicacion (@codigoPublicacion int, @codigoTipoUbicacion int , @precio decimal(12,2))
+as
+begin
+update dropeadores.Ubicacion set precio=@precio where publicacionId= @codigoPublicacion and tipoUbicacion=@codigoTipoUbicacion
+end
+
+/**************FIN UpdatePrecioUbicacion*****************/
 
 GO
 /****** Object:  StoredProcedure [dropeadores].[Domicilio_Cli_Alta]    Script Date: 07/12/2018 19:57:04 ******/

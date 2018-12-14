@@ -20,6 +20,8 @@ namespace Modelo.Dominio
 		public int publicacionId { get; set; }
 		public int tipoUbicacionId { get; set; }
 
+		public decimal precio;
+
 		public int altaUbicaciones(List<Ubicacion> buscarButtons, int idPublicacion)
 		{
 			foreach (Ubicacion unaUbicacion in buscarButtons)
@@ -27,12 +29,28 @@ namespace Modelo.Dominio
 				DaoSP dao = new DaoSP();
 				DataTable dt = new DataTable();
 				//el estado acá indica si esa ubicacion ya fue ocupada o no....
-			if( dao.EjecutarSP("dropeadores.AltaUbicacion", unaUbicacion.asiento, unaUbicacion.fila, unaUbicacion.estado,unaUbicacion.tipoUbicacionId,idPublicacion)<=0)
+			if( dao.EjecutarSP("dropeadores.AltaUbicacion", unaUbicacion.asiento, unaUbicacion.fila, unaUbicacion.estado,unaUbicacion.tipoUbicacionId,idPublicacion,unaUbicacion.precio)<=0)
 				{
 					break;
 				}
 			}
 			return 0;
+		}
+
+		public int updatePreciosDeCategoria(int codigoPublicacion, int codigoTipoUbicacion, decimal precio)
+		{
+			try
+			{
+				DaoSP dao = new DaoSP();
+				DataTable dt = new DataTable();
+				dao.EjecutarSP("dropeadores.UpdatePrecioUbicacion", codigoPublicacion, codigoTipoUbicacion, precio);
+				return 0;
+			}
+			catch (Exception ex)
+			{
+
+				throw ex;
+			}
 		}
 
 		
