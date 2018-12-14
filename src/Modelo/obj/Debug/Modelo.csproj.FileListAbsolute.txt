@@ -25,3 +25,9 @@ C:\Users\David\Documents\ENTREGA 09-12-2018\ENTREGA 09-12-2018\src\Modelo\bin\De
 C:\Users\David\Documents\ENTREGA 09-12-2018\ENTREGA 09-12-2018\src\Modelo\obj\Debug\Modelo.csprojResolveAssemblyReference.cache
 C:\Users\David\Documents\ENTREGA 09-12-2018\ENTREGA 09-12-2018\src\Modelo\obj\Debug\Modelo.dll
 C:\Users\David\Documents\ENTREGA 09-12-2018\ENTREGA 09-12-2018\src\Modelo\obj\Debug\Modelo.pdb
+D:\DATOS\2018\MELI\RepoPruebas\src\Modelo\bin\Debug\Modelo.dll
+D:\DATOS\2018\MELI\RepoPruebas\src\Modelo\bin\Debug\Modelo.pdb
+D:\DATOS\2018\MELI\RepoPruebas\src\Modelo\obj\Debug\Modelo.csprojAssemblyReference.cache
+D:\DATOS\2018\MELI\RepoPruebas\src\Modelo\obj\Debug\Modelo.csproj.CoreCompileInputs.cache
+D:\DATOS\2018\MELI\RepoPruebas\src\Modelo\obj\Debug\Modelo.dll
+D:\DATOS\2018\MELI\RepoPruebas\src\Modelo\obj\Debug\Modelo.pdb

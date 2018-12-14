@@ -29,6 +29,10 @@
 		private void InitializeComponent()
 		{
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+			this.menuRegistroUsuario = new System.Windows.Forms.ToolStripMenuItem();
+			this.registroDeClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.registroDeEmpresaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.cambiarContraselaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuABMCliente = new System.Windows.Forms.ToolStripMenuItem();
 			this.altaDeClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.bajaDeClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,7 +45,7 @@
 			this.generarPublicacionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.editarPublicacionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.aBMCategoriaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.aBMGradoDePublicacionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.cambiarEstadoPubli = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuComprar = new System.Windows.Forms.ToolStripMenuItem();
 			this.realizarCompraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuCliente = new System.Windows.Forms.ToolStripMenuItem();
@@ -64,10 +68,6 @@
 			this.label2 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.menuRegistroUsuario = new System.Windows.Forms.ToolStripMenuItem();
-			this.registroDeClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.registroDeEmpresaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.cambiarContraselaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
@@ -95,6 +95,38 @@
 			this.menuStrip1.Size = new System.Drawing.Size(1203, 31);
 			this.menuStrip1.TabIndex = 0;
 			this.menuStrip1.Text = "menuStrip";
+			// 
+			// menuRegistroUsuario
+			// 
+			this.menuRegistroUsuario.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.registroDeClienteToolStripMenuItem,
+            this.registroDeEmpresaToolStripMenuItem,
+            this.cambiarContraselaToolStripMenuItem});
+			this.menuRegistroUsuario.Font = new System.Drawing.Font("Raleway", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.menuRegistroUsuario.Name = "menuRegistroUsuario";
+			this.menuRegistroUsuario.Size = new System.Drawing.Size(162, 24);
+			this.menuRegistroUsuario.Text = "Registro de Usuarios";
+			// 
+			// registroDeClienteToolStripMenuItem
+			// 
+			this.registroDeClienteToolStripMenuItem.Name = "registroDeClienteToolStripMenuItem";
+			this.registroDeClienteToolStripMenuItem.Size = new System.Drawing.Size(226, 26);
+			this.registroDeClienteToolStripMenuItem.Text = "Registro de Cliente";
+			this.registroDeClienteToolStripMenuItem.Click += new System.EventHandler(this.altaCliente_Click);
+			// 
+			// registroDeEmpresaToolStripMenuItem
+			// 
+			this.registroDeEmpresaToolStripMenuItem.Name = "registroDeEmpresaToolStripMenuItem";
+			this.registroDeEmpresaToolStripMenuItem.Size = new System.Drawing.Size(226, 26);
+			this.registroDeEmpresaToolStripMenuItem.Text = "Registro de Empresa";
+			this.registroDeEmpresaToolStripMenuItem.Click += new System.EventHandler(this.altaEmpresa_Click);
+			// 
+			// cambiarContraselaToolStripMenuItem
+			// 
+			this.cambiarContraselaToolStripMenuItem.Name = "cambiarContraselaToolStripMenuItem";
+			this.cambiarContraselaToolStripMenuItem.Size = new System.Drawing.Size(226, 26);
+			this.cambiarContraselaToolStripMenuItem.Text = "Cambiar Contraseña";
+			this.cambiarContraselaToolStripMenuItem.Click += new System.EventHandler(this.cambiarPsw_Click);
 			// 
 			// menuABMCliente
 			// 
@@ -166,7 +198,7 @@
             this.generarPublicacionToolStripMenuItem,
             this.editarPublicacionToolStripMenuItem,
             this.aBMCategoriaToolStripMenuItem,
-            this.aBMGradoDePublicacionToolStripMenuItem});
+            this.cambiarEstadoPubli});
 			this.menuPublicacion.Font = new System.Drawing.Font("Raleway", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.menuPublicacion.Name = "menuPublicacion";
 			this.menuPublicacion.Size = new System.Drawing.Size(99, 24);
@@ -175,30 +207,30 @@
 			// generarPublicacionToolStripMenuItem
 			// 
 			this.generarPublicacionToolStripMenuItem.Name = "generarPublicacionToolStripMenuItem";
-			this.generarPublicacionToolStripMenuItem.Size = new System.Drawing.Size(266, 26);
+			this.generarPublicacionToolStripMenuItem.Size = new System.Drawing.Size(273, 26);
 			this.generarPublicacionToolStripMenuItem.Text = "Generar Publicacion";
 			this.generarPublicacionToolStripMenuItem.Click += new System.EventHandler(this.generarPublicacion_Click);
 			// 
 			// editarPublicacionToolStripMenuItem
 			// 
 			this.editarPublicacionToolStripMenuItem.Name = "editarPublicacionToolStripMenuItem";
-			this.editarPublicacionToolStripMenuItem.Size = new System.Drawing.Size(266, 26);
+			this.editarPublicacionToolStripMenuItem.Size = new System.Drawing.Size(273, 26);
 			this.editarPublicacionToolStripMenuItem.Text = "Editar Publicacion";
 			this.editarPublicacionToolStripMenuItem.Click += new System.EventHandler(this.editarPublicacion_Click);
 			// 
 			// aBMCategoriaToolStripMenuItem
 			// 
 			this.aBMCategoriaToolStripMenuItem.Name = "aBMCategoriaToolStripMenuItem";
-			this.aBMCategoriaToolStripMenuItem.Size = new System.Drawing.Size(266, 26);
+			this.aBMCategoriaToolStripMenuItem.Size = new System.Drawing.Size(273, 26);
 			this.aBMCategoriaToolStripMenuItem.Text = "ABM Categoria";
 			this.aBMCategoriaToolStripMenuItem.Click += new System.EventHandler(this.abmCategoria_Click);
 			// 
-			// aBMGradoDePublicacionToolStripMenuItem
+			// cambiarEstadoPubli
 			// 
-			this.aBMGradoDePublicacionToolStripMenuItem.Name = "aBMGradoDePublicacionToolStripMenuItem";
-			this.aBMGradoDePublicacionToolStripMenuItem.Size = new System.Drawing.Size(266, 26);
-			this.aBMGradoDePublicacionToolStripMenuItem.Text = "ABM Grado de Publicacion";
-			this.aBMGradoDePublicacionToolStripMenuItem.Click += new System.EventHandler(this.abmGradoPublicacion_Click);
+			this.cambiarEstadoPubli.Name = "cambiarEstadoPubli";
+			this.cambiarEstadoPubli.Size = new System.Drawing.Size(273, 26);
+			this.cambiarEstadoPubli.Text = "Cambiar Estado Publicacion";
+			this.cambiarEstadoPubli.Click += new System.EventHandler(this.cambiarEstadoPublicacion_Click);
 			// 
 			// menuComprar
 			// 
@@ -213,7 +245,7 @@
 			// realizarCompraToolStripMenuItem
 			// 
 			this.realizarCompraToolStripMenuItem.Name = "realizarCompraToolStripMenuItem";
-			this.realizarCompraToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+			this.realizarCompraToolStripMenuItem.Size = new System.Drawing.Size(195, 26);
 			this.realizarCompraToolStripMenuItem.Text = "Realizar Compra";
 			this.realizarCompraToolStripMenuItem.Click += new System.EventHandler(this.VentanaAdmin_Load);
 			// 
@@ -386,38 +418,6 @@
 			this.panel1.TabIndex = 6;
 			this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
 			// 
-			// menuRegistroUsuario
-			// 
-			this.menuRegistroUsuario.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.registroDeClienteToolStripMenuItem,
-            this.registroDeEmpresaToolStripMenuItem,
-            this.cambiarContraselaToolStripMenuItem});
-			this.menuRegistroUsuario.Font = new System.Drawing.Font("Raleway", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.menuRegistroUsuario.Name = "menuRegistroUsuario";
-			this.menuRegistroUsuario.Size = new System.Drawing.Size(162, 24);
-			this.menuRegistroUsuario.Text = "Registro de Usuarios";
-			// 
-			// registroDeClienteToolStripMenuItem
-			// 
-			this.registroDeClienteToolStripMenuItem.Name = "registroDeClienteToolStripMenuItem";
-			this.registroDeClienteToolStripMenuItem.Size = new System.Drawing.Size(226, 26);
-			this.registroDeClienteToolStripMenuItem.Text = "Registro de Cliente";
-			this.registroDeClienteToolStripMenuItem.Click += new System.EventHandler(this.altaCliente_Click);
-			// 
-			// registroDeEmpresaToolStripMenuItem
-			// 
-			this.registroDeEmpresaToolStripMenuItem.Name = "registroDeEmpresaToolStripMenuItem";
-			this.registroDeEmpresaToolStripMenuItem.Size = new System.Drawing.Size(226, 26);
-			this.registroDeEmpresaToolStripMenuItem.Text = "Registro de Empresa";
-			this.registroDeEmpresaToolStripMenuItem.Click += new System.EventHandler(this.altaEmpresa_Click);
-			// 
-			// cambiarContraselaToolStripMenuItem
-			// 
-			this.cambiarContraselaToolStripMenuItem.Name = "cambiarContraselaToolStripMenuItem";
-			this.cambiarContraselaToolStripMenuItem.Size = new System.Drawing.Size(226, 26);
-			this.cambiarContraselaToolStripMenuItem.Text = "Cambiar Contraseña";
-			this.cambiarContraselaToolStripMenuItem.Click += new System.EventHandler(this.cambiarPsw_Click);
-			// 
 			// panelContenedor
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 21F);
@@ -460,7 +460,7 @@
 		private System.Windows.Forms.ToolStripMenuItem generarPublicacionToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem editarPublicacionToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem aBMCategoriaToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem aBMGradoDePublicacionToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem cambiarEstadoPubli;
 		private System.Windows.Forms.ToolStripMenuItem menuComprar;
 		private System.Windows.Forms.ToolStripMenuItem realizarCompraToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem menuCliente;

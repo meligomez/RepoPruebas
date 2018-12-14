@@ -190,6 +190,18 @@
     <Compile Include="Editar Publicacion\EditarUnaPublicacion.Designer.cs">
       <DependentUpon>EditarUnaPublicacion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Generar Publicacion\CambiarEstadoPublicacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generar Publicacion\CambiarEstadoPublicacion.Designer.cs">
+      <DependentUpon>CambiarEstadoPublicacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Generar Publicacion\CambiarEstadoUnaPublicacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generar Publicacion\CambiarEstadoUnaPublicacion.Designer.cs">
+      <DependentUpon>CambiarEstadoUnaPublicacion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Generar Publicacion\GenerarPublicacion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -320,6 +332,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Editar Publicacion\EditarUnaPublicacion.resx">
       <DependentUpon>EditarUnaPublicacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generar Publicacion\CambiarEstadoPublicacion.resx">
+      <DependentUpon>CambiarEstadoPublicacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generar Publicacion\CambiarEstadoUnaPublicacion.resx">
+      <DependentUpon>CambiarEstadoUnaPublicacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Generar Publicacion\GenerarPublicacion.resx">
       <DependentUpon>GenerarPublicacion.cs</DependentUpon>

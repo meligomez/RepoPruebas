@@ -35,15 +35,16 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.Filtros = new System.Windows.Forms.GroupBox();
-			this.comboBox1 = new System.Windows.Forms.ComboBox();
-			this.label4 = new System.Windows.Forms.Label();
+			this.cbxTipoEstadistica = new System.Windows.Forms.ComboBox();
+			this.lblTipoEstadistica = new System.Windows.Forms.Label();
 			this.btnFiltroFecha = new System.Windows.Forms.Button();
-			this.s = new System.Windows.Forms.ComboBox();
+			this.cbxAnio = new System.Windows.Forms.ComboBox();
 			this.cbxTrimestre = new System.Windows.Forms.ComboBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.lblTrimestre = new System.Windows.Forms.Label();
 			this.grafico = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
+			this.btnVolver = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.Filtros.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.grafico)).BeginInit();
@@ -71,10 +72,10 @@
 			// 
 			// Filtros
 			// 
-			this.Filtros.Controls.Add(this.comboBox1);
-			this.Filtros.Controls.Add(this.label4);
+			this.Filtros.Controls.Add(this.cbxTipoEstadistica);
+			this.Filtros.Controls.Add(this.lblTipoEstadistica);
 			this.Filtros.Controls.Add(this.btnFiltroFecha);
-			this.Filtros.Controls.Add(this.s);
+			this.Filtros.Controls.Add(this.cbxAnio);
 			this.Filtros.Controls.Add(this.cbxTrimestre);
 			this.Filtros.Controls.Add(this.label3);
 			this.Filtros.Controls.Add(this.lblTrimestre);
@@ -84,28 +85,28 @@
 			this.Filtros.TabIndex = 2;
 			this.Filtros.TabStop = false;
 			this.Filtros.Text = "Filtros de Fechas";
+			this.Filtros.Enter += new System.EventHandler(this.Filtros_Enter);
 			// 
-			// comboBox1
+			// cbxTipoEstadistica
 			// 
-			this.comboBox1.FormattingEnabled = true;
-			this.comboBox1.Items.AddRange(new object[] {
-            "Empresas con mayor cantidad de localidades no vendidas",
-            "Clientes con mayores puntos vencidos",
-            "Clientes con mayor cantidad de compras"});
-			this.comboBox1.Location = new System.Drawing.Point(330, 101);
-			this.comboBox1.Name = "comboBox1";
-			this.comboBox1.Size = new System.Drawing.Size(463, 32);
-			this.comboBox1.TabIndex = 8;
-			this.comboBox1.Text = "Seleccione una opcion ";
+			this.cbxTipoEstadistica.FormattingEnabled = true;
+			this.cbxTipoEstadistica.Location = new System.Drawing.Point(330, 101);
+			this.cbxTipoEstadistica.Name = "cbxTipoEstadistica";
+			this.cbxTipoEstadistica.Size = new System.Drawing.Size(463, 32);
+			this.cbxTipoEstadistica.TabIndex = 8;
+			this.cbxTipoEstadistica.Text = "Seleccione una opcion ";
+			this.cbxTipoEstadistica.Visible = false;
+			this.cbxTipoEstadistica.SelectedIndexChanged += new System.EventHandler(this.cbxTipoEstadisticaChange);
 			// 
-			// label4
+			// lblTipoEstadistica
 			// 
-			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(28, 109);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(362, 24);
-			this.label4.TabIndex = 7;
-			this.label4.Text = "Seleccione una Estadisica a consultar:";
+			this.lblTipoEstadistica.AutoSize = true;
+			this.lblTipoEstadistica.Location = new System.Drawing.Point(28, 109);
+			this.lblTipoEstadistica.Name = "lblTipoEstadistica";
+			this.lblTipoEstadistica.Size = new System.Drawing.Size(362, 24);
+			this.lblTipoEstadistica.TabIndex = 7;
+			this.lblTipoEstadistica.Text = "Seleccione una Estadisica a consultar:";
+			this.lblTipoEstadistica.Visible = false;
 			// 
 			// btnFiltroFecha
 			// 
@@ -115,31 +116,29 @@
 			this.btnFiltroFecha.TabIndex = 3;
 			this.btnFiltroFecha.Text = "Buscar Estadistica";
 			this.btnFiltroFecha.UseVisualStyleBackColor = true;
+			this.btnFiltroFecha.Visible = false;
 			this.btnFiltroFecha.Click += new System.EventHandler(this.btnFiltroFecha_Click);
 			// 
-			// s
+			// cbxAnio
 			// 
-			this.s.FormattingEnabled = true;
-			this.s.Location = new System.Drawing.Point(176, 47);
-			this.s.Name = "s";
-			this.s.Size = new System.Drawing.Size(214, 32);
-			this.s.TabIndex = 6;
-			this.s.Text = "Seleccione un año";
-			this.s.SelectedIndexChanged += new System.EventHandler(this.anioChange);
+			this.cbxAnio.FormattingEnabled = true;
+			this.cbxAnio.Location = new System.Drawing.Point(176, 47);
+			this.cbxAnio.Name = "cbxAnio";
+			this.cbxAnio.Size = new System.Drawing.Size(214, 32);
+			this.cbxAnio.TabIndex = 6;
+			this.cbxAnio.Text = "Seleccione un año";
+			this.cbxAnio.SelectedIndexChanged += new System.EventHandler(this.anioChange);
 			// 
 			// cbxTrimestre
 			// 
 			this.cbxTrimestre.FormattingEnabled = true;
-			this.cbxTrimestre.Items.AddRange(new object[] {
-            "Primer",
-            "Segundo",
-            "Tercero"});
 			this.cbxTrimestre.Location = new System.Drawing.Point(637, 42);
 			this.cbxTrimestre.Name = "cbxTrimestre";
 			this.cbxTrimestre.Size = new System.Drawing.Size(268, 32);
 			this.cbxTrimestre.TabIndex = 5;
 			this.cbxTrimestre.Text = "Seleccione un Trimestre";
 			this.cbxTrimestre.Visible = false;
+			this.cbxTrimestre.SelectedIndexChanged += new System.EventHandler(this.trimestreChange);
 			// 
 			// label3
 			// 
@@ -168,15 +167,16 @@
 			this.grafico.Legends.Add(legend1);
 			this.grafico.Location = new System.Drawing.Point(556, 355);
 			this.grafico.Name = "grafico";
-			this.grafico.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Grayscale;
+			this.grafico.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
 			series1.ChartArea = "ChartArea1";
 			series1.Legend = "Legend1";
 			series1.Name = "Series1";
 			this.grafico.Series.Add(series1);
-			this.grafico.Size = new System.Drawing.Size(543, 334);
+			this.grafico.Size = new System.Drawing.Size(543, 273);
 			this.grafico.TabIndex = 4;
 			this.grafico.Text = "chart2";
 			this.grafico.Visible = false;
+			this.grafico.Click += new System.EventHandler(this.grafico_Click);
 			// 
 			// dataGridView1
 			// 
@@ -184,9 +184,19 @@
 			this.dataGridView1.Location = new System.Drawing.Point(12, 357);
 			this.dataGridView1.Name = "dataGridView1";
 			this.dataGridView1.RowTemplate.Height = 24;
-			this.dataGridView1.Size = new System.Drawing.Size(530, 332);
+			this.dataGridView1.Size = new System.Drawing.Size(530, 267);
 			this.dataGridView1.TabIndex = 5;
 			this.dataGridView1.Visible = false;
+			// 
+			// btnVolver
+			// 
+			this.btnVolver.Location = new System.Drawing.Point(21, 646);
+			this.btnVolver.Name = "btnVolver";
+			this.btnVolver.Size = new System.Drawing.Size(132, 34);
+			this.btnVolver.TabIndex = 6;
+			this.btnVolver.Text = "Volver";
+			this.btnVolver.UseVisualStyleBackColor = true;
+			this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
 			// 
 			// ListadoEstadistico
 			// 
@@ -195,6 +205,7 @@
 			this.AutoSize = true;
 			this.BackColor = System.Drawing.Color.Silver;
 			this.ClientSize = new System.Drawing.Size(1143, 701);
+			this.Controls.Add(this.btnVolver);
 			this.Controls.Add(this.dataGridView1);
 			this.Controls.Add(this.grafico);
 			this.Controls.Add(this.Filtros);
@@ -224,11 +235,12 @@
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Label lblTrimestre;
 		private System.Windows.Forms.Button btnFiltroFecha;
-		private System.Windows.Forms.ComboBox s;
+		private System.Windows.Forms.ComboBox cbxAnio;
 		private System.Windows.Forms.ComboBox cbxTrimestre;
-		private System.Windows.Forms.ComboBox comboBox1;
-		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.ComboBox cbxTipoEstadistica;
+		private System.Windows.Forms.Label lblTipoEstadistica;
 		private System.Windows.Forms.DataVisualization.Charting.Chart grafico;
 		private System.Windows.Forms.DataGridView dataGridView1;
+		private System.Windows.Forms.Button btnVolver;
 	}
 }

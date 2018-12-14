@@ -244,9 +244,6 @@ namespace PalcoNet.VentanasPorRol
 		}
 		private void editarPublicacion_Click(object sender, EventArgs e)
 		{
-			//EditarUnaPublicacion editPublic = new EditarUnaPublicacion();
-			//editPublic.FormClosed += new FormClosedEventHandler(mostrarlogoAlCerrarForm);
-			//AbrirFormInPanel(editPublic);
 			//editPublic.Show();
 			//this.Hide();
 			EditarPublicacion editPublic = new EditarPublicacion(userLog);
@@ -271,6 +268,14 @@ namespace PalcoNet.VentanasPorRol
 			//MessageBox.Show("You are selected Comprar ");
 			//this.Hide();
 		}
+		private void cambiarEstadoPublicacion_Click(object sender, EventArgs e)
+		{
+			CambiarEstadoPublicacion cambiarEstado = new CambiarEstadoPublicacion(userLog);
+			cambiarEstado.FormClosed += new FormClosedEventHandler(mostrarlogoAlCerrarForm);
+			AbrirFormInPanel(cambiarEstado);
+			//MessageBox.Show("You are selected Comprar ");
+			//this.Hide();
+		}
 		private void comprar_Click(object sender, EventArgs e)
 		{
             ComprarPPAL compra = new ComprarPPAL(userLog);
@@ -291,15 +296,15 @@ namespace PalcoNet.VentanasPorRol
 		}
 		private void canjePuntos_Click(object sender, EventArgs e)
 		{
-		//	CanjePuntos canje = new CanjePuntos(userLog);
-		//	canje.FormClosed += new FormClosedEventHandler(mostrarlogoAlCerrarForm);
-		//	AbrirFormInPanel(canje);
-		//	//canje.Show();
-		//	//this.Hide();
+			CanjePuntos canje = new CanjePuntos(userLog);
+			canje.FormClosed += new FormClosedEventHandler(mostrarlogoAlCerrarForm);
+				AbrirFormInPanel(canje);
+			//	//canje.Show();
+			//	//this.Hide();
 		}
 		private void generarPago_Click(object sender, EventArgs e)
 		{
-			GenerarRendicionComisiones rendicion = new GenerarRendicionComisiones();
+			GenerarRendicionComisiones rendicion = new GenerarRendicionComisiones(userLog);
 			rendicion.FormClosed += new FormClosedEventHandler(mostrarlogoAlCerrarForm);
 			AbrirFormInPanel(rendicion);
 			//rendicion.Show();

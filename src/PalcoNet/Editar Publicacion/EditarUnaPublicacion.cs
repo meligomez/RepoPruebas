@@ -111,8 +111,8 @@ namespace PalcoNet.Editar_Publicacion
 			textDireccion.Visible = false;
 			estadoPublicacion.Visible = false;
 			button2.Visible = false;
+			MessageBox.Show("Si ud quiere modificar las ubicaciones deberá generar una nueva publicacion.");
 
-			
 		}
 
 		private void btnGuardar_Click(object sender, EventArgs e)

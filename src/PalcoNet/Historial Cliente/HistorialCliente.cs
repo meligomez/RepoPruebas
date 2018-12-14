@@ -1,4 +1,5 @@
-﻿using Modelo.Dominio;
+﻿using Modelo.Base;
+using Modelo.Dominio;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -16,22 +18,28 @@ namespace PalcoNet.Historial_Cliente
 		Usuario userLog = new Usuario();
         public HistorialCliente(Usuario user)
         {
-			user = userLog;
+			userLog = user;
             InitializeComponent();
         }
 		private void HistorialCliente_Load(object sender, EventArgs e)
-		{
+		{ 	
+			dtSource = this.getCompras(this.userLog.cliente.numeroDocumento);
 			
-			//dtSource = this.GetCompras(this.userLog.cliente.numeroDocumento);
-			//FillGrid();
 		}
-		//public DataTable getCompras(int numeroDoc)
-		//{
-			//Compra comprasCliente = new Compra();
-			//DataTable dtPremios = new DataTable();
-			//string query = "";
-			//dtPremios = dao.ConsultarConQuery(query);
-		//}
+		public DataTable getCompras(int numeroDoc)
+		{
+			Compra comprasCliente = new Compra();
+			DataTable dtPremios = new DataTable();
+			DaoSP dao = new DaoSP();
+			string query = "SELECT factura, compra_fecha as 'Fecha' ,compra_cantidad as 'Cantidad',"
+				+ " compra_precio as 'Precio' ,compra_ubicacionFila as 'Fila' ,compra_ubicacionAsiento as 'Asiento' , p.descripcion"
+				+ "  from dropeadores.Compra c"
+				+ " join dropeadores.Publicacion p on( c.compra_ubicacionPublic=p.id)"
+				+ " WHERE compra_numero_documento="
+				+ numeroDoc;
+			dtPremios = dao.ConsultarConQuery(query);
+			return dtPremios;
+		}
 		//Variables necesarias para el manejo de paginado
 		private DataTable dtSource;
 		private int PageCount;
@@ -58,10 +66,10 @@ namespace PalcoNet.Historial_Cliente
 			txtDisplayPageNo.Text = "Página" + currentPage + "/" + PageCount;
 		}
 		//Se define la cantidad de paginas y se llama a LoadPage
-		private void FillGrid()
+		private void FillGrid(int cantPaginas)
 		{
 			// Set the start and max records. 
-			pageSize = 2;//Cantidad de registros por pagina;
+			pageSize =cantPaginas;//Cantidad de registros por pagina;
 						 // txtPageSize.Text
 			maxRec = dtSource.Rows.Count;
 			PageCount = (maxRec / pageSize);
@@ -191,6 +199,33 @@ namespace PalcoNet.Historial_Cliente
 						* (currentPage - 1));
 			LoadPage();
 		}
-		
+
+		private void textBox1_TextChanged(object sender, EventArgs e)
+		{
+			if(txtCantPags.Text == null || txtCantPags.Text == "")
+			{
+				MessageBox.Show("Error! Ingrese numeros!");
+			}
+			else
+			{
+				FillGrid(int.Parse(txtCantPags.Text));
+			}
+		}
+			
+
+		private void cantPags_Click(object sender, EventArgs e)
+		{
+			
+		}
+
+		private void txtCantPags_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+		{
+
+		}
+
+		private void btnVolver_Click(object sender, EventArgs e)
+		{
+			this.Hide();
+		}
 	}
 }

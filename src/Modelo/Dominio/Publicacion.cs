@@ -29,23 +29,33 @@ namespace Modelo.Dominio
 		//si el estado es 2=Finalizada
 		public Publicacion getPublicacionByCodigo(int codigo)
 		{
-			Publicacion publicacion = new Publicacion();
-			DaoSP dao = new DaoSP();
-			DataTable dt = new DataTable();
-			dt = dao.ConsultarConQuery("SELECT * FROM DROPEADORES.PUBLICACION where id= "+codigo);
-			DataRow row = dt.Rows[0];
-			publicacion.codigo = int.Parse(row["id"].ToString());
-			publicacion.descripcion=(row["descripcion"].ToString());
-			publicacion.direccion= row["direccion"].ToString();
-			publicacion.empresaId=row["empresaId"].ToString();
-			publicacion.estado= int.Parse(row["estado"].ToString());
-			publicacion.fechaEspectaculo= DateTime.Parse(row["fechaEspectaculo"].ToString());
-			publicacion.fechaPublicacion= DateTime.Parse(row["fechaPublicacion"].ToString());
-			publicacion.rubroId= int.Parse(row["rubroId"].ToString());
-			publicacion.gradoId= int.Parse(row["gradoId"].ToString());
-			publicacion.stock= int.Parse(row["stock"].ToString());
+			try
+			{
+				Publicacion publicacion = new Publicacion();
+				DaoSP dao = new DaoSP();
+				DataTable dt = new DataTable();
+				dt = dao.ConsultarConQuery("SELECT * FROM DROPEADORES.PUBLICACION where id= " + codigo);
+				DataRow row = dt.Rows[0];
+				publicacion.codigo = int.Parse(row["id"].ToString());
+				publicacion.descripcion = (row["descripcion"].ToString());
+				publicacion.direccion = row["direccion"].ToString();
+				publicacion.empresaId = row["empresaId"].ToString();
+				publicacion.estado = int.Parse(row["estado"].ToString());
+				publicacion.fechaEspectaculo = DateTime.Parse(row["fechaEspectaculo"].ToString());
+				publicacion.fechaPublicacion = DateTime.Parse(row["fechaPublicacion"].ToString());
+				publicacion.rubroId = int.Parse(row["rubroId"].ToString());
+				publicacion.gradoId = int.Parse(row["gradoId"].ToString());
+				publicacion.stock = int.Parse(row["stock"].ToString());
+				return publicacion;
+			}
+			catch (Exception ex)
+			{
+
+				throw ex;
+			}
 			
-			return publicacion;
+			
+			
 		}
 
 		public int altaPublicacion()
@@ -81,6 +91,27 @@ namespace Modelo.Dominio
 				string query = "UPDATE DROPEADORES.PUBLICACION set gradoId= " + this.gradoId + ", rubroId= " + this.rubroId + " ,stock= " + this.stock + ",fechaEspectaculo= '" + this.fechaEspectaculo +
 						"' ,fechaPublicacion = '" + this.fechaPublicacion + "' , descripcion = '" + this.descripcion +
 						"' , direccion = '" + this.direccion + "' WHERE estado= "+ this.estado +" and empresaId = '" + this.empresaId + "' and id= " + this.codigo;
+				cantAfectadas = dao.EjecutarConQuery(query);
+				//DataRow row = dt.Rows[0];
+				//id = int.Parse(row["Id"].ToString());
+				return cantAfectadas;
+			}
+			catch (Exception ex)
+			{
+
+				throw ex;
+			}
+		}
+
+		public int actualizarEstado(int codigoPublicacion, int estado)
+		{
+			try
+			{
+				int cantAfectadas = 0;
+				DaoSP dao = new DaoSP();
+				//DataTable dt = new DataTable();
+				string query = "update dropeadores.Publicacion set estado= " + estado +
+					" WHERE id= " + codigoPublicacion;
 				cantAfectadas = dao.EjecutarConQuery(query);
 				//DataRow row = dt.Rows[0];
 				//id = int.Parse(row["Id"].ToString());
