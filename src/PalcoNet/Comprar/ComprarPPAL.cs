@@ -48,7 +48,7 @@ namespace PalcoNet.Comprar
 
         private void ComprarPPAL_Load(object sender, EventArgs e)
         {
-            //cargarTabla();
+            cargarTabla();
             DaoSP dao = new DaoSP();
             dtSource = dao.ObtenerDatosSP("dropeadores.getTablaPublicacion", fech.getFechaSistema());
         }
