@@ -58,6 +58,22 @@ namespace Modelo.Dominio
 			
 		}
 
+		public bool eliminar()
+		{
+			try
+			{
+				DataTable dt = new DataTable();
+				DaoSP dao = new DaoSP();
+				return dao.EjecutarSP("dropeadores.EliminarPublicacion", this.codigo)>0;
+			}
+			catch (Exception ex)
+			{
+
+				throw ex;
+			}
+			
+		}
+
 		public int altaPublicacion()
 		{
 			try

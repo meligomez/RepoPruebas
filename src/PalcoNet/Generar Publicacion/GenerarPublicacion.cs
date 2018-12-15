@@ -127,6 +127,15 @@ namespace PalcoNet.Generar_Publicacion
 					MessageBox.Show("Valide las fechas, ya existen otros espectaculos el mismo dia en el mismo horario", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 					return false;
 				}
+				if (fechasValidas.Count >0)
+				{
+					if(fechasValidas.Any(fechEsp => fechEsp.Date < dateTimePickerPublicacion.Value))
+					{
+						MessageBox.Show("Valide las fechas, la fecha de publicacion es mayor que algunas fechas del espectaculo.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+						return false;
+					}
+					
+				}
 			}
 			if ((dateTimePickerPublicacion.Value) < cg.getFechaSistema())
 			{
@@ -139,6 +148,12 @@ namespace PalcoNet.Generar_Publicacion
 				if (publicacion.hayAlgunEspectaculoEnEstaFecha(dateTimePickerEspectaculo.Value))
 				{
 					MessageBox.Show("Ya existe un espectáculo en esa fecha..", "¡Error!",
+					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+					return false;
+				}
+				if (dateTimePickerEspectaculo.Value < dateTimePickerPublicacion.Value)
+				{
+					MessageBox.Show("La fecha de Publicacion debe ser anterior a la fecha del espectáculo", "¡Error!",
 					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 					return false;
 				}
