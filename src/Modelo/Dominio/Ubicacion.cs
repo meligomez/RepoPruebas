@@ -13,14 +13,14 @@ namespace Modelo.Dominio
 		public char fila { get; set; }
 		public  int asiento { get; set; }
 		public bool sinEnumerar { get; set; }
-		//public decimal precio { get; set; }
+		public decimal precio { get; set; }
 		//public int tipoCodigo { get; set; }
 		//public string tipoDescripcion { get; set; }
 		public int estado { get; set; }
 		public int publicacionId { get; set; }
 		public int tipoUbicacionId { get; set; }
 
-		public decimal precio { get; set; }
+		
 
 		public int altaUbicaciones(List<Ubicacion> buscarButtons, int idPublicacion)
 		{
