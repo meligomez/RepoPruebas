@@ -58,6 +58,7 @@
     <Compile Include="Dominio\Domicilio.cs" />
     <Compile Include="Dominio\Cliente.cs" />
     <Compile Include="Dominio\Direccion.cs" />
+    <Compile Include="Dominio\Estadistica.cs" />
     <Compile Include="Dominio\Funcionalidad.cs" />
     <Compile Include="Dominio\Grado.cs" />
     <Compile Include="Dominio\Premio.cs" />

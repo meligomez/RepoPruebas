@@ -36,6 +36,7 @@
 			this.label3 = new System.Windows.Forms.Label();
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
 			this.label4 = new System.Windows.Forms.Label();
+			this.btnVolver = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.SuspendLayout();
@@ -104,12 +105,23 @@
 			this.label4.TabIndex = 98;
 			this.label4.Text = "Elija una Publicacion para editarla.";
 			// 
+			// btnVolver
+			// 
+			this.btnVolver.Location = new System.Drawing.Point(23, 558);
+			this.btnVolver.Name = "btnVolver";
+			this.btnVolver.Size = new System.Drawing.Size(121, 38);
+			this.btnVolver.TabIndex = 99;
+			this.btnVolver.Text = "Volver";
+			this.btnVolver.UseVisualStyleBackColor = true;
+			this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
+			// 
 			// EditarPublicacion
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.Silver;
-			this.ClientSize = new System.Drawing.Size(1000, 563);
+			this.ClientSize = new System.Drawing.Size(1000, 608);
+			this.Controls.Add(this.btnVolver);
 			this.Controls.Add(this.label4);
 			this.Controls.Add(this.dataGridView1);
 			this.Controls.Add(this.label3);
@@ -119,7 +131,7 @@
 			this.Controls.Add(this.label1);
 			this.Font = new System.Drawing.Font("Raleway", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-			this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.Margin = new System.Windows.Forms.Padding(4);
 			this.Name = "EditarPublicacion";
 			this.Text = "EditarPublicacion";
 			this.Load += new System.EventHandler(this.EditarPublicacion_Load);
@@ -139,5 +151,6 @@
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.DataGridView dataGridView1;
 		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.Button btnVolver;
 	}
 }

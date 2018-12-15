@@ -115,6 +115,7 @@
 			this.comboRubro.Size = new System.Drawing.Size(172, 32);
 			this.comboRubro.TabIndex = 82;
 			this.comboRubro.Visible = false;
+			this.comboRubro.SelectedIndexChanged += new System.EventHandler(this.comboRubro_SelectedIndexChanged);
 			// 
 			// textDireccion
 			// 
@@ -379,13 +380,14 @@
 			// 
 			// btnPrecioPorCategoria
 			// 
-			this.btnPrecioPorCategoria.Location = new System.Drawing.Point(196, 471);
+			this.btnPrecioPorCategoria.Location = new System.Drawing.Point(377, 156);
 			this.btnPrecioPorCategoria.Name = "btnPrecioPorCategoria";
 			this.btnPrecioPorCategoria.Size = new System.Drawing.Size(190, 38);
 			this.btnPrecioPorCategoria.TabIndex = 116;
 			this.btnPrecioPorCategoria.Text = "Guardar Precio";
 			this.btnPrecioPorCategoria.UseVisualStyleBackColor = true;
 			this.btnPrecioPorCategoria.Visible = false;
+			this.btnPrecioPorCategoria.Click += new System.EventHandler(this.btnPrecioPorCategoria_Click);
 			// 
 			// lblTextoCategoria
 			// 
@@ -401,7 +403,7 @@
 			// textPrecio
 			// 
 			this.textPrecio.Font = new System.Drawing.Font("Raleway", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.textPrecio.Location = new System.Drawing.Point(392, 414);
+			this.textPrecio.Location = new System.Drawing.Point(573, 99);
 			this.textPrecio.Name = "textPrecio";
 			this.textPrecio.Size = new System.Drawing.Size(89, 31);
 			this.textPrecio.TabIndex = 115;
@@ -411,7 +413,7 @@
 			// 
 			this.lblPrecio.AutoSize = true;
 			this.lblPrecio.Font = new System.Drawing.Font("Raleway", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblPrecio.Location = new System.Drawing.Point(314, 417);
+			this.lblPrecio.Location = new System.Drawing.Point(495, 102);
 			this.lblPrecio.Name = "lblPrecio";
 			this.lblPrecio.Size = new System.Drawing.Size(72, 24);
 			this.lblPrecio.TabIndex = 114;
@@ -421,7 +423,7 @@
 			// lblCategoria
 			// 
 			this.lblCategoria.AutoSize = true;
-			this.lblCategoria.Location = new System.Drawing.Point(40, 414);
+			this.lblCategoria.Location = new System.Drawing.Point(221, 99);
 			this.lblCategoria.Name = "lblCategoria";
 			this.lblCategoria.Size = new System.Drawing.Size(104, 24);
 			this.lblCategoria.TabIndex = 112;
@@ -431,7 +433,7 @@
 			// comboCategoria
 			// 
 			this.comboCategoria.FormattingEnabled = true;
-			this.comboCategoria.Location = new System.Drawing.Point(150, 415);
+			this.comboCategoria.Location = new System.Drawing.Point(331, 100);
 			this.comboCategoria.Name = "comboCategoria";
 			this.comboCategoria.Size = new System.Drawing.Size(143, 32);
 			this.comboCategoria.TabIndex = 111;

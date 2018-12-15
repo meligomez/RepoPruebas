@@ -39,6 +39,8 @@
 			this.btnPreviousPage = new System.Windows.Forms.Button();
 			this.btnLastPage = new System.Windows.Forms.Button();
 			this.btnNextPage = new System.Windows.Forms.Button();
+			this.label2 = new System.Windows.Forms.Label();
+			this.txtCantPags = new System.Windows.Forms.MaskedTextBox();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.panelNavegacion.SuspendLayout();
@@ -66,7 +68,7 @@
 			// dataGridView1
 			// 
 			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridView1.Location = new System.Drawing.Point(21, 84);
+			this.dataGridView1.Location = new System.Drawing.Point(12, 152);
 			this.dataGridView1.Name = "dataGridView1";
 			this.dataGridView1.RowTemplate.Height = 24;
 			this.dataGridView1.Size = new System.Drawing.Size(821, 259);
@@ -74,12 +76,13 @@
 			// 
 			// btnVolver
 			// 
-			this.btnVolver.Location = new System.Drawing.Point(12, 368);
+			this.btnVolver.Location = new System.Drawing.Point(3, 436);
 			this.btnVolver.Name = "btnVolver";
 			this.btnVolver.Size = new System.Drawing.Size(142, 39);
 			this.btnVolver.TabIndex = 3;
 			this.btnVolver.Text = "Volver";
 			this.btnVolver.UseVisualStyleBackColor = true;
+			this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
 			// 
 			// panelNavegacion
 			// 
@@ -88,7 +91,7 @@
 			this.panelNavegacion.Controls.Add(this.btnPreviousPage);
 			this.panelNavegacion.Controls.Add(this.btnLastPage);
 			this.panelNavegacion.Controls.Add(this.btnNextPage);
-			this.panelNavegacion.Location = new System.Drawing.Point(175, 352);
+			this.panelNavegacion.Location = new System.Drawing.Point(166, 420);
 			this.panelNavegacion.Margin = new System.Windows.Forms.Padding(4);
 			this.panelNavegacion.Name = "panelNavegacion";
 			this.panelNavegacion.Size = new System.Drawing.Size(640, 66);
@@ -156,12 +159,34 @@
 			this.btnNextPage.UseVisualStyleBackColor = true;
 			this.btnNextPage.Click += new System.EventHandler(this.btnNextPage_Click);
 			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(18, 115);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(315, 24);
+			this.label2.TabIndex = 96;
+			this.label2.Text = "Ingrese una cantidad de Páginas:";
+			// 
+			// txtCantPags
+			// 
+			this.txtCantPags.Location = new System.Drawing.Point(305, 112);
+			this.txtCantPags.Mask = "99999";
+			this.txtCantPags.Name = "txtCantPags";
+			this.txtCantPags.Size = new System.Drawing.Size(110, 31);
+			this.txtCantPags.TabIndex = 97;
+			this.txtCantPags.ValidatingType = typeof(int);
+			this.txtCantPags.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.txtCantPags_MaskInputRejected);
+			this.txtCantPags.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+			// 
 			// HistorialCliente
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 24F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.Silver;
-			this.ClientSize = new System.Drawing.Size(860, 431);
+			this.ClientSize = new System.Drawing.Size(885, 533);
+			this.Controls.Add(this.txtCantPags);
+			this.Controls.Add(this.label2);
 			this.Controls.Add(this.panelNavegacion);
 			this.Controls.Add(this.btnVolver);
 			this.Controls.Add(this.dataGridView1);
@@ -194,5 +219,7 @@
 		internal System.Windows.Forms.Button btnPreviousPage;
 		internal System.Windows.Forms.Button btnLastPage;
 		internal System.Windows.Forms.Button btnNextPage;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.MaskedTextBox txtCantPags;
 	}
 }

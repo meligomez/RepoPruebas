@@ -35,6 +35,25 @@ namespace Modelo.Dominio
 			}
 			
 		}
+		public int buscarCodigoCategoria(string categoria)
+		{
+			try
+			{
+				int tipoUbicacionId;
+				DaoSP dao = new DaoSP();
+				DataTable dt = new DataTable();
+				dt = dao.ObtenerDatosSP("dropeadores.buscarCodigoTipoUbicacion", categoria);
+				DataRow row = dt.Rows[0];
+				tipoUbicacionId = int.Parse(row["codigo"].ToString());
+				return tipoUbicacionId;
+			}
+			catch (Exception ex)
+			{
+
+				throw ex;
+			}
+
+		}
 
 		public int getIdByDescripcion(string descripcion)
 		{

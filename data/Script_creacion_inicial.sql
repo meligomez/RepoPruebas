@@ -17,6 +17,7 @@ GO
 ----------------------------------------------------------------------------------------------
 								/** VALIDACION DE TABLAS **/
 ----------------------------------------------------------------------------------------------
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.FuncionalidadXRol'))
     DROP TABLE dropeadores.FuncionalidadXRol
 
@@ -28,12 +29,6 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.F
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Rol'))
     DROP TABLE dropeadores.Rol
-
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Factura'))
-    DROP TABLE dropeadores.Factura   
-
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Item_Factura'))
-    DROP TABLE dropeadores.Item_Factura    
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.PremioXUsuario'))
     DROP TABLE dropeadores.PremioXUsuario 
@@ -61,16 +56,18 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.G
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Puntos'))
     DROP TABLE dropeadores.Puntos
-
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Compra'))
+    
+ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Item_Factura'))
+    DROP TABLE dropeadores.Item_Factura       
+  
+  IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Compra'))
     DROP TABLE dropeadores.Compra
-
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.TarjetaCredito'))
-    DROP TABLE dropeadores.TarjetaCredito
-
-
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Cliente'))
+      
+  IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Cliente'))
     DROP TABLE dropeadores.Cliente
+     
+ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Factura'))
+    DROP TABLE dropeadores.Factura   
     
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Empresa'))
     DROP TABLE dropeadores.Empresa
@@ -78,6 +75,8 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.E
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Domicilio'))
     DROP TABLE dropeadores.Domicilio 
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.TarjetaCredito'))
+    DROP TABLE dropeadores.TarjetaCredito
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dropeadores.Usuario'))
     DROP TABLE dropeadores.Usuario
@@ -176,6 +175,7 @@ clieteId numeric(18, 0),
 propietario  nvarchar(255),
 numero varchar(19),
 fechaVencimiento datetime,
+descripcion nvarchar(255)
 )
 
 create table [dropeadores].Rubro(
@@ -207,16 +207,15 @@ CREATE TABLE [dropeadores].[Publicacion](
 
 
 CREATE TABLE [dropeadores].[TipoUbicacion](
-	[codigo] int primary key NOT NULL,
-	[descripcion] [nvarchar](255) NULL,
-	[precio] [decimal](12, 2) NULL
+	[codigo] int primary key identity NOT NULL,
+	[descripcion] [nvarchar](255) NULL
 )
 
 CREATE TABLE [dropeadores].[Ubicacion](
     [fila] [varchar](3) ,
     [asiento] [numeric](18, 0) ,
     [sinNumerar] [bit] NULL,
-    [precio] [numeric](18, 0) NULL,
+    [precio] [decimal](12, 2) NULL,
     [estado] [bit] NULL,
     [publicacionId] int NOT NULL  references [dropeadores].Publicacion,
     [tipoUbicacion] int NOT NULL  references [dropeadores].TipoUbicacion,
@@ -277,26 +276,24 @@ premioId int not null references dropeadores.Premio)
    
 
 -- HAY QUE LEER BIEN EL ENUNCIADO Y FIJARSE Q ONDA ESTAS TABLAS
+Create table dropeadores.Factura(
+Numero int primary key not null,
+Fecha datetime,
+Total decimal(14,2),
+FormaDePago nvarchar(255),
+Empresa_Id varchar(255) references dropeadores.Empresa
+--,Forma_Pago int not null references dropeadores.FormaPago
+)
 
---Create table dropeadores.Factura(
---Numero int primary key not null,
---Fecha datetime,
---Total decimal(14,2),
---FormaDePago nvarchar(255)
---Cliente_Id numeric(18,0) references dropeadores.Cliente
---Empresa_Id nvarchar(255) references dropeadores.Empresa
-----,Forma_Pago int not null references dropeadores.FormaPago
---)
+create table dropeadores.Item_Factura(
+Id int primary key not null identity,
+Cantidad int default 1,
+Monto decimal(16,2),
+descripcion nvarchar(60),
+Compra_Id int  references dropeadores.Compra,
+Factura_Id int  references dropeadores.Factura
+)
 
---create table dropeadores.Item_Factura(
---Id int primary key not null identity,
---Cantidad int default 1,
---Monto decimal(16,2),
---descripcion nvarchar(60)
---Espectaculo_Id numeric(18,0)
---Compra_Id int  references dropeadores.Compra,
---Factura_Id int  references dropeadores.Factura
---)
 
 
 
@@ -406,9 +403,10 @@ insert into dropeadores.Premio (descripcion,puntos) values ('3 Cuotas sin Inter�
 insert into dropeadores.Premio (descripcion,puntos) values ('6 Cuotas sin Interés en la proxima compra',9874)  
 
 				/*Tipo Ubicacion */
-insert into dropeadores.TipoUBicacion (codigo,descripcion,precio)
-SELECT distinct Ubicacion_Tipo_Codigo,Ubicacion_Tipo_Descripcion,1 from gd_esquema.Maestra
-
+SET IDENTITY_INSERT [dropeadores].TipoUBicacion ON
+insert into dropeadores.TipoUBicacion (codigo,descripcion)
+SELECT distinct Ubicacion_Tipo_Codigo,Ubicacion_Tipo_Descripcion from gd_esquema.Maestra
+SET IDENTITY_INSERT [dropeadores].TipoUBicacion OFF
 							
 				/*Publicacion*/
 SET IDENTITY_INSERT [dropeadores].Publicacion ON
@@ -428,60 +426,47 @@ SET IDENTITY_INSERT [dropeadores].Publicacion OFF
  
 				/*Ubicacion*/
 
-insert  into dropeadores.Ubicacion (fila,asiento,sinNumerar,estado,publicacionId,tipoUbicacion)
+insert  into dropeadores.Ubicacion (fila,asiento,sinNumerar,estado,publicacionId,tipoUbicacion,precio)
 select distinct  Ubicacion_Fila,Ubicacion_Asiento,Ubicacion_Sin_numerar,1
 , p.id
-,( select top 1 codigo from dropeadores.TipoUbicacion)
+,Ubicacion_Tipo_Codigo,ubicacion_precio
 from gd_esquema.Maestra m
 join dropeadores.Publicacion p on(p.id=m.Espectaculo_Cod)
 					
 				/*Compra*/
 insert into dropeadores.Compra(factura,compra_tipo_documento,compra_numero_documento,compra_fecha,compra_cantidad,compra_ubicacionAsiento,compra_ubicacionFila,compra_ubicacionPublic,compra_precio)
-select  m.Factura_Nro,'DNI',m.Cli_Dni,m.Compra_Fecha, m.Compra_Cantidad, m.Ubicacion_Asiento,m.Ubicacion_Fila,m.Espectaculo_Cod,tu.precio
+select  m.Factura_Nro,'DNI',m.Cli_Dni,m.Compra_Fecha, m.Compra_Cantidad, m.Ubicacion_Asiento,m.Ubicacion_Fila,m.Espectaculo_Cod,u.precio
  from gd_esquema.Maestra m
   join dropeadores.Ubicacion u on u.asiento = m.Ubicacion_Asiento and 
   m.Ubicacion_Fila = u.fila and u.publicacionId = m.Espectaculo_Cod
- join dropeadores.TipoUbicacion tu on(tu.codigo=m.Ubicacion_Tipo_Codigo)
 where (m.Compra_Fecha is not null) and (m.Factura_Fecha is not null)
-
-
-								/*************************************************************/	
-								/*************************************************************/
-								/*************************************************************/		
-								/*************************************************************/	
-								/*************************************************************/	
-								/*************************************************************/	
-								/*A ESTAS TABLAS HAY Q VERIFICAR SI SE MIGRAN BIEN LOS DATOS.*/	
-								/*************************************************************/		
-								/*************************************************************/	
-								/*************************************************************/	
-								/*************************************************************/
-								/*************************************************************/		
-								/*************************************************************/	
 
 						/*Puntos*/	
 -- --Solo agregue el Id de premio 1..... habrá q ver como hacer para insertar todos los premios.
---  INSERT INTO dropeadores.Puntos (puntos,PuntosVigentes,FechaVencimiento,Id_Compra,Id_Cliente)
--- SELECT distinct  50,0,DATEADD(DAY,5,c.Fecha_Compra) ,Id_Compra,Id_Cliente
---   FROM dropeadores.Compra c
---   --Aca le modifico los puntos vigentes como la suma de los puntos de las compras de ese cliente.
--- UPDATE dropeadores.Puntos set PuntosVigentes=(select SUM(puntos) from dropeadores.Puntos p2 where p2.Id_Cliente=Puntos.Id_Cliente) 
--- alter table dropeadores.Puntos add constraint CK_puntosPositivos check (puntos>=0)
+  INSERT INTO dropeadores.Puntos (puntos,PuntosVigentes,FechaVencimiento,Id_Compra,Id_Cliente)
+ SELECT distinct  5,0,DATEADD(DAY,5,c.compra_fecha) ,Id,compra_numero_documento
+   FROM dropeadores.Compra c
+   --Aca le modifico los puntos vigentes como la suma de los puntos de las compras de ese cliente.
+ UPDATE dropeadores.Puntos set PuntosVigentes=(select SUM(puntos) from dropeadores.Puntos p2 where p2.Id_Cliente=Puntos.Id_Cliente) 
+ alter table dropeadores.Puntos add constraint CK_puntosPositivos check (puntos>=0)
 
 
 -- 				/*Factura*/
 
--- insert into dropeadores.Factura (Numero,Fecha,Total,Forma_Pago,Cliente_Id)
--- SELECT distinct Factura_Nro,Factura_Fecha,Factura_Total,1,c.Id_Cliente from gd_esquema.Maestra m
--- join dropeadores.Cliente c on(c.Cli_Dni=m.Cli_Dni)
--- where Item_Factura_Cantidad is not null
--- order by Factura_Nro
+ insert into dropeadores.Factura (Numero,Fecha,Total,FormaDePago,Empresa_Id)
+ SELECT distinct Factura_Nro,Factura_Fecha,Factura_Total,Forma_Pago_Desc,empresa_Cuit from gd_esquema.Maestra m
+ join dropeadores.Empresa e on(e.empresa_Cuit=m.Espec_Empresa_Cuit)
+ where Item_Factura_Cantidad is not null
+ order by Factura_Nro
+
 
 
 -- 				/*Item Factura*/
--- INSERT INTO dropeadores.Item_Factura (Cantidad,Monto,Descripcion,Espectaculo_Id,Factura_Id)
--- SELECT distinct Item_Factura_Cantidad ,Item_Factura_Monto, Item_Factura_Descripcion,Espectaculo_Cod,Factura_Nro from gd_esquema.Maestra
--- where Item_Factura_Cantidad is not null
+ INSERT INTO dropeadores.Item_Factura (Compra_Id,Cantidad,Descripcion,Monto,Factura_Id)
+ SELECT DISTINCT id, Item_Factura_Cantidad, Item_Factura_Descripcion, Item_Factura_Monto, Factura_Nro
+FROM gd_esquema.Maestra m, dropeadores.compra c
+WHERE Factura_Nro IS NOT NULL AND c.compra_fecha=m.Compra_Fecha AND compra_numero_documento=m.Cli_Dni
+	
 
 				
 	
@@ -620,11 +605,11 @@ end
 GO
 CREATE procedure [dropeadores].[AltaUbicacion] 
 (@asiento int, @fila nvarchar(3), @estado bit,@tipoUbicacionId int,
-@idPublicacion int)
+@idPublicacion int,@precio numeric(18,2))
 as
 begin
-insert into dropeadores.Ubicacion (fila,asiento,estado,publicacionId,tipoUbicacion)
-values (@fila,@asiento,@estado,@idPublicacion,@tipoUbicacionId)
+insert into dropeadores.Ubicacion (fila,asiento,estado,publicacionId,tipoUbicacion,precio)
+values (@fila,@asiento,@estado,@idPublicacion,@tipoUbicacionId,@precio)
 end
 
 /**********************FIN AltaUbicacion  **********************/
@@ -720,6 +705,146 @@ end
 
 
 /**************FIN GetFuncionalidades*****************/
+
+/**************INICIO getClientesMasPuntosVencidos*****************/
+GO
+create procedure dropeadores.getClientesMasPuntosVencidos (@trimestre nvarchar(255), @anio nvarchar(255))
+as
+begin
+if(@trimestre = 'Primer')
+begin
+SELECT TOP 5 id_cliente as 'DNI cliente',count(distinct id_compra) as 'Cantidad de compras', sum(PuntosVigentes) as 'Puntos Vencidos' 
+from dropeadores.Puntos  where MONTH(	FechaVencimiento) between 1 and 3 and YEAR(FechaVencimiento) LIKE @anio
+group by Id_Cliente order by 3 desc
+end
+
+if(@trimestre= 'Segundo')
+begin
+SELECT TOP 5 id_cliente as 'DNI cliente',count(distinct id_compra) as 'Cantidad de compras', sum(PuntosVigentes) as 'Puntos Vencidos' 
+from dropeadores.Puntos  where MONTH(	FechaVencimiento) between 3 and 6 and YEAR(FechaVencimiento) LIKE @anio
+group by Id_Cliente order by 1 desc
+end
+
+if(@trimestre='Tercer')
+begin
+SELECT TOP 5 id_cliente as 'DNI cliente',count(distinct id_compra) as 'Cantidad de compras', sum(PuntosVigentes) as 'Puntos Vencidos' 
+from dropeadores.Puntos  where MONTH(	FechaVencimiento) between 6 and 9 and YEAR(FechaVencimiento) LIKE @anio
+group by Id_Cliente order by 3 desc
+end
+
+if(@trimestre='Cuarto')
+begin
+SELECT TOP 5 id_cliente as 'DNI cliente',count(distinct id_compra) as 'Cantidad de compras', sum(PuntosVigentes) as 'Puntos Vencidos' 
+from dropeadores.Puntos  where MONTH(	FechaVencimiento) between 9 and 12 and YEAR(FechaVencimiento) LIKE @anio
+group by Id_Cliente order by 3 desc
+end
+
+end
+
+
+/**************FIN getClientesMasPuntosVencidos*****************/
+
+
+
+/**************INICIO getClientesMayorCantCompras*****************/
+
+go
+create procedure [dropeadores].[getClientesMayorCantCompras] (@trimestre nvarchar(255), @anio nvarchar(255))
+as
+begin
+if(@trimestre = 'Primer')
+begin
+
+SELECT TOP 5 compra_numero_documento as 'DNI cliente',count(distinct c.id) as 'Cantidad de compras',COUNT(distinct p.id) as 'Cantidad de Publicaciones'
+from dropeadores.Compra c
+join dropeadores.Publicacion p on(p.id=c.compra_ubicacionPublic)
+ where MONTH(	compra_fecha) between 1 and 3 and YEAR(compra_fecha) LIKE @anio
+group by compra_numero_documento,empresaId order by 2 desc
+
+end
+
+if(@trimestre= 'Segundo')
+begin
+SELECT TOP 5 compra_numero_documento as 'DNI cliente',count(distinct c.id) as 'Cantidad de compras',COUNT(distinct p.id) as 'Cantidad de Publicaciones'
+from dropeadores.Compra c
+join dropeadores.Publicacion p on(p.id=c.compra_ubicacionPublic)
+ where MONTH(	compra_fecha) between 3 and 6 and YEAR(compra_fecha) LIKE @anio
+group by compra_numero_documento,empresaId order by 2 desc
+end
+
+if(@trimestre='Tercer')
+begin
+SELECT TOP 5 compra_numero_documento as 'DNI cliente',count(distinct c.id) as 'Cantidad de compras',COUNT(p.id) as 'Cantidad de Publicaciones'
+from dropeadores.Compra c
+join dropeadores.Publicacion p on(p.id=c.compra_ubicacionPublic)
+ where MONTH(	compra_fecha) between 6 and 9 and YEAR(compra_fecha) LIKE @anio
+group by compra_numero_documento,empresaId order by 2 desc
+end
+
+if(@trimestre='Cuarto')
+begin
+SELECT TOP 5 compra_numero_documento as 'DNI cliente',count(distinct c.id) as 'Cantidad de compras',COUNT(distinct p.id) as 'Cantidad de Publicaciones'
+from dropeadores.Compra c
+join dropeadores.Publicacion p on(p.id=c.compra_ubicacionPublic)
+ where MONTH(	compra_fecha) between 9 and 12 and YEAR(compra_fecha) LIKE @anio
+group by compra_numero_documento,empresaId order by 2 desc
+end
+
+end
+
+/**************FIN getClientesMayorCantCompras*****************/
+
+
+/**************FIN GetComprasPorEmpresa*****************/
+GO
+create procedure dropeadores.GetComprasPorEmpresa(@cuit varchar(255))
+as
+begin
+SELECT c.id as idCompra,
+	p.id as idPublicacion, 
+	p.descripcion as descripcion, 
+	g.porcentaje as porcentaje, 
+	u.fila as fila, 
+	u.asiento as asiento,
+	tu.precio,
+	c.compra_fecha
+FROM dropeadores.Compra c
+join dropeadores.Publicacion p on(c.compra_ubicacionPublic=p.id)
+join dropeadores.Ubicacion u on(u.asiento=c.compra_ubicacionAsiento and u.fila=c.compra_ubicacionFila and u.publicacionId=c.compra_ubicacionPublic)
+join dropeadores.TipoUbicacion tu on(tu.codigo=u.tipoUbicacion)
+join dropeadores.Grado g on(g.id=p.gradoId)
+WHERE p.empresaId = @cuit
+--	AND c.fueRendida != 'TRUE'
+ORDER BY c.id,
+	p.id,
+	u.asiento,
+	u.fila
+end
+
+
+/**************FIN GetComprasPorEmpresa*****************/
+
+
+/**************INICIO buscarCodigoTipoUbicacion*****************/
+GO
+create procedure dropeadores.buscarCodigoTipoUbicacion ( @descripcion nvarchar(255))
+as 
+begin
+select codigo from dropeadores.tipoUbicacion where descripcion LIKE @descripcion
+end
+
+/**************FIN buscarCodigoTipoUbicacion*****************/
+
+
+/**************INICIO UpdatePrecioUbicacion*****************/
+GO
+create procedure dropeadores.UpdatePrecioUbicacion (@codigoPublicacion int, @codigoTipoUbicacion int , @precio decimal(12,2))
+as
+begin
+update dropeadores.Ubicacion set precio=@precio where publicacionId= @codigoPublicacion and tipoUbicacion=@codigoTipoUbicacion
+end
+
+/**************FIN UpdatePrecioUbicacion*****************/
 
 GO
 /****** Object:  StoredProcedure [dropeadores].[Domicilio_Cli_Alta]    Script Date: 07/12/2018 19:57:04 ******/
