@@ -110,7 +110,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             var posFiltro = true;
             var filtrosBusqueda = new List<string>();
 
-            if (cuit != "") filtrosBusqueda.Add("CUITE LIKE '%" + cuit + "%'");
+            if (cuit != "") filtrosBusqueda.Add("CUIT LIKE '%" + cuit + "%'");
             if (razonSocial != "") filtrosBusqueda.Add("RAZONSOCIAL LIKE '%" + razonSocial + "%'");
             if (mail != "") filtrosBusqueda.Add("MAIL LIKE '%" + mail + "%'");
             foreach (var filtro in filtrosBusqueda)
