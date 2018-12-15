@@ -47,9 +47,18 @@
             this.buttonVOLVER = new System.Windows.Forms.Button();
             this.labelMedioPago = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.panelNavegacion = new System.Windows.Forms.Panel();
+            this.txtDisplayPageNo = new System.Windows.Forms.TextBox();
+            this.btnFirstPage = new System.Windows.Forms.Button();
+            this.btnPreviousPage = new System.Windows.Forms.Button();
+            this.btnLastPage = new System.Windows.Forms.Button();
+            this.btnNextPage = new System.Windows.Forms.Button();
+            this.txtCantPags = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCompras)).BeginInit();
+            this.panelNavegacion.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -63,9 +72,9 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(47, 94);
+            this.groupBox1.Location = new System.Drawing.Point(31, 72);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1090, 164);
+            this.groupBox1.Size = new System.Drawing.Size(1090, 161);
             this.groupBox1.TabIndex = 125;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de la Publicacion";
@@ -158,7 +167,7 @@
             // pictureBox3
             // 
             this.pictureBox3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox3.BackgroundImage")));
-            this.pictureBox3.Location = new System.Drawing.Point(65, 22);
+            this.pictureBox3.Location = new System.Drawing.Point(52, 9);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(65, 66);
             this.pictureBox3.TabIndex = 124;
@@ -168,7 +177,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(134, 38);
+            this.label7.Location = new System.Drawing.Point(123, 9);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(134, 29);
             this.label7.TabIndex = 123;
@@ -176,7 +185,7 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(730, 599);
+            this.btnBuscar.Location = new System.Drawing.Point(883, 599);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(131, 55);
             this.btnBuscar.TabIndex = 115;
@@ -187,7 +196,7 @@
             // dataGridViewCompras
             // 
             this.dataGridViewCompras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewCompras.Location = new System.Drawing.Point(128, 279);
+            this.dataGridViewCompras.Location = new System.Drawing.Point(112, 291);
             this.dataGridViewCompras.Name = "dataGridViewCompras";
             this.dataGridViewCompras.RowTemplate.Height = 24;
             this.dataGridViewCompras.Size = new System.Drawing.Size(953, 236);
@@ -196,7 +205,7 @@
             // 
             // buttonPAGAR
             // 
-            this.buttonPAGAR.Location = new System.Drawing.Point(975, 599);
+            this.buttonPAGAR.Location = new System.Drawing.Point(1020, 599);
             this.buttonPAGAR.Name = "buttonPAGAR";
             this.buttonPAGAR.Size = new System.Drawing.Size(131, 55);
             this.buttonPAGAR.TabIndex = 126;
@@ -206,7 +215,7 @@
             // 
             // buttonVOLVER
             // 
-            this.buttonVOLVER.Location = new System.Drawing.Point(112, 599);
+            this.buttonVOLVER.Location = new System.Drawing.Point(31, 599);
             this.buttonVOLVER.Name = "buttonVOLVER";
             this.buttonVOLVER.Size = new System.Drawing.Size(131, 55);
             this.buttonVOLVER.TabIndex = 127;
@@ -219,7 +228,7 @@
             this.labelMedioPago.AutoSize = true;
             this.labelMedioPago.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.labelMedioPago.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelMedioPago.Location = new System.Drawing.Point(526, 539);
+            this.labelMedioPago.Location = new System.Drawing.Point(834, 253);
             this.labelMedioPago.MaximumSize = new System.Drawing.Size(200, 23);
             this.labelMedioPago.MinimumSize = new System.Drawing.Size(200, 23);
             this.labelMedioPago.Name = "labelMedioPago";
@@ -230,11 +239,103 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(283, 542);
+            this.label2.Location = new System.Drawing.Point(697, 253);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(219, 20);
+            this.label2.Size = new System.Drawing.Size(115, 20);
             this.label2.TabIndex = 130;
-            this.label2.Text = "Seleccione un medio de Pago";
+            this.label2.Text = "Medio de Pago";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(124, 253);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(246, 20);
+            this.label5.TabIndex = 131;
+            this.label5.Text = "Ingrese una cantidad de Páginas:";
+            // 
+            // panelNavegacion
+            // 
+            this.panelNavegacion.Controls.Add(this.txtDisplayPageNo);
+            this.panelNavegacion.Controls.Add(this.btnFirstPage);
+            this.panelNavegacion.Controls.Add(this.btnPreviousPage);
+            this.panelNavegacion.Controls.Add(this.btnLastPage);
+            this.panelNavegacion.Controls.Add(this.btnNextPage);
+            this.panelNavegacion.Location = new System.Drawing.Point(212, 547);
+            this.panelNavegacion.Margin = new System.Windows.Forms.Padding(4);
+            this.panelNavegacion.Name = "panelNavegacion";
+            this.panelNavegacion.Size = new System.Drawing.Size(640, 66);
+            this.panelNavegacion.TabIndex = 133;
+            // 
+            // txtDisplayPageNo
+            // 
+            this.txtDisplayPageNo.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.txtDisplayPageNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.txtDisplayPageNo.Location = new System.Drawing.Point(248, 18);
+            this.txtDisplayPageNo.Margin = new System.Windows.Forms.Padding(4);
+            this.txtDisplayPageNo.Name = "txtDisplayPageNo";
+            this.txtDisplayPageNo.Size = new System.Drawing.Size(132, 24);
+            this.txtDisplayPageNo.TabIndex = 88;
+            // 
+            // btnFirstPage
+            // 
+            this.btnFirstPage.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnFirstPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.btnFirstPage.Location = new System.Drawing.Point(29, 18);
+            this.btnFirstPage.Margin = new System.Windows.Forms.Padding(4);
+            this.btnFirstPage.Name = "btnFirstPage";
+            this.btnFirstPage.Size = new System.Drawing.Size(100, 31);
+            this.btnFirstPage.TabIndex = 81;
+            this.btnFirstPage.Text = "Primera";
+            this.btnFirstPage.UseVisualStyleBackColor = true;
+            this.btnFirstPage.Click += new System.EventHandler(this.btnFirstPage_Click);
+            // 
+            // btnPreviousPage
+            // 
+            this.btnPreviousPage.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnPreviousPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.btnPreviousPage.Location = new System.Drawing.Point(139, 18);
+            this.btnPreviousPage.Margin = new System.Windows.Forms.Padding(4);
+            this.btnPreviousPage.Name = "btnPreviousPage";
+            this.btnPreviousPage.Size = new System.Drawing.Size(100, 31);
+            this.btnPreviousPage.TabIndex = 85;
+            this.btnPreviousPage.Text = "Atrás";
+            this.btnPreviousPage.UseVisualStyleBackColor = true;
+            this.btnPreviousPage.Click += new System.EventHandler(this.btnPreviousPage_Click);
+            // 
+            // btnLastPage
+            // 
+            this.btnLastPage.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnLastPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.btnLastPage.Location = new System.Drawing.Point(503, 18);
+            this.btnLastPage.Margin = new System.Windows.Forms.Padding(4);
+            this.btnLastPage.Name = "btnLastPage";
+            this.btnLastPage.Size = new System.Drawing.Size(100, 31);
+            this.btnLastPage.TabIndex = 87;
+            this.btnLastPage.Text = "Última";
+            this.btnLastPage.UseVisualStyleBackColor = true;
+            this.btnLastPage.Click += new System.EventHandler(this.btnLastPage_Click);
+            // 
+            // btnNextPage
+            // 
+            this.btnNextPage.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnNextPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.btnNextPage.Location = new System.Drawing.Point(393, 18);
+            this.btnNextPage.Margin = new System.Windows.Forms.Padding(4);
+            this.btnNextPage.Name = "btnNextPage";
+            this.btnNextPage.Size = new System.Drawing.Size(100, 31);
+            this.btnNextPage.TabIndex = 86;
+            this.btnNextPage.Text = "Siguiente";
+            this.btnNextPage.UseVisualStyleBackColor = true;
+            this.btnNextPage.Click += new System.EventHandler(this.btnNextPage_Click);
+            // 
+            // txtCantPags
+            // 
+            this.txtCantPags.Location = new System.Drawing.Point(376, 250);
+            this.txtCantPags.Name = "txtCantPags";
+            this.txtCantPags.Size = new System.Drawing.Size(100, 26);
+            this.txtCantPags.TabIndex = 134;
+            this.txtCantPags.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // ComprarPPAL
             // 
@@ -242,6 +343,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(1181, 666);
+            this.Controls.Add(this.txtCantPags);
+            this.Controls.Add(this.panelNavegacion);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.labelMedioPago);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.buttonVOLVER);
@@ -260,6 +364,8 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCompras)).EndInit();
+            this.panelNavegacion.ResumeLayout(false);
+            this.panelNavegacion.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -285,5 +391,13 @@
         private System.Windows.Forms.Button buttonVOLVER;
         public System.Windows.Forms.Label labelMedioPago;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Panel panelNavegacion;
+        internal System.Windows.Forms.TextBox txtDisplayPageNo;
+        internal System.Windows.Forms.Button btnFirstPage;
+        internal System.Windows.Forms.Button btnPreviousPage;
+        internal System.Windows.Forms.Button btnLastPage;
+        internal System.Windows.Forms.Button btnNextPage;
+        private System.Windows.Forms.TextBox txtCantPags;
     }
 }
