@@ -44,7 +44,7 @@ namespace PalcoNet.Comprar
 
         private int tieneTarjeta(Usuario user)
         {
-            DataTable dt, dr, da = new DataTable();
+            DataTable dt = new DataTable();
             int cant = 0;
             DaoSP dao = new DaoSP();
 

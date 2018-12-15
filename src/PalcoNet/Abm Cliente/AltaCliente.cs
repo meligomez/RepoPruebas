@@ -81,7 +81,8 @@ namespace PalcoNet.Abm_Cliente
 
 		private void AltaCliente_Load(object sender, EventArgs e)
 		{
-			
+            comboTipoTarj.Items.Add("DEBITO");
+            comboTipoTarj.Items.Add("CREDITO");
 
 		}
 		private void limpiar()
@@ -179,6 +180,7 @@ namespace PalcoNet.Abm_Cliente
 					tar.propietario = txtTarjProp.Text;
 					tar.numero = txtTarjNum.Text;
 					tar.fechaVencimiento = dateTimePickerVenc.Value;
+                    tar.descripcion = Tarjeta.string_tipo[comboTipoTarj.SelectedIndex];
 					cli.Cli_Tar = tar;
 					//Alta del cliente
 					int resp = usuario.Alta();

@@ -18,6 +18,7 @@ namespace PalcoNet.Comprar
 
         private bool CategoriaCargada;
         private bool UbicacionCargada;
+        private string final_rol = "";
         private DateTime fecDesde, fecHasta;
         List<String> listaCategorias = new List<String>();
         List<Ubicacion> ubicacionesSeleccionadas = new List<Ubicacion>();
@@ -34,6 +35,10 @@ namespace PalcoNet.Comprar
             usuario = user;
             string medioDePago = "";
             usuario.cliente.numeroDocumento = 35550990;
+            DateTime today = fech.getFechaSistema();
+            DateTime answer = today.AddDays(5);
+            dateTimePickerDesde.Value=fech.getFechaSistema();
+            dateTimePickerHasta.Value = answer;
             DaoSP tj = new DaoSP();
             DataTable dt = new DataTable();
             dt = tj.ConsultarConQuery("select t.descripcion as 'tipoTarjeta' from dropeadores.Cliente c join dropeadores.TarjetaCredito t on (t.clieteId=c.numeroDocumento) where c.numeroDocumento=" + usuario.cliente.numeroDocumento);
@@ -48,9 +53,10 @@ namespace PalcoNet.Comprar
 
         private void ComprarPPAL_Load(object sender, EventArgs e)
         {
-            //cargarTabla();
+            
             DaoSP dao = new DaoSP();
             dtSource = dao.ObtenerDatosSP("dropeadores.getTablaPublicacion", fech.getFechaSistema());
+            cargarTabla();
         }
 
 
@@ -70,11 +76,8 @@ namespace PalcoNet.Comprar
 
         private void cargarTabla()
         {
-
             DaoSP prueba = new DaoSP();
-           
-            CargarData.cargarGridView(dataGridViewCompras, prueba.ObtenerDatosSP("dropeadores.getTablaPublicacion", fech.getFechaSistema()));
-
+            CargarData.cargarGridView(dataGridViewCompras, dtSource);
             CargarData.AddButtonSeleccionar(dataGridViewCompras);
         }
 
@@ -83,57 +86,66 @@ namespace PalcoNet.Comprar
             try
             {
                 DaoSP dao = new DaoSP();
-                DataTable tabla_Publicacion = new DataTable();
-                tabla_Publicacion = dao.ObtenerDatosSP("dropeadores.getPublicacion", fech.getFechaSistema(), fechaDesde, fechaHasta);
-                if (tabla_Publicacion == null)
+                //DataTable tabla_Publicacion = new DataTable();
+                //dtSource = dao.ObtenerDatosSP("dropeadores.getPublicacion", fech.getFechaSistema(), fechaDesde, fechaHasta);
+                if (dtSource == null)
                 {
                     cargarTabla();
                 }
 
-                var final_rol = "";
+                final_rol = "";
                 var posFiltro = true;
                 var filtrosBusqueda = new List<string>();
                 var filtrosCategoria = new List<string>();
-                final_rol = "(";
-                if (listaCat.Count > 0) 
-                {
-                    for (int i = 0; i < listaCat.Count(); i++)
-                    {
-
-                       filtrosCategoria.Add("RUBRO_DESCRIPCION LIKE '%" + listaCat[i] + "%'");
-
-                    }
-                    foreach (var filtro in filtrosCategoria)
-                    {
-                        if (!posFiltro)
-                            final_rol += " OR " + filtro;
-                        else
-                        {
-                            final_rol += filtro;
-                            posFiltro = false;
-                        }
-                    }
-                }
-                if (descripcion != "")
-                {
-                    final_rol += ")AND DESCRIPCION LIKE '%" + descripcion + "%'";
-                }
-                else
-                {
-                    final_rol += ")";
-                }
                 
-               if (tabla_Publicacion != null)
+                if ((listaCat.Count > 0) || (descripcion != ""))
                 {
+   
+                            if (listaCat.Count > 0) 
+                            {
+                                final_rol = "(";
+                                for (int i = 0; i < listaCat.Count(); i++)
+                                {
 
-                   tabla_Publicacion.DefaultView.RowFilter = final_rol;
+                                   filtrosCategoria.Add("RUBRO_DESCRIPCION LIKE '%" + listaCat[i] + "%'");
+
+                                }
+                                foreach (var filtro in filtrosCategoria)
+                                {
+                                    if (!posFiltro)
+                                        final_rol += " OR " + filtro;
+                                    else
+                                    {
+                                        final_rol += filtro;
+                                        posFiltro = false;
+                                    }
+                                }
+                                final_rol += ") AND ";
+                            }
+                            if (descripcion != "")
+                            {
+                                final_rol += "DESCRIPCION LIKE '" + descripcion + "'";
+                            }
+                            else
+                            {
+                                final_rol += ")";
+                            }
+                           
+                             final_rol += "AND FechaEspectaculo >= '" + fechaDesde + "'";
+                             final_rol += "AND FechaEspectaculo < '" + fechaHasta + "'";
+
+                             if (dtSource != null)
+                            {
+
+                                dtSource.DefaultView.RowFilter = final_rol;
+                            }
+                            else
+                            {
+                                dtSource = null;
+                                dataGridViewCompras.DataSource = null;
+                            }
                 }
-                else
-                {
-                    tabla_Publicacion = null;
-                    dataGridViewCompras.DataSource = null;
-                }
-                return tabla_Publicacion;
+                return dtSource;
             }
             catch (Exception ex)
             {
@@ -203,16 +215,18 @@ namespace PalcoNet.Comprar
                 MessageBox.Show("La segunda fecha no puede ser inferior o igual a la primera \nFECHA 1:" + dateTimePickerDesde.Text + "\nFECHA 2:" + dateTimePickerHasta.Text);
                 return;
             }
-          
-            DateTime hoy = DateTime.Today;
+
+            DateTime hoy = fech.getFechaSistema(); 
             if (hoy > dateTimePickerDesde.Value.Date)
             {
                 MessageBox.Show("La fecha inicial no puede ser menor que la actual");
                 return;
             }
             
-            DataTable respuesta = FiltrarPublicacion(labelCategorias.Text, textDescripcion.Text, dateTimePickerDesde.Value, dateTimePickerHasta.Value, listaCategorias);
-            dataGridViewCompras.DataSource = respuesta;
+           // DataTable respuesta =
+            dataGridViewCompras.DataSource = FiltrarPublicacion(labelCategorias.Text, textDescripcion.Text, dateTimePickerDesde.Value, dateTimePickerHasta.Value, listaCategorias);
+            if (txtCantPags.Text!="")
+                FillGrid(int.Parse(txtCantPags.Text));
            
              if (dataGridViewCompras.CurrentRow == null)
             {
@@ -304,7 +318,7 @@ namespace PalcoNet.Comprar
             // Set the start and max records. 
             pageSize = cantPaginas;//Cantidad de registros por pagina;
             // txtPageSize.Text
-            maxRec = dtSource.Rows.Count;
+            maxRec = dtSource.DefaultView.Count;
             PageCount = (maxRec / pageSize);
             //  Adjust the page number if the last page contains a partial page.
             if (((maxRec % pageSize)
@@ -321,33 +335,44 @@ namespace PalcoNet.Comprar
        
         private void LoadPage()
         {
-            int i;
-            int startRec;
-            int endRec;
-            DataTable dtTemp;
-            // Duplicate or clone the source table to create the temporary table.
-            dtTemp = dtSource.Clone();
-            if ((currentPage == PageCount))
+            //int i;
+            //int startRec;
+            //int endRec;
+            //DataTable dtTemp;
+            //// Duplicate or clone the source table to create the temporary table.
+            //dtTemp = dtSource.Clone();
+            //if ((currentPage == PageCount))
+            //{
+            //    endRec = maxRec;
+            //}
+            //else
+            //{
+            //    endRec = (pageSize * currentPage);
+            //}
+            //startRec = recNo;
+            //if ((dtSource.Rows.Count > 0))
+            //{
+            //    // Copy the rows from the source table to fill the temporary table.
+            //    for (i = startRec; (i <= (endRec - 1)); i++)
+            //    {
+            //        dtTemp.ImportRow(dtSource.Rows[i]);
+            //        recNo = (recNo + 1);
+            //    }
+            //}
+            //dataGridViewCompras.DataSource = dtTemp;
+            //DisplayPageInfo();
+            if (final_rol != "" && final_rol.Substring(0, 4) != " AND")
             {
-                endRec = maxRec;
+                final_rol = " AND " + final_rol;
             }
-            else
-            {
-                endRec = (pageSize * currentPage);
-            }
-            startRec = recNo;
-            if ((dtSource.Rows.Count > 0))
-            {
-                // Copy the rows from the source table to fill the temporary table.
-                for (i = startRec; (i <= (endRec - 1)); i++)
-                {
-                    dtTemp.ImportRow(dtSource.Rows[i]);
-                    recNo = (recNo + 1);
-                }
-            }
-            dataGridViewCompras.DataSource = dtTemp;
+            DaoSP dao = new DaoSP();
+            dtSource = dao.ConsultarConQuery("SELECT p.id as 'CODIGO', p.descripcion as 'DESCRIPCION', p.fechaEspectaculo as 'FechaEspectaculo', p.direccion as 'DIRECCION', u.fila as 'FILA', u.asiento as 'ASIENTO',rubro_Descripcion as 'RUBRO_DESCRIPCION',u.precio as'PRECIO' FROM dropeadores.Publicacion p join dropeadores.Ubicacion u on (u.publicacionId = p.id) join dropeadores.Grado g on(g.id=p.gradoId) join dropeadores.Rubro r on (r.id=p.rubroId) where p.fechaPublicacion >='" +fech.getFechaSistema() + "' " + final_rol + " order by g.porcentaje desc OFFSET " + pageSize * (currentPage - 1) + " ROWS FETCH NEXT " + pageSize + " ROWS ONLY");
+            dataGridViewCompras.DataSource = dtSource;
             DisplayPageInfo();
+            
         }
+
+        
 
         private void btnPreviousPage_Click(object sender, EventArgs e)
         {

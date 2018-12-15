@@ -95,6 +95,9 @@
             this.label35 = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
             this.comboTipoDoc = new System.Windows.Forms.ComboBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
+            this.comboTipoTarj = new System.Windows.Forms.ComboBox();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -205,6 +208,9 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label20);
+            this.groupBox2.Controls.Add(this.label37);
+            this.groupBox2.Controls.Add(this.comboTipoTarj);
             this.groupBox2.Controls.Add(this.label33);
             this.groupBox2.Controls.Add(this.label32);
             this.groupBox2.Controls.Add(this.label31);
@@ -225,7 +231,7 @@
             // 
             this.label33.AutoSize = true;
             this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label33.Location = new System.Drawing.Point(536, 78);
+            this.label33.Location = new System.Drawing.Point(374, 88);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(12, 13);
             this.label33.TabIndex = 118;
@@ -262,7 +268,7 @@
             // dateTimePickerVenc
             // 
             this.dateTimePickerVenc.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePickerVenc.Location = new System.Drawing.Point(331, 78);
+            this.dateTimePickerVenc.Location = new System.Drawing.Point(173, 88);
             this.dateTimePickerVenc.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePickerVenc.Name = "dateTimePickerVenc";
             this.dateTimePickerVenc.Size = new System.Drawing.Size(189, 26);
@@ -271,7 +277,7 @@
             // txtVenc
             // 
             this.txtVenc.AutoSize = true;
-            this.txtVenc.Location = new System.Drawing.Point(164, 83);
+            this.txtVenc.Location = new System.Drawing.Point(11, 93);
             this.txtVenc.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.txtVenc.Name = "txtVenc";
             this.txtVenc.Size = new System.Drawing.Size(150, 20);
@@ -742,6 +748,36 @@
             this.comboTipoDoc.Size = new System.Drawing.Size(118, 28);
             this.comboTipoDoc.TabIndex = 119;
             // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(653, 88);
+            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(12, 13);
+            this.label20.TabIndex = 125;
+            this.label20.Text = "*";
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(404, 88);
+            this.label37.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(43, 20);
+            this.label37.TabIndex = 124;
+            this.label37.Text = "Tipo:";
+            // 
+            // comboTipoTarj
+            // 
+            this.comboTipoTarj.FormattingEnabled = true;
+            this.comboTipoTarj.Location = new System.Drawing.Point(470, 86);
+            this.comboTipoTarj.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.comboTipoTarj.Name = "comboTipoTarj";
+            this.comboTipoTarj.Size = new System.Drawing.Size(175, 28);
+            this.comboTipoTarj.TabIndex = 123;
+            // 
             // AltaCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -872,5 +908,8 @@
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.ComboBox comboTipoDoc;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.ComboBox comboTipoTarj;
 	}
 }

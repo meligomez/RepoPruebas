@@ -85,9 +85,7 @@ namespace Modelo.Dominio
 				Tarjeta tar = new Tarjeta();
 
 				int cant = cli.existEmpresa(cliente.cuil, cliente.numeroDocumento);
-
-				//  if (dao.EjecutarSP("dropeadores.ExistCliente",cliente.cuil,cliente.numeroDocumento)==0)
-				if (cant == 0)
+        		if (cant == 0)
 				{
                     
 					if (dao.EjecutarSP("dropeadores.Domicilio_Cli_Alta", dire.calle, dire.numero, dire.piso, dire.dpto, dire.localidad, dire.cp) > 0)
@@ -100,7 +98,7 @@ namespace Modelo.Dominio
 							dt = dao.ObtenerDatosSP("dropeadores.Cli_ObtenerId", idDireClienteInsertado);
 							DataRow row2 = dt.Rows[0];
 							int idClienteInsertado = int.Parse(row2["Id"].ToString());
-							if (dao.EjecutarSP("dropeadores.Cliente_Alta_Tarjeta", cliente.Cli_Tar.propietario, cliente.Cli_Tar.numero, cliente.Cli_Tar.fechaVencimiento, cliente.numeroDocumento) > 0)
+							if (dao.EjecutarSP("dropeadores.Cliente_Alta_Tarjeta", cliente.Cli_Tar.propietario, cliente.Cli_Tar.numero, cliente.Cli_Tar.fechaVencimiento, cliente.numeroDocumento, cliente.Cli_Tar.descripcion) > 0)
 							{
 								if (dao.EjecutarSP("dropeadores.Usuario_Alta", cliente.numeroDocumento, this.username, this.password, this.fechaCreacionPsw, this.creadoPor) > 0)
 								{
