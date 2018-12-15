@@ -100,9 +100,14 @@ namespace Modelo.Dominio
 							dt = dao.ObtenerDatosSP("dropeadores.Cli_ObtenerId", idDireClienteInsertado);
 							DataRow row2 = dt.Rows[0];
 							int idClienteInsertado = int.Parse(row2["Id"].ToString());
+							
 							if (dao.EjecutarSP("dropeadores.Cliente_Alta_Tarjeta", cliente.Cli_Tar.propietario, cliente.Cli_Tar.numero, cliente.Cli_Tar.fechaVencimiento, cliente.numeroDocumento) > 0)
 							{
-								if (dao.EjecutarSP("dropeadores.Usuario_Alta", cliente.numeroDocumento, this.username, this.password, this.fechaCreacionPsw, this.creadoPor) > 0)
+								dt=dao.ObtenerDatosSP("dropeadores.Usuario_Alta", cliente.numeroDocumento, this.username, this.password, this.fechaCreacionPsw, this.creadoPor);
+								DataRow row3 = dt.Rows[0];
+								int idUser = int.Parse(row3["Id"].ToString());
+								string query = "INSERT INTO DROPEADORES.RolXUsuario (usuarioId,rolId) values (" + idUser + "," + 3 + ")";
+								if(	dao.EjecutarConQuery(query)>0)
 								{
 									retorno = 0;
 								}
@@ -110,6 +115,7 @@ namespace Modelo.Dominio
 								{
 									retorno = -1;
 								}
+								
 							}
 						}
 

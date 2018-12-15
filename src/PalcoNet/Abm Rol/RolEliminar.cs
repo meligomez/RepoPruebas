@@ -46,7 +46,7 @@ namespace PalcoNet.Abm_Rol
 		private void btnEliminar_Click(object sender, EventArgs e)
 		{
 			
-			int indexAEliminar =comboBox1.SelectedIndex;
+			int indexAEliminar =int.Parse(comboBox1.SelectedValue.ToString());
 			Rol rol = new Rol();
 			if(rol.eliminadoLogico(indexAEliminar) && rol.sacarRolATodosLosUsuarios(indexAEliminar))
 			{

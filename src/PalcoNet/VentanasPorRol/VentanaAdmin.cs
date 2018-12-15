@@ -53,7 +53,6 @@ namespace PalcoNet.VentanasPorRol
 
 			//}
 
-
 			DataTable dt = new DataTable();
 			Funcionalidad funcionalidad = new Funcionalidad();
 			dt = funcionalidad.GetFuncionalidadesPorUsuario(this.userLog.Id);

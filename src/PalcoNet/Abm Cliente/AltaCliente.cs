@@ -56,9 +56,9 @@ namespace PalcoNet.Abm_Cliente
 		{
 			if (rolLogueado != "sin Rol")
 			{
-			lblUsername.Text = textNroIdentificacion.Text;
+			lblUsername.Text = textNroIdenficiacion.Text;
 			lblUsername.Visible = true;
-			lblPassword.Text = textNroIdentificacion.Text;
+			lblPassword.Text = textNroIdenficiacion.Text;
 			lblPassword.Visible = true;
 			}
 			else
@@ -88,7 +88,7 @@ namespace PalcoNet.Abm_Cliente
 		{
 			textNombre.Text = "";
 			textApellido.Text = "";
-			textNroIdentificacion.Text = "";
+			textNroIdenficiacion.Text = "";
 			dateTimePickerFechaNac.Text = "";
 			textMail.Text = "";
 			textCUIL.Text = "";
@@ -112,8 +112,8 @@ namespace PalcoNet.Abm_Cliente
 					Usuario usuario = new Usuario();
 					if (rolLogueado != "sin Rol")
 					{
-						usuario.username = textNroIdentificacion.Text;
-						usuario.password = textNroIdentificacion.Text;
+						usuario.username = textNroIdenficiacion.Text;
+						usuario.password = textNroIdenficiacion.Text;
 						usuario.creadoPor = "admin";
 					}
 					
@@ -132,7 +132,7 @@ namespace PalcoNet.Abm_Cliente
 					cli.apellido = textApellido.Text;
 					cli.nombre = textNombre.Text;
                     cli.tipoDocumento = Documento.string_docu[comboTipoDoc.SelectedIndex];
-                    cli.numeroDocumento = int.Parse(textNroIdentificacion.Text);
+                    cli.numeroDocumento = int.Parse(textNroIdenficiacion.Text);
 					cli.mail = textMail.Text;
 					cli.fechaNacimiento = dateTimePickerFechaNac.Value;
 					cli.cuil = textCUIL.Text;
@@ -192,6 +192,7 @@ namespace PalcoNet.Abm_Cliente
 					{
 						MessageBox.Show("Cliente " + textNombre.Text + " creado, tiene hasta el día " + (usuario.fechaCreacionPsw.AddDays(2)) + " Para cambiar la password creada por defecto.", "Usuario Creado",
 						MessageBoxButtons.OK, MessageBoxIcon.Information);
+						
 						limpiar();
 					}
 					else
@@ -248,13 +249,31 @@ namespace PalcoNet.Abm_Cliente
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (txtNro.Text.Trim() == "")
-            {
+            if (txtNro.Text.Trim() == "" || txtNro.Text == null)
+			{
                 MessageBox.Show("Debe ingresar un numero de direccion.", "Error al crear Nuevo Usuario",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (textLocalidad.Text.Trim() == "")
+			if (textPiso.Text.Trim() == "" || textPiso.Text == null)
+			{
+				MessageBox.Show("Debe ingresar un número de Piso.", "Error al crear Nuevo Usuario",
+						MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return false;
+			}
+			if (textTelefono.Text.Trim() == "" || textTelefono.Text == null)
+			{
+				MessageBox.Show("Debe ingresar un numero de telefono.", "Error al crear Nuevo Usuario",
+						MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return false;
+			}
+			if (textNroIdenficiacion.Text.Trim() == "" || textNroIdenficiacion.Text == null)
+			{
+				MessageBox.Show("Debe ingresar un numero de DNI.", "Error al crear Nuevo Usuario",
+						MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return false;
+			}
+			if (textLocalidad.Text.Trim() == "")
             {
                 MessageBox.Show("Debe ingresar una localidad.", "Error al crear Nuevo Usuario",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -282,8 +301,8 @@ namespace PalcoNet.Abm_Cliente
             Usuario usuario = new Usuario();
             if (rolLogueado != "sin Rol")
             {
-                usuario.username = textNroIdentificacion.Text;
-                usuario.password = textNroIdentificacion.Text;
+                usuario.username = textNroIdenficiacion.Text;
+                usuario.password = textNroIdenficiacion.Text;
                 usuario.creadoPor = "admin";
             }
             else
@@ -333,5 +352,10 @@ namespace PalcoNet.Abm_Cliente
         {
 
         }
+
+		private void txtNro_TextChanged(object sender, EventArgs e)
+		{
+
+		}
 	}
 }

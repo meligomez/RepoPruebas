@@ -102,7 +102,7 @@ namespace Modelo.Servicio
 		
 		public int login(Usuario user)
 		{
-			int ret = 0;
+			int ret = -4;
 			try
 			{
 

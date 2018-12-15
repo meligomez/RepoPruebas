@@ -540,7 +540,7 @@ BEGIN
 
    ELSE
 		SET @ret= -1 -- no esta activo y usuario incorrecto
-RETURN
+SELECT @ret as 'ret'
 END
 
    
@@ -980,7 +980,7 @@ CREATE procedure [dropeadores].[Cli_ObtenerId]
 as
 begin
 	
-	Select  e.numeroDocumento from dropeadores.Cliente e 
+	Select  e.numeroDocumento  as 'Id' from dropeadores.Cliente e 
 	join dropeadores.Domicilio d on (d.id=e.cliente_domicilio)
 	where d.id=@idInsertado
 end
@@ -1013,6 +1013,7 @@ as
 begin
 insert into dropeadores.Usuario(username,password,clienteId,Fecha_Password,creadoPor)values
 (@user,@password,@idCliente,@fechaCreacion,@creadoPor)
+Select Max(id)as'Id'from [dropeadores].Usuario
 end
 
 
