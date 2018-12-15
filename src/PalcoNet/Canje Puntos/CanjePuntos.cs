@@ -69,12 +69,16 @@ namespace PalcoNet.Canje_Puntos
 
 			DataTable dtcli = new DataTable();
 			dtcli = dao.ConsultarConQuery("select nombre,apellido,NumeroDocumento from dropeadores.Cliente where NumeroDocumento= " + userLogueado.cliente.numeroDocumento);
-			DataRow rowcli = dtcli.Rows[0];
-			cliente.nombre = rowcli["nombre"].ToString();
-			cliente.apellido = rowcli["apellido"].ToString();
-			cliente.numeroDocumento = int.Parse(rowcli["NumeroDocumento"].ToString());
-			lblCliente.Text = cliente.nombre + " " + cliente.apellido;
-			lblDniCli.Text = cliente.numeroDocumento.ToString();
+			if(dtcli.Rows.Count>0)
+			{
+				DataRow rowcli = dtcli.Rows[0];
+				cliente.nombre = rowcli["nombre"].ToString();
+				cliente.apellido = rowcli["apellido"].ToString();
+				cliente.numeroDocumento = int.Parse(rowcli["NumeroDocumento"].ToString());
+				lblCliente.Text = cliente.nombre + " " + cliente.apellido;
+				lblDniCli.Text = cliente.numeroDocumento.ToString();
+			}
+		
 		}
 
 		private void btnCanjear_Click(object sender, EventArgs e)

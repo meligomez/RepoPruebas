@@ -340,7 +340,8 @@ insert into [dropeadores].FuncionalidadXRol (rolId, funcionalidadId) values
 
 /*usuarios creados por el grupo*/ 
 go		
-INSERT [dropeadores].[Usuario] ([username], [password], [cambioPsw], [creadoPor], [estado], [intentos], [clienteId], [CuitEmpresa], [Baja], [Fecha_Password]) VALUES ( N'admin', HASHBYTES('SHA2_256','w23e'), 0, NULL, 1, 0, NULL, NULL, 1, NULL)
+INSERT [dropeadores].[Usuario] ([username], [password], [cambioPsw], [creadoPor], [estado], [intentos], [clienteId], [CuitEmpresa], [Baja], [Fecha_Password]) VALUES ( N'admin', N'w23e', 0, NULL, 1, 3, NULL, NULL, 1, NULL)
+
 				
 				/*UsuariosXRoles*/
 /*usuariosXRoles*/
@@ -360,14 +361,12 @@ from gd_esquema.Maestra m
 
 
 						/*Empresa*/
-insert into [dropeadores].Empresa (empresa_Cuit,empresa_mail,empresa_razon_social,empresa_domicilio)
+insert into [dropeadores].Empresa (empresa_Cuit,empresa_mail,empresa_razon_social)
 select distinct Espec_Empresa_Cuit,Espec_Empresa_Mail,Espec_Empresa_Razon_Social
-,(select distinct  id from dropeadores.Domicilio d where d.calle=Espec_Empresa_Dom_Calle and d.codigoPostal=Espec_Empresa_Cod_Postal and d.numero=Espec_Empresa_Nro_Calle)
 from gd_esquema.Maestra m 
 where Espec_Empresa_Cuit is not null
 go
 update  [dropeadores].Empresa set empresa_estado=1
-
 
 					/*Cliente*/
 insert into [dropeadores].Cliente(NumeroDocumento,Nombre,Apellido,fechaNacimiento,mail,cliente_domicilio,estado)
@@ -437,8 +436,9 @@ from gd_esquema.Maestra m
 join dropeadores.Publicacion p on(p.id=m.Espectaculo_Cod)
 					
 				/*Compra*/
-insert into dropeadores.Compra(factura,compra_tipo_documento,compra_numero_documento,compra_fecha,compra_cantidad,compra_ubicacionAsiento,compra_ubicacionFila,compra_ubicacionPublic,compra_precio)
+insert into dropeadores.Compra(factura,compra_tipo_documento,compra_numero_documento,compra_fecha,compra_cantidad,compra_ubicacionAsiento,compra_ubicacionFila,compra_ubicacionPublic,compra_precio,compra_TarjetaId)
 select  m.Factura_Nro,'DNI',m.Cli_Dni,m.Compra_Fecha, m.Compra_Cantidad, m.Ubicacion_Asiento,m.Ubicacion_Fila,m.Espectaculo_Cod,u.precio
+,(select t.id from dropeadores.TarjetaCredito t where t.descripcion=m.Forma_Pago_Desc and t.clieteId=m.Cli_Dni)
  from gd_esquema.Maestra m
   join dropeadores.Ubicacion u on u.asiento = m.Ubicacion_Asiento and 
   m.Ubicacion_Fila = u.fila and u.publicacionId = m.Espectaculo_Cod
@@ -472,8 +472,9 @@ FROM gd_esquema.Maestra m, dropeadores.compra c
 WHERE Factura_Nro IS NOT NULL AND c.compra_fecha=m.Compra_Fecha AND compra_numero_documento=m.Cli_Dni
 	
 
-				
-	
+				/*Tarjeta de Crédito*/			
+insert into dropeadores.TarjetaCredito (clieteId,propietario,numero,fechaVencimiento,descripcion)
+select distinct Cli_Dni,Cli_Nombre+' '+Cli_Apeliido,0,DATEADD(YEAR,4,GETDATE()),ISNULL(Forma_Pago_Desc,'Sin Definir') from gd_esquema.Maestra	
 
 
 -----------------------------------------------------------------------------------------------------
@@ -540,7 +541,9 @@ BEGIN
       END
 
    ELSE
+   begin
 		SET @ret= -1 -- no esta activo y usuario incorrecto
+   end
 SELECT @ret as 'ret'
 END
 
@@ -890,6 +893,15 @@ update dropeadores.Compra set compra_rendida=1 where id=@compraId
 /**************FIN altaItem*****************/
 
 
+/**************INICIO eliminarPublicacion*****************/
+GO
+create procedure dropeadores.EliminarPublicacion (@publicacionId int)
+as
+begin
+delete dropeadores.Ubicacion where publicacionId= @publicacionId 
+delete dropeadores.Publicacion	where id=@publicacionId
+end
+/**************FIN eliminarPublicacion*****************/
 
 GO
 /****** Object:  StoredProcedure [dropeadores].[Domicilio_Cli_Alta]    Script Date: 07/12/2018 19:57:04 ******/
@@ -1143,19 +1155,15 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-USE [GD2C2018]
-GO
-/****** Object:  StoredProcedure [dropeadores].[getEmpresa]    Script Date: 15/12/2018 17:31:11 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
 CREATE PROCEDURE [dropeadores].[getEmpresa]
-	
+	@cuit nvarchar(255)
 AS
-		SELECT empresa_Cuit as 'CUIT', empresa_razon_social as 'RAZONSOCIAL', empresa_mail as 'MAIL',empresa_estado FROM dropeadores.Empresa E	
-		
-
+	--SI RECIBE -1, MUESTRA TODOS LOS HUESPEDES
+	IF (@cuit = '00-00000000-00')
+		SELECT empresa_Cuit as 'CUIT', empresa_razon_social as 'RAZONSOCIAL', empresa_mail as 'MAIL',empresa_estado FROM dropeadores.Empresa E			
+	ELSE
+		SELECT empresa_Cuit as 'CUIT', empresa_razon_social as 'RAZON SOCIAL', empresa_mail as 'MAIL',empresa_estado FROM dropeadores.Empresa E	
+		WHERE E.empresa_Cuit = @cuit
 
 ------------------------
 
@@ -1330,72 +1338,34 @@ insert into  GD2C2018.[dropeadores].Grado(tipo,porcentaje)
  values (@tipo,@porcentaje)
 end
 ---------------------
-USE [GD2C2018]
+
 GO
-/****** Object:  StoredProcedure [dropeadores].[insertCompra]    Script Date: 15/12/2018 16:20:06 ******/
+/****** Object:  StoredProcedure [dropeadores].[insertCompra]    Script Date: 07/12/2018 20:08:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-create PROCEDURE [dropeadores].[insertCompra]
+CREATE PROCEDURE [dropeadores].[insertCompra]
             @tipoDoc varchar(5),
 			@nroDoc numeric(18, 0),
             @fecha datetime,
 			@tarjetaID int,
 			@cant numeric(18, 0),
-			@precio int,
-			@fila varchar(3),
-			@asiento numeric(18, 0),
-			@publicID int
+			@precio int
 AS
 BEGIN
-INSERT INTO dropeadores.Compra (compra_tipo_documento,compra_numero_documento,compra_fecha,compra_TarjetaId,compra_cantidad,compra_precio,compra_ubicacionFila,compra_ubicacionAsiento,compra_ubicacionPublic) 
-VALUES (@tipoDoc,@nroDoc, @fecha,@tarjetaID,@cant,@precio,@fila,@asiento,@publicID)
+INSERT INTO dropeadores.Compra (compra_tipo_documento,compra_numero_documento,compra_fecha,compra_TarjetaId,compra_cantidad,compra_precio) 
+VALUES (@tipoDoc,@nroDoc,GETDATE(),@tarjetaID,@cant,@precio)
 END
 
 ------------------------
-USE [GD2C2018]
-GO
-/****** Object:  StoredProcedure [dropeadores].[updatePuntos]    Script Date: 15/12/2018 16:21:06 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-create procedure [dropeadores].[updatePuntos] 
-(@Id_Cliente numeric(18, 0))
-as
-begin
- 
-
-UPDATE  GD2C2018.[dropeadores].Puntos  SET PuntosVigentes = (select SUM(Puntos) from dropeadores.Puntos p2 where p2.Id_Cliente=@Id_Cliente)
-WHERE id_Cliente=@Id_Cliente
-
-end
-
-
------------------------
-
-USE [GD2C2018]
-GO
-/****** Object:  StoredProcedure [dropeadores].[obtenerIDcompra]    Script Date: 15/12/2018 16:20:38 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-create PROCEDURE [dropeadores].[obtenerIDcompra]
-		AS
-     	SELECT MAX(id) AS 'Id' FROM dropeadores.Compra c
-
-
------------------------
 GO
 /****** Object:  StoredProcedure [dropeadores].[ObtenerClienteEspecifico]    Script Date: 11/12/2018 23:06:15 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE PROCEDURE [dropeadores].[ObtenerClienteEspecifico]
+ALTER PROCEDURE [dropeadores].[ObtenerClienteEspecifico]
 	@tipoDoc nvarchar(50),
 	@nroDoc numeric(18, 0)
 AS
@@ -1428,14 +1398,13 @@ AS
 
 -----------------
 
-USE [GD2C2018]
 GO
-/****** Object:  StoredProcedure [dropeadores].[ObtenerEmpresaEspecifica]    Script Date: 15/12/2018 17:45:42 ******/
+/****** Object:  StoredProcedure [dropeadores].[ObtenerEmpresaEspecifica]    Script Date: 07/12/2018 20:09:47 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER PROCEDURE [dropeadores].[ObtenerEmpresaEspecifica]
+CREATE PROCEDURE [dropeadores].[ObtenerEmpresaEspecifica]
 	@cuit nvarchar(255)
 AS
 	--SI RECIBE -1, MUESTRA TODOS LOS HUESPEDES
@@ -1696,47 +1665,21 @@ AS
 
 
 --------------------------
-USE [GD2C2018]
-GO
-/****** Object:  StoredProcedure [dropeadores].[getTablaPublicacion]    Script Date: 15/12/2018 16:18:14 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+GO 
 CREATE PROCEDURE [dropeadores].[getTablaPublicacion]
 	 @fechaSistema datetime
 	 
 AS
 	BEGIN
 	 
- 		select p.id as 'CODIGO', p.descripcion as 'DESCRIPCION', p.fechaEspectaculo, p.direccion as 'DIRECCION', u.fila as 'FILA', u.asiento as 'ASIENTO',rubro_Descripcion as 'RUBRO_DESCRIPCION',u.precio as 'PRECIO' FROM dropeadores.Publicacion p 
+ 		select p.id as 'CODIGO', p.descripcion as 'DESCRIPCION', p.fechaEspectaculo, p.direccion as 'DIRECCION', u.fila as 'FILA', u.asiento as 'ASIENTO',rubro_Descripcion as 'RUBRO_DESCRIPCION' FROM dropeadores.Publicacion p 
 		join dropeadores.Ubicacion u on (u.publicacionId = p.id)
-		join dropeadores.TipoUbicacion ti on (ti.codigo=u.tipoUbicacion)
 		join dropeadores.Grado g on(g.id=p.gradoId)
 		join dropeadores.Rubro r on (r.id=p.rubroId)
-		where p.fechaPublicacion >= @fechaSistema and u.estado=1 and p.estado=1 and fechaEspectaculo > @fechaSistema
+		where p.fechaPublicacion >= @fechaSistema and u.estado=1 and p.estado=1
 		order by g.porcentaje desc
 
 	END
--------------------
-USE [GD2C2018]
-GO
-/****** Object:  StoredProcedure [dropeadores].[insertPuntos]    Script Date: 15/12/2018 16:19:36 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE procedure [dropeadores].[insertPuntos] 
-(@puntos int,@Id_Compra int,@Id_Cliente numeric(18, 0),@FechaVencimiento datetime)
-as
-begin
-insert into  GD2C2018.[dropeadores].Puntos(puntos,Id_Compra,Id_Cliente,FechaVencimiento)
- values (@puntos,@Id_Compra,@Id_Cliente,DATEADD(DAY,5,@FechaVencimiento))
-end
-
-
-------------------
 GO
 CREATE PROCEDURE [dropeadores].[getPublicacion]
 	 @fechaSistema datetime,

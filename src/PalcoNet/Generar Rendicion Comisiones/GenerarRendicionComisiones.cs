@@ -17,6 +17,7 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
     {
 		public decimal total = 0;
 		public decimal totalConComision = 0;
+		public decimal totalSinComision = 0;
 		Usuario userLog = new Usuario();
 		//Variables necesarias para el manejo de paginado
 		private DataTable dtSource;
@@ -161,6 +162,8 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
 
 		private void btnPagarEmpresa_Click(object sender, EventArgs e)
 		{
+			total = 0;
+			totalConComision = 0;
 			for (int fila = 0; fila < int.Parse(txtCantPags.Text.ToString()) ; fila++)
 			{
 				RendicionComision rendicion = new RendicionComision();
@@ -174,7 +177,7 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
 				rendicion.precio = decimal.Parse(dtSource.Rows[fila]["precio"].ToString());
 				rendicion.fechaCompra = DateTime.Parse(dtSource.Rows[fila]["compra_fecha"].ToString());
 				totalConComision += ((decimal.Parse(dtSource.Rows[fila]["precio"].ToString()) * decimal.Parse(dtSource.Rows[fila]["porcentaje"].ToString()) / 100));
-				total += decimal.Parse(dtSource.Rows[fila]["precio"].ToString()) - totalConComision;
+				total += decimal.Parse(dtSource.Rows[fila]["precio"].ToString());
 				lblTotal.Text = total.ToString();
 				lblTotalConComision.Text = totalConComision.ToString();
 				rendicion.comisionTotalCobrada = totalConComision;
@@ -190,7 +193,7 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
 				f.empresaId = userLog.empresa.Empresa_Cuit;
 				f.Fecha = cg.getFechaSistema();
 				f.TotalComisionCobrada = totalConComision;
-				f.TotalEmpresaPagado = total;
+				f.TotalEmpresaPagado =  total - totalConComision; ;
 				//retorna el id insertado.
 				int idFactura=f.altaFactura();
 				ItemFactura item = new ItemFactura();
@@ -326,11 +329,13 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
 				{
 					total = 0;
 					totalConComision = 0;
+					totalSinComision = 0;
 					for (int fila = 0; fila < int.Parse(txtCantPags.Text.ToString()) ; fila++)
 					{
 						totalConComision += ((decimal.Parse(dtSource.Rows[fila]["precio"].ToString()) * decimal.Parse(dtSource.Rows[fila]["porcentaje"].ToString()) / 100));
-						total += decimal.Parse(dtSource.Rows[fila]["precio"].ToString()) - totalConComision;
-						lblTotal.Text = total.ToString();
+						total += decimal.Parse(dtSource.Rows[fila]["precio"].ToString());
+						totalSinComision = total -totalConComision;
+						lblTotal.Text = totalSinComision.ToString();
 						lblTotalConComision.Text = totalConComision.ToString();
 
 					}
