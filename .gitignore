@@ -28,6 +28,8 @@ src/PalcoNet/obj/Debug/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D
 src/PalcoNet/obj/Debug/PalcoNet.csproj.FileListAbsolute.txt
 src/PalcoNet/obj/Debug/PalcoNet.csproj.CopyComplete
 src/PalcoNet/obj/Debug/PalcoNet.VentanasPorRol.panelContenedor.resources
+
+
 src/PalcoNet/obj/Debug/PalcoNet.VentanasPorRol.FormLogo.resources
 src/PalcoNet/obj/Debug/PalcoNet.Registro_de_Usuario.UsuarioCambiarPsw.resources
 src/PalcoNet/obj/Debug/PalcoNet.Registro_de_Usuario.UsuarioAlta.resources
@@ -48,3 +50,4 @@ src/PalcoNet/obj/Debug/PalcoNet.Abm_Cliente.AltaCliente.resources
 src/PalcoNet/obj/Debug/PalcoNet.Abm_Cliente.ABMCliente.resources
 src/PalcoNet/obj/Debug/PalcoNet.Comprar.ConfirmarCompra.resources
 src/PalcoNet/obj/Debug/PalcoNet.Comprar.AsociarTarjeta.resources
+src/Modelo/obj/
