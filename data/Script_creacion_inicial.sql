@@ -360,12 +360,14 @@ from gd_esquema.Maestra m
 
 
 						/*Empresa*/
-insert into [dropeadores].Empresa (empresa_Cuit,empresa_mail,empresa_razon_social)
+insert into [dropeadores].Empresa (empresa_Cuit,empresa_mail,empresa_razon_social,empresa_domicilio)
 select distinct Espec_Empresa_Cuit,Espec_Empresa_Mail,Espec_Empresa_Razon_Social
+,(select distinct  id from dropeadores.Domicilio d where d.calle=Espec_Empresa_Dom_Calle and d.codigoPostal=Espec_Empresa_Cod_Postal and d.numero=Espec_Empresa_Nro_Calle)
 from gd_esquema.Maestra m 
 where Espec_Empresa_Cuit is not null
 go
 update  [dropeadores].Empresa set empresa_estado=1
+
 
 					/*Cliente*/
 insert into [dropeadores].Cliente(NumeroDocumento,Nombre,Apellido,fechaNacimiento,mail,cliente_domicilio,estado)
@@ -1141,15 +1143,19 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+USE [GD2C2018]
+GO
+/****** Object:  StoredProcedure [dropeadores].[getEmpresa]    Script Date: 15/12/2018 17:31:11 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE PROCEDURE [dropeadores].[getEmpresa]
-	@cuit nvarchar(255)
+	
 AS
-	--SI RECIBE -1, MUESTRA TODOS LOS HUESPEDES
-	IF (@cuit = '00-00000000-00')
-		SELECT empresa_Cuit as 'CUIT', empresa_razon_social as 'RAZONSOCIAL', empresa_mail as 'MAIL',empresa_estado FROM dropeadores.Empresa E			
-	ELSE
-		SELECT empresa_Cuit as 'CUIT', empresa_razon_social as 'RAZON SOCIAL', empresa_mail as 'MAIL',empresa_estado FROM dropeadores.Empresa E	
-		WHERE E.empresa_Cuit = @cuit
+		SELECT empresa_Cuit as 'CUIT', empresa_razon_social as 'RAZONSOCIAL', empresa_mail as 'MAIL',empresa_estado FROM dropeadores.Empresa E	
+		
+
 
 ------------------------
 
@@ -1422,13 +1428,14 @@ AS
 
 -----------------
 
+USE [GD2C2018]
 GO
-/****** Object:  StoredProcedure [dropeadores].[ObtenerEmpresaEspecifica]    Script Date: 07/12/2018 20:09:47 ******/
+/****** Object:  StoredProcedure [dropeadores].[ObtenerEmpresaEspecifica]    Script Date: 15/12/2018 17:45:42 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE PROCEDURE [dropeadores].[ObtenerEmpresaEspecifica]
+ALTER PROCEDURE [dropeadores].[ObtenerEmpresaEspecifica]
 	@cuit nvarchar(255)
 AS
 	--SI RECIBE -1, MUESTRA TODOS LOS HUESPEDES

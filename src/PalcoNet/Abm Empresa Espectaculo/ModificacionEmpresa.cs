@@ -26,7 +26,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
             DaoSP prueba = new DaoSP();
 
-            CargarData.cargarGridView(dataGridViewEmpresa, prueba.ConsultarConQuery("	select empresa_Cuit,empresa_razon_social,empresa_mail,empresa_estado from dropeadores.Empresa E join dropeadores.Domicilio D on (E.empresa_domicilio=D.id)"));
+            CargarData.cargarGridView(dataGridViewEmpresa, prueba.ConsultarConQuery("select empresa_Cuit as 'CUIT',empresa_razon_social as 'RAZONSOCIAL',empresa_mail as 'MAIL',empresa_estado as 'ESTADO' from dropeadores.Empresa E join dropeadores.Domicilio D on (E.empresa_domicilio=D.id)"));
 
 
 
@@ -68,7 +68,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
         {
             DaoSP prueba = new DaoSP();
 
-            CargarData.cargarGridView(dataGridViewEmpresa, prueba.ConsultarConQuery("select empresa_Cuit,empresa_razon_social,empresa_mail,empresa_estado from dropeadores.Empresa E join dropeadores.Domicilio D on (E.empresa_domicilio=D.id)"));
+            CargarData.cargarGridView(dataGridViewEmpresa, prueba.ConsultarConQuery("select empresa_Cuit as 'CUIT',empresa_razon_social as 'RAZONSOCIAL',empresa_mail as 'MAIL',empresa_estado as 'ESTADO' from dropeadores.Empresa E join dropeadores.Domicilio D on (E.empresa_domicilio=D.id)"));
            
         }
 
@@ -87,7 +87,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                 MessageBox.Show("La empresa requerida no se encuentra.", "Baja de Empresa",
                    MessageBoxButtons.OK);
 
-                cargarTabla();
+                limpiar();
 
             }
         }
@@ -99,13 +99,9 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             DaoSP dao = new DaoSP();
             DataTable tabla_empresa;
             Empresa emp = new Empresa();
-            string cuitVacio = "00-00000000-00";
-            if (cuit == "")
-                tabla_empresa = dao.ObtenerDatosSP("dropeadores.getEmpresa", cuitVacio);
-            else
-            {
-                tabla_empresa = dao.ObtenerDatosSP("dropeadores.getEmpresa", cuit);
-            }
+            
+           tabla_empresa = dao.ObtenerDatosSP("dropeadores.getEmpresa");
+           
             var final_rol = "";
             var posFiltro = true;
             var filtrosBusqueda = new List<string>();
@@ -137,6 +133,18 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                 dataGridViewEmpresa.DataSource = null;
             }
             return tabla_empresa;
+        }
+        private void limpiar()
+        {
+            textRazonSocial.Text = "";
+            textCUIT.Text = "";
+            textEmail.Text = "";
+            cargarTabla();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            limpiar();
         }
 	}
 }

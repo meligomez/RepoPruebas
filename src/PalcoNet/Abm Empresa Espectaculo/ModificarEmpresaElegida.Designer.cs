@@ -324,12 +324,12 @@
             // checkBaja
             // 
             this.checkBaja.AutoSize = true;
-            this.checkBaja.Location = new System.Drawing.Point(639, 165);
+            this.checkBaja.Location = new System.Drawing.Point(565, 198);
             this.checkBaja.Name = "checkBaja";
             this.checkBaja.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBaja.Size = new System.Drawing.Size(60, 24);
+            this.checkBaja.Size = new System.Drawing.Size(154, 24);
             this.checkBaja.TabIndex = 65;
-            this.checkBaja.Text = "Baja";
+            this.checkBaja.Text = "Habilitar Empresa";
             this.checkBaja.UseVisualStyleBackColor = true;
             this.checkBaja.CheckedChanged += new System.EventHandler(this.checkBaja_CheckedChanged);
             // 
