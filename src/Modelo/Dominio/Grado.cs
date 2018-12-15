@@ -42,7 +42,15 @@ namespace Modelo.Dominio
 			}
 			return cant;
 		}
+		public bool existeNombreGrado(string tipo)
+		{
+			DataTable dt = new DataTable();
+			int cant = 0;
+			DaoSP dao = new DaoSP();
+			dt = dao.ConsultarConQuery("select count(g.id) as 'cantidad' from dropeadores.Grado g WHERE g.tipo LIKE" + "'" + tipo + "'");
 
+		return dt.Rows.Count > 0;
+		}
 		public int Alta()
 		{
 			try

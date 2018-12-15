@@ -69,7 +69,7 @@ namespace PalcoNet.Abm_Grado
 
 		private void btnGuardar_Click(object sender, EventArgs e)
 		{
-			if (true)
+			if (todosCamposCompletos() && grado_Seleccionado.existeNombreGrado(txtTipo.Text))
 			{
 				grado_Seleccionado.tipo = txtTipo.Text;
 				grado_Seleccionado.porcentaje = Int32.Parse(txtPorcentaje.Text);
@@ -94,6 +94,22 @@ namespace PalcoNet.Abm_Grado
 
 				}
 			}
+			else
+			{
+				MessageBox.Show("Error, el nombre del grado ya existe ", "Error",
+						MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+
+		private bool todosCamposCompletos()
+		{
+			if (int.Parse(txtPorcentaje.Text) > 100)
+			{
+				MessageBox.Show("Error, el porcentaje no debe exceder el 100 ", "Error",
+						MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return false;
+			}
+			return true;
 		}
 	}
 }

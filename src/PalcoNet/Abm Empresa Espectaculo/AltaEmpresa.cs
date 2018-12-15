@@ -221,7 +221,11 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
     }
 
-        }
+		private void textCUIT_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+		{
+
+		}
+	}
     
 
         }

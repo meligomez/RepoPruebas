@@ -30,6 +30,9 @@
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AltaEmpresa));
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.textCP = new System.Windows.Forms.MaskedTextBox();
+			this.txtNro = new System.Windows.Forms.MaskedTextBox();
+			this.textPiso = new System.Windows.Forms.MaskedTextBox();
 			this.label20 = new System.Windows.Forms.Label();
 			this.label18 = new System.Windows.Forms.Label();
 			this.label17 = new System.Windows.Forms.Label();
@@ -70,9 +73,6 @@
 			this.nota = new System.Windows.Forms.Label();
 			this.textTelefono = new System.Windows.Forms.MaskedTextBox();
 			this.textCUIT = new System.Windows.Forms.MaskedTextBox();
-			this.textPiso = new System.Windows.Forms.MaskedTextBox();
-			this.txtNro = new System.Windows.Forms.MaskedTextBox();
-			this.textCP = new System.Windows.Forms.MaskedTextBox();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.SuspendLayout();
@@ -102,6 +102,30 @@
 			this.groupBox1.TabIndex = 59;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Datos de la direccion ";
+			// 
+			// textCP
+			// 
+			this.textCP.Location = new System.Drawing.Point(557, 68);
+			this.textCP.Mask = "00000";
+			this.textCP.Name = "textCP";
+			this.textCP.Size = new System.Drawing.Size(79, 30);
+			this.textCP.TabIndex = 120;
+			// 
+			// txtNro
+			// 
+			this.txtNro.Location = new System.Drawing.Point(561, 29);
+			this.txtNro.Mask = "99999999";
+			this.txtNro.Name = "txtNro";
+			this.txtNro.Size = new System.Drawing.Size(77, 30);
+			this.txtNro.TabIndex = 119;
+			// 
+			// textPiso
+			// 
+			this.textPiso.Location = new System.Drawing.Point(54, 70);
+			this.textPiso.Mask = "999999";
+			this.textPiso.Name = "textPiso";
+			this.textPiso.Size = new System.Drawing.Size(87, 30);
+			this.textPiso.TabIndex = 119;
 			// 
 			// label20
 			// 
@@ -476,30 +500,8 @@
 			this.textCUIT.Name = "textCUIT";
 			this.textCUIT.Size = new System.Drawing.Size(198, 30);
 			this.textCUIT.TabIndex = 118;
-			// 
-			// textPiso
-			// 
-			this.textPiso.Location = new System.Drawing.Point(54, 70);
-			this.textPiso.Mask = "999999";
-			this.textPiso.Name = "textPiso";
-			this.textPiso.Size = new System.Drawing.Size(87, 30);
-			this.textPiso.TabIndex = 119;
-			// 
-			// txtNro
-			// 
-			this.txtNro.Location = new System.Drawing.Point(561, 29);
-			this.txtNro.Mask = "99999999";
-			this.txtNro.Name = "txtNro";
-			this.txtNro.Size = new System.Drawing.Size(77, 30);
-			this.txtNro.TabIndex = 119;
-			// 
-			// textCP
-			// 
-			this.textCP.Location = new System.Drawing.Point(557, 68);
-			this.textCP.Mask = "00000";
-			this.textCP.Name = "textCP";
-			this.textCP.Size = new System.Drawing.Size(79, 30);
-			this.textCP.TabIndex = 120;
+			this.textCUIT.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textCUIT_MaskInputRejected);
+			this.textCUIT.TextChanged += new System.EventHandler(this.labelUserEscribir);
 			// 
 			// AltaEmpresa
 			// 

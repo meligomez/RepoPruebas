@@ -907,6 +907,7 @@ namespace PalcoNet.Generar_Publicacion
 		}
 		private void btnGuardar_Click(object sender, EventArgs e)
 		{
+			List<Ubicacion> ubicaciones = this.buscarButtons();
 			if (this.validarData())
 			{
 				//foreach (TipoUbicacion tub in tiposDeUbicacionPorPublicacion)
@@ -914,8 +915,6 @@ namespace PalcoNet.Generar_Publicacion
 				//	//no dar el alta sino buscar la categoria....
 				//	//tub.codigo = tub.darAltaPrecioPorCategoria(tub.precio, tub.descripcion);
 				//}
-
-				List<Ubicacion> ubicaciones = this.buscarButtons();
 				List<DateTime> fechasEspectaculos = new List<DateTime>();
 				fechasEspectaculos = publicacion.fechaEspectaculoLote;
 
@@ -1002,6 +1001,12 @@ namespace PalcoNet.Generar_Publicacion
 		{
 			
 			if(botonesSinCategoria>0)
+			{
+				MessageBox.Show("Debe asignarle una categoria a todos los asientos.", "¡Advertencia!",
+				MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				return false;
+			}
+			if (tiposDeUbicacionPorPublicacion.Count <= 0)
 			{
 				MessageBox.Show("Debe asignarle una categoria a todos los asientos.", "¡Advertencia!",
 				MessageBoxButtons.OK, MessageBoxIcon.Exclamation);

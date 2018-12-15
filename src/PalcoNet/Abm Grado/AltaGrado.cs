@@ -27,8 +27,7 @@ namespace PalcoNet.Abm_Grado
 		{
 			try
 			{
-				// if (todosCamposCompletos())
-				if (true)
+				 if (todosCamposCompletos())
 				{
 					Grado grado = new Grado();
 
@@ -57,7 +56,18 @@ namespace PalcoNet.Abm_Grado
 			}
 		}
 
-        private void label3_Click(object sender, EventArgs e)
+		private bool todosCamposCompletos()
+		{
+			if (int.Parse(txtPorcentaje.Text)>100)
+			{
+				MessageBox.Show("Error, el porcentaje no debe exceder el 100 ", "Error",
+						MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return false;
+			}
+			return true;
+		}
+
+		private void label3_Click(object sender, EventArgs e)
         {
 
         }
