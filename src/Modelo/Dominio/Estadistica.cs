@@ -15,27 +15,54 @@ namespace Modelo.Dominio
 		
 		public DataTable getClientesMasPuntosVencidos(DataGridView dataGridView1, string trimestre, string anio)
 		{
-			DataTable dt = new DataTable();
+			try
+			{
+				DataTable dt = new DataTable();
+
+				DaoSP dao = new DaoSP();
+				dt = dao.ObtenerDatosSP("dropeadores.getClientesMasPuntosVencidos", trimestre, anio);
+				return dt;
+			}
+			catch (Exception ex)
+			{
+
+				throw ex;
+			}
 			
-			DaoSP dao = new DaoSP();
-			 dt = dao.ObtenerDatosSP("dropeadores.getClientesMasPuntosVencidos",trimestre,anio);
-			return dt;
 		
 		}
 
 		public DataTable getClientesMayorCompras(DataGridView dataGridView1,string trimestre, string anio)
 		{
-			DataTable dt = new DataTable();
-			DaoSP dao = new DaoSP();
-			dt = dao.ObtenerDatosSP("dropeadores.getClientesMayorCantCompras", trimestre, anio);
-			return dt;
+			try
+			{
+				DataTable dt = new DataTable();
+				DaoSP dao = new DaoSP();
+				dt = dao.ObtenerDatosSP("dropeadores.getClientesMayorCantCompras", trimestre, anio);
+				return dt;
+			}
+			catch (Exception ex)
+			{
+
+				throw ex;
+			}
+			
 		}
-		public DataTable getLocalidadesNoVendidas(DataGridView dataGridView1, string trimestre, string anio)
+		public DataTable getLocalidadesNoVendidas(DataGridView dataGridView1, string trimestre, string anio, int idGrado)
 		{
-			DataTable dt = new DataTable();
-			DaoSP dao = new DaoSP();
-			dt = dao.ObtenerDatosSP("dropeadores.getClientesMasPuntosVencidos", trimestre, anio);
-			return dt;
+			try
+			{
+				DataTable dt = new DataTable();
+				DaoSP dao = new DaoSP();
+				dt = dao.ObtenerDatosSP("dropeadores.getLocalidadesNoVendidas", trimestre, anio, idGrado);
+				return dt;
+			}
+			catch (Exception ex)
+			{
+
+				throw ex;
+			}
+			
 		}
 
 	}

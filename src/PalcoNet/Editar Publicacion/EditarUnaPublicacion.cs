@@ -181,6 +181,7 @@ namespace PalcoNet.Editar_Publicacion
 					{
 						MessageBox.Show("Cambios guardados correctamente.", "¡Correcto!",
 						MessageBoxButtons.OK, MessageBoxIcon.None);
+					this.Hide();
 					}
 					else
 					{

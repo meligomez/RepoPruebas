@@ -60,9 +60,17 @@ namespace PalcoNet.Editar_Publicacion
 				" join dropeadores.Grado g on(g.id=p.gradoId)"+
 				" where empresaId= '" + userLogueado.empresa.Empresa_Cuit + "' and p.estado=0";
 			dt = dao.ConsultarConQuery(query);
-			CargarData.cargarGridView(dataGridView1, dt);
-			lblEmpleado.Text = userLogueado.empresa.Empresa_Cuit;
-			CargarData.AddButtonEditColumn(dataGridView1);
+			if(dt.Rows.Count<=0)
+			{
+				MessageBox.Show("No existen publicaciones en estado Borrador para editar.");
+			}
+			else
+			{
+				CargarData.cargarGridView(dataGridView1, dt);
+				lblEmpleado.Text = userLogueado.empresa.Empresa_Cuit;
+				CargarData.AddButtonEditColumn(dataGridView1);
+			}
+			
 		}
 
 		private void btnVolver_Click(object sender, EventArgs e)

@@ -26,6 +26,7 @@ namespace Modelo.Dominio
 				dt = dao.ObtenerDatosSP("dropeadores.altaItem", this.Cantidad, this.Monto, this.descripcion, this.compraId,this.facturaId);
 				//DataRow row2 = dt.Rows[0];
 				//int idFactura = int.Parse(row2["Id"].ToString());
+				//return dt.Rows.Count;
 				
 			}
 			catch (Exception ex)

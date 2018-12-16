@@ -46,10 +46,12 @@ namespace PalcoNet.Editar_Publicacion
 					if (publicacion.eliminar())
 					{
 						MessageBox.Show("Correcto! Se eliminó la publicacion");
+						this.Hide();
 					}
 					else
 					{
 						MessageBox.Show("Error, no se pudo eliminar la publicacion.");
+						this.Hide();
 					}
 					break;
 

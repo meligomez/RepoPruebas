@@ -21,6 +21,8 @@ namespace PalcoNet.Generar_Publicacion
 		public Publicacion publicacion;
 		public bool precioAsignado=false;
 		public Ubicacion ubicacion;
+		public int totalUbicaciones = 0;
+		public int botonesAsignados = 0;
 		List<TipoUbicacion> tiposDeUbicacionPorPublicacion= new List<TipoUbicacion>();
 		public TipoUbicacion tipoUbicacion;
 		int botonesSinCategoria = 0;
@@ -43,6 +45,7 @@ namespace PalcoNet.Generar_Publicacion
 
 		private void GenerarPublicacion_Load(object sender, EventArgs e)
 		{
+			totalUbicaciones = publicacion.stock;
 			////Necesito en empresa un metodo que dado el id me devuelva la razon social.
 			//DataTable dtGrado = new DataTable();
 			//DataTable dtRubro = new DataTable();
@@ -798,7 +801,8 @@ namespace PalcoNet.Generar_Publicacion
 								ubicacion1.tipoUbicacionId = tu.buscarCodigoCategoria("Vip");
 								ubicacion1.precio = tiposDeUbicacionPorPublicacion.First(unTipo => unTipo.descripcion == "Vip").precio;
 								ubicaciones.Add(ubicacion1);
-								if (botonesSinCategoria > 0) { botonesSinCategoria--; }
+								//if (botonesSinCategoria > 0) { botonesSinCategoria--; }
+								botonesAsignados++;
 							}
 							if (cComponente2.BackColor == Color.Tomato)
 							{
@@ -811,7 +815,8 @@ namespace PalcoNet.Generar_Publicacion
 								ubicacion2.precio = tiposDeUbicacionPorPublicacion.First(unTipo => unTipo.descripcion == "Cabecera").precio;
 								//ubicacion.tipoDescripcion = "Cabecera";
 								ubicaciones.Add(ubicacion2);
-								if (botonesSinCategoria > 0) { botonesSinCategoria--; }
+								//if (botonesSinCategoria > 0) { botonesSinCategoria-; }
+								botonesAsignados++;
 							}
 							if (cComponente2.BackColor == Color.Yellow)
 							{
@@ -824,7 +829,9 @@ namespace PalcoNet.Generar_Publicacion
 								ubicacion3.precio = tiposDeUbicacionPorPublicacion.First(unTipo => unTipo.descripcion == "Campo").precio;
 								//ubicacion.tipoDescripcion = "Campo";
 								ubicaciones.Add(ubicacion3);
-								if (botonesSinCategoria > 0) { botonesSinCategoria--; }
+								//if (botonesSinCategoria > 0) { botonesSinCategoria--; }
+								botonesAsignados++;
+
 							}
 							if (cComponente2.BackColor == Color.Maroon)
 							{
@@ -836,7 +843,8 @@ namespace PalcoNet.Generar_Publicacion
 								ubicacion4.precio = tiposDeUbicacionPorPublicacion.First(unTipo => unTipo.descripcion == "Campo Vip").precio;
 								//ubicacion.tipoDescripcion = "Campo Vip";
 								ubicaciones.Add(ubicacion4);
-								if (botonesSinCategoria > 0) { botonesSinCategoria--; }
+								//if (botonesSinCategoria > 0) { botonesSinCategoria--; }
+								botonesAsignados++;
 							}
 							if (cComponente2.BackColor == Color.Beige)
 							{
@@ -851,7 +859,8 @@ namespace PalcoNet.Generar_Publicacion
 								ubicaciones.Add(ubicacion5);
 								//cantidadBotonesBeige++;
 								//asientosConFila.Add(cComponente2.Name);
-								if (botonesSinCategoria > 0) { botonesSinCategoria--; }
+								//if (botonesSinCategoria > 0) { botonesSinCategoria--; }
+								botonesAsignados++;
 							}
 							if (cComponente2.BackColor == Color.Indigo)
 							{
@@ -866,7 +875,8 @@ namespace PalcoNet.Generar_Publicacion
 								ubicaciones.Add(ubicacion6);
 								//cantidadBotonesIndigo++;
 								//asientosConFila.Add(cComponente2.Name);
-								if (botonesSinCategoria > 0) { botonesSinCategoria--; }
+								//if (botonesSinCategoria > 0) { botonesSinCategoria--; }
+								botonesAsignados++;
 							}
 							if (cComponente2.BackColor == Color.Red)
 							{
@@ -882,7 +892,8 @@ namespace PalcoNet.Generar_Publicacion
 								ubicaciones.Add(ubicacion7);
 								//cantidadBotonesRed++;
 								//asientosConFila.Add(cComponente2.Name);
-								if (botonesSinCategoria > 0) { botonesSinCategoria--; }
+								//if (botonesSinCategoria > 0) { botonesSinCategoria--; }
+								botonesAsignados++;
 							}
 							if (cComponente2.BackColor == Color.Pink)
 							{
@@ -897,7 +908,8 @@ namespace PalcoNet.Generar_Publicacion
 								ubicaciones.Add(ubicacion8);
 								//cantidadBotonesPink++;
 								//asientosConFila.Add(cComponente2.Name);
-								if (botonesSinCategoria > 0) { botonesSinCategoria--; }
+								//if (botonesSinCategoria > 0) { botonesSinCategoria--; }
+								botonesAsignados++;
 							}
 							if(cComponente2.BackColor == Color.Silver && cComponente2.Visible==true)
 							{
@@ -915,6 +927,8 @@ namespace PalcoNet.Generar_Publicacion
 		}
 		private void btnGuardar_Click(object sender, EventArgs e)
 		{
+			botonesSinCategoria = 0;
+			botonesAsignados = 0;
 			List<Ubicacion> ubicaciones = this.buscarButtons();
 			if (this.validarData())
 			{
@@ -1008,12 +1022,12 @@ namespace PalcoNet.Generar_Publicacion
 		private bool validarData()
 		{
 			
-			if(botonesSinCategoria>0)
-			{
-				MessageBox.Show("Debe asignarle una categoria a todos los asientos.", "¡Advertencia!",
-				MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-				return false;
-			}
+			//if(botonesSinCategoria>0)
+			//{
+			//	MessageBox.Show("Debe asignarle una categoria a todos los asientos.", "¡Advertencia!",
+			//	MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+			//	return false;
+			//}
 			if (tiposDeUbicacionPorPublicacion.Count <= 0)
 			{
 				MessageBox.Show("Debe asignarle una categoria a todos los asientos.", "¡Advertencia!",
@@ -1023,6 +1037,12 @@ namespace PalcoNet.Generar_Publicacion
 			if (textPrecio.Text == "")
 			{
 				MessageBox.Show("Debe ingresar un precio.", "¡Advertencia!",
+				MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				return false;
+			}
+			if((totalUbicaciones-botonesAsignados)>0)
+			{
+				MessageBox.Show("Debe asignarle una categoria a todos los asientos.", "¡Advertencia!",
 				MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				return false;
 			}
