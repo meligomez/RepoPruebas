@@ -124,28 +124,29 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
 			
 			try
 			{
-				//int Codigo = int.Parse(dataGridView1.CurrentRow.Cells["Codigo"].Value.ToString());
-				//Seleccionando
-				if (this.dataGridView1.Columns[e.ColumnIndex].Name.Equals("seleccion"))
-				{
-					RendicionComision rendicion = new RendicionComision();
-					rendicion.idCompra = int.Parse(dataGridView1.CurrentRow.Cells["idCompra"].Value.ToString());
-					rendicion.idPublicacion = int.Parse(dataGridView1.CurrentRow.Cells["idPublicacion"].Value.ToString());
-					rendicion.descripcion = dataGridView1.CurrentRow.Cells["descripcion"].Value.ToString();
-					rendicion.porcentaje = decimal.Parse(dataGridView1.CurrentRow.Cells["porcentaje"].Value.ToString());
-					rendicion.fila = char.Parse(dataGridView1.CurrentRow.Cells["fila"].Value.ToString());
-					rendicion.asiento = int.Parse(dataGridView1.CurrentRow.Cells["asiento"].Value.ToString());
-					rendicion.precio = decimal.Parse(dataGridView1.CurrentRow.Cells["precio"].Value.ToString());
-					rendicion.fechaCompra = DateTime.Parse(dataGridView1.CurrentRow.Cells["compra_fecha"].Value.ToString());
-					totalConComision += ((decimal.Parse(dataGridView1.CurrentRow.Cells["precio"].Value.ToString()) * decimal.Parse(dataGridView1.CurrentRow.Cells["porcentaje"].Value.ToString())/100));
-					total += decimal.Parse(dataGridView1.CurrentRow.Cells["precio"].Value.ToString()) - totalConComision;
-					lblTotal.Text = total.ToString();
-					lblTotalConComision.Text = totalConComision.ToString();
-					rendicion.comisionTotalCobrada = totalConComision;
-					rendicion.pagadoAEmpresa = total;
-					rendicion.cuitEmpresa = userLog.empresa.Empresa_Cuit;
-					rendicionesAPagar.Add(rendicion);
-				}
+				
+						//int Codigo = int.Parse(dataGridView1.CurrentRow.Cells["Codigo"].Value.ToString());
+						//Seleccionando
+						if (this.dataGridView1.Columns[e.ColumnIndex].Name.Equals("seleccion"))
+						{
+							RendicionComision rendicion = new RendicionComision();
+							rendicion.idCompra = int.Parse(dataGridView1.CurrentRow.Cells["idCompra"].Value.ToString());
+							rendicion.idPublicacion = int.Parse(dataGridView1.CurrentRow.Cells["idPublicacion"].Value.ToString());
+							rendicion.descripcion = dataGridView1.CurrentRow.Cells["descripcion"].Value.ToString();
+							rendicion.porcentaje = decimal.Parse(dataGridView1.CurrentRow.Cells["porcentaje"].Value.ToString());
+							rendicion.fila = char.Parse(dataGridView1.CurrentRow.Cells["fila"].Value.ToString());
+							rendicion.asiento = int.Parse(dataGridView1.CurrentRow.Cells["asiento"].Value.ToString());
+							rendicion.precio = decimal.Parse(dataGridView1.CurrentRow.Cells["precio"].Value.ToString());
+							rendicion.fechaCompra = DateTime.Parse(dataGridView1.CurrentRow.Cells["compra_fecha"].Value.ToString());
+							totalConComision += ((decimal.Parse(dataGridView1.CurrentRow.Cells["precio"].Value.ToString()) * decimal.Parse(dataGridView1.CurrentRow.Cells["porcentaje"].Value.ToString()) / 100));
+							total += decimal.Parse(dataGridView1.CurrentRow.Cells["precio"].Value.ToString()) - totalConComision;
+							lblTotal.Text = total.ToString();
+							lblTotalConComision.Text = totalConComision.ToString();
+							rendicion.comisionTotalCobrada = totalConComision;
+							rendicion.pagadoAEmpresa = total;
+							rendicion.cuitEmpresa = userLog.empresa.Empresa_Cuit;
+							rendicionesAPagar.Add(rendicion);
+						}			
 				
 			}
 			catch (Exception ex)
@@ -162,6 +163,11 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
 
 		private void btnPagarEmpresa_Click(object sender, EventArgs e)
 		{
+
+	DialogResult dr = MessageBox.Show("¿Desea pagar las factuas a la empresa:  " + userLog.empresa.Empresa_Cuit + "?", "Pagar", MessageBoxButtons.YesNo);
+	switch (dr)
+	{
+		case DialogResult.Yes:
 			total = 0;
 			totalConComision = 0;
 			for (int fila = 0; fila < int.Parse(txtCantPags.Text.ToString()) ; fila++)
@@ -210,16 +216,22 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
 						item.altaItem();
 					}
 				}
+
 				MessageBox.Show("Se han rendido correctamente las compras!.", "¡Correcto!",
-										MessageBoxButtons.OK, MessageBoxIcon.None);
+											MessageBoxButtons.OK, MessageBoxIcon.None);
 
-				this.Hide();
+						this.Hide();
 
-			}
-			catch (Exception ex)
-			{
+					}
+					catch (Exception ex)
+					{
 
-				throw ex;
+						throw ex;
+					}
+					break;
+				case DialogResult.No:
+					this.Hide();
+					break;
 			}
 			//validar que cuando haya seleccionado todas no haya quedado ninguna sin seleccionar que tenga una fecha anterior.
 			//validar que se hayan seleccionado la cantidad de compras a rendir que haya dicho el admin

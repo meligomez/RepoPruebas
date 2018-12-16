@@ -1,4 +1,5 @@
-﻿using Modelo.Comun;
+﻿using Modelo.Base;
+using Modelo.Comun;
 using Modelo.Dominio;
 using System;
 using System.Collections.Generic;
@@ -39,6 +40,8 @@ namespace PalcoNet.Listado_Estadistico
 			cbxTipoEstadistica.Items.Add("Empresas con mayor cantidad de localidades no vendidas");
 			cbxTipoEstadistica.Items.Add("Clientes con mayores puntos vencidos");
 			cbxTipoEstadistica.Items.Add("Clientes con mayor cantidad de compras");
+
+			
 		}
 
 		private void btnFiltroFecha_Click(object sender, EventArgs e)
@@ -57,7 +60,14 @@ namespace PalcoNet.Listado_Estadistico
 			switch (tipoEstadistica)
 				{
 					case "Empresas con mayor cantidad de localidades no vendidas":
-					//	//estadistica.getLocalidadesNoVendidas(dataGridView1,trimestre, anio);
+						dt=estadistica.getLocalidadesNoVendidas(dataGridView1,trimestre, anio,cbxGrado.SelectedIndex);
+						CargarData.cargarGridView(dataGridView1, dt);
+						grafico.Series[0].ChartType = SeriesChartType.Line;
+						grafico.Series[0].Name = "Localidades no vendidas por mes";
+						foreach (DataRow drow in dt.Rows)
+						{
+							grafico.Series[0].Points.AddXY(drow["Localidades no vendidas"].ToString(), drow["Mes"].ToString());
+						}
 					break;
 					case "Clientes con mayores puntos vencidos":
 						dt=estadistica.getClientesMasPuntosVencidos(dataGridView1, trimestre, anio);
@@ -107,7 +117,19 @@ namespace PalcoNet.Listado_Estadistico
 		}
 		private void cbxTipoEstadisticaChange(object sender, EventArgs e)
 		{
-			btnFiltroFecha.Visible = true;
+			DataTable dt = new DataTable();
+			DaoSP dao = new DaoSP();
+			dt = dao.ConsultarConQuery("select id,tipo from dropeadores.Grado");
+			if (cbxTipoEstadistica.SelectedItem.ToString()== "Empresas con mayor cantidad de localidades no vendidas")
+			{
+				CargarData.cargarComboBox(cbxGrado,dt,"id","tipo");
+				lblGrado.Visible = true;
+				cbxGrado.Visible = true;
+			}
+			else
+			{
+				btnFiltroFecha.Visible = true;
+			}
 			
 		}
 
@@ -124,6 +146,11 @@ namespace PalcoNet.Listado_Estadistico
 		private void btnVolver_Click(object sender, EventArgs e)
 		{
 			this.Hide();
+		}
+
+		private void cbxGrado_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			btnFiltroFecha.Visible = true;
 		}
 	}
 }

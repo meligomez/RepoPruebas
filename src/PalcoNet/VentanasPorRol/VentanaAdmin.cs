@@ -36,6 +36,7 @@ namespace PalcoNet.VentanasPorRol
 			InitializeComponent();
 			AplicarSeguridad();
 		}
+		public void LimpiarPanel() { this.panel1.Controls.Clear(); }
 		//en el futuro debe recibir un rol
 		private void AplicarSeguridad()
 		{
@@ -127,6 +128,7 @@ namespace PalcoNet.VentanasPorRol
 		//}
 		public void AbrirFormInPanel(object formHijo)
 		{
+			panel1.BackColor = Color.Silver;
 			if (this.panel1.Controls.Count > 0)
 				this.panel1.Controls.RemoveAt(0);
 			Form fh = formHijo as Form;
@@ -139,7 +141,15 @@ namespace PalcoNet.VentanasPorRol
 		}
 		private void VentanaAdmin_Load(object sender, EventArgs e)
 		{
-            
+			
+				LimpiarPanel();
+				/*El tamaño lo obtenemos mediante la propiedad Size, y la posición 
+				 * superior izquierda la obtenemos de la propiedad Location, 
+				 * sabiendo esto, lo que debemos escribir en el evento Form_Load 
+				 * es el siguiente código:*/
+				this.Location = Screen.PrimaryScreen.WorkingArea.Location;
+				this.Size = Screen.PrimaryScreen.WorkingArea.Size;
+			this.BackColor=Color.Silver;
 		}
 		
 		private void label3_Click(object sender, EventArgs e)
@@ -361,7 +371,8 @@ namespace PalcoNet.VentanasPorRol
 
 		private void panel1_Paint(object sender, PaintEventArgs e)
 		{
-
+			//panel1.Location = Screen.PrimaryScreen.WorkingArea.Location;
+			//panel1.Size = Screen.PrimaryScreen.WorkingArea.Size;
 		}
 		private void salirToolStripMenuItem_Click(object sender, EventArgs e)
 		{

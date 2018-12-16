@@ -352,7 +352,7 @@
 			// textPrecio
 			// 
 			this.textPrecio.Font = new System.Drawing.Font("Raleway", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.textPrecio.Location = new System.Drawing.Point(573, 99);
+			this.textPrecio.Location = new System.Drawing.Point(635, 100);
 			this.textPrecio.Name = "textPrecio";
 			this.textPrecio.Size = new System.Drawing.Size(89, 31);
 			this.textPrecio.TabIndex = 115;
@@ -362,7 +362,7 @@
 			// 
 			this.lblPrecio.AutoSize = true;
 			this.lblPrecio.Font = new System.Drawing.Font("Raleway", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblPrecio.Location = new System.Drawing.Point(495, 102);
+			this.lblPrecio.Location = new System.Drawing.Point(557, 103);
 			this.lblPrecio.Name = "lblPrecio";
 			this.lblPrecio.Size = new System.Drawing.Size(72, 24);
 			this.lblPrecio.TabIndex = 114;
@@ -372,7 +372,7 @@
 			// lblCategoria
 			// 
 			this.lblCategoria.AutoSize = true;
-			this.lblCategoria.Location = new System.Drawing.Point(221, 99);
+			this.lblCategoria.Location = new System.Drawing.Point(192, 103);
 			this.lblCategoria.Name = "lblCategoria";
 			this.lblCategoria.Size = new System.Drawing.Size(104, 24);
 			this.lblCategoria.TabIndex = 112;
@@ -382,9 +382,9 @@
 			// comboCategoria
 			// 
 			this.comboCategoria.FormattingEnabled = true;
-			this.comboCategoria.Location = new System.Drawing.Point(331, 100);
+			this.comboCategoria.Location = new System.Drawing.Point(302, 100);
 			this.comboCategoria.Name = "comboCategoria";
-			this.comboCategoria.Size = new System.Drawing.Size(143, 32);
+			this.comboCategoria.Size = new System.Drawing.Size(228, 32);
 			this.comboCategoria.TabIndex = 111;
 			this.comboCategoria.Visible = false;
 			this.comboCategoria.SelectedIndexChanged += new System.EventHandler(this.comboCategoria_SelectedIndexChanged);
