@@ -347,7 +347,7 @@ INSERT [dropeadores].[Usuario] ([username], [password], [cambioPsw], [creadoPor]
 				/*UsuariosXRoles*/
 /*usuariosXRoles*/
 insert into dropeadores.RolXUsuario (usuarioId, rolId) values
-	(1,1),(1,2),(1,3)
+	(1,1),(2,2),(3,3)
 
 
 					/*Domicilio de la Empresa*/
