@@ -200,6 +200,7 @@ CREATE TABLE [dropeadores].[Publicacion](
     [stock] [int] NULL,
     [fechaPublicacion] [datetime] NULL,
     [fechaEspectaculo] [datetime] NULL,
+	fechaVencimiento datetime null,
     [estado] [int] NULL,
     [direccion] [nvarchar](250) NULL,
     FOREIGN KEY (empresaId) REFERENCES [dropeadores].Empresa(empresa_Cuit),
@@ -412,11 +413,11 @@ SET IDENTITY_INSERT [dropeadores].TipoUBicacion OFF
 							
 				/*Publicacion*/
 SET IDENTITY_INSERT [dropeadores].Publicacion ON
-INSERT INTO dropeadores.Publicacion (id,empresaId,rubroId,gradoId,descripcion,stock,fechaPublicacion,fechaEspectaculo,estado,direccion)
+INSERT INTO dropeadores.Publicacion (id,empresaId,rubroId,gradoId,descripcion,stock,fechaPublicacion,fechaVencimiento,fechaEspectaculo,estado,direccion)
 select distinct Espectaculo_Cod, e.empresa_Cuit,
 (select top 1 id from dropeadores.Rubro) ,
 (select top 1 id from dropeadores.Grado),
-Espectaculo_Descripcion,20,Espectaculo_Fecha,Espectaculo_Fecha_Venc,
+Espectaculo_Descripcion,20,DATEADD(DAY,-5,Espectaculo_Fecha),Espectaculo_Fecha_Venc,Espectaculo_Fecha,
 CASE		
 	WHEN Espectaculo_Estado LIKE 'Publicada' THEN 1
 	WHEN Espectaculo_Estado LIKE 'Borrador' THEN 0
@@ -425,6 +426,7 @@ END
 ,'Direccion del espectaculo' from gd_esquema.Maestra
 m join dropeadores.Empresa e on(e.empresa_Cuit=m.Espec_Empresa_Cuit)
 SET IDENTITY_INSERT [dropeadores].Publicacion OFF
+
  
 				/*Ubicacion*/
 
@@ -434,7 +436,12 @@ select distinct  Ubicacion_Fila,Ubicacion_Asiento,Ubicacion_Sin_numerar,1
 ,Ubicacion_Tipo_Codigo,ubicacion_precio
 from gd_esquema.Maestra m
 join dropeadores.Publicacion p on(p.id=m.Espectaculo_Cod)
-					
+
+				/*Tarjeta de Crédito*/			
+insert into dropeadores.TarjetaCredito (clieteId,propietario,numero,fechaVencimiento,descripcion)
+select distinct Cli_Dni,Cli_Nombre+' '+Cli_Apeliido,0,DATEADD(YEAR,4,GETDATE()),ISNULL(Forma_Pago_Desc,'Sin Definir') from gd_esquema.Maestra	
+
+
 				/*Compra*/
 insert into dropeadores.Compra(factura,compra_tipo_documento,compra_numero_documento,compra_fecha,compra_cantidad,compra_ubicacionAsiento,compra_ubicacionFila,compra_ubicacionPublic,compra_precio,compra_TarjetaId)
 select  m.Factura_Nro,'DNI',m.Cli_Dni,m.Compra_Fecha, m.Compra_Cantidad, m.Ubicacion_Asiento,m.Ubicacion_Fila,m.Espectaculo_Cod,u.precio
@@ -443,6 +450,7 @@ select  m.Factura_Nro,'DNI',m.Cli_Dni,m.Compra_Fecha, m.Compra_Cantidad, m.Ubica
   join dropeadores.Ubicacion u on u.asiento = m.Ubicacion_Asiento and 
   m.Ubicacion_Fila = u.fila and u.publicacionId = m.Espectaculo_Cod
 where (m.Compra_Fecha is not null) and (m.Factura_Fecha is not null)
+
 
 						/*Puntos*/	
 -- --Solo agregue el Id de premio 1..... habrá q ver como hacer para insertar todos los premios.
@@ -471,10 +479,6 @@ SET IDENTITY_INSERT [dropeadores].Factura ON
 FROM gd_esquema.Maestra m, dropeadores.compra c
 WHERE Factura_Nro IS NOT NULL AND c.compra_fecha=m.Compra_Fecha AND compra_numero_documento=m.Cli_Dni
 	
-
-				/*Tarjeta de Crédito*/			
-insert into dropeadores.TarjetaCredito (clieteId,propietario,numero,fechaVencimiento,descripcion)
-select distinct Cli_Dni,Cli_Nombre+' '+Cli_Apeliido,0,DATEADD(YEAR,4,GETDATE()),ISNULL(Forma_Pago_Desc,'Sin Definir') from gd_esquema.Maestra	
 
 
 -----------------------------------------------------------------------------------------------------
@@ -902,6 +906,101 @@ delete dropeadores.Ubicacion where publicacionId= @publicacionId
 delete dropeadores.Publicacion	where id=@publicacionId
 end
 /**************FIN eliminarPublicacion*****************/
+
+/**************INICIO getLocalidadesNoVendidas*****************/
+GO
+create procedure dropeadores.getLocalidadesNoVendidas (@trimestre nvarchar(255), @anio nvarchar(255), @idGrado int)
+as
+begin
+if(@trimestre ='Primer')
+begin 
+SELECT
+ TOP 5 
+				 EM.empresa_Cuit  as 'ID de la Empresa', 
+				 EM.Empresa_Razon_Social as 'Razon Social', 
+				 COUNT(PU.publicacionId) AS 'Localidades no vendidas', 
+				 g.id as 'Grado de Prioridad',
+				 month(P.fechaVencimiento) as 'Mes',
+				 year(P.fechaVencimiento) as 'Año'
+	FROM dropeadores.Ubicacion PU  
+	LEFT JOIN dropeadores.Compra c on (c.compra_ubicacionPublic =pu.publicacionId and c.compra_ubicacionAsiento=pu.asiento and c.compra_ubicacionFila=pu.fila)
+	JOIN dropeadores.Publicacion P ON PU.publicacionId = P.id
+	INNER JOIN dropeadores.Empresa EM ON empresa_Cuit =p.empresaId
+	INNER JOIN dropeadores.Grado g on g.id = p.gradoId
+	WHERE c.id IS NULL and g.id=@idGrado
+	 and  month(P.fechaVencimiento)  between 1 and 3  and  year(P.fechaVencimiento) = @anio
+	GROUP BY EM.empresa_Cuit, EM.Empresa_Razon_Social, g.id,
+	P.id, month(P.fechaVencimiento), year(P.fechaVencimiento)
+	ORDER BY 'Localidades no vendidas' DESC
+
+end
+if(@trimestre='Segundo')
+begin
+SELECT
+ TOP 5 
+				 EM.empresa_Cuit  as 'ID de la Empresa', 
+				 EM.Empresa_Razon_Social as 'Razon Social', 
+				 COUNT(PU.publicacionId) AS 'Localidades no vendidas', 
+				 g.id as 'Grado de Prioridad',
+				 month(P.fechaVencimiento) as 'Mes',
+				 year(P.fechaVencimiento) as 'Año'
+	FROM dropeadores.Ubicacion PU  
+	LEFT JOIN dropeadores.Compra c on (c.compra_ubicacionPublic =pu.publicacionId and c.compra_ubicacionAsiento=pu.asiento and c.compra_ubicacionFila=pu.fila)
+	JOIN dropeadores.Publicacion P ON PU.publicacionId = P.id
+	INNER JOIN dropeadores.Empresa EM ON empresa_Cuit =p.empresaId
+	INNER JOIN dropeadores.Grado g on g.id = p.gradoId
+	WHERE c.id IS NULL and g.id=@idGrado
+	 and  month(P.fechaVencimiento)  between 3 and 6
+	 and  year(P.fechaVencimiento) = @anio
+	GROUP BY EM.empresa_Cuit, EM.Empresa_Razon_Social, g.id,
+	P.id, month(P.fechaVencimiento), year(P.fechaVencimiento)
+	ORDER BY 'Localidades no vendidas' DESC
+end
+if(@trimestre='Tercero')
+begin
+SELECT
+ TOP 5 
+				 EM.empresa_Cuit  as 'ID de la Empresa', 
+				 EM.Empresa_Razon_Social as 'Razon Social', 
+				 COUNT(PU.publicacionId) AS 'Localidades no vendidas', 
+				 g.id as 'Grado de Prioridad',
+				 month(P.fechaVencimiento) as 'Mes',
+				 year(P.fechaVencimiento) as 'Año'
+	FROM dropeadores.Ubicacion PU  
+	LEFT JOIN dropeadores.Compra c on (c.compra_ubicacionPublic =pu.publicacionId and c.compra_ubicacionAsiento=pu.asiento and c.compra_ubicacionFila=pu.fila)
+	JOIN dropeadores.Publicacion P ON PU.publicacionId = P.id
+	INNER JOIN dropeadores.Empresa EM ON empresa_Cuit =p.empresaId
+	INNER JOIN dropeadores.Grado g on g.id = p.gradoId
+	WHERE c.id IS NULL and g.id=@idGrado
+	 and month(P.fechaVencimiento)  between 6 and 9   and  year(P.fechaVencimiento) = @anio
+	GROUP BY EM.empresa_Cuit, EM.Empresa_Razon_Social, g.id,
+	P.id, month(P.fechaVencimiento), year(P.fechaVencimiento)
+	ORDER BY 'Localidades no vendidas' DESC
+end
+if(@trimestre='Cuarto')
+begin
+SELECT
+ TOP 5 
+				 EM.empresa_Cuit  as 'ID de la Empresa', 
+				 EM.Empresa_Razon_Social as 'Razon Social', 
+				 COUNT(PU.publicacionId) AS 'Localidades no vendidas', 
+				 g.id as 'Grado de Prioridad',
+				 month(P.fechaVencimiento) as 'Mes',
+				 year(P.fechaVencimiento) as 'Año'
+	FROM dropeadores.Ubicacion PU  
+	LEFT JOIN dropeadores.Compra c on (c.compra_ubicacionPublic =pu.publicacionId and c.compra_ubicacionAsiento=pu.asiento and c.compra_ubicacionFila=pu.fila)
+	JOIN dropeadores.Publicacion P ON PU.publicacionId = P.id
+	INNER JOIN dropeadores.Empresa EM ON empresa_Cuit =p.empresaId
+	INNER JOIN dropeadores.Grado g on g.id = p.gradoId
+	WHERE c.id IS NULL and g.id=@idGrado 
+	and  month(P.fechaVencimiento)  between 9 and 12   and  year(P.fechaVencimiento) = @anio
+	GROUP BY EM.empresa_Cuit, EM.Empresa_Razon_Social, g.id,
+	P.id, month(P.fechaVencimiento), year(P.fechaVencimiento)
+	ORDER BY 'Localidades no vendidas' DESC
+end
+
+end
+/**************INICIO getLocalidadesNoVendidas*****************/
 
 GO
 /****** Object:  StoredProcedure [dropeadores].[Domicilio_Cli_Alta]    Script Date: 07/12/2018 19:57:04 ******/
@@ -1360,7 +1459,7 @@ END
 
 
 ------------------------
-USE [GD2C2018]
+
 GO
 /****** Object:  StoredProcedure [dropeadores].[updatePuntos]    Script Date: 15/12/2018 16:21:06 ******/
 SET ANSI_NULLS ON
@@ -1381,7 +1480,7 @@ end
 
 
 -----------------------
-USE [GD2C2018]
+
 GO
 /****** Object:  StoredProcedure [dropeadores].[obtenerIDcompra]    Script Date: 16/12/2018 15:56:38 ******/
 SET ANSI_NULLS ON
