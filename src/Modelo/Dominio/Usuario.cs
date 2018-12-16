@@ -108,7 +108,7 @@ namespace Modelo.Dominio
 							{
 								dt=dao.ObtenerDatosSP("dropeadores.Usuario_Alta", cliente.numeroDocumento, this.username, this.password, this.fechaCreacionPsw, this.creadoPor);
                                 DataRow row3 = dt.Rows[0];
-                                int idUser = int.Parse(row3["cantidad"].ToString());
+                                int idUser = int.Parse(row3["id"].ToString());
                                 string query = "INSERT INTO DROPEADORES.RolXUsuario (usuarioId,rolId) values (" + idUser + "," + 3 + ")";
                                 if (dao.EjecutarConQuery(query) > 0)
 								{
