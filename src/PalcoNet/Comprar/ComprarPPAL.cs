@@ -56,7 +56,12 @@ namespace PalcoNet.Comprar
         private void ComprarPPAL_Load(object sender, EventArgs e)
         {
             DaoSP dao = new DaoSP();
+            
+
             dtSource = dao.ObtenerDatosSP("dropeadores.getTablaPublicacion", fech.getFechaSistema());
+            maxRec = dtSource.DefaultView.Count;
+            txtCantPags.Text = "10";
+            FillGrid(int.Parse(txtCantPags.Text));
             cargarTabla();
         }
 
@@ -272,7 +277,7 @@ namespace PalcoNet.Comprar
 			}
 		}
 		private int PageCount;
-		private int maxRec;
+		private int maxRec = 0;
 		private int pageSize;
 		private int currentPage;
 		private int recNo;
@@ -468,7 +473,7 @@ namespace PalcoNet.Comprar
             // Set the start and max records. 
             pageSize = cantPaginas;//Cantidad de registros por pagina;
             // txtPageSize.Text
-            maxRec = dtSource.DefaultView.Count;
+            // maxRec = dtSource.DefaultView.Count;
             PageCount = (maxRec / pageSize);
             //  Adjust the page number if the last page contains a partial page.
             if (((maxRec % pageSize)
@@ -506,9 +511,10 @@ namespace PalcoNet.Comprar
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            if (txtCantPags.Text == null || txtCantPags.Text == "")
+            int value;
+            if (txtCantPags.Text == null || txtCantPags.Text == "" || txtCantPags.Text == "0" || !int.TryParse(txtCantPags.Text, out value))
             {
-                MessageBox.Show("Error! Ingrese numeros!");
+                MessageBox.Show("Error! Ingrese un número mayor a cero para la paginación de la tabla.");
             }
             else
             {

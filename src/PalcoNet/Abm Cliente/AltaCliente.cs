@@ -45,6 +45,27 @@ namespace PalcoNet.Abm_Cliente
 			}
 		}
 
+        public static bool nameIsValid(string name)
+        {
+            string expresion;
+            expresion = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$";
+            if (Regex.IsMatch(name, expresion))
+            {
+                if (Regex.Replace(name, expresion, string.Empty).Length == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
 		private void groupBox1_Enter(object sender, EventArgs e)
 		{
 
@@ -241,15 +262,16 @@ namespace PalcoNet.Abm_Cliente
 
 		private bool todosCamposCompletos()
 		{
-			if (textNombre.Text.Trim() == "")
+            if (textNombre.Text.Trim() == "" || !nameIsValid(textNombre.Text))
 			{
-				MessageBox.Show("Debe ingresar un nombre.", "Error al crear Nuevo Usuario",
+				MessageBox.Show("Debe ingresar un nombre válido", "Error al crear Nuevo Usuario",
 						MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return false;
 			}
+
 			if (textApellido.Text.Trim() == "")
 			{
-				MessageBox.Show("Debe ingresar un apellido.", "Error al crear Nuevo Usuario",
+                MessageBox.Show("Debe ingresar un apellido válido", "Error al crear Nuevo Usuario",
 						MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return false;
 			}

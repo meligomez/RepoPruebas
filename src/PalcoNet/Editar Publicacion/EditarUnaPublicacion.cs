@@ -134,8 +134,8 @@ namespace PalcoNet.Editar_Publicacion
 
 				case DialogResult.No:
 					this.Hide();
-					EliminarPublicacion eliminar = new EliminarPublicacion(publicacion);
-					eliminar.Show();
+					//EliminarPublicacion eliminar = new EliminarPublicacion(publicacion);
+					//eliminar.Show();
 					
 					break;
 			}

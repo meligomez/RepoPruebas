@@ -108,7 +108,7 @@ namespace Modelo.Dominio
 							{
 								dt=dao.ObtenerDatosSP("dropeadores.Usuario_Alta", cliente.numeroDocumento, this.username, this.password, this.fechaCreacionPsw, this.creadoPor);
                                 DataRow row3 = dt.Rows[0];
-                                int idUser = int.Parse(row3["Id"].ToString());
+                                int idUser = int.Parse(row3["cantidad"].ToString());
                                 string query = "INSERT INTO DROPEADORES.RolXUsuario (usuarioId,rolId) values (" + idUser + "," + 3 + ")";
                                 if (dao.EjecutarConQuery(query) > 0)
 								{
@@ -189,6 +189,7 @@ namespace Modelo.Dominio
 				DaoSP dao = new DaoSP();
 				DataTable dt = new DataTable();
                 Domicilio dom = empresa.Empresa_Dom;
+               
                 
                 if (dao.EjecutarSP("dropeadores.ExistCuitandRazonSocial", empresa.Empresa_Cuit, empresa.Empresa_razon_social) > 0)
                 {
@@ -200,7 +201,7 @@ namespace Modelo.Dominio
                     dt = dao.ObtenerDatosSP("dropeadores.DireEmp_ObtenerId");
                     DataRow row = dt.Rows[0];
                     int idDomEmpresaInsertado = int.Parse(row["Id"].ToString());
-                    if (dao.EjecutarSP("dropeadores.Empresa_Alta", empresa.Empresa_Cuit, empresa.Empresa_mail, empresa.Empresa_telefono, empresa.Empresa_razon_social,idDomEmpresaInsertado) > 0)
+                    if (dao.EjecutarSP("dropeadores.Empresa_Alta", empresa.Empresa_Cuit, empresa.Empresa_mail, empresa.Empresa_telefono, empresa.Empresa_razon_social, idDomEmpresaInsertado) > 0)
                     {
 
                         dt = dao.ObtenerDatosSP("dropeadores.Emp_ObtenerId", idDomEmpresaInsertado);
@@ -209,30 +210,32 @@ namespace Modelo.Dominio
                     DataRow row2 = dt.Rows[0];
                     string idEmpresaInsertada = row2["cuit"].ToString();
 
-                                dt = dao.ObtenerDatosSP("dropeadores.Usuario_Alta", cliente.numeroDocumento, this.username, this.password, this.fechaCreacionPsw, this.creadoPor);
-                                DataRow row3 = dt.Rows[0];
-                                int idUser = int.Parse(row3["idUsuario"].ToString());
-                                string query = "INSERT INTO DROPEADORES.RolXUsuario (usuarioId,rolId) values (" + idUser + "," + 3 + ")";
-                                if (dao.EjecutarConQuery(query) > 0)
-								{
-									retorno = 0;
-								}
-								else
-								{
-									retorno = -1;
-								}
-                
-                
-                
+
+                    //dt = dao.ObtenerDatosSP("dropeadores.[Usuario_Alta_Empresa]", empresa.Empresa_Cuit, this.username, this.password,Convert.ToDateTime(this.fechaCreacionPsw), this.creadoPor);
+                    dt = dao.ObtenerDatosSP("dropeadores.[Usuario_Alta_Empresa]", empresa.Empresa_Cuit, this.username, this.fechaCreacionPsw, this.password, this.creadoPor);
+
+                    DataRow row3 = dt.Rows[0];
+                    int idUser = int.Parse(row3["idUsuario"].ToString());
+                    string query = "INSERT INTO DROPEADORES.RolXUsuario (usuarioId,rolId) values (" + idUser + "," + 3 + ")";
+                    if (dao.EjecutarConQuery(query) > 0)
+                    {
+                        retorno = 0;
+                    }
+                    else
+                    {
+                        retorno = -1;
+                    }
+
+
+
                 }
+
+                   return 0;
                 
-                
-                
-                return 0;
             }
             catch (Exception ex)
             {
-                return 0;
+                return 5;
             }
         }
     }

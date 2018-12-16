@@ -18,6 +18,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
         string rolLogueado;
         Usuario usuario = new Usuario();
+        ConfigGlobal archivoDeConfig = new ConfigGlobal();
 
 		public AltaEmpresa(string rol)
 		{
@@ -90,8 +91,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                     empresa.Empresa_telefono = int.Parse(textTelefono.Text);
                     empresa.Empresa_razon_social = "RAZON SOCIAL Nº:" + textRazonSocial.Text;
                     empresa.Empresa_estado = true;
-                    usuario.username = textUsername.Text;
-                    usuario.password = textPassword.Text;
+                    usuario.fechaCreacionPsw = archivoDeConfig.getFechaSistema();
                     dom.calle = textDireccion.Text;
                     dom.numero = int.Parse(txtNro.Text);
                     if (textPiso.Text != "")
@@ -111,12 +111,14 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
-                    if (resp == 0)
+                    if (resp == 5)
                     {
                         MessageBox.Show("Error. No se ha creado el Usuario. El cuit o Razon Social Ya han sido creados anteriormente!", "Error al crear Nuevo Usuario",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
+                  
+
                 }
 
                 MessageBox.Show("Empresa: " + textCUIT.Text + " creada satisfactoriamente.", "Alta de Usuario",
