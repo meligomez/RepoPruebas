@@ -41,6 +41,9 @@
             this.textUsername = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
+            this.comboTipoTarj = new System.Windows.Forms.ComboBox();
             this.label33 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
@@ -95,9 +98,6 @@
             this.comboTipoDoc = new System.Windows.Forms.ComboBox();
             this.textNroIdenficiacion = new System.Windows.Forms.MaskedTextBox();
             this.textTelefono = new System.Windows.Forms.MaskedTextBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label37 = new System.Windows.Forms.Label();
-            this.comboTipoTarj = new System.Windows.Forms.ComboBox();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -226,6 +226,36 @@
             this.groupBox2.TabIndex = 92;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos de tarjeta ";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(664, 79);
+            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(12, 13);
+            this.label20.TabIndex = 128;
+            this.label20.Text = "*";
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(415, 79);
+            this.label37.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(43, 20);
+            this.label37.TabIndex = 127;
+            this.label37.Text = "Tipo:";
+            // 
+            // comboTipoTarj
+            // 
+            this.comboTipoTarj.FormattingEnabled = true;
+            this.comboTipoTarj.Location = new System.Drawing.Point(481, 77);
+            this.comboTipoTarj.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.comboTipoTarj.Name = "comboTipoTarj";
+            this.comboTipoTarj.Size = new System.Drawing.Size(175, 28);
+            this.comboTipoTarj.TabIndex = 126;
             // 
             // label33
             // 
@@ -739,7 +769,7 @@
             // textNroIdenficiacion
             // 
             this.textNroIdenficiacion.Location = new System.Drawing.Point(390, 153);
-            this.textNroIdenficiacion.Mask = "99999999999999999";
+            this.textNroIdenficiacion.Mask = "99999999";
             this.textNroIdenficiacion.Name = "textNroIdenficiacion";
             this.textNroIdenficiacion.Size = new System.Drawing.Size(191, 26);
             this.textNroIdenficiacion.TabIndex = 120;
@@ -748,40 +778,10 @@
             // textTelefono
             // 
             this.textTelefono.Location = new System.Drawing.Point(105, 253);
-            this.textTelefono.Mask = "9999999999999";
+            this.textTelefono.Mask = "9999999999";
             this.textTelefono.Name = "textTelefono";
             this.textTelefono.Size = new System.Drawing.Size(177, 26);
             this.textTelefono.TabIndex = 121;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(664, 79);
-            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(12, 13);
-            this.label20.TabIndex = 128;
-            this.label20.Text = "*";
-            // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(415, 79);
-            this.label37.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(43, 20);
-            this.label37.TabIndex = 127;
-            this.label37.Text = "Tipo:";
-            // 
-            // comboTipoTarj
-            // 
-            this.comboTipoTarj.FormattingEnabled = true;
-            this.comboTipoTarj.Location = new System.Drawing.Point(481, 77);
-            this.comboTipoTarj.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.comboTipoTarj.Name = "comboTipoTarj";
-            this.comboTipoTarj.Size = new System.Drawing.Size(175, 28);
-            this.comboTipoTarj.TabIndex = 126;
             // 
             // AltaCliente
             // 

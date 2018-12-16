@@ -1340,7 +1340,7 @@ end
 ---------------------
 
 GO
-/****** Object:  StoredProcedure [dropeadores].[insertCompra]    Script Date: 07/12/2018 20:08:59 ******/
+/****** Object:  StoredProcedure [dropeadores].[insertCompra]    Script Date: 16/12/2018 15:55:50 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1358,7 +1358,41 @@ INSERT INTO dropeadores.Compra (compra_tipo_documento,compra_numero_documento,co
 VALUES (@tipoDoc,@nroDoc,GETDATE(),@tarjetaID,@cant,@precio)
 END
 
+
 ------------------------
+USE [GD2C2018]
+GO
+/****** Object:  StoredProcedure [dropeadores].[updatePuntos]    Script Date: 15/12/2018 16:21:06 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+create procedure [dropeadores].[updatePuntos] 
+(@Id_Cliente numeric(18, 0))
+as
+begin
+ 
+
+UPDATE  GD2C2018.[dropeadores].Puntos  SET PuntosVigentes = (select SUM(Puntos) from dropeadores.Puntos p2 where p2.Id_Cliente=@Id_Cliente)
+WHERE id_Cliente=@Id_Cliente
+
+end
+
+
+
+-----------------------
+USE [GD2C2018]
+GO
+/****** Object:  StoredProcedure [dropeadores].[obtenerIDcompra]    Script Date: 16/12/2018 15:56:38 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dropeadores].[obtenerIDcompra]
+		AS
+     	SELECT MAX(id) AS 'Id' FROM dropeadores.Compra 
+
+-----------------------
 GO
 /****** Object:  StoredProcedure [dropeadores].[ObtenerClienteEspecifico]    Script Date: 11/12/2018 23:06:15 ******/
 SET ANSI_NULLS ON
@@ -1724,6 +1758,28 @@ AS
 			UPDATE dropeadores.TarjetaCredito
 				SET descripcion=@desc
 				where clieteId= @idCliente
+	END
+
+
+--------------------------
+USE [GD2C2018]
+GO
+/****** Object:  StoredProcedure [dropeadores].[updateUbicacion]    Script Date: 16/12/2018 15:52:38 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dropeadores].[updateUbicacion]
+            @fila varchar(3),
+            @asiento numeric(18, 0),
+			@publicID int	
+AS
+	BEGIN
+	
+			UPDATE dropeadores.Ubicacion
+				SET estado = 0
+					WHERE fila LIKE @fila and asiento = @asiento and publicacionId = @publicID
+		
 	END
 
 -----------------------------------------------------------------------------------------------------

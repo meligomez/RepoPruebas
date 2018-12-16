@@ -15,6 +15,7 @@ namespace PalcoNet.Abm_Cliente
 	public partial class ModificarClienteElegido : Form
 	{
 		Cliente cliente_seleccionado;
+        int nroDOCViejo = 0;
 		public ModificarClienteElegido(string tipoDoc, int nroDoc)
 		{
 			InitializeComponent();
@@ -29,6 +30,10 @@ namespace PalcoNet.Abm_Cliente
 
 			foreach (string tipo in Documento.string_docu)
 				comboTipoDoc.Items.Add(tipo);
+            nroDOCViejo = Convert.ToInt32(cliente_seleccionado.numeroDocumento);
+            txtNroIdentificacion.ReadOnly = true;
+           // txtNroIdentificacion.Visible = false;
+           txtNroIdentificacion.BackColor = System.Drawing.SystemColors.Window;
 		}
 
 		private void ModificarClienteElegido_Load(object sender, EventArgs e)
@@ -168,18 +173,25 @@ namespace PalcoNet.Abm_Cliente
                 cliente_seleccionado.Cli_Tar.numero =(txtTarjNum.Text);
                 cliente_seleccionado.Cli_Tar.fechaVencimiento = DateTime.Parse(dateTimePickerVenc.Text);
 				cliente_seleccionado.estado = checkBaja.Checked;
-				if (!Cliente.actualizar(cliente_seleccionado))
+                if (Cliente.actualizar(cliente_seleccionado,nroDOCViejo) == 1)
 				{
 					MessageBox.Show("Error al modificar el Cliente.", "Error al Modificar Cliente",
 					MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
-				else
+                if (Cliente.actualizar(cliente_seleccionado, nroDOCViejo) == 0)
 				{
 					MessageBox.Show("Cliente Modificado Correctamente.", "Modificar Cliente",
 					MessageBoxButtons.OK, MessageBoxIcon.None);
 					
 					this.Close();
 				}
+
+                if (Cliente.actualizar(cliente_seleccionado, nroDOCViejo) == 9)
+                {
+                    MessageBox.Show("Error al modificar el Cliente, dni ya ingresado.", "Error al Modificar Cliente",
+                   MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
 			}
 		}
 
@@ -261,5 +273,10 @@ namespace PalcoNet.Abm_Cliente
 		{
 			this.Hide();
 		}
+
+        private void txtNroIdentificacion_TextChanged(object sender, EventArgs e)
+        {
+
+        }
 	}
 }

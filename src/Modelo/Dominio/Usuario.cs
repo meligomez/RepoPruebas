@@ -12,7 +12,7 @@ namespace Modelo.Dominio
 {
 	public class Usuario
 	{
-		public string creadoPor;
+		public string creadoPor { get; set; }
 		#region Atributos
 		public int Id { get; set; }
 		public string username { get; set; }
@@ -84,10 +84,13 @@ namespace Modelo.Dominio
 				Domicilio dire = cliente.Cli_Dir;
 				Tarjeta tar = new Tarjeta();
 
-				int cant = cli.existEmpresa(cliente.cuil, cliente.numeroDocumento);
-
-				//  if (dao.EjecutarSP("dropeadores.ExistCliente",cliente.cuil,cliente.numeroDocumento)==0)
-				if (cant == 0)
+				//int cant = cli.existEmpresa(cliente.cuil, cliente.numeroDocumento);
+                // + Convert.to cliente.numeroDocumento
+                string query2 = "select count(*) as 'cantidad' from dropeadores.Cliente where NumeroDocumento =" + cliente.numeroDocumento;
+                DataTable dr = dao.ConsultarConQuery(query2);
+                DataRow roww = dr.Rows[0];
+                int cantDNI = int.Parse(roww["cantidad"].ToString());
+                if (cantDNI == 0)
 				{
                     
 					if (dao.EjecutarSP("dropeadores.Domicilio_Cli_Alta", dire.calle, dire.numero, dire.piso, dire.dpto, dire.localidad, dire.cp) > 0)
@@ -98,16 +101,16 @@ namespace Modelo.Dominio
 						if (dao.EjecutarSP("dropeadores.Cli_Alta", cliente.nombre, cliente.apellido, cliente.tipoDocumento, cliente.numeroDocumento, cliente.mail, cliente.fechaNacimiento, cliente.cuil, cliente.telefono, idDireClienteInsertado, this.fechaCreacionPsw) > 0)
 						{
 							dt = dao.ObtenerDatosSP("dropeadores.Cli_ObtenerId", idDireClienteInsertado);
-							DataRow row2 = dt.Rows[0];
-							int idClienteInsertado = int.Parse(row2["Id"].ToString());
+                            DataRow row2 = dt.Rows[0];
+                            int idClienteInsertado = int.Parse(row2["Id"].ToString());
 
                             if (dao.EjecutarSP("dropeadores.Cliente_Alta_Tarjeta", cliente.Cli_Tar.propietario, cliente.Cli_Tar.numero, cliente.Cli_Tar.fechaVencimiento, cliente.numeroDocumento, cliente.Cli_Tar.descripcion) > 0)
 							{
 								dt=dao.ObtenerDatosSP("dropeadores.Usuario_Alta", cliente.numeroDocumento, this.username, this.password, this.fechaCreacionPsw, this.creadoPor);
-								DataRow row3 = dt.Rows[0];
-								int idUser = int.Parse(row3["Id"].ToString());
-								string query = "INSERT INTO DROPEADORES.RolXUsuario (usuarioId,rolId) values (" + idUser + "," + 3 + ")";
-								if(	dao.EjecutarConQuery(query)>0)
+                                DataRow row3 = dt.Rows[0];
+                                int idUser = int.Parse(row3["Id"].ToString());
+                                string query = "INSERT INTO DROPEADORES.RolXUsuario (usuarioId,rolId) values (" + idUser + "," + 3 + ")";
+                                if (dao.EjecutarConQuery(query) > 0)
 								{
 									retorno = 0;
 								}
@@ -186,8 +189,7 @@ namespace Modelo.Dominio
 				DaoSP dao = new DaoSP();
 				DataTable dt = new DataTable();
                 Domicilio dom = empresa.Empresa_Dom;
-                Usuario usuario = new Usuario();
-
+                
                 if (dao.EjecutarSP("dropeadores.ExistCuitandRazonSocial", empresa.Empresa_Cuit, empresa.Empresa_razon_social) > 0)
                 {
                     return 0;
@@ -207,7 +209,21 @@ namespace Modelo.Dominio
                     DataRow row2 = dt.Rows[0];
                     string idEmpresaInsertada = row2["cuit"].ToString();
 
-                    dao.EjecutarSP("dropeadores.Usuario_Alta_Empresa", idEmpresaInsertada, empresa.Empresa_Cuit, empresa.Empresa_Cuit, usuario.creadoPor);
+                                dt = dao.ObtenerDatosSP("dropeadores.Usuario_Alta", cliente.numeroDocumento, this.username, this.password, this.fechaCreacionPsw, this.creadoPor);
+                                DataRow row3 = dt.Rows[0];
+                                int idUser = int.Parse(row3["idUsuario"].ToString());
+                                string query = "INSERT INTO DROPEADORES.RolXUsuario (usuarioId,rolId) values (" + idUser + "," + 3 + ")";
+                                if (dao.EjecutarConQuery(query) > 0)
+								{
+									retorno = 0;
+								}
+								else
+								{
+									retorno = -1;
+								}
+                
+                
+                
                 }
                 
                 
