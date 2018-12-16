@@ -62,7 +62,7 @@ namespace PalcoNet.Editar_Publicacion
 				MessageBoxButtons.OK, MessageBoxIcon.None);
 			a.Visible = true;
 			b.Visible = true;
-			c.Visible = true;
+			//c.Visible = true;
 			d.Visible = true;
 			ee.Visible = true;
 			f.Visible = true;
@@ -70,13 +70,14 @@ namespace PalcoNet.Editar_Publicacion
 			h.Visible = true;
 			i.Visible = true;
 			j.Visible = true;
+			label7.Visible = true;
 		//	groupBox1.Visible = true;
 			lblEmpresa.Visible = true;
 			lblCodigo.Visible = true;
 			//lblTextLote.Visible = true;
 			comboGradoPublicacion.Visible = true;
 			comboRubro.Visible = true;
-			textStock.Visible = true;
+			//textStock.Visible = true;
 			dateTimePicker1.Visible = true;
 			dateTimePickerPublicacion.Visible = true;
 			btnEditUbicacion.Visible = false;
@@ -113,17 +114,33 @@ namespace PalcoNet.Editar_Publicacion
 			textDireccion.Visible = false;
 			estadoPublicacion.Visible = false;
 			button2.Visible = false;
-			MessageBox.Show("Si ud quiere modificar las ubicaciones deberá generar una nueva publicacion. sólo podrá modificar el precio por categoria.");
-			DaoSP dao = new DaoSP();
-			DataTable dtCategoria = new DataTable();
-				comboCategoria.Visible = true;
-			dtCategoria = dao.ConsultarConQuery("SELECT codigo,descripcion FROM dropeadores.TipoUbicacion");
-			CargarData.cargarComboBox(comboCategoria, dtCategoria,"codigo","descripcion");
-			lblTextoCategoria.Visible = true;
-			lblCategoria.Visible = true;
-			lblPrecio.Visible = true;
-			textPrecio.Visible = true;
-			btnPrecioPorCategoria.Visible = true;
+			MessageBox.Show("Si ud quiere modificar las ubicaciones y el stock deberá generar una nueva publicacion. sólo podrá modificar el precio por categoria.");
+			DialogResult dr = MessageBox.Show("¿Desea Modificar el precio por Categoria?  ",
+				"", MessageBoxButtons.YesNo);
+			switch (dr)
+			{
+				case DialogResult.Yes:
+					DaoSP dao = new DaoSP();
+					DataTable dtCategoria = new DataTable();
+					comboCategoria.Visible = true;
+					dtCategoria = dao.ConsultarConQuery("SELECT codigo,descripcion FROM dropeadores.TipoUbicacion");
+					CargarData.cargarComboBox(comboCategoria, dtCategoria, "codigo", "descripcion");
+					lblTextoCategoria.Visible = true;
+					lblCategoria.Visible = true;
+					lblPrecio.Visible = true;
+					textPrecio.Visible = true;
+					btnPrecioPorCategoria.Visible = true;
+					break;
+
+				case DialogResult.No:
+					this.Hide();
+					EliminarPublicacion eliminar = new EliminarPublicacion(publicacion);
+					eliminar.Show();
+					
+					break;
+			}
+
+			
 
 		}
 
@@ -247,6 +264,19 @@ namespace PalcoNet.Editar_Publicacion
 			//	MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 			//	return false;
 			//}
+				if (publicacion.hayAlgunEspectaculoEnEstaFecha(dateTimePicker1.Value))
+				{
+					MessageBox.Show("Ya existe un espectáculo en esa fecha..", "¡Error!",
+					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+					return false;
+				}
+				if (dateTimePicker1.Value < dateTimePickerPublicacion.Value)
+				{
+					MessageBox.Show("La fecha de Publicacion debe ser anterior a la fecha del espectáculo", "¡Error!",
+					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+					return false;
+				}
+			
 			if (textDescripcion.Text == "")
 			{
 				MessageBox.Show("debe escribir una descripcion", "¡Advertencia!",

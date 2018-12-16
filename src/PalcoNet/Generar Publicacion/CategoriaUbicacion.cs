@@ -35,10 +35,10 @@ namespace PalcoNet.Generar_Publicacion
 
 		private void btnVolver_Click(object sender, EventArgs e)
 		{
-			this.Close();
-			Usuario user=new Usuario();
-			panelContenedor menu = new panelContenedor(user);
-			menu.Show();
+			this.Hide();
+			//Usuario user=new Usuario();
+			//panelContenedor menu = new panelContenedor(user);
+			//menu.Show();
 		}
 
 		private void GenerarPublicacion_Load(object sender, EventArgs e)
@@ -798,6 +798,7 @@ namespace PalcoNet.Generar_Publicacion
 								ubicacion1.tipoUbicacionId = tu.buscarCodigoCategoria("Vip");
 								ubicacion1.precio = tiposDeUbicacionPorPublicacion.First(unTipo => unTipo.descripcion == "Vip").precio;
 								ubicaciones.Add(ubicacion1);
+								if (botonesSinCategoria > 0) { botonesSinCategoria--; }
 							}
 							if (cComponente2.BackColor == Color.Tomato)
 							{
@@ -810,6 +811,7 @@ namespace PalcoNet.Generar_Publicacion
 								ubicacion2.precio = tiposDeUbicacionPorPublicacion.First(unTipo => unTipo.descripcion == "Cabecera").precio;
 								//ubicacion.tipoDescripcion = "Cabecera";
 								ubicaciones.Add(ubicacion2);
+								if (botonesSinCategoria > 0) { botonesSinCategoria--; }
 							}
 							if (cComponente2.BackColor == Color.Yellow)
 							{
@@ -822,6 +824,7 @@ namespace PalcoNet.Generar_Publicacion
 								ubicacion3.precio = tiposDeUbicacionPorPublicacion.First(unTipo => unTipo.descripcion == "Campo").precio;
 								//ubicacion.tipoDescripcion = "Campo";
 								ubicaciones.Add(ubicacion3);
+								if (botonesSinCategoria > 0) { botonesSinCategoria--; }
 							}
 							if (cComponente2.BackColor == Color.Maroon)
 							{
@@ -833,6 +836,7 @@ namespace PalcoNet.Generar_Publicacion
 								ubicacion4.precio = tiposDeUbicacionPorPublicacion.First(unTipo => unTipo.descripcion == "Campo Vip").precio;
 								//ubicacion.tipoDescripcion = "Campo Vip";
 								ubicaciones.Add(ubicacion4);
+								if (botonesSinCategoria > 0) { botonesSinCategoria--; }
 							}
 							if (cComponente2.BackColor == Color.Beige)
 							{
@@ -847,6 +851,7 @@ namespace PalcoNet.Generar_Publicacion
 								ubicaciones.Add(ubicacion5);
 								//cantidadBotonesBeige++;
 								//asientosConFila.Add(cComponente2.Name);
+								if (botonesSinCategoria > 0) { botonesSinCategoria--; }
 							}
 							if (cComponente2.BackColor == Color.Indigo)
 							{
@@ -861,6 +866,7 @@ namespace PalcoNet.Generar_Publicacion
 								ubicaciones.Add(ubicacion6);
 								//cantidadBotonesIndigo++;
 								//asientosConFila.Add(cComponente2.Name);
+								if (botonesSinCategoria > 0) { botonesSinCategoria--; }
 							}
 							if (cComponente2.BackColor == Color.Red)
 							{
@@ -876,6 +882,7 @@ namespace PalcoNet.Generar_Publicacion
 								ubicaciones.Add(ubicacion7);
 								//cantidadBotonesRed++;
 								//asientosConFila.Add(cComponente2.Name);
+								if (botonesSinCategoria > 0) { botonesSinCategoria--; }
 							}
 							if (cComponente2.BackColor == Color.Pink)
 							{
@@ -890,6 +897,7 @@ namespace PalcoNet.Generar_Publicacion
 								ubicaciones.Add(ubicacion8);
 								//cantidadBotonesPink++;
 								//asientosConFila.Add(cComponente2.Name);
+								if (botonesSinCategoria > 0) { botonesSinCategoria--; }
 							}
 							if(cComponente2.BackColor == Color.Silver && cComponente2.Visible==true)
 							{

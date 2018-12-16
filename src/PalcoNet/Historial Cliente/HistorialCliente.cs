@@ -32,9 +32,10 @@ namespace PalcoNet.Historial_Cliente
 			DataTable dtPremios = new DataTable();
 			DaoSP dao = new DaoSP();
 			string query = "SELECT factura, compra_fecha as 'Fecha' ,compra_cantidad as 'Cantidad',"
-				+ " compra_precio as 'Precio' ,compra_ubicacionFila as 'Fila' ,compra_ubicacionAsiento as 'Asiento' , p.descripcion"
+				+ " compra_precio as 'Precio' ,compra_ubicacionFila as 'Fila' ,compra_ubicacionAsiento as 'Asiento' , p.descripcion, t.descripcion as 'Medio de Pago'"
 				+ "  from dropeadores.Compra c"
 				+ " join dropeadores.Publicacion p on( c.compra_ubicacionPublic=p.id)"
+				+ " JOIN dropeadores.TarjetaCredito t on( t.id = c.compra_TarjetaId)"
 				+ " WHERE compra_numero_documento="
 				+ numeroDoc;
 			dtPremios = dao.ConsultarConQuery(query);
