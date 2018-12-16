@@ -337,7 +337,7 @@
             // comboTipoDoc
             // 
             this.comboTipoDoc.FormattingEnabled = true;
-            this.comboTipoDoc.Location = new System.Drawing.Point(176, 123);
+            this.comboTipoDoc.Location = new System.Drawing.Point(143, 120);
             this.comboTipoDoc.Margin = new System.Windows.Forms.Padding(2);
             this.comboTipoDoc.Name = "comboTipoDoc";
             this.comboTipoDoc.Size = new System.Drawing.Size(90, 21);
@@ -385,14 +385,15 @@
             // 
             // txtNroIdentificacion
             // 
-            this.txtNroIdentificacion.Location = new System.Drawing.Point(325, 123);
+            this.txtNroIdentificacion.Location = new System.Drawing.Point(316, 123);
             this.txtNroIdentificacion.Name = "txtNroIdentificacion";
             this.txtNroIdentificacion.Size = new System.Drawing.Size(143, 20);
             this.txtNroIdentificacion.TabIndex = 120;
+            this.txtNroIdentificacion.TextChanged += new System.EventHandler(this.txtNroIdentificacion_TextChanged);
             // 
             // txtApellido
             // 
-            this.txtApellido.Location = new System.Drawing.Point(325, 80);
+            this.txtApellido.Location = new System.Drawing.Point(318, 77);
             this.txtApellido.Name = "txtApellido";
             this.txtApellido.Size = new System.Drawing.Size(143, 20);
             this.txtApellido.TabIndex = 119;

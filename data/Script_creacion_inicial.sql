@@ -1332,12 +1332,12 @@ end
 ---------------------
 USE [GD2C2018]
 GO
-/****** Object:  StoredProcedure [dropeadores].[insertCompra]    Script Date: 15/12/2018 16:20:06 ******/
+/****** Object:  StoredProcedure [dropeadores].[insertCompra]    Script Date: 16/12/2018 15:55:50 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-create PROCEDURE [dropeadores].[insertCompra]
+CREATE PROCEDURE [dropeadores].[insertCompra]
             @tipoDoc varchar(5),
 			@nroDoc numeric(18, 0),
             @fecha datetime,
@@ -1353,6 +1353,7 @@ INSERT INTO dropeadores.Compra (compra_tipo_documento,compra_numero_documento,co
 VALUES (@tipoDoc,@nroDoc, @fecha,@tarjetaID,@cant,@precio,@fila,@asiento,@publicID)
 END
 
+
 ------------------------
 USE [GD2C2018]
 GO
@@ -1361,7 +1362,6 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-
 create procedure [dropeadores].[updatePuntos] 
 (@Id_Cliente numeric(18, 0))
 as
@@ -1374,19 +1374,18 @@ WHERE id_Cliente=@Id_Cliente
 end
 
 
------------------------
 
+-----------------------
 USE [GD2C2018]
 GO
-/****** Object:  StoredProcedure [dropeadores].[obtenerIDcompra]    Script Date: 15/12/2018 16:20:38 ******/
+/****** Object:  StoredProcedure [dropeadores].[obtenerIDcompra]    Script Date: 16/12/2018 15:56:38 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-create PROCEDURE [dropeadores].[obtenerIDcompra]
+CREATE PROCEDURE [dropeadores].[obtenerIDcompra]
 		AS
-     	SELECT MAX(id) AS 'Id' FROM dropeadores.Compra c
-
+     	SELECT MAX(id) AS 'Id' FROM dropeadores.Compra 
 
 -----------------------
 GO
@@ -1781,6 +1780,28 @@ AS
 			UPDATE dropeadores.TarjetaCredito
 				SET descripcion=@desc
 				where clieteId= @idCliente
+	END
+
+
+--------------------------
+USE [GD2C2018]
+GO
+/****** Object:  StoredProcedure [dropeadores].[updateUbicacion]    Script Date: 16/12/2018 15:52:38 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dropeadores].[updateUbicacion]
+            @fila varchar(3),
+            @asiento numeric(18, 0),
+			@publicID int	
+AS
+	BEGIN
+	
+			UPDATE dropeadores.Ubicacion
+				SET estado = 0
+					WHERE fila LIKE @fila and asiento = @asiento and publicacionId = @publicID
+		
 	END
 
 -----------------------------------------------------------------------------------------------------

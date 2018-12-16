@@ -17,6 +17,8 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 	{
 
         string rolLogueado;
+        Usuario usuario = new Usuario();
+
 		public AltaEmpresa(string rol)
 		{
 			InitializeComponent();
@@ -51,6 +53,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                 lblUsername.Visible = true;
                 lblPassword.Text = textCUIT.Text;
                 lblPassword.Visible = true;
+                usuario.creadoPor = "admin";
             }
             else
             {
@@ -85,7 +88,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                     empresa.Empresa_Cuit = textCUIT.Text;
                     empresa.Empresa_mail = textMail.Text;
                     empresa.Empresa_telefono = int.Parse(textTelefono.Text);
-                    empresa.Empresa_razon_social = textRazonSocial.Text;
+                    empresa.Empresa_razon_social = "RAZON SOCIAL Nº:" + textRazonSocial.Text;
                     empresa.Empresa_estado = true;
                     usuario.username = textUsername.Text;
                     usuario.password = textPassword.Text;
@@ -225,6 +228,11 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 		{
 
 		}
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
 	}
     
 

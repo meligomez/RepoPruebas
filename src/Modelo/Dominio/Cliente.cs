@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Modelo.Dominio
 {
@@ -24,6 +25,7 @@ namespace Modelo.Dominio
         private Documento documento=new Documento();
 		public Domicilio Cli_Dir { get; set; }
 		public Tarjeta Cli_Tar { get; set; }
+
         
 
 		public string Fecha_nacimiento
@@ -42,11 +44,13 @@ namespace Modelo.Dominio
             set { documento.Tipo = value; }
         }
 
-		public static bool actualizar(Cliente cliente_seleccionado)
+		public static int actualizar(Cliente cliente_seleccionado, int nroViejo)
 		{
 
 			DaoSP dao = new DaoSP();
-			DataTable dt, dr = new DataTable();
+            int docViejo = nroViejo;
+			DataTable dt, dr,da = new DataTable();
+             int cant = 0;
 			int IDcliente = 000000;
 			//string cadena_nula = "";
 			string nombre = cliente_seleccionado.nombre;
@@ -69,42 +73,46 @@ namespace Modelo.Dominio
 			string propietarioTar = cliente_seleccionado.Cli_Tar.propietario;
 			string numeroTar = cliente_seleccionado.Cli_Tar.numero;
 			DateTime fecha_vencimiento = cliente_seleccionado.Cli_Tar.fechaVencimiento;
+            int campoBaja = (cliente_seleccionado.estado) ? 1 : 1;
+            dt = dao.ConsultarConQuery("SELECT cliente_domicilio FROM dropeadores.Cliente WHERE tipoDocumento like " + "'" + tipoDocumento + "' AND numeroDocumento like" + "'" + docViejo + "'");
+           foreach (DataRow row in dt.Rows)
+            {
+                IDcliente = Convert.ToInt32(row["cliente_domicilio"].ToString());
+                
+            }
+            
+                if (dao.EjecutarSP("dropeadores.updateDomicilioCliente", IDcliente, calle, numero, piso, depto, localidad, " ", cp) > 0)
+                {
+                   if (dao.EjecutarSP("dropeadores.updateCliente", numeroDocumento,nombre, apellido, tipoDocumento, cuil, email, fecha_nacimiento, IDcliente, telefono, campoBaja) > 0)
+                        {
 
-			//  string fecha_vencimiento = (cliente_seleccionado.Cli_Tar.Fecha_vencimiento_struct != null) ? cliente_seleccionado.Cli_Tar.Fecha_vencimiento : cadena_nula;
-			int campoBaja = (cliente_seleccionado.estado) ? 1 : 1;
-			//SEGUIR MODIFICANDO 
-			dt = dao.ConsultarConQuery("SELECT cliente_domicilio FROM dropeadores.Cliente WHERE tipoDocumento like " + "'" + tipoDocumento + "'");
-			dr = dao.ConsultarConQuery("SELECT cliente_domicilio FROM dropeadores.Cliente WHERE numeroDocumento like " + "'" + numeroDocumento + "'");
 
-			foreach (DataRow row in dt.Rows)
-			{
-				foreach (DataRow row1 in dr.Rows)
-				{
-					IDcliente = Convert.ToInt32(row["cliente_domicilio"].ToString());
-				}
+                            if (dao.EjecutarSP("dropeadores.ExistTarjetaCliente", numeroDocumento) == 0)
+                                {
+                                    if (dao.EjecutarSP("dropeadores.insertTarjetaCliente", numeroDocumento, propietarioTar, numeroTar, fecha_vencimiento) > 0)
+                                    {
+                                        return 0;
+                                    }
+                                }
+                                else
+                                {
+                                  if (dao.EjecutarSP("dropeadores.updateTarjetaCliente", numeroDocumento, propietarioTar, numeroTar, fecha_vencimiento) > 0)
+                                  {
+                                        return 0;
+                                  }
+                           
+                                }
 
-			}
-			//TESTEARR!
-			if (dao.EjecutarSP("dropeadores.updateDomicilioCliente", IDcliente, calle, numero, piso, depto, localidad, " ", cp) > 0)
-			{
-				if (dao.EjecutarSP("dropeadores.updateTarjetaCliente", numeroDocumento, propietarioTar, numeroTar, fecha_vencimiento) > 0)
-				{
+                    }
 
-					if (dao.EjecutarSP("dropeadores.updateCliente", numeroDocumento, nombre, apellido, tipoDocumento, cuil, email, fecha_nacimiento, IDcliente, telefono, campoBaja) > 0)
-					{
+                }
+            
+           
 
-						return true;
-
-					}
-
-				}
-
-			}
-
-			return false;
+			return 1;
 		}
 
-
+      
 		internal int existEmpresa(string cuil, int numDni)
 		{
 
