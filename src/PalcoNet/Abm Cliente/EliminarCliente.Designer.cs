@@ -37,7 +37,6 @@
             this.textEmail = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textNroIdentificacion = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.textApellido = new System.Windows.Forms.TextBox();
             this.textNombre = new System.Windows.Forms.TextBox();
@@ -47,6 +46,7 @@
             this.btCancelar = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
+            this.textNroIdentificacion = new System.Windows.Forms.MaskedTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridCliente)).BeginInit();
             this.SuspendLayout();
@@ -126,14 +126,6 @@
             this.label1.Size = new System.Drawing.Size(107, 20);
             this.label1.TabIndex = 97;
             this.label1.Text = "Identificacion:";
-            // 
-            // textNroIdentificacion
-            // 
-            this.textNroIdentificacion.Location = new System.Drawing.Point(301, 214);
-            this.textNroIdentificacion.Margin = new System.Windows.Forms.Padding(4);
-            this.textNroIdentificacion.Name = "textNroIdentificacion";
-            this.textNroIdentificacion.Size = new System.Drawing.Size(221, 26);
-            this.textNroIdentificacion.TabIndex = 96;
             // 
             // label4
             // 
@@ -222,12 +214,21 @@
             this.label21.TabIndex = 107;
             this.label21.Text = "Sin \"-\"";
             // 
+            // textNroIdentificacion
+            // 
+            this.textNroIdentificacion.Location = new System.Drawing.Point(284, 214);
+            this.textNroIdentificacion.Mask = "99999999";
+            this.textNroIdentificacion.Name = "textNroIdentificacion";
+            this.textNroIdentificacion.Size = new System.Drawing.Size(191, 26);
+            this.textNroIdentificacion.TabIndex = 121;
+            // 
             // EliminarCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(965, 588);
+            this.Controls.Add(this.textNroIdentificacion);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.botonBuscar);
             this.Controls.Add(this.pictureBox1);
@@ -237,7 +238,6 @@
             this.Controls.Add(this.textEmail);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textNroIdentificacion);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.textApellido);
             this.Controls.Add(this.textNombre);
@@ -268,8 +268,7 @@
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.TextBox textEmail;
 		private System.Windows.Forms.Label label11;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.TextBox textNroIdentificacion;
+        private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.TextBox textApellido;
 		private System.Windows.Forms.TextBox textNombre;
@@ -279,5 +278,6 @@
 		private System.Windows.Forms.Button btCancelar;
 		private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.MaskedTextBox textNroIdentificacion;
 	}
 }

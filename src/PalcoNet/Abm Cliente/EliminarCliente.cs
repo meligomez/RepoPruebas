@@ -8,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -45,16 +46,36 @@ namespace PalcoNet.Abm_Cliente
 		private DataTable FiltrarCliente(string nombre, string apellido, string mail, int tipoDoc, int numDoc)
 		{
 			DaoSP dao = new DaoSP();
+            DataTable dt = new DataTable();
+            
 			DataTable tabla_Cliente;
 			int docVacio = 0;
-			if (numDoc != docVacio)
-			{
-				tabla_Cliente = dao.ObtenerDatosSP("dropeadores.getCliente", numDoc);
-			}
-			else
-			{
-				tabla_Cliente = dao.ObtenerDatosSP("dropeadores.getCliente", docVacio);
-			}
+           
+            //if (numDoc != docVacio)
+            //{
+            //    if (tipoDoc != -1)
+            //    {
+            //        dt = dao.ConsultarConQuery("SELECT count(*) as 'cantidad' FROM dropeadores.Cliente WHERE tipoDocumento like " + "'" + tipoDoc + "' AND numeroDocumento like" + "'" + numDoc + "'");
+            //    }
+            //    else
+            //    {
+            //        dt = dao.ConsultarConQuery("SELECT count(*) as 'cantidad'FROM dropeadores.Cliente WHERE numeroDocumento like" + "'" + numDoc + "'");
+
+            //    }
+            //    int cant = 0;
+            //    foreach (DataRow row in dt.Rows)
+            //    {
+            //        cant = Convert.ToInt32(row["cantidad"]);
+            //    }
+            //    if (cant > 0)
+            //    {
+                    tabla_Cliente = dao.ObtenerDatosSP("dropeadores.getCliente");
+            //    }
+            //}
+            //else
+            //{
+            //    tabla_Cliente = dao.ObtenerDatosSP("dropeadores.getCliente", docVacio);
+            //}
 
 			var final_rol = "";
 			var posFiltro = true;
@@ -84,24 +105,112 @@ namespace PalcoNet.Abm_Cliente
 
 
 		}
+
+
+        public static bool emailIsValid(string email)
+        {
+            string expresion;
+            expresion = "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+            if (Regex.IsMatch(email, expresion))
+            {
+                if (Regex.Replace(email, expresion, string.Empty).Length == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public static bool nameIsValid(string name)
+        {
+            string expresion;
+            expresion = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$";
+            if (Regex.IsMatch(name, expresion))
+            {
+                if (Regex.Replace(name, expresion, string.Empty).Length == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private bool validarCampos()
+        {
+            if (!emailIsValid(textEmail.Text) && textEmail.Text.Trim() != "")
+            {
+                MessageBox.Show("Debe ingresar un mail.", "Error al filtrar cliente",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (!nameIsValid(textNombre.Text) && textNombre.Text.Trim() != "")
+            {
+                MessageBox.Show("Debe ingresar un nombre válido", "Error al crear Nuevo Usuario",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (!nameIsValid(textApellido.Text) && textApellido.Text.Trim() != "")
+            {
+                MessageBox.Show("Debe ingresar un apellido válido", "Error al crear Nuevo Usuario",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            int value;
+            if (textNroIdentificacion.Text.Trim() != "")
+            {
+                if ((Convert.ToInt32(textNroIdentificacion.Text) <= 0001) || (Convert.ToInt32(textNroIdentificacion.Text) > 99999999) || !int.TryParse(textNroIdentificacion.Text, out value))
+                {
+                    MessageBox.Show("Debe ingresar un numero de DNI Valido.   XXXXXXXX", "Error al crear Nuevo Usuario",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        private void limpiar()
+        {
+            textNombre.Text = "";
+            textApellido.Text = "";
+            textEmail.Text = "";
+
+
+        }
+
 		private void botonBuscar_Click(object sender, EventArgs e)
 		{
 			int documento;
-			if (textNroIdentificacion.Text != "")
-				documento = Int32.Parse(textNroIdentificacion.Text);
+            if (textNroIdentificacion.Text != "")
+                documento = Int32.Parse(textNroIdentificacion.Text);
 			else
 			{
 				documento = 0;
 			}
+            if (validarCampos())
+            {
+                DataTable respuesta = FiltrarCliente(textNombre.Text, textApellido.Text, textEmail.Text, comboTipoDoc.SelectedIndex, documento);
+                dataGridCliente.DataSource = respuesta;
+            }
 
-			DataTable respuesta = FiltrarCliente(textNombre.Text, textApellido.Text, textEmail.Text, comboTipoDoc.SelectedIndex, documento);
-			dataGridCliente.DataSource = respuesta;
 			if (dataGridCliente.CurrentRow == null)
 			{
 
 				MessageBox.Show("El Cliente requerido no se encuentra.", "Baja de Cliente",
 				   MessageBoxButtons.OK);
-
+                limpiar();
 				cargarTabla();
 
 			}
