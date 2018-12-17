@@ -333,21 +333,32 @@ insert into dropeadores.Funcionalidad (descripcion,menu) values
 
 					/*RolXFuncionalidad*/
 go
-insert into [dropeadores].FuncionalidadXRol (rolId, funcionalidadId) values
-(1,1), (3,1), (2,2),(2,3),(2,4),(3,5),(3,6),(1,7),(1,8),(3,9),(3,10),(3,11),(2,12),(1,13),(2,13),(3,13);
+insert into dropeadores.FuncionalidadXRol(funcionalidadId,rolId) values
+(1,1),(1,2),(1,3),(2,2),(3,2),(4,2),(6,2),(7,1),(8,1),(8,2),(9,3),(10,3),(11,3),(12,1),(13,1),(13,2),(13,3)
 
 
 					/*Usuarios*/
 
 /*usuarios creados por el grupo*/ 
 go		
-INSERT [dropeadores].[Usuario] ([username], [password], [cambioPsw], [creadoPor], [estado], [intentos], [clienteId], [CuitEmpresa], [Baja], [Fecha_Password]) VALUES ( N'admin', N'w23e', 0, NULL, 1, 3, NULL, NULL, 1, NULL)
+INSERT [dropeadores].[Usuario] ([username], [password], [cambioPsw], [creadoPor], [estado], [intentos], [clienteId], [CuitEmpresa], [Baja], [Fecha_Password]) VALUES ( N'admin', HASHBYTES('SHA2_256','w23e'), 0, NULL, 1, 0, NULL, NULL, 1, NULL)
+
+
+insert into dropeadores.Usuario (username,password,cambioPsw,estado,intentos,clienteId,CuitEmpresa,Baja)
+select distinct Espec_Empresa_Cuit,HASHBYTES('SHA2_256',Espec_Empresa_Cuit),1,1,0,0,Espec_Empresa_Cuit,1 from gd_esquema.Maestra
+insert into dropeadores.RolXUsuario(usuarioId,rolId)
+select u.Id,1 from dropeadores.Usuario u  where CuitEmpresa !='0'
+insert into dropeadores.Usuario (username,password,cambioPsw,estado,intentos,clienteId,CuitEmpresa,Baja)
+select distinct Cli_Dni,HASHBYTES('SHA2_256',Cli_Dni),1,1,0,Cli_Dni,0,1 from gd_esquema.Maestra where Cli_Dni is not null
+insert into dropeadores.RolXUsuario(usuarioId,rolId)
+select u.Id,3 from dropeadores.Usuario u  where clienteId!=0
 
 				
 				/*UsuariosXRoles*/
 /*usuariosXRoles*/
-insert into dropeadores.RolXUsuario (usuarioId, rolId) values
-	(1,1),(2,2),(3,3)
+  insert into dropeadores.RolXUsuario (usuarioId, rolId) values
+	(1,2)
+
 
 
 					/*Domicilio de la Empresa*/
@@ -489,9 +500,119 @@ WHERE Factura_Nro IS NOT NULL AND c.compra_fecha=m.Compra_Fecha AND compra_numer
 
 
 -----------------------------------------------------------------------------------------------------
-						        /* INICIO DE CREACION DE PROCEDURES */
+						        /* INICIO VALIDACION PROCEDURES */
+-----------------------------------------------------------------------------------------------------
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[altaItem]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dropeadores].[altaItem]
+GO
+/****** Object:  StoredProcedure [dropeadores].[AltaUbicacion]    Script Date: 12/16/2018 22:30:40 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[AltaUbicacion]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dropeadores].[AltaUbicacion]
+GO
+/****** Object:  StoredProcedure [dropeadores].[DescontarPuntosPorCompra]    Script Date: 12/16/2018 22:30:40 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[DescontarPuntosPorCompra]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dropeadores].[DescontarPuntosPorCompra]
+GO
+/****** Object:  StoredProcedure [dropeadores].[EliminarPublicacion]    Script Date: 12/16/2018 22:30:40 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[EliminarPublicacion]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dropeadores].[EliminarPublicacion]
+GO
+/****** Object:  StoredProcedure [dropeadores].[ActualizarPuntaje]    Script Date: 12/16/2018 22:30:40 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[ActualizarPuntaje]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dropeadores].[ActualizarPuntaje]
+GO
+/****** Object:  StoredProcedure [dropeadores].[getClientesMasPuntosVencidos]    Script Date: 12/16/2018 22:30:40 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[getClientesMasPuntosVencidos]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dropeadores].[getClientesMasPuntosVencidos]
+GO
+/****** Object:  StoredProcedure [dropeadores].[GetComprasPorEmpresa]    Script Date: 12/16/2018 22:30:40 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[GetComprasPorEmpresa]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dropeadores].[GetComprasPorEmpresa]
+GO
+/****** Object:  StoredProcedure [dropeadores].[getLocalidadesNoVendidas]    Script Date: 12/16/2018 22:30:40 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[getLocalidadesNoVendidas]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dropeadores].[getLocalidadesNoVendidas]
+GO
+/****** Object:  StoredProcedure [dropeadores].[getPrecioDeUbicacionPorCategoria]    Script Date: 12/16/2018 22:30:40 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[getPrecioDeUbicacionPorCategoria]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dropeadores].[getPrecioDeUbicacionPorCategoria]
+GO
+/****** Object:  StoredProcedure [dropeadores].[UpdatePrecioUbicacion]    Script Date: 12/16/2018 22:30:40 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[UpdatePrecioUbicacion]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dropeadores].[UpdatePrecioUbicacion]
+GO
+/****** Object:  StoredProcedure [dropeadores].[altaFactura]    Script Date: 12/16/2018 22:30:40 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[altaFactura]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dropeadores].[altaFactura]
+GO
+/****** Object:  StoredProcedure [dropeadores].[getClientesMayorCantCompras]    Script Date: 12/16/2018 22:30:40 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[getClientesMayorCantCompras]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dropeadores].[getClientesMayorCantCompras]
+GO
+/****** Object:  StoredProcedure [dropeadores].[GetFuncionalidades]    Script Date: 12/16/2018 22:30:40 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[GetFuncionalidades]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dropeadores].[GetFuncionalidades]
+GO
+/****** Object:  StoredProcedure [dropeadores].[getFuncionalidadPorRol]    Script Date: 12/16/2018 22:30:40 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[getFuncionalidadPorRol]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dropeadores].[getFuncionalidadPorRol]
+GO
+/****** Object:  StoredProcedure [dropeadores].[altaPublicacion]    Script Date: 12/16/2018 22:30:40 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[altaPublicacion]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dropeadores].[altaPublicacion]
+GO
+/****** Object:  StoredProcedure [dropeadores].[AltaRolPorFuncionalidad]    Script Date: 12/16/2018 22:30:40 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[AltaRolPorFuncionalidad]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dropeadores].[AltaRolPorFuncionalidad]
+GO
+/****** Object:  StoredProcedure [dropeadores].[altaTipoUbicacion]    Script Date: 12/16/2018 22:30:40 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[altaTipoUbicacion]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dropeadores].[altaTipoUbicacion]
+GO
+/****** Object:  StoredProcedure [dropeadores].[buscarCodigoTipoUbicacion]    Script Date: 12/16/2018 22:30:40 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[buscarCodigoTipoUbicacion]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dropeadores].[buscarCodigoTipoUbicacion]
+GO
+
+/****** Object:  StoredProcedure [dropeadores].[getIdByDescripcion]    Script Date: 12/16/2018 22:30:40 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[getIdByDescripcion]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dropeadores].[getIdByDescripcion]
+GO
+/****** Object:  StoredProcedure [dropeadores].[getDescripcionCategoriaById]    Script Date: 12/16/2018 22:30:40 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[getDescripcionCategoriaById]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dropeadores].[getDescripcionCategoriaById]
+GO
+/****** Object:  StoredProcedure [dropeadores].[Alta_Rol]    Script Date: 12/16/2018 22:30:40 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[Alta_Rol]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dropeadores].[Alta_Rol]
+GO
+/****** Object:  StoredProcedure [dropeadores].[Rol_ObtenerId]    Script Date: 12/16/2018 22:30:40 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[Rol_ObtenerId]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dropeadores].[Rol_ObtenerId]
+GO
+/****** Object:  StoredProcedure [dropeadores].[obtenerRolByName]    Script Date: 12/16/2018 22:30:40 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[obtenerRolByName]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dropeadores].[obtenerRolByName]
+GO
+/****** Object:  StoredProcedure [dropeadores].[obtenerUsuarioByUsername]    Script Date: 12/16/2018 22:30:40 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[obtenerUsuarioByUsername]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dropeadores].[obtenerUsuarioByUsername]
+GO
+/****** Object:  StoredProcedure [dropeadores].[pasarAInhabilitado]    Script Date: 12/16/2018 22:30:40 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[pasarAInhabilitado]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dropeadores].[pasarAInhabilitado]
+GO
+
+-----------------------------------------------------------------------------------------------------
+						        /* FIN VALIDACION DE PROCEDURES */
 -----------------------------------------------------------------------------------------------------
 
+
+
+
+-----------------------------------------------------------------------------------------------------
+						        /* INICIO DE CREACION DE PROCEDURES */
+-----------------------------------------------------------------------------------------------------
 
 /*************ALTA ROL*****************/
 GO
@@ -563,6 +684,7 @@ begin
 INSERT INTO dropeadores.PremioXUsuario (clienteId,premioId) values (@idCliente, @idPremio)
 UPDATE dropeadores.Puntos set PuntosVigentes=PuntosVigentes-@puntosParaCanjear where Id_Cliente=@idCliente
 end
+GO
 
 /**********************FIN ActualizarPuntaje **********************/
 
@@ -574,17 +696,18 @@ CREATE procedure [dropeadores].[altaPublicacion](
 @descripcion nvarchar(255), 
 @stock int, @fechaPublicacion datetime, @fechaEspectaculo datetime,
  @direccion nvarchar(255), 
-@rubroId int, @gradoId int ,@empresaId nvarchar(255), @estado int)
+@rubroId int, @gradoId int ,@empresaId nvarchar(255), @estado int,@fechaVencimiento datetime)
 as
 begin
 
 insert into dropeadores.Publicacion (empresaId,rubroId,gradoId,descripcion,stock,
-fechaPublicacion,fechaEspectaculo,direccion,estado)
+fechaPublicacion,fechaEspectaculo,direccion,estado,fechaVencimiento)
 values (@empresaId,@rubroId,@gradoId,@descripcion,@stock,@fechaPublicacion,@fechaEspectaculo,
-@direccion,@estado)
+@direccion,@estado,@fechaVencimiento)
 
 Select Max(id)as'Id' from dropeadores.Publicacion
 end
+  
 
 /**********************FIN ALTA PUBLICACION **********************/
 
@@ -603,13 +726,13 @@ end
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE procedure [dropeadores].[altaTipoUbicacion](@categoria nvarchar(255),@precio decimal(12,2))
+CREATE procedure [dropeadores].[altaTipoUbicacion](@categoria nvarchar(255))
 as
 begin
-INSERT INTO DROPEADORES.TipoUbicacion (descripcion,precio) VALUES (@categoria,@precio)
+INSERT INTO DROPEADORES.TipoUbicacion (descripcion) VALUES (@categoria)
 Select Max(codigo)as'Id' from dropeadores.TipoUBicacion
 end
-
+GO
 /**********************FIN altaTipoUbicacion  **********************/
 
 /**********************INICIO AltaUbicacion **********************/
@@ -622,7 +745,7 @@ begin
 insert into dropeadores.Ubicacion (fila,asiento,estado,publicacionId,tipoUbicacion,precio)
 values (@fila,@asiento,@estado,@idPublicacion,@tipoUbicacionId,@precio)
 end
-
+GO
 /**********************FIN AltaUbicacion  **********************/
 
 
@@ -638,7 +761,7 @@ End
 
 /**********************INICIO getFuncionalidadPorRol  **********************/
 GO
- CREATE procedure [dropeadores].[getFuncionalidadPorRol] (@rolId int)
+CREATE procedure [dropeadores].[getFuncionalidadPorRol] (@rolId int)
  as
  begin
  select funcionalidadId from dropeadores.FuncionalidadXRol fxr where fxr.rolId=@rolId
@@ -707,19 +830,20 @@ end
 
 /**************INICIO GetFuncionalidades*****************/
 GO
-create procedure dropeadores.GetFuncionalidades (@idCliente int)
+CREATE procedure [dropeadores].[GetFuncionalidades] (@idCliente int)
 as
 begin
 select menu as 'menu' from dropeadores.Funcionalidad f join dropeadores.FuncionalidadXRol fxr on(fxr.funcionalidadId=f.Id_Funcionalidad)
 join dropeadores.RolXUsuario rxu on (rxu.rolId=fxr.rolId) where rxu.usuarioId=@idCliente
 end
+GO
 
 
 /**************FIN GetFuncionalidades*****************/
 
 /**************INICIO getClientesMasPuntosVencidos*****************/
 GO
-create procedure dropeadores.getClientesMasPuntosVencidos (@trimestre nvarchar(255), @anio nvarchar(255))
+CREATE procedure [dropeadores].[getClientesMasPuntosVencidos] (@trimestre nvarchar(255), @anio nvarchar(255))
 as
 begin
 if(@trimestre = 'Primer')
@@ -751,7 +875,7 @@ group by Id_Cliente order by 3 desc
 end
 
 end
-
+GO
 
 /**************FIN getClientesMasPuntosVencidos*****************/
 
@@ -759,8 +883,8 @@ end
 
 /**************INICIO getClientesMayorCantCompras*****************/
 
-go
-create procedure [dropeadores].[getClientesMayorCantCompras] (@trimestre nvarchar(255), @anio nvarchar(255))
+GO
+CREATE procedure [dropeadores].[getClientesMayorCantCompras] (@trimestre nvarchar(255), @anio nvarchar(255))
 as
 begin
 if(@trimestre = 'Primer')
@@ -802,13 +926,13 @@ group by compra_numero_documento,empresaId order by 2 desc
 end
 
 end
-
+GO
 /**************FIN getClientesMayorCantCompras*****************/
 
 
 /**************FIN GetComprasPorEmpresa*****************/
 GO
-create procedure dropeadores.GetComprasPorEmpresa(@cuit varchar(255))
+CREATE procedure [dropeadores].[GetComprasPorEmpresa](@cuit varchar(255))
 as
 begin
 SELECT c.id as idCompra,
@@ -818,7 +942,8 @@ SELECT c.id as idCompra,
 	u.fila as fila, 
 	u.asiento as asiento,
 	u.precio,
-	c.compra_fecha
+	c.compra_fecha,
+	c.compra_cantidad
 FROM dropeadores.Compra c
 join dropeadores.Publicacion p on(c.compra_ubicacionPublic=p.id)
 join dropeadores.Ubicacion u on(u.asiento=c.compra_ubicacionAsiento and u.fila=c.compra_ubicacionFila and u.publicacionId=c.compra_ubicacionPublic)
@@ -830,19 +955,19 @@ ORDER BY c.id,
 	u.asiento,
 	u.fila
 end
-
+GO
 
 /**************FIN GetComprasPorEmpresa*****************/
 
 
 /**************INICIO buscarCodigoTipoUbicacion*****************/
 GO
-create procedure dropeadores.buscarCodigoTipoUbicacion ( @descripcion nvarchar(255))
-as 
-begin
-select codigo from dropeadores.tipoUbicacion where descripcion LIKE @descripcion
-end
-
+CREATE procedure [dropeadores].[buscarCodigoTipoUbicacion] ( @descripcion nvarchar(255))
+  as 
+  begin
+  select * from dropeadores.tipoUbicacion where descripcion like @descripcion
+  end
+GO
 /**************FIN buscarCodigoTipoUbicacion*****************/
 
 
@@ -858,18 +983,19 @@ end
 
 /**************FIN UpdatePrecioUbicacion*****************/
 GO
-create procedure dropeadores.getPrecioDeUbicacionPorCategoria(@idPublicacion int, @tipoUbicacion int)
-as
-begin
- select precio from dropeadores.Ubicacion where publicacionId=@idPublicacion and tipoUbicacion=@tipoUbicacion
-end
+create procedure [dropeadores].[UpdatePrecioUbicacion] (@codigoPublicacion int, @codigoTipoUbicacion int , @precio decimal(12,2))
+	as
+	begin
+	update dropeadores.Ubicacion set precio=@precio where publicacionId= @codigoPublicacion and tipoUbicacion=@codigoTipoUbicacion
+	end
+GO
 
   /**************FIN UpdatePrecioUbicacion*****************/
 
 
   /**************INICIO altaFactura*****************/
-  GO
-  create procedure dropeadores.altaFactura(@fecha datetime, @TotalComisionCobrada decimal(14,2),@TotalEmpresaPagado decimal(14,2),
+GO
+create procedure [dropeadores].[altaFactura](@fecha datetime, @TotalComisionCobrada decimal(14,2),@TotalEmpresaPagado decimal(14,2),
   @empresaId varchar(255))
   as
   begin
@@ -878,14 +1004,14 @@ end
  
 Select Max(Numero)as'Id' from dropeadores.Factura
   end
-  
+GO
 
  /**************FIN altaFactura*****************/
 
 
 /**************INICIO altaItem*****************/
 GO
-CREATE procedure dropeadores.altaItem(@Cantidad int, @Monto decimal(14,2),@descripcion nvarchar(255),
+CREATE procedure [dropeadores].[altaItem](@Cantidad int, @Monto decimal(14,2),@descripcion nvarchar(255),
   @compraId int,@facturaId int )
   as
   begin
@@ -893,23 +1019,25 @@ CREATE procedure dropeadores.altaItem(@Cantidad int, @Monto decimal(14,2),@descr
   values (@Cantidad,@Monto,@descripcion,@compraId,@facturaId)
 update dropeadores.Compra set compra_rendida=1 where id=@compraId
   end
+GO
   
 /**************FIN altaItem*****************/
 
 
 /**************INICIO eliminarPublicacion*****************/
 GO
-create procedure dropeadores.EliminarPublicacion (@publicacionId int)
+create procedure [dropeadores].[EliminarPublicacion] (@publicacionId int)
 as
 begin
 delete dropeadores.Ubicacion where publicacionId= @publicacionId 
 delete dropeadores.Publicacion	where id=@publicacionId
 end
+GO
 /**************FIN eliminarPublicacion*****************/
 
 /**************INICIO getLocalidadesNoVendidas*****************/
 GO
-create procedure dropeadores.getLocalidadesNoVendidas (@trimestre nvarchar(255), @anio nvarchar(255), @idGrado int)
+CREATE procedure [dropeadores].[getLocalidadesNoVendidas] (@trimestre nvarchar(255), @anio nvarchar(255), @idGrado int)
 as
 begin
 if(@trimestre ='Primer')
@@ -1000,8 +1128,20 @@ SELECT
 end
 
 end
-/**************INICIO getLocalidadesNoVendidas*****************/
+GO
+/**************FIN getLocalidadesNoVendidas*****************/
 
+
+
+/**************INICIO getDescripcionCategoriaById*****************/
+GO
+create procedure [dropeadores].[getDescripcionCategoriaById] (@codigo int)
+as
+begin
+select descripcion from dropeadores.TipoUbicacion where codigo=@codigo
+end
+GO
+/**************FIN getDescripcionCategoriaById*****************/
 GO
 /****** Object:  StoredProcedure [dropeadores].[Domicilio_Cli_Alta]    Script Date: 07/12/2018 19:57:04 ******/
 SET ANSI_NULLS ON
@@ -1861,7 +2001,7 @@ AS
 
 
 --------------------------
-USE [GD2C2018]
+
 GO
 /****** Object:  StoredProcedure [dropeadores].[updateUbicacion]    Script Date: 16/12/2018 15:52:38 ******/
 SET ANSI_NULLS ON
