@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Modelo.Comun;
 using Modelo.Dominio;
+using System.Text.RegularExpressions;
 
 
 namespace PalcoNet.Abm_Empresa_Espectaculo
@@ -68,8 +69,8 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
         {
             try
             {
-                //if (todosCamposCompletos())
-                if (true)
+                if (todosCamposCompletos())
+                //if (true)
                 {
                     Usuario usuario = new Usuario();
                     if (rolLogueado != "sin Rol")
@@ -117,12 +118,10 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
-                  
+                    MessageBox.Show("Empresa: " + textCUIT.Text + " creada satisfactoriamente.", "Alta de Usuario",
+                 MessageBoxButtons.OK);
 
                 }
-
-                MessageBox.Show("Empresa: " + textCUIT.Text + " creada satisfactoriamente.", "Alta de Usuario",
-                MessageBoxButtons.OK);
 
             }
             catch (Exception ex)
@@ -130,11 +129,52 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                 MessageBox.Show("Error: " + ex.Message, "ERROR", MessageBoxButtons.OK);
             }
         }
-	
 
+
+        public static bool emailIsValid(string email)
+        {
+            string expresion;
+            expresion = "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+            if (Regex.IsMatch(email, expresion))
+            {
+                if (Regex.Replace(email, expresion, string.Empty).Length == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public static bool nameIsValid(string name)
+        {
+            string expresion;
+            expresion = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$";
+            if (Regex.IsMatch(name, expresion))
+            {
+                if (Regex.Replace(name, expresion, string.Empty).Length == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
     private bool todosCamposCompletos()
         {
-            if (textRazonSocial.Text.Trim() == "")
+            int value;
+            if (textRazonSocial.Text.Trim() == "" || !int.TryParse(textRazonSocial.Text, out value))
             {
             	MessageBox.Show("Debe ingresar una RAZON SOCIAL.", "Error al crear Nueva empresa",
             			MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -152,24 +192,13 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             			MessageBoxButtons.OK, MessageBoxIcon.Error);
             	return false;
             }
-            if (textMail.Text.Trim() == "")
+            if (textMail.Text.Trim() == "" || !emailIsValid(textMail.Text))
             {
-                MessageBox.Show("Debe ingresar un MAIL.", "Error al crear Nueva empresa",
+                MessageBox.Show("Debe ingresar un MAIL valido.", "Error al crear Nueva empresa",
             			MessageBoxButtons.OK, MessageBoxIcon.Error);
             	return false;
             }
-            if (textUsername.Text.Trim() == "")
-            {
-                MessageBox.Show("Debe ingresar un USERNAME.", "Error al crear Nueva empresa",
-            			MessageBoxButtons.OK, MessageBoxIcon.Error);
-            	return false;
-            }
-            if (textPassword.Text.Trim() == "")
-            {
-                MessageBox.Show("Debe ingresar una CONTRASEÑA.", "Error al crear Nueva empresa",
-            			MessageBoxButtons.OK, MessageBoxIcon.Error);
-            	return false;
-            }
+            
             if (textCiudad.Text.Trim() == "")
             {
                 MessageBox.Show("Debe ingresar una CIUDAD.", "Error al crear Nueva empresa",
@@ -182,13 +211,13 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (txtNro.Text.Trim() == "")
+            if (txtNro.Text.Trim() == "" || !int.TryParse(txtNro.Text, out value))
             {
                 MessageBox.Show("Debe ingresar un EL NUMERO DE DIRECCÍON.", "Error al crear Nueva empresa",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (textPiso.Text.Trim() == "")
+            if (textPiso.Text.Trim() == "" || !int.TryParse(textPiso.Text, out value))
             {
                 MessageBox.Show("Debe ingresar EL PISO .", "Error al crear Nueva empresa",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -205,7 +234,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                 MessageBox.Show("Debe ingresar la LOCALIDAD.", "Error al crear Nueva empresa",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
-            } if (textCP.Text.Trim() == "")
+            } if (textCP.Text.Trim() == "" || !int.TryParse(textCP.Text, out value))
             {
                 MessageBox.Show("Debe ingresar el CODIGO POSTAL.", "Error al crear Nueva empresa",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);

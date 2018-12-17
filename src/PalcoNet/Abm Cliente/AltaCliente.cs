@@ -307,18 +307,7 @@ namespace PalcoNet.Abm_Cliente
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            //if (textPiso.Text.Trim() == "" || textPiso.Text == null)
-            //{
-            //    MessageBox.Show("Debe ingresar un número de Piso.", "Error al crear Nuevo Usuario",
-            //            MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return false;
-            //}
-            //if (textTelefono.Text.Trim() == "" || textTelefono.Text == null)
-            //{
-            //    MessageBox.Show("Debe ingresar un numero de telefono.", "Error al crear Nuevo Usuario",
-            //            MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return false;
-            //}
+           
 			if (textNroIdenficiacion.Text.Trim() == "" || textNroIdenficiacion.Text == null)
 			{
 				MessageBox.Show("Debe ingresar un numero de DNI.", "Error al crear Nuevo Usuario",
@@ -340,13 +329,13 @@ namespace PalcoNet.Abm_Cliente
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (txtTarjProp.Text.Trim() == "")
+            if (txtTarjProp.Text.Trim() == "" || !nameIsValid(txtTarjProp.Text))
             {
                 MessageBox.Show("Debe ingresar un propietario de tarjeta.", "Error al crear Nuevo Usuario",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (txtTarjNum.Text.Trim() == "")
+            if (txtTarjNum.Text.Trim() == "" )
             {
                 MessageBox.Show("Debe ingresar un numero de tarjeta.", "Error al crear Nuevo Usuario",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
