@@ -1,1 +1,4 @@
 *.pdb
+src/PalcoNet/obj/Debug/PalcoNet.csproj.FileListAbsolute.txt
+src/PalcoNet/bin/Debug/PalcoNet.vshost.exe.manifest
+src/PalcoNet/bin/Debug/PalcoNet.vshost.exe.config
