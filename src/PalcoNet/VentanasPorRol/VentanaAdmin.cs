@@ -370,7 +370,7 @@ namespace PalcoNet.VentanasPorRol
 		}
 
 		private void panel1_Paint(object sender, PaintEventArgs e)
-		{
+			{
 			//panel1.Location = Screen.PrimaryScreen.WorkingArea.Location;
 			//panel1.Size = Screen.PrimaryScreen.WorkingArea.Size;
 		}

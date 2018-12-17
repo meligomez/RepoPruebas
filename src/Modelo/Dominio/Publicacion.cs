@@ -82,7 +82,7 @@ namespace Modelo.Dominio
 				DaoSP dao = new DaoSP();
 				DataTable dt = new DataTable();
 				dt = dao.ObtenerDatosSP("dropeadores.altaPublicacion", descripcion, stock, fechaPublicacion, fechaEspectaculo,
-					 direccion, rubroId, gradoId, empresaId, estado);
+					 direccion, rubroId, gradoId, empresaId, estado,fechaEspectaculo.AddDays(5));
 				DataRow row = dt.Rows[0];
 				id = int.Parse(row["Id"].ToString());
 				return id;
@@ -186,6 +186,24 @@ namespace Modelo.Dominio
 				string query = "SELECT * FROM DROPEADORES.Publicacion where YEAR(fechaEspectaculo) = YEAR('"+fechaImportada +"')"
 					+" AND MONTH(fechaEspectaculo) = MONTH('"+fechaImportada+"') AND DAY(fechaEspectaculo)= DAY('"+fechaImportada+"')" 
 					+" AND DATEPART(HOUR,fechaEspectaculo) = DATEPART(HOUR,'"+fechaImportada+"')";
+				dt = dao.ConsultarConQuery(query);
+				return dt.Rows.Count > 0;
+			}
+			catch (Exception ex)
+			{
+
+				throw ex;
+			}
+		}
+
+		public bool existeDescripcion(string text)
+		{
+
+			try
+			{
+				DaoSP dao = new DaoSP();
+				DataTable dt = new DataTable();
+				string query = "SELECT id FROM DROPEADORES.Publicacion where descripcion= '"+text+"'";
 				dt = dao.ConsultarConQuery(query);
 				return dt.Rows.Count > 0;
 			}

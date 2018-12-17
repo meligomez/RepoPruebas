@@ -53,10 +53,11 @@ namespace PalcoNet.Generar_Publicacion
 			DaoSP dao = new DaoSP();
 			//dtGrado=dao.ConsultarConQuery("SELECT id, tipo FROM dropeadores.Grado");
 			//dtRubro=dao.ConsultarConQuery("SELECT Codigo,Descripcion FROM dropeadores.Rubro");
-			dtTipoUbicacion = dao.ConsultarConQuery("select distinct Ubicacion_Tipo_Descripcion,Ubicacion_Tipo_Codigo as Codigo from gd_esquema.Maestra");
+			dtTipoUbicacion = dao.ConsultarConQuery("select distinct codigo,descripcion from dropeadores.TipoUbicacion");
 			//CargarData.cargarComboBox(comboRubro, dtRubro, "Codigo", "Descripcion");
 			//CargarData.cargarComboBox(comboGradoPublicacion, dtGrado, "id", "tipo");
-			CargarData.cargarComboBox(comboBox1, dtTipoUbicacion, "Ubicacion_Tipo_Descripcion", "Ubicacion_Tipo_Descripcion");
+			CargarData.cargarComboBox(comboBox1, dtTipoUbicacion, "codigo", "descripcion");
+		
 			//lblEstado.Text = "Borrador";
 			//lblUserLogueado.Text = userLogueado.empresa.Empresa_razon_social;
 
@@ -149,36 +150,36 @@ namespace PalcoNet.Generar_Publicacion
 			//precioAsignado = false;
 			if (validarPrecioPorCategoria())
 			{
-				if (comboBox1.SelectedValue.ToString() == "Vip")
+				if (tu.buscarDescrById(comboBox1.SelectedValue) == "Vip")
 				{
 					bton.BackColor = Color.Purple;
 				}
-				if (comboBox1.SelectedValue.ToString() == "Cabecera")
+				if (tu.buscarDescrById(comboBox1.SelectedValue) == "Cabecera")
 				{
 					bton.BackColor = Color.Tomato;
 				}
-				if (comboBox1.SelectedValue.ToString() == "Campo")
+				if (tu.buscarDescrById(comboBox1.SelectedValue) == "Campo")
 				{
 					
 					bton.BackColor = Color.Yellow;
 				}
-				if (comboBox1.SelectedValue.ToString() == "Campo Vip")
+				if (tu.buscarDescrById(comboBox1.SelectedValue) == "Campo Vip")
 				{
 					bton.BackColor = Color.Maroon;
 				}
-				if (comboBox1.SelectedValue.ToString() == "Platea Alta")
+				if (tu.buscarDescrById(comboBox1.SelectedValue) == "Platea Alta")
 				{
 					bton.BackColor = Color.Beige;
 				}
-				if (comboBox1.SelectedValue.ToString() == "Platea Baja")
+				if (tu.buscarDescrById(comboBox1.SelectedValue) == "Platea Baja")
 				{
 					bton.BackColor = Color.Indigo;
 				}
-				if (comboBox1.SelectedValue.ToString() == "PullMan")
+				if (tu.buscarDescrById(comboBox1.SelectedValue) == "PullMan")
 				{
 					bton.BackColor = Color.Red;
 				}
-				if (comboBox1.SelectedValue.ToString() == "Super PullMan")
+				if (tu.buscarDescrById(comboBox1.SelectedValue) == "Super PullMan")
 				{
 					bton.BackColor = Color.Pink;
 				}
@@ -1056,8 +1057,8 @@ namespace PalcoNet.Generar_Publicacion
 
 		private void btnPrecioPorCategoria_Click(object sender, EventArgs e)
 		{
-			
-			if( textPrecio.Text=="")
+			string precioSinEspacios = textPrecio.Text.Replace(" ","");
+			if ( textPrecio.Text=="")
 			{
 				//
 				MessageBox.Show("Ingrese un precio", "¡Error!",
@@ -1066,7 +1067,7 @@ namespace PalcoNet.Generar_Publicacion
 			}
 			else
 			{
-				if(decimal.Parse(textPrecio.Text) <= 0)
+				if(decimal.Parse(precioSinEspacios) <= 0)
 				{
 					MessageBox.Show("Ingrese un precio válido", "¡Error!",
 								MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -1074,34 +1075,42 @@ namespace PalcoNet.Generar_Publicacion
 				}
 				else
 				{
-					//valido que no vuelva a ingresar otro precio de esa misma categoria
-					if(tiposDeUbicacionPorPublicacion.Any(unTipo => unTipo.descripcion== comboBox1.SelectedValue.ToString()))
+					if(int.Parse(comboBox1.SelectedValue.ToString())==0)
 					{
-						MessageBox.Show("Ya asignó un precio a esa categoria.", "¡Error!",
+						MessageBox.Show("No es una categoria, elija una categoria válida.", "¡Error!",
 								MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-						precioAsignado = true ;
 					}
 					else
 					{
-						//valido que no ponga un mismo precio a distinta categoria.
-						if(tiposDeUbicacionPorPublicacion.Any(unTipo => unTipo.precio == decimal.Parse(textPrecio.Text)))
+						//valido que no vuelva a ingresar otro precio de esa misma categoria
+						if (tiposDeUbicacionPorPublicacion.Any(unTipo => unTipo.descripcion == comboBox1.SelectedValue.ToString()))
 						{
-							MessageBox.Show("Ya asignó ese mismo precio a otra categoria.", "¡Error!",
-								MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-							precioAsignado = false;
+							MessageBox.Show("Ya asignó un precio a esa categoria.", "¡Error!",
+									MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+							precioAsignado = true;
 						}
 						else
 						{
-							//tengo que dar de alta a esa categoria con ese precio.
-							TipoUbicacion tu2 = new TipoUbicacion();
-							tu2.descripcion = comboBox1.SelectedValue.ToString();
-							tu2.precio = decimal.Parse(textPrecio.Text);
-							tiposDeUbicacionPorPublicacion.Add(tu2);
-							MessageBox.Show("Categoria: "+ comboBox1.SelectedValue.ToString()+" Precio :$"+ decimal.Parse(textPrecio.Text), "¡Correcto!",
-								MessageBoxButtons.OK, MessageBoxIcon.None);
-							precioAsignado = true;
+							//valido que no ponga un mismo precio a distinta categoria.
+							if (tiposDeUbicacionPorPublicacion.Any(unTipo => unTipo.precio == decimal.Parse(precioSinEspacios)))
+							{
+								MessageBox.Show("Ya asignó ese mismo precio a otra categoria.", "¡Error!",
+									MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+								precioAsignado = false;
+							}
+							else
+							{
+								//tengo que dar de alta a esa categoria con ese precio.
+								TipoUbicacion tu2 = new TipoUbicacion();
+								tu2.descripcion = tu.buscarDescrById(comboBox1.SelectedValue);
+								tu2.precio = decimal.Parse(precioSinEspacios);
+								tiposDeUbicacionPorPublicacion.Add(tu2);
+								MessageBox.Show("Categoria: " + tu.buscarDescrById(comboBox1.SelectedValue) + " Precio :$" + decimal.Parse(precioSinEspacios), "¡Correcto!",
+									MessageBoxButtons.OK, MessageBoxIcon.None);
+								precioAsignado = true;
+							}
+
 						}
-						
 					}
 					
 				}

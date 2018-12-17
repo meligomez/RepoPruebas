@@ -128,6 +128,7 @@
 			this.textDescripcion.Size = new System.Drawing.Size(392, 31);
 			this.textDescripcion.TabIndex = 80;
 			this.textDescripcion.Visible = false;
+			this.textDescripcion.TextChanged += new System.EventHandler(this.textDescripcion_TextChanged);
 			// 
 			// dateTimePickerPublicacion
 			// 
@@ -277,6 +278,7 @@
 			this.dateTimePicker1.Size = new System.Drawing.Size(272, 31);
 			this.dateTimePicker1.TabIndex = 92;
 			this.dateTimePicker1.Visible = false;
+			this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
 			// 
 			// estadoPublicacion
 			// 
