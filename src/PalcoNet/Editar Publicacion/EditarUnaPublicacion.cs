@@ -19,6 +19,8 @@ namespace PalcoNet.Editar_Publicacion
 		Usuario userLogueado;
 		Publicacion publicacion= new Publicacion();
 		public List<DateTime> fechasValidas = new List<DateTime>();
+		string descripAnterior = "";
+		DateTime fechaEspectaculoAnterior;
 		public btnEditPublic(Usuario user, int idpubli )
         {
 			userLogueado = user;
@@ -40,10 +42,13 @@ namespace PalcoNet.Editar_Publicacion
 
 			publicacion= publicacion.getPublicacionByCodigo(publicacion.codigo);
 			textDescripcion.Text = publicacion.descripcion;
+			descripAnterior = publicacion.descripcion;
 			textDireccion.Text = publicacion.direccion;
 			textStock.Text = publicacion.stock.ToString();
 			estadoPublicacion.Text = "Borrador";
 			dateTimePickerPublicacion.Value= publicacion.fechaPublicacion;
+			dateTimePicker1.Value = publicacion.fechaEspectaculo;
+			fechaEspectaculoAnterior = publicacion.fechaEspectaculo;
 			comboGradoPublicacion.SelectedIndex = publicacion.gradoId;
 			comboRubro.SelectedIndex = publicacion.rubroId;
 			lblCodigo.Text = publicacion.codigo.ToString() ;
@@ -58,8 +63,8 @@ namespace PalcoNet.Editar_Publicacion
 
 		private void button2_Click(object sender, EventArgs e)
 		{
-			MessageBox.Show(" ", "¡Correcto!",
-				MessageBoxButtons.OK, MessageBoxIcon.None);
+			//MessageBox.Show(" ", "¡Correcto!",
+			//	MessageBoxButtons.OK, MessageBoxIcon.None);
 			a.Visible = true;
 			b.Visible = true;
 			//c.Visible = true;
@@ -244,6 +249,16 @@ namespace PalcoNet.Editar_Publicacion
 			//		return false;
 			//	}
 			//}
+			if(descripAnterior!=textDescripcion.Text)
+			{
+				if (publicacion.existeDescripcion(textDescripcion.Text))
+				{
+					MessageBox.Show("Ya existe una publicacion con esa Descripcion", "¡Advertencia!",
+									MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+					return false;
+				}
+			}
+
 			if ((dateTimePickerPublicacion.Value)<cg.getFechaSistema())
 			{
 				MessageBox.Show("La fecha de publicacion debe ser posterior a la fecha del sistema", "¡Error!",
@@ -265,12 +280,7 @@ namespace PalcoNet.Editar_Publicacion
 			//	MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 			//	return false;
 			//}
-				if (publicacion.hayAlgunEspectaculoEnEstaFecha(dateTimePicker1.Value))
-				{
-					MessageBox.Show("Ya existe un espectáculo en esa fecha..", "¡Error!",
-					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-					return false;
-				}
+
 				if (dateTimePicker1.Value < dateTimePickerPublicacion.Value)
 				{
 					MessageBox.Show("La fecha de Publicacion debe ser anterior a la fecha del espectáculo", "¡Error!",
@@ -332,12 +342,17 @@ namespace PalcoNet.Editar_Publicacion
 				MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				return false;
 			}
-			if (publicacion.hayAlgunEspectaculoEnEstaFecha(dateTimePicker1.Value))
+			if(fechaEspectaculoAnterior != dateTimePicker1.Value)
 			{
-				MessageBox.Show("Ya existe un espectaculo en esa fecha y hora, ingrese otra.", "¡Error!",
-								MessageBoxButtons.OK, MessageBoxIcon.Error);
-				return false;
+				if (publicacion.hayAlgunEspectaculoEnEstaFecha(dateTimePicker1.Value))
+				{
+					MessageBox.Show("Ya existe un espectaculo en esa fecha y hora, ingrese otra.", "¡Error!",
+									MessageBoxButtons.OK, MessageBoxIcon.Error);
+					return false;
+				}
 			}
+			
+
 
 			return true;
 		}
@@ -474,6 +489,15 @@ namespace PalcoNet.Editar_Publicacion
 			bool fechasDistintaHora = !fechasValidas.Contains(fechaImportada) && !(fechasValidas.Any(f => f.Hour == fechaImportada.Hour && f.Date == fechaImportada.Date));
 			bool otroEspectaculoConEsaFecha = publicacion.hayAlgunEspectaculoEnEstaFecha(fechaImportada);
 			return fechasDistintaHora && !otroEspectaculoConEsaFecha;
+		}
+
+		private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+		{ 
+		}
+
+		private void textDescripcion_TextChanged(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

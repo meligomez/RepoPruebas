@@ -75,5 +75,23 @@ namespace Modelo.Dominio
 			
 		}
 
+		public string buscarDescrById(object codigo)
+		{
+			try
+			{
+				string  descripcion;
+				DaoSP dao = new DaoSP();
+				DataTable dt = new DataTable();
+				dt = dao.ObtenerDatosSP("dropeadores.getDescripcionCategoriaById", codigo);
+				DataRow row = dt.Rows[0];
+				descripcion = row["descripcion"].ToString();
+				return descripcion;
+			}
+			catch (Exception ex)
+			{
+
+				throw ex;
+			}
+		}
 	}
 }
