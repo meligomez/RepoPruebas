@@ -84,6 +84,59 @@ namespace PalcoNet.Abm_Cliente
 
 
 		}
+        public static bool emailIsValid(string email)
+        {
+            string expresion;
+            expresion = "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+            if (Regex.IsMatch(email, expresion))
+            {
+                if (Regex.Replace(email, expresion, string.Empty).Length == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public static bool nameIsValid(string name)
+        {
+            string expresion;
+            expresion = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$";
+            if (Regex.IsMatch(name, expresion))
+            {
+                if (Regex.Replace(name, expresion, string.Empty).Length == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private bool validarCampos()
+        {
+            if (!emailIsValid(textEmail.Text))
+            {
+                MessageBox.Show("Debe ingresar un mail.", "Error al filtrar cliente",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            return true;
+        }
+
 		private void botonBuscar_Click(object sender, EventArgs e)
 		{
 			int documento;
@@ -93,9 +146,11 @@ namespace PalcoNet.Abm_Cliente
 			{
 				documento = 0;
 			}
-
-			DataTable respuesta = FiltrarCliente(textNombre.Text, textApellido.Text, textEmail.Text, comboTipoDoc.SelectedIndex, documento);
-			dataGridCliente.DataSource = respuesta;
+            if (validarCampos())
+            {
+                DataTable respuesta = FiltrarCliente(textNombre.Text, textApellido.Text, textEmail.Text, comboTipoDoc.SelectedIndex, documento);
+                dataGridCliente.DataSource = respuesta;
+            }
 			if (dataGridCliente.CurrentRow == null)
 			{
 

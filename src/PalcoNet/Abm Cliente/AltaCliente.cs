@@ -269,7 +269,7 @@ namespace PalcoNet.Abm_Cliente
 				return false;
 			}
 
-			if (textApellido.Text.Trim() == "")
+			if (textApellido.Text.Trim() == ""|| !nameIsValid(textApellido.Text)))
 			{
                 MessageBox.Show("Debe ingresar un apellido válido", "Error al crear Nuevo Usuario",
 						MessageBoxButtons.OK, MessageBoxIcon.Error);
