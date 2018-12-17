@@ -50,34 +50,8 @@ namespace PalcoNet.Abm_Cliente
             
 			DataTable tabla_Cliente;
 			int docVacio = 0;
-           
-            //if (numDoc != docVacio)
-            //{
-            //    if (tipoDoc != -1)
-            //    {
-            //        dt = dao.ConsultarConQuery("SELECT count(*) as 'cantidad' FROM dropeadores.Cliente WHERE tipoDocumento like " + "'" + tipoDoc + "' AND numeroDocumento like" + "'" + numDoc + "'");
-            //    }
-            //    else
-            //    {
-            //        dt = dao.ConsultarConQuery("SELECT count(*) as 'cantidad'FROM dropeadores.Cliente WHERE numeroDocumento like" + "'" + numDoc + "'");
-
-            //    }
-            //    int cant = 0;
-            //    foreach (DataRow row in dt.Rows)
-            //    {
-            //        cant = Convert.ToInt32(row["cantidad"]);
-            //    }
-            //    if (cant > 0)
-            //    {
-                    tabla_Cliente = dao.ObtenerDatosSP("dropeadores.getCliente");
-            //    }
-            //}
-            //else
-            //{
-            //    tabla_Cliente = dao.ObtenerDatosSP("dropeadores.getCliente", docVacio);
-            //}
-
-			var final_rol = "";
+            tabla_Cliente = dao.ObtenerDatosSP("dropeadores.getCliente");
+            var final_rol = "";
 			var posFiltro = true;
 			var filtrosBusqueda = new List<string>();
 			if (nombre != "") filtrosBusqueda.Add("nombre LIKE '%" + nombre + "%'");

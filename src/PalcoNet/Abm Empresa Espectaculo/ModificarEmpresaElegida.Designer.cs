@@ -31,32 +31,33 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModificarEmpresaElegida));
             this.btnVolver = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
-            this.textCUIT = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.textTelefono = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.textMail = new System.Windows.Forms.TextBox();
             this.textRazonSocial = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txtNro = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.textCiudad = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.textCP = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.textLocalidad = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.textDepto = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
-            this.textPiso = new System.Windows.Forms.TextBox();
             this.textDireccion = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.checkBaja = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textCUIT = new System.Windows.Forms.MaskedTextBox();
+            this.textTelefono = new System.Windows.Forms.MaskedTextBox();
+            this.txtNro = new System.Windows.Forms.MaskedTextBox();
+            this.textPiso = new System.Windows.Forms.MaskedTextBox();
+            this.textCP = new System.Windows.Forms.MaskedTextBox();
+            this.label21 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
@@ -81,14 +82,6 @@
             this.btnGuardar.UseVisualStyleBackColor = true;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
-            // textCUIT
-            // 
-            this.textCUIT.Location = new System.Drawing.Point(475, 99);
-            this.textCUIT.Margin = new System.Windows.Forms.Padding(4);
-            this.textCUIT.Name = "textCUIT";
-            this.textCUIT.Size = new System.Drawing.Size(189, 26);
-            this.textCUIT.TabIndex = 81;
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -98,14 +91,6 @@
             this.label6.Size = new System.Drawing.Size(46, 20);
             this.label6.TabIndex = 80;
             this.label6.Text = "CUIT";
-            // 
-            // textTelefono
-            // 
-            this.textTelefono.Location = new System.Drawing.Point(125, 161);
-            this.textTelefono.Margin = new System.Windows.Forms.Padding(4);
-            this.textTelefono.Name = "textTelefono";
-            this.textTelefono.Size = new System.Drawing.Size(189, 26);
-            this.textTelefono.TabIndex = 79;
             // 
             // label8
             // 
@@ -127,10 +112,10 @@
             // 
             // textRazonSocial
             // 
-            this.textRazonSocial.Location = new System.Drawing.Point(147, 99);
+            this.textRazonSocial.Location = new System.Drawing.Point(212, 99);
             this.textRazonSocial.Margin = new System.Windows.Forms.Padding(4);
             this.textRazonSocial.Name = "textRazonSocial";
-            this.textRazonSocial.Size = new System.Drawing.Size(189, 26);
+            this.textRazonSocial.Size = new System.Drawing.Size(115, 26);
             this.textRazonSocial.TabIndex = 76;
             // 
             // label4
@@ -142,16 +127,6 @@
             this.label4.Size = new System.Drawing.Size(37, 20);
             this.label4.TabIndex = 75;
             this.label4.Text = "Mail";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 106);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(107, 20);
-            this.label3.TabIndex = 74;
-            this.label3.Text = "Razon Social:";
             // 
             // label2
             // 
@@ -165,18 +140,18 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textCP);
+            this.groupBox1.Controls.Add(this.textPiso);
             this.groupBox1.Controls.Add(this.txtNro);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.textCiudad);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label13);
-            this.groupBox1.Controls.Add(this.textCP);
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.textLocalidad);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.textDepto);
             this.groupBox1.Controls.Add(this.label19);
-            this.groupBox1.Controls.Add(this.textPiso);
             this.groupBox1.Controls.Add(this.textDireccion);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Location = new System.Drawing.Point(12, 220);
@@ -185,14 +160,6 @@
             this.groupBox1.TabIndex = 72;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de la direccion ";
-            // 
-            // txtNro
-            // 
-            this.txtNro.Location = new System.Drawing.Point(627, 30);
-            this.txtNro.Margin = new System.Windows.Forms.Padding(4);
-            this.txtNro.Name = "txtNro";
-            this.txtNro.Size = new System.Drawing.Size(80, 26);
-            this.txtNro.TabIndex = 64;
             // 
             // label7
             // 
@@ -231,14 +198,6 @@
             this.label13.Size = new System.Drawing.Size(30, 20);
             this.label13.TabIndex = 60;
             this.label13.Text = "CP";
-            // 
-            // textCP
-            // 
-            this.textCP.Location = new System.Drawing.Point(566, 64);
-            this.textCP.Margin = new System.Windows.Forms.Padding(4);
-            this.textCP.Name = "textCP";
-            this.textCP.Size = new System.Drawing.Size(80, 26);
-            this.textCP.TabIndex = 59;
             // 
             // label12
             // 
@@ -286,14 +245,6 @@
             this.label19.TabIndex = 54;
             this.label19.Text = "Piso";
             // 
-            // textPiso
-            // 
-            this.textPiso.Location = new System.Drawing.Point(63, 71);
-            this.textPiso.Margin = new System.Windows.Forms.Padding(4);
-            this.textPiso.Name = "textPiso";
-            this.textPiso.Size = new System.Drawing.Size(80, 26);
-            this.textPiso.TabIndex = 53;
-            // 
             // textDireccion
             // 
             this.textDireccion.Location = new System.Drawing.Point(386, 29);
@@ -333,24 +284,85 @@
             this.checkBaja.UseVisualStyleBackColor = true;
             this.checkBaja.CheckedChanged += new System.EventHandler(this.checkBaja_CheckedChanged);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(97, 105);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(107, 20);
+            this.label3.TabIndex = 86;
+            this.label3.Text = "Razon Social ";
+            // 
+            // textCUIT
+            // 
+            this.textCUIT.Location = new System.Drawing.Point(473, 99);
+            this.textCUIT.Mask = "99-99999999-99";
+            this.textCUIT.Name = "textCUIT";
+            this.textCUIT.Size = new System.Drawing.Size(198, 26);
+            this.textCUIT.TabIndex = 119;
+            // 
+            // textTelefono
+            // 
+            this.textTelefono.Location = new System.Drawing.Point(114, 162);
+            this.textTelefono.Mask = "99999999";
+            this.textTelefono.Name = "textTelefono";
+            this.textTelefono.Size = new System.Drawing.Size(181, 26);
+            this.textTelefono.TabIndex = 120;
+            // 
+            // txtNro
+            // 
+            this.txtNro.Location = new System.Drawing.Point(626, 30);
+            this.txtNro.Mask = "99999999";
+            this.txtNro.Name = "txtNro";
+            this.txtNro.Size = new System.Drawing.Size(77, 26);
+            this.txtNro.TabIndex = 120;
+            // 
+            // textPiso
+            // 
+            this.textPiso.Location = new System.Drawing.Point(66, 65);
+            this.textPiso.Mask = "999999";
+            this.textPiso.Name = "textPiso";
+            this.textPiso.Size = new System.Drawing.Size(87, 26);
+            this.textPiso.TabIndex = 121;
+            // 
+            // textCP
+            // 
+            this.textCP.Location = new System.Drawing.Point(553, 67);
+            this.textCP.Mask = "00000";
+            this.textCP.Name = "textCP";
+            this.textCP.Size = new System.Drawing.Size(79, 26);
+            this.textCP.TabIndex = 122;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Location = new System.Drawing.Point(173, 129);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(140, 13);
+            this.label21.TabIndex = 121;
+            this.label21.Text = "RAZON SOCIAL Nº: XX";
+            // 
             // ModificarEmpresaElegida
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(739, 437);
+            this.Controls.Add(this.label21);
+            this.Controls.Add(this.textTelefono);
+            this.Controls.Add(this.textCUIT);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.checkBaja);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnGuardar);
-            this.Controls.Add(this.textCUIT);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.textTelefono);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.textMail);
             this.Controls.Add(this.textRazonSocial);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -369,32 +381,33 @@
 
 		#endregion
 		private System.Windows.Forms.Button btnVolver;
-		private System.Windows.Forms.Button btnGuardar;
-		private System.Windows.Forms.TextBox textCUIT;
-		private System.Windows.Forms.Label label6;
-		private System.Windows.Forms.TextBox textTelefono;
+        private System.Windows.Forms.Button btnGuardar;
+        private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.Label label8;
 		private System.Windows.Forms.TextBox textMail;
 		private System.Windows.Forms.TextBox textRazonSocial;
-		private System.Windows.Forms.Label label4;
-		private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.TextBox textCiudad;
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Label label13;
-		private System.Windows.Forms.TextBox textCP;
+        private System.Windows.Forms.Label label13;
 		private System.Windows.Forms.Label label12;
 		private System.Windows.Forms.TextBox textLocalidad;
 		private System.Windows.Forms.Label label10;
 		private System.Windows.Forms.TextBox textDepto;
-		private System.Windows.Forms.Label label19;
-		private System.Windows.Forms.TextBox textPiso;
+        private System.Windows.Forms.Label label19;
 		private System.Windows.Forms.TextBox textDireccion;
 		private System.Windows.Forms.Label label5;
-		private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.TextBox txtNro;
+        private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.CheckBox checkBaja;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.MaskedTextBox textCUIT;
+        private System.Windows.Forms.MaskedTextBox textTelefono;
+        private System.Windows.Forms.MaskedTextBox txtNro;
+        private System.Windows.Forms.MaskedTextBox textPiso;
+        private System.Windows.Forms.MaskedTextBox textCP;
+        private System.Windows.Forms.Label label21;
 	}
 }

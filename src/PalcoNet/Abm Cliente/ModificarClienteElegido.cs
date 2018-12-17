@@ -46,13 +46,14 @@ namespace PalcoNet.Abm_Cliente
         {
 
             DaoSP dao = new DaoSP();
-            if (dao.EjecutarSP("dropeadores.ExistTarjetaCliente", nroDoc) == 0)
+            if (dao.EjecutarSP("dropeadores.ExistTarjetaCliente", nroDoc) != 0)
             {
-                return dao.ObtenerDatosSP("dropeadores.ObtenerClienteSinTarjeta", tipoDoc, nroDoc);
+                return dao.ObtenerDatosSP("dropeadores.ObtenerClienteEspecifico", tipoDoc, nroDoc);
             }
             else
             {
-                return dao.ObtenerDatosSP("dropeadores.ObtenerClienteEspecifico", tipoDoc, nroDoc);
+                return dao.ObtenerDatosSP("dropeadores.ObtenerClienteSinTarjeta", tipoDoc, nroDoc);
+                
             }
            
         }
@@ -74,6 +75,9 @@ namespace PalcoNet.Abm_Cliente
                 ConfigGlobal archivoDeConfig = new ConfigGlobal();
                 Cliente cli = new Cliente();
                 Tarjeta tar = new Tarjeta();
+                tar.propietario = " ";
+                tar.numero = " ";
+                tar.fechaVencimiento = archivoDeConfig.getFechaSistema();
                 cli.apellido = Convert.ToString(fila["apellido"]);
                 cli.nombre = Convert.ToString(fila["nombre"]);
                 cli.numeroDocumento = Convert.ToInt32(fila["numeroDocumento"]);
@@ -97,18 +101,13 @@ namespace PalcoNet.Abm_Cliente
                     dom.cp = Convert.ToInt32(fila["codigoPostal"]);
                 cli.Cli_Dir = dom;
                 if (dao.EjecutarSP("dropeadores.ExistTarjetaCliente", cli.numeroDocumento) ==0)
+
                 {
                     tar.propietario = " ";
                     tar.numero = " ";
                     tar.fechaVencimiento = archivoDeConfig.getFechaSistema(); 
                 }
-                else
-                {
-                    tar.propietario = Convert.ToString(fila["propietario"]);
-                    tar.numero = Convert.ToString(fila["numero1"]);
-                    tar.fechaVencimiento = Convert.ToDateTime(fila["fechaVencimiento"]);
-                 
-                }
+
                 cli.Cli_Tar = tar;
                 lista.Add(cli);
             }
@@ -116,7 +115,6 @@ namespace PalcoNet.Abm_Cliente
         }
 		private void cargarDatos()
 		{
-			//empresa_Seleccionada.Empresa_estado = true;
 			txtNombre.Text = cliente_seleccionado.nombre;
 			txtApellido.Text = cliente_seleccionado.apellido;
 			txtNroIdentificacion.Text = cliente_seleccionado.numeroDocumento.ToString();
@@ -128,11 +126,11 @@ namespace PalcoNet.Abm_Cliente
 			textDireccion.Text = cliente_seleccionado.Cli_Dir.calle;
 			txtNro.Text = cliente_seleccionado.Cli_Dir.numero.ToString();
 			textLocalidad.Text = cliente_seleccionado.Cli_Dir.localidad;
-			//textPiso.Text = cliente_seleccionado.Cli_Dir.piso.ToString();
-			// textDepto.Text = cliente_seleccionado.Cli_Dir.dpto.ToString();
+            if (cliente_seleccionado.Cli_Tar.propietario != "''")
 			txtTarjProp.Text = cliente_seleccionado.Cli_Tar.propietario;
+            if (cliente_seleccionado.Cli_Tar.numero != "''")
 			txtTarjNum.Text = cliente_seleccionado.Cli_Tar.numero.ToString();
-			dateTimePickerVenc.Value = cliente_seleccionado.Cli_Tar.fechaVencimiento;
+           		dateTimePickerVenc.Value = cliente_seleccionado.Cli_Tar.fechaVencimiento;
             checkBaja.Checked = cliente_seleccionado.estado;
 			if (cliente_seleccionado.Cli_Dir.dpto != "''")
 				textDepto.Text = cliente_seleccionado.Cli_Dir.dpto.ToString();
@@ -294,7 +292,7 @@ namespace PalcoNet.Abm_Cliente
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if ((Convert.ToInt32(txtNroIdentificacion.Text) <= 11111111) || (Convert.ToInt32(txtNroIdentificacion.Text) > 99999999))
+            if ((Convert.ToInt32(txtNroIdentificacion.Text) <= 0000) || (Convert.ToInt32(txtNroIdentificacion.Text) > 99999999))
             {
                 MessageBox.Show("Debe ingresar un numero de DNI Valido.   XXXXXXXX", "Error al crear Nuevo Usuario",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -327,7 +325,7 @@ namespace PalcoNet.Abm_Cliente
                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (textCUIL.Text.Length != 11)
+            if (textCUIL.Text.Length >= 11)
             {
                 MessageBox.Show("Debe ingresar un numero de Cuil valido. XX-XXXXXXXX-X, SIN '-' ", "Error al crear Nuevo Usuario",
                        MessageBoxButtons.OK, MessageBoxIcon.Error);

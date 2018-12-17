@@ -68,8 +68,6 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             textCUIT.Text = " ";
             textEmail.Text = " ";
             cargarTabla();
-            //dataGridViewEmpresa.DataSource = null;
-            //dataGridViewEmpresa.Update();
             
         }
         private DataTable FiltrarEmpresa(string razonSocial, string cuit, string mail)
@@ -77,13 +75,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             DaoSP dao = new DaoSP();
             DataTable tabla_empresa;
             Empresa emp = new Empresa();
-            string cuitVacio = "00-00000000-00";
-            if (cuit == "")
-                tabla_empresa = dao.ObtenerDatosSP("dropeadores.getEmpresa", cuitVacio);
-            else
-            {
-                tabla_empresa = dao.ObtenerDatosSP("dropeadores.getEmpresa", cuit);
-            }
+           tabla_empresa = dao.ObtenerDatosSP("dropeadores.getEmpresa");
             var final_rol = "";
             var posFiltro = true;
             var filtrosBusqueda = new List<string>();
@@ -118,31 +110,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
         }
 
 
-        private void btnEliminar_Click(object sender, EventArgs e)
-        {
-            if (dataGridViewEmpresa.CurrentRow == null)
-            {
-                MessageBox.Show("Seleccione una Empresa a dar de baja.",
-                "", MessageBoxButtons.OK);
-                return;
-            }
-
-            if ((bool)dataGridViewEmpresa.CurrentRow.Cells["empresa_estado"].Value)
-            {
-                MessageBox.Show("Empresa ya deshabilitado.",
-                "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
-            else
-            {
-                MessageBox.Show("Baja empresa realizada exitosamente!.",
-            "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-
-            }
-            cargarTabla();
-
-        }
+      
 
         private void dataGridViewEmpresa_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {

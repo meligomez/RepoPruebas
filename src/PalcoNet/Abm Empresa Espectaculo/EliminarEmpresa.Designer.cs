@@ -36,7 +36,6 @@
             this.text = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridViewEmpresa = new System.Windows.Forms.DataGridView();
-            this.btnEliminar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -111,17 +110,6 @@
             this.dataGridViewEmpresa.Size = new System.Drawing.Size(624, 212);
             this.dataGridViewEmpresa.TabIndex = 90;
             this.dataGridViewEmpresa.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewEmpresa_CellContentClick);
-            // 
-            // btnEliminar
-            // 
-            this.btnEliminar.Location = new System.Drawing.Point(686, 457);
-            this.btnEliminar.Margin = new System.Windows.Forms.Padding(4);
-            this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(136, 43);
-            this.btnEliminar.TabIndex = 89;
-            this.btnEliminar.Text = "Eliminar";
-            this.btnEliminar.UseVisualStyleBackColor = true;
-            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // btnCancelar
             // 
@@ -210,7 +198,6 @@
             this.Controls.Add(this.text);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dataGridViewEmpresa);
-            this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label7);
@@ -235,8 +222,7 @@
 		private System.Windows.Forms.TextBox textRazonSocial;
 		private System.Windows.Forms.Label text;
 		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.DataGridView dataGridViewEmpresa;
-		private System.Windows.Forms.Button btnEliminar;
+        private System.Windows.Forms.DataGridView dataGridViewEmpresa;
 		private System.Windows.Forms.Button btnCancelar;
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.Label label7;

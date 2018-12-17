@@ -48,6 +48,7 @@ namespace Modelo.Dominio
 		{
 
 			DaoSP dao = new DaoSP();
+
             int docViejo = nroViejo;
 			DataTable dt, dr,da = new DataTable();
              int cant = 0;
@@ -80,14 +81,21 @@ namespace Modelo.Dominio
                 IDcliente = Convert.ToInt32(row["cliente_domicilio"].ToString());
                 
             }
-            
+           
                 if (dao.EjecutarSP("dropeadores.updateDomicilioCliente", IDcliente, calle, numero, piso, depto, localidad, " ", cp) > 0)
                 {
                    if (dao.EjecutarSP("dropeadores.updateCliente", numeroDocumento,nombre, apellido, tipoDocumento, cuil, email, fecha_nacimiento, IDcliente, telefono, campoBaja) > 0)
                         {
 
+                            dt = dao.ConsultarConQuery("select count(T.Id) as 'Id' from dropeadores.TarjetaCredito T join dropeadores.Cliente C on (C.NumeroDocumento=T.clieteId) where T.clieteId=" + numeroDocumento );
+                            foreach (DataRow row in dt.Rows)
+                            {
 
-                            if (dao.EjecutarSP("dropeadores.ExistTarjetaCliente", numeroDocumento) == 0)
+                                cant = Convert.ToInt32(row["Id"].ToString());
+
+                            }
+
+                            if (cant == 0)
                                 {
                                     if (dao.EjecutarSP("dropeadores.insertTarjetaCliente", numeroDocumento, propietarioTar, numeroTar, fecha_vencimiento) > 0)
                                     {

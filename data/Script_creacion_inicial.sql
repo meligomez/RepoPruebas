@@ -142,7 +142,6 @@ empresa_estado bit default 1
 )
 
 
----29/11--
 Create table [dropeadores].Cliente (
 NumeroDocumento numeric(18,0) primary key,
 Nombre nvarchar(255),
@@ -601,6 +600,152 @@ GO
 /****** Object:  StoredProcedure [dropeadores].[pasarAInhabilitado]    Script Date: 12/16/2018 22:30:40 ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[pasarAInhabilitado]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [dropeadores].[pasarAInhabilitado]
+GO
+
+GO
+/****** Object:  StoredProcedure [dropeadores].[Usuario_UpdatePsw]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[Usuario_UpdatePsw]
+GO
+/****** Object:  StoredProcedure [dropeadores].[Usuario_Alta_Empresa]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[Usuario_Alta_Empresa]
+GO
+/****** Object:  StoredProcedure [dropeadores].[Usuario_Alta]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[Usuario_Alta]
+GO
+/****** Object:  StoredProcedure [dropeadores].[updateUbicacion]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[updateUbicacion]
+GO
+/****** Object:  StoredProcedure [dropeadores].[updateTarjetaCliente]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[updateTarjetaCliente]
+GO
+/****** Object:  StoredProcedure [dropeadores].[updatePuntos]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[updatePuntos]
+GO
+/****** Object:  StoredProcedure [dropeadores].[updateGrado]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[updateGrado]
+GO
+/****** Object:  StoredProcedure [dropeadores].[updateEmpresa]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[updateEmpresa]
+GO
+/****** Object:  StoredProcedure [dropeadores].[updateDomicilioEmpresa]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[updateDomicilioEmpresa]
+GO
+/****** Object:  StoredProcedure [dropeadores].[updateDomicilioCliente]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[updateDomicilioCliente]
+GO
+/****** Object:  StoredProcedure [dropeadores].[updateCliente]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[updateCliente]
+GO
+/****** Object:  StoredProcedure [dropeadores].[obtenerIDcompra]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[obtenerIDcompra]
+GO
+/****** Object:  StoredProcedure [dropeadores].[ObtenerGradoEspecifico]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[ObtenerGradoEspecifico]
+GO
+/****** Object:  StoredProcedure [dropeadores].[ObtenerEmpresaEspecifica]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[ObtenerEmpresaEspecifica]
+GO
+/****** Object:  StoredProcedure [dropeadores].[ObtenerDireccionEmpresaEspecifica]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[ObtenerDireccionEmpresaEspecifica]
+GO
+/****** Object:  StoredProcedure [dropeadores].[ObtenerClienteSinTarjeta]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[ObtenerClienteSinTarjeta]
+GO
+/****** Object:  StoredProcedure [dropeadores].[ObtenerClienteEspecifico]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[ObtenerClienteEspecifico]
+GO
+/****** Object:  StoredProcedure [dropeadores].[login]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[login]
+GO
+/****** Object:  StoredProcedure [dropeadores].[insertTarjetaCliente]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[insertTarjetaCliente]
+GO
+/****** Object:  StoredProcedure [dropeadores].[insertPuntos]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[insertPuntos]
+GO
+/****** Object:  StoredProcedure [dropeadores].[insertCompra]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[insertCompra]
+GO
+/****** Object:  StoredProcedure [dropeadores].[Grado_Alta]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[Grado_Alta]
+GO
+/****** Object:  StoredProcedure [dropeadores].[getUbicacion]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[getUbicacion]
+GO
+/****** Object:  StoredProcedure [dropeadores].[getTablaPublicacion]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[getTablaPublicacion]
+GO
+/****** Object:  StoredProcedure [dropeadores].[getPublicacion]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[getPublicacion]
+GO
+/****** Object:  StoredProcedure [dropeadores].[getGradoSeleccionado]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[getGradoSeleccionado]
+GO
+/****** Object:  StoredProcedure [dropeadores].[getGrado]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[getGrado]
+GO
+/****** Object:  StoredProcedure [dropeadores].[getEmpresa]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[getEmpresa]
+GO
+/****** Object:  StoredProcedure [dropeadores].[getClienteEspecifico]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[getClienteEspecifico]
+GO
+/****** Object:  StoredProcedure [dropeadores].[getCliente]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[getCliente]
+GO
+/****** Object:  StoredProcedure [dropeadores].[ExistTarjetaCliente]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[ExistTarjetaCliente]
+GO
+/****** Object:  StoredProcedure [dropeadores].[ExistEmpresa]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[ExistEmpresa]
+GO
+/****** Object:  StoredProcedure [dropeadores].[ExistCuitandRazonSocial]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[ExistCuitandRazonSocial]
+GO
+/****** Object:  StoredProcedure [dropeadores].[ExistCliente]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[ExistCliente]
+GO
+/****** Object:  StoredProcedure [dropeadores].[Empresa_Alta]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[Empresa_Alta]
+GO
+/****** Object:  StoredProcedure [dropeadores].[Emp_ObtenerId]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[Emp_ObtenerId]
+GO
+/****** Object:  StoredProcedure [dropeadores].[Domicilio_empresa_Alta]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[Domicilio_empresa_Alta]
+GO
+/****** Object:  StoredProcedure [dropeadores].[Domicilio_Cli_Alta]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[Domicilio_Cli_Alta]
+GO
+/****** Object:  StoredProcedure [dropeadores].[DireEmp_ObtenerId]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[DireEmp_ObtenerId]
+GO
+/****** Object:  StoredProcedure [dropeadores].[DireCli_ObtenerId]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[DireCli_ObtenerId]
+GO
+/****** Object:  StoredProcedure [dropeadores].[deleteGrado]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[deleteGrado]
+GO
+/****** Object:  StoredProcedure [dropeadores].[deleteEmpresa]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[deleteEmpresa]
+GO
+/****** Object:  StoredProcedure [dropeadores].[deleteCliente]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[deleteCliente]
+GO
+/****** Object:  StoredProcedure [dropeadores].[Cliente_Alta_Tarjeta]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[Cliente_Alta_Tarjeta]
+GO
+/****** Object:  StoredProcedure [dropeadores].[Cli_ObtenerId]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[Cli_ObtenerId]
+GO
+/****** Object:  StoredProcedure [dropeadores].[Cli_Alta]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[Cli_Alta]
+GO
+/****** Object:  StoredProcedure [dropeadores].[asociarTarjetaCliente]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[asociarTarjetaCliente]
+GO
+/****** Object:  StoredProcedure [dbo].[obtenerUsuarioByUsername]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dbo].[obtenerUsuarioByUsername]
 GO
 
 -----------------------------------------------------------------------------------------------------
@@ -1148,13 +1293,14 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE procedure [dropeadores].[Domicilio_Cli_Alta] (@calle nvarchar(255), @numero int,@piso int,@depto nvarchar(5),@localidad nvarchar(255),@cp int)
+CREATE  procedure [dropeadores].[Cli_Alta] 
+(@nombre nvarchar(255),@apellido nvarchar(255),@tipoDoc nvarchar(50),@dni numeric(18,0), @mail varchar(255),@fechaNacimiento datetime,@cuil varchar(255),@telefono numeric(10,0),@cliente_domicilio int,@fechaCreacion datetime)
 as
 begin
-insert into dropeadores.Domicilio(calle,numero,piso,departamento,localidad,codigoPostal)values
-(@calle,@numero,@piso,@depto,@localidad,@cp)
-
+insert into  GD2C2018.[dropeadores].Cliente (numeroDocumento,nombre,apellido,tipoDocumento,cuil,mail,fechaNacimiento,cliente_domicilio,telefono,estado,fechaCreacion)
+ values (@dni,@nombre,@apellido,@tipoDoc,@cuil, @mail,@fechaNacimiento,@cliente_domicilio,@telefono,1,@fechaCreacion)
 end
+
 
 --------------------
 
@@ -1240,18 +1386,20 @@ end
 
 ----------
 
+USE [GD2C2018]
 GO
-/****** Object:  StoredProcedure [dropeadores].[Cliente_Alta_Tarjeta]    Script Date: 07/12/2018 20:00:32 ******/
+/****** Object:  StoredProcedure [dropeadores].[Cliente_Alta_Tarjeta]    Script Date: 17/12/2018 1:46:45 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE procedure [dropeadores].[Cliente_Alta_Tarjeta] (@propietario nvarchar(255), @numero numeric(28, 0),@fechaVencimiento datetime,@clienteId numeric(18, 0))
+create procedure [dropeadores].[Cliente_Alta_Tarjeta] (@propietario nvarchar(255), @numero numeric(28, 0),@fechaVencimiento datetime,@clienteId numeric(18, 0),@desc nvarchar(255))
 as
 begin
-insert into dropeadores.TarjetaCredito(clieteId,propietario,numero,fechaVencimiento)
-values (@clienteId,@propietario,@numero,@fechaVencimiento)
+insert into dropeadores.TarjetaCredito(clieteId,propietario,numero,fechaVencimiento,descripcion)
+values (@clienteId,@propietario,@numero,@fechaVencimiento,@desc)
 end
+
 ---------------
 
 GO
@@ -1351,13 +1499,13 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE procedure [dropeadores].[Usuario_Alta_Empresa] (@CuitEmpresa nvarchar(255), @user nvarchar(255),@password nvarchar(255),@creadoPor nvarchar(255))
+CREATE procedure [dropeadores].[Usuario_Alta_Empresa] (@CuitEmpresa nvarchar(255), @user nvarchar(255),@fecha datetime,@password nvarchar(255),@creadoPor nvarchar(255))
 as
 begin
-insert into dropeadores.Usuario(username,password,CuitEmpresa,creadoPor)
-values (@user,@password,@CuitEmpresa,@creadoPor)
+insert into dropeadores.Usuario(username,password,Fecha_Password,CuitEmpresa,creadoPor)
+values (@user,@password,@fecha,@CuitEmpresa,@creadoPor)
+Select Max(id)as'idUsuario'from [dropeadores].Usuario
 end
-
 
 
 
@@ -1394,15 +1542,11 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE PROCEDURE [dropeadores].[getEmpresa]
-	@cuit nvarchar(255)
+CREATE  PROCEDURE [dropeadores].[getEmpresa]
+	
 AS
-	--SI RECIBE -1, MUESTRA TODOS LOS HUESPEDES
-	IF (@cuit = '00-00000000-00')
-		SELECT empresa_Cuit as 'CUIT', empresa_razon_social as 'RAZONSOCIAL', empresa_mail as 'MAIL',empresa_estado FROM dropeadores.Empresa E			
-	ELSE
-		SELECT empresa_Cuit as 'CUIT', empresa_razon_social as 'RAZON SOCIAL', empresa_mail as 'MAIL',empresa_estado FROM dropeadores.Empresa E	
-		WHERE E.empresa_Cuit = @cuit
+		SELECT empresa_Cuit as 'CUIT', empresa_razon_social as 'RAZONSOCIAL', empresa_mail as 'MAIL',empresa_estado FROM dropeadores.Empresa E	
+		
 
 ------------------------
 
@@ -1501,7 +1645,19 @@ from dropeadores.Empresa e where e.empresa_estado=1 and ( e.empresa_Cuit LIKE @c
 
 
 ----------------
-
+USE [GD2C2018]
+GO
+/****** Object:  StoredProcedure [dropeadores].[getCliente]    Script Date: 17/12/2018 1:56:15 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+create PROCEDURE [dropeadores].[getCliente]
+AS
+begin
+		SELECT nombre as 'nombre',apellido as 'apellido',tipoDocumento as 'tipoDocumento',numeroDocumento as 'numeroDocumento',mail as 'mail',estado as 'ESTADO' FROM dropeadores.Cliente c
+END
+-----------------
 GO
 /****** Object:  StoredProcedure [dropeadores].[getClienteEspecifico]    Script Date: 07/12/2018 20:07:09 ******/
 SET ANSI_NULLS ON
@@ -1521,7 +1677,22 @@ AS
 
 
 -------------------
+USE [GD2C2018]
+GO
+/****** Object:  StoredProcedure [dropeadores].[insertPuntos]    Script Date: 17/12/2018 2:16:38 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 
+CREATE procedure [dropeadores].[insertPuntos] 
+(@puntos int,@Id_Compra int,@Id_Cliente numeric(18, 0),@FechaVencimiento datetime)
+as
+begin
+insert into  GD2C2018.[dropeadores].Puntos(puntos,Id_Compra,Id_Cliente,FechaVencimiento)
+ values (@puntos,@Id_Compra,@Id_Cliente,DATEADD(DAY,5,@FechaVencimiento))
+end
+-----------------
 
 GO
 /****** Object:  StoredProcedure [dropeadores].[getGrado]    Script Date: 07/12/2018 20:08:02 ******/
@@ -1590,12 +1761,16 @@ CREATE PROCEDURE [dropeadores].[insertCompra]
             @fecha datetime,
 			@tarjetaID int,
 			@cant numeric(18, 0),
-			@precio int
+			@precio int,
+			@fila varchar(3),
+			@asiento numeric(18, 0),
+			@publicID int
 AS
 BEGIN
-INSERT INTO dropeadores.Compra (compra_tipo_documento,compra_numero_documento,compra_fecha,compra_TarjetaId,compra_cantidad,compra_precio) 
-VALUES (@tipoDoc,@nroDoc,GETDATE(),@tarjetaID,@cant,@precio)
+INSERT INTO dropeadores.Compra (compra_tipo_documento,compra_numero_documento,compra_fecha,compra_TarjetaId,compra_cantidad,compra_precio,compra_ubicacionFila,compra_ubicacionAsiento,compra_ubicacionPublic) 
+VALUES (@tipoDoc,@nroDoc, @fecha,@tarjetaID,@cant,@precio,@fila,@asiento,@publicID)
 END
+
 
 
 ------------------------
@@ -1638,7 +1813,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER PROCEDURE [dropeadores].[ObtenerClienteEspecifico]
+CREATE PROCEDURE [dropeadores].[ObtenerClienteEspecifico]
 	@tipoDoc nvarchar(50),
 	@nroDoc numeric(18, 0)
 AS
@@ -1649,7 +1824,7 @@ AS
 		join dropeadores.Cliente C on (C.NumeroDocumento=T.clieteId) 
 		where T.clieteId=@nroDoc) = 0)
 		SELECT * FROM dropeadores.Cliente c join dropeadores.Domicilio D on(C.cliente_domicilio=D.id)	
-											--join dropeadores.TarjetaCredito T on (T.clieteId=C.numeroDocumento)		
+			where c.numeroDocumento= @nroDoc
 	ELSE
 		SELECT * FROM dropeadores.Cliente c join dropeadores.Domicilio D on(C.cliente_domicilio=D.id)	
 											join dropeadores.TarjetaCredito T on (T.clieteId=C.numeroDocumento)		
@@ -1686,7 +1861,6 @@ AS
 	ELSE
 		SELECT * FROM dropeadores.Empresa E	join dropeadores.Domicilio D on(E.empresa_domicilio=d.id)
 		WHERE E.empresa_Cuit = @cuit
-
 
 ----------------
 
@@ -1945,11 +2119,12 @@ CREATE PROCEDURE [dropeadores].[getTablaPublicacion]
 AS
 	BEGIN
 	 
- 		select p.id as 'CODIGO', p.descripcion as 'DESCRIPCION', p.fechaEspectaculo, p.direccion as 'DIRECCION', u.fila as 'FILA', u.asiento as 'ASIENTO',rubro_Descripcion as 'RUBRO_DESCRIPCION' FROM dropeadores.Publicacion p 
+ 		select p.id as 'CODIGO', p.descripcion as 'DESCRIPCION', p.fechaEspectaculo, p.direccion as 'DIRECCION', u.fila as 'FILA', u.asiento as 'ASIENTO',rubro_Descripcion as 'RUBRO_DESCRIPCION',u.precio as 'PRECIO' FROM dropeadores.Publicacion p 
 		join dropeadores.Ubicacion u on (u.publicacionId = p.id)
+		join dropeadores.TipoUbicacion ti on (ti.codigo=u.tipoUbicacion)
 		join dropeadores.Grado g on(g.id=p.gradoId)
 		join dropeadores.Rubro r on (r.id=p.rubroId)
-		where p.fechaPublicacion >= @fechaSistema and u.estado=1 and p.estado=1
+		where p.fechaPublicacion >= @fechaSistema and u.estado=1 and p.estado=1 and fechaEspectaculo > @fechaSistema
 		order by g.porcentaje desc
 
 	END

@@ -386,22 +386,7 @@ namespace PalcoNet.Abm_Cliente
                 usuario.password = textNroIdenficiacion.Text;
                 usuario.creadoPor = "admin";
             }
-            else
-            {
-            
-                //if (usuariosCompletos())
-                //{
-
-                //    usuario.username = textUsername.Text;
-                //    usuario.password = textPassword.Text;
-                //    usuario.creadoPor = "cliente";
-                //}
-                //else
-                //{
-                //    return false;
-                //}
-            }
-           return true;
+            return true;
 		}
         private bool usuariosCompletos()
         {

@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -15,6 +16,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 	public partial class ModificarEmpresaElegida : Form
 	{
         Empresa empresa_Seleccionada;
+        ConfigGlobal archivoDeConfig = new ConfigGlobal();
         
 		public ModificarEmpresaElegida(string cuit)
 		{
@@ -106,10 +108,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                     empresa.Empresa_telefono = Convert.ToInt32(fila["empresa_telefono"]);
                 if (!(fila["empresa_mail"] is DBNull))
                     empresa.Empresa_mail = Convert.ToString(fila["empresa_mail"]);
-                //if (!(fila["empresa_razon_social"] is DBNull))
-                //if (!(fila["direccionDepto"] is DBNull))
-                // empresa.Direccion.calle_dpto = Convert.ToString(fila["direccionDepto"]);
-
+               
                 lista.Add(empresa);
             }
             return lista;
@@ -117,7 +116,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
         private void btnGuardar_Click(object sender, EventArgs e)
         {
 
-            if (true)
+            if (todosCamposCompletos())
             {
                 empresa_Seleccionada.Empresa_razon_social = textRazonSocial.Text;
                 empresa_Seleccionada.Empresa_Cuit = textCUIT.Text;
@@ -156,7 +155,118 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                 }
             }
         }
+        public static bool emailIsValid(string email)
+        {
+            string expresion;
+            expresion = "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+            if (Regex.IsMatch(email, expresion))
+            {
+                if (Regex.Replace(email, expresion, string.Empty).Length == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public static bool nameIsValid(string name)
+        {
+            string expresion;
+            expresion = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$";
+            if (Regex.IsMatch(name, expresion))
+            {
+                if (Regex.Replace(name, expresion, string.Empty).Length == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private bool todosCamposCompletos()
+        {
+            int value;
+            if (textRazonSocial.Text.Trim() == "" )
+            {
+                MessageBox.Show("Debe ingresar una RAZON SOCIAL.", "Error al crear Nueva empresa",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (textCUIT.Text.Trim() == "")
+            {
+                MessageBox.Show("Debe ingresar un CUIT.", "Error al crear Nueva empresa",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (textTelefono.Text.Trim() == "")
+            {
+                MessageBox.Show("Debe ingresar un TELEFONO.", "Error al crear Nueva empresa",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (textMail.Text.Trim() == "" || !emailIsValid(textMail.Text))
+            {
+                MessageBox.Show("Debe ingresar un MAIL valido.", "Error al crear Nueva empresa",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
 
+            if (textCiudad.Text.Trim() == "")
+            {
+                MessageBox.Show("Debe ingresar una CIUDAD.", "Error al crear Nueva empresa",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (textDireccion.Text.Trim() == "")
+            {
+                MessageBox.Show("Debe ingresar una DIRECCIÓN.", "Error al crear Nueva empresa",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (txtNro.Text.Trim() == "" || !int.TryParse(txtNro.Text, out value))
+            {
+                MessageBox.Show("Debe ingresar un EL NUMERO DE DIRECCÍON.", "Error al crear Nueva empresa",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (textPiso.Text.Trim() == "" || !int.TryParse(textPiso.Text, out value))
+            {
+                MessageBox.Show("Debe ingresar EL PISO .", "Error al crear Nueva empresa",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (textDepto.Text.Trim() == "")
+            {
+                MessageBox.Show("Debe ingresar el DEPARTAMENTO.", "Error al crear Nueva empresa",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (textLocalidad.Text.Trim() == "")
+            {
+                MessageBox.Show("Debe ingresar la LOCALIDAD.", "Error al crear Nueva empresa",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            } if (textCP.Text.Trim() == "" || !int.TryParse(textCP.Text, out value))
+            {
+                MessageBox.Show("Debe ingresar el CODIGO POSTAL.", "Error al crear Nueva empresa",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            return true;
+        }
         private void ModificarEmpresaElegida_Load(object sender, EventArgs e)
         {
             cargarDatos();
@@ -169,8 +279,8 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
-           // ModificacionEmpresa modEmp = new ModificacionEmpresa();
-           // modEmp.Show();
+           ModificacionEmpresa modEmp = new ModificacionEmpresa();
+           modEmp.Show();
             this.Hide();
         }
 	}

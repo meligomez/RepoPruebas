@@ -35,7 +35,8 @@ namespace PalcoNet.Comprar
 
             usuario = user;
             string medioDePago = "";
-            usuario.cliente.numeroDocumento = 35550990;
+           // usuario.cliente.numeroDocumento = 35550990;
+         
             DateTime today = fech.getFechaSistema();
             DateTime answer = today.AddDays(5);
             dateTimePickerDesde.Value = fech.getFechaSistema();
