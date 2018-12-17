@@ -36,21 +36,11 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
 
 		private void GenerarRendicionComisiones_Load(object sender, EventArgs e)
 		{
-			try
-			{
-				lblEmpresa.Text = userLog.empresa.Empresa_Cuit;
-				DataTable dt = new DataTable();
-				DaoSP dao = new DaoSP();
-				dt = dao.ObtenerDatosSP("dropeadores.GetComprasPorEmpresa", userLog.empresa.Empresa_Cuit);
-				//CargarData.cargarGridView(dataGridView1, dt);
-				dtSource = dt;
-				//CargarData.AddCheckColumn(dataGridView1, "seleccion");
-			}
-			catch (Exception ex)
-			{
-
-				throw ex;
-			}
+			DaoSP  dao= new DaoSP();
+			DataTable dt2 = dao.ConsultarConQuery("select distinct p.empresaId as 'Empresa' from dropeadores.Compra c join dropeadores.Ubicacion u" +
+						" on(u.asiento=c.compra_ubicacionAsiento and u.fila=c.compra_ubicacionFila and u.publicacionId=c.compra_ubicacionPublic)" +
+						" join dropeadores.Publicacion p on(p.id = u.publicacionId)");
+			CargarData.cargarComboBox(comboBox1, dt2, "Empresa", "Empresa");
 		}
 		private bool CheckFillButton()
 		{
@@ -144,7 +134,7 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
 							lblTotalConComision.Text = totalConComision.ToString();
 							rendicion.comisionTotalCobrada = totalConComision;
 							rendicion.pagadoAEmpresa = total;
-							rendicion.cuitEmpresa = userLog.empresa.Empresa_Cuit;
+							rendicion.cuitEmpresa = comboBox1.SelectedValue.ToString();
 							rendicionesAPagar.Add(rendicion);
 						}			
 				
@@ -164,7 +154,7 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
 		private void btnPagarEmpresa_Click(object sender, EventArgs e)
 		{
 
-	DialogResult dr = MessageBox.Show("¿Desea pagar las factuas a la empresa:  " + userLog.empresa.Empresa_Cuit + "?", "Pagar", MessageBoxButtons.YesNo);
+	DialogResult dr = MessageBox.Show("¿Desea pagar las factuas a la empresa:  " + comboBox1.SelectedValue + "?", "Pagar", MessageBoxButtons.YesNo);
 	switch (dr)
 	{
 		case DialogResult.Yes:
@@ -188,7 +178,7 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
 				lblTotalConComision.Text = totalConComision.ToString();
 				rendicion.comisionTotalCobrada = totalConComision;
 				rendicion.pagadoAEmpresa = total;
-				rendicion.cuitEmpresa = userLog.empresa.Empresa_Cuit;
+				rendicion.cuitEmpresa = comboBox1.SelectedValue.ToString();
 				rendicionesAPagar.Add(rendicion);
 	
 			}
@@ -196,7 +186,7 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
 			{
 				Factura f = new Factura();
 				ConfigGlobal cg = new ConfigGlobal();
-				f.empresaId = userLog.empresa.Empresa_Cuit;
+				f.empresaId = comboBox1.SelectedValue.ToString();
 				f.Fecha = cg.getFechaSistema();
 				f.TotalComisionCobrada = totalConComision;
 				f.TotalEmpresaPagado =  total - totalConComision; ;
@@ -339,21 +329,51 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
 				}
 				else
 				{
-					total = 0;
-					totalConComision = 0;
-					totalSinComision = 0;
-					for (int fila = 0; fila < int.Parse(txtCantPags.Text.ToString()) ; fila++)
-					{
-						totalConComision += ((decimal.Parse(dtSource.Rows[fila]["precio"].ToString()) * decimal.Parse(dtSource.Rows[fila]["porcentaje"].ToString()) / 100));
-						total += decimal.Parse(dtSource.Rows[fila]["precio"].ToString());
-						totalSinComision = total -totalConComision;
-						lblTotal.Text = totalSinComision.ToString();
-						lblTotalConComision.Text = totalConComision.ToString();
+					
+						total = 0;
+						totalConComision = 0;
+						totalSinComision = 0;
+						for (int fila = 0; fila < int.Parse(txtCantPags.Text.ToString()); fila++)
+						{
+							totalConComision += ((decimal.Parse(dtSource.Rows[fila]["precio"].ToString()) * decimal.Parse(dtSource.Rows[fila]["porcentaje"].ToString()) / 100));
+							total += decimal.Parse(dtSource.Rows[fila]["precio"].ToString());
+							totalSinComision = total - totalConComision;
+							lblTotal.Text = totalSinComision.ToString();
+							lblTotalConComision.Text = totalConComision.ToString();
 
-					}
+						}
 
-					FillGrid(int.Parse(txtCantPags.Text));
+						FillGrid(int.Parse(txtCantPags.Text));
+					
+					
 				}
+			}
+		}
+
+		private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			try
+			{
+				if (comboBox1.SelectedValue.ToString().Contains("Seleccione"))
+				{
+					MessageBox.Show("Debe selecionar una empresa");
+				}
+				else
+				{
+					//lblEmpresa.Text = userLog.empresa.Empresa_Cuit;
+					DataTable dt = new DataTable();
+					DaoSP dao = new DaoSP();
+					dt = dao.ObtenerDatosSP("dropeadores.GetComprasPorEmpresa", comboBox1.SelectedValue.ToString());
+					
+					dtSource = dt;
+					//CargarData.AddCheckColumn(dataGridView1, "seleccion");
+				}
+
+			}
+			catch (Exception ex)
+			{
+
+				throw ex;
 			}
 		}
 	}

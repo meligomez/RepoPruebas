@@ -333,7 +333,7 @@ insert into dropeadores.Funcionalidad (descripcion,menu) values
 					/*RolXFuncionalidad*/
 go
 insert into dropeadores.FuncionalidadXRol(funcionalidadId,rolId) values
-(1,1),(1,2),(1,3),(2,2),(3,2),(4,2),(6,2),(7,1),(8,1),(8,2),(9,3),(10,3),(11,3),(12,1),(13,1),(13,2),(13,3)
+(1,1),(1,2),(1,3),(2,2),(3,2),(4,2),(6,2),(7,1),(8,1),(8,2),(9,3),(10,3),(11,3),(12,2),(13,1),(13,2),(13,3)
 
 
 					/*Usuarios*/

@@ -48,6 +48,7 @@
 			this.btnLastPage = new System.Windows.Forms.Button();
 			this.btnNextPage = new System.Windows.Forms.Button();
 			this.txtCantPags = new System.Windows.Forms.MaskedTextBox();
+			this.comboBox1 = new System.Windows.Forms.ComboBox();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.panelNavegacion.SuspendLayout();
@@ -105,7 +106,7 @@
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(34, 120);
+			this.label2.Location = new System.Drawing.Point(20, 120);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(171, 24);
 			this.label2.TabIndex = 5;
@@ -249,12 +250,22 @@
 			this.txtCantPags.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.txtbox_Change);
 			this.txtCantPags.TextChanged += new System.EventHandler(this.textBox_Change);
 			// 
+			// comboBox1
+			// 
+			this.comboBox1.FormattingEnabled = true;
+			this.comboBox1.Location = new System.Drawing.Point(187, 112);
+			this.comboBox1.Name = "comboBox1";
+			this.comboBox1.Size = new System.Drawing.Size(172, 32);
+			this.comboBox1.TabIndex = 99;
+			this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+			// 
 			// GenerarRendicionComisiones
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 24F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.Silver;
 			this.ClientSize = new System.Drawing.Size(1150, 689);
+			this.Controls.Add(this.comboBox1);
 			this.Controls.Add(this.txtCantPags);
 			this.Controls.Add(this.panelNavegacion);
 			this.Controls.Add(this.label5);
@@ -305,5 +316,6 @@
 		internal System.Windows.Forms.Button btnLastPage;
 		internal System.Windows.Forms.Button btnNextPage;
 		private System.Windows.Forms.MaskedTextBox txtCantPags;
+		private System.Windows.Forms.ComboBox comboBox1;
 	}
 }

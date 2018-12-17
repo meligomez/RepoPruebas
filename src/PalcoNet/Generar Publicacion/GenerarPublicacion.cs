@@ -32,25 +32,28 @@ namespace PalcoNet.Generar_Publicacion
 
 		private void CategoriaUbicacion_Load(object sender, EventArgs e)
 		{
-			//Necesito en empresa un metodo que dado el id me devuelva la razon social.
-			DataTable dtGrado = new DataTable();
-			DataTable dtRubro = new DataTable();
-			DataTable dtTipoUbicacion = new DataTable();
-			DaoSP dao = new DaoSP();
-			dtGrado = dao.ConsultarConQuery("SELECT id, tipo FROM dropeadores.Grado");
-			dtRubro = dao.ConsultarConQuery("SELECT id,rubro_Descripcion FROM dropeadores.Rubro");
-			dtTipoUbicacion = dao.ConsultarConQuery("select distinct Ubicacion_Tipo_Descripcion,Ubicacion_Tipo_Codigo as Codigo from gd_esquema.Maestra");
-			CargarData.cargarComboBox(comboRubro, dtRubro, "id", "rubro_Descripcion");
-			CargarData.cargarComboBox(comboGradoPublicacion, dtGrado, "id", "tipo");
-			//CargarData.cargarComboBox(comboBox1, dtTipoUbicacion, "Ubicacion_Tipo_Descripcion", "Ubicacion_Tipo_Descripcion");
-			lblEstado.Visible = true;
-			lblUserLogueado.Visible = true;
-			btnSubirTxt.Visible = false;
-			//BUSCAR LA EMPRESAAAA!!
-			lblUserLogueado.Text = userLogueado.empresa.Empresa_Cuit;
-			lblEstado.Text = "Borrador";
-			dateTimePickerEspectaculo.Format = DateTimePickerFormat.Custom;
-			dateTimePickerEspectaculo.CustomFormat = "dd/MM/yyyy hh:mm:ss";
+		
+				//Necesito en empresa un metodo que dado el id me devuelva la razon social.
+				DataTable dtGrado = new DataTable();
+				DataTable dtRubro = new DataTable();
+				DataTable dtTipoUbicacion = new DataTable();
+				DaoSP dao = new DaoSP();
+				dtGrado = dao.ConsultarConQuery("SELECT id, tipo FROM dropeadores.Grado");
+				dtRubro = dao.ConsultarConQuery("SELECT id,rubro_Descripcion FROM dropeadores.Rubro");
+				dtTipoUbicacion = dao.ConsultarConQuery("select distinct Ubicacion_Tipo_Descripcion,Ubicacion_Tipo_Codigo as Codigo from gd_esquema.Maestra");
+				CargarData.cargarComboBox(comboRubro, dtRubro, "id", "rubro_Descripcion");
+				CargarData.cargarComboBox(comboGradoPublicacion, dtGrado, "id", "tipo");
+				//CargarData.cargarComboBox(comboBox1, dtTipoUbicacion, "Ubicacion_Tipo_Descripcion", "Ubicacion_Tipo_Descripcion");
+				lblEstado.Visible = true;
+				lblUserLogueado.Visible = true;
+				btnSubirTxt.Visible = false;
+				//BUSCAR LA EMPRESAAAA!!
+				lblUserLogueado.Text = userLogueado.empresa.Empresa_Cuit;
+				lblEstado.Text = "Borrador";
+				dateTimePickerEspectaculo.Format = DateTimePickerFormat.Custom;
+				dateTimePickerEspectaculo.CustomFormat = "dd/MM/yyyy hh:mm:ss";
+		
+			
 
 		}
 
@@ -119,6 +122,12 @@ namespace PalcoNet.Generar_Publicacion
 
 		private bool validarData()
 		{
+			if(userLogueado.empresa.Empresa_Cuit=="0")
+			{
+				MessageBox.Show("Los administradores no pueden generar publicaciones.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				return false;
+			}
+
 			ConfigGlobal cg = new ConfigGlobal();
 			if (radioSi.Checked)
 			{
