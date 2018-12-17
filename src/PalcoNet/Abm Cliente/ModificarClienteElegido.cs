@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -15,6 +16,7 @@ namespace PalcoNet.Abm_Cliente
 	public partial class ModificarClienteElegido : Form
 	{
 		Cliente cliente_seleccionado;
+        ConfigGlobal fech = new ConfigGlobal();
         int nroDOCViejo = 0;
 		public ModificarClienteElegido(string tipoDoc, int nroDoc)
 		{
@@ -149,7 +151,7 @@ namespace PalcoNet.Abm_Cliente
 		private void btnGuardar_Click(object sender, EventArgs e)
 		{
 
-			if (chequearDatos())
+            if (todosCamposCompletos())
 			{
 
 				cliente_seleccionado.nombre = txtNombre.Text;
@@ -196,21 +198,64 @@ namespace PalcoNet.Abm_Cliente
 		}
 
 
-        private bool chequearDatos()
+        public static bool emailIsValid(string email)
         {
-            if (txtNombre.Text.Trim() == "")
+            string expresion;
+            expresion = "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+            if (Regex.IsMatch(email, expresion))
             {
-                MessageBox.Show("Debe ingresar un nombre.", "Error al crear Nuevo Usuario",
+                if (Regex.Replace(email, expresion, string.Empty).Length == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public static bool nameIsValid(string name)
+        {
+            string expresion;
+            expresion = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$";
+            if (Regex.IsMatch(name, expresion))
+            {
+                if (Regex.Replace(name, expresion, string.Empty).Length == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        
+        private bool todosCamposCompletos()
+        {
+            if (txtNombre.Text.Trim() == "" || !nameIsValid(txtNombre.Text))
+            {
+                MessageBox.Show("Debe ingresar un nombre válido", "Error al crear Nuevo Usuario",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (txtApellido.Text.Trim() == "")
+
+            if (txtApellido.Text.Trim() == "" || !nameIsValid(txtApellido.Text))
             {
-                MessageBox.Show("Debe ingresar un apellido.", "Error al crear Nuevo Usuario",
+                MessageBox.Show("Debe ingresar un apellido válido", "Error al crear Nuevo Usuario",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (textMail.Text.Trim() == "")
+            if (textMail.Text.Trim() == "" || !emailIsValid(textMail.Text))
             {
                 MessageBox.Show("Debe ingresar un mail.", "Error al crear Nuevo Usuario",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -223,6 +268,7 @@ namespace PalcoNet.Abm_Cliente
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
+
             if (dateTimePickerFechaNac.Value == null)
             {
                 MessageBox.Show("Debe ingresar una fecha de nacimiento.", "Error al crear Nuevo Usuario",
@@ -235,19 +281,35 @@ namespace PalcoNet.Abm_Cliente
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (txtNro.Text.Trim() == "")
+            if (txtNro.Text.Trim() == "" || txtNro.Text == null)
             {
                 MessageBox.Show("Debe ingresar un numero de direccion.", "Error al crear Nuevo Usuario",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
+
+            if (txtNroIdentificacion.Text.Trim() == "" || txtNroIdentificacion.Text == null)
+            {
+                MessageBox.Show("Debe ingresar un numero de DNI.", "Error al crear Nuevo Usuario",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if ((Convert.ToInt32(txtNroIdentificacion.Text) <= 11111111) || (Convert.ToInt32(txtNroIdentificacion.Text) > 99999999))
+            {
+                MessageBox.Show("Debe ingresar un numero de DNI Valido.   XXXXXXXX", "Error al crear Nuevo Usuario",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+
+
             if (textLocalidad.Text.Trim() == "")
             {
                 MessageBox.Show("Debe ingresar una localidad.", "Error al crear Nuevo Usuario",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (txtTarjProp.Text.Trim() == "")
+            if (txtTarjProp.Text.Trim() == "" || !nameIsValid(txtTarjProp.Text))
             {
                 MessageBox.Show("Debe ingresar un propietario de tarjeta.", "Error al crear Nuevo Usuario",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -259,16 +321,50 @@ namespace PalcoNet.Abm_Cliente
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
+            if (txtTarjNum.Text.Length != 16)
+            {
+                MessageBox.Show("Debe ingresar un numero de tarjeta valido. XXXX-XXXX-XXXX-XXXX, SIN '-' ", "Error al crear Nuevo Usuario",
+                       MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (textCUIL.Text.Length != 11)
+            {
+                MessageBox.Show("Debe ingresar un numero de Cuil valido. XX-XXXXXXXX-X, SIN '-' ", "Error al crear Nuevo Usuario",
+                       MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            else
+            {
+                if ((Convert.ToInt64(txtTarjNum.Text) <= 0000000000000000) || (Convert.ToInt64(txtTarjNum.Text) > 9999999999999999))
+                {
+                    MessageBox.Show("Debe ingresar un numero de tarjeta valido. XXXXXXXXXXXXXXXX ", "Error al crear Nuevo Usuario",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
             if (dateTimePickerVenc.Value == null)
             {
                 MessageBox.Show("Debe ingresar una fecha de nacimiento.", "Error al crear Nuevo Usuario",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-
+            DateTime hoy = fech.getFechaSistema();
+            if (hoy < dateTimePickerFechaNac.Value.Date)
+            {
+                MessageBox.Show("La fecha de nacimiento debe ser anterior al dia actual");
+                return false;
+            }
+            if (hoy > dateTimePickerVenc.Value.Date)
+            {
+                MessageBox.Show("La fecha de vencimiento debe ser posterior al dia actual");
+                return false;
+            }
+            Usuario usuario = new Usuario();
+           
             return true;
         }
         
+
 		private void btnVolver_Click(object sender, EventArgs e)
 		{
 			this.Hide();

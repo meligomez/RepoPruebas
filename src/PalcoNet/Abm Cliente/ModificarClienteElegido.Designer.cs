@@ -62,7 +62,6 @@
             this.textTelefono = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.textMail = new System.Windows.Forms.TextBox();
-            this.txtNroIdentificacion = new System.Windows.Forms.TextBox();
             this.txtApellido = new System.Windows.Forms.TextBox();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -72,6 +71,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label21 = new System.Windows.Forms.Label();
+            this.txtNroIdentificacion = new System.Windows.Forms.MaskedTextBox();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -383,14 +383,6 @@
             this.textMail.Size = new System.Drawing.Size(143, 20);
             this.textMail.TabIndex = 121;
             // 
-            // txtNroIdentificacion
-            // 
-            this.txtNroIdentificacion.Location = new System.Drawing.Point(316, 123);
-            this.txtNroIdentificacion.Name = "txtNroIdentificacion";
-            this.txtNroIdentificacion.Size = new System.Drawing.Size(143, 20);
-            this.txtNroIdentificacion.TabIndex = 120;
-            this.txtNroIdentificacion.TextChanged += new System.EventHandler(this.txtNroIdentificacion_TextChanged);
-            // 
             // txtApellido
             // 
             this.txtApellido.Location = new System.Drawing.Point(318, 77);
@@ -469,12 +461,21 @@
             this.label21.TabIndex = 136;
             this.label21.Text = "Sin \"-\"";
             // 
+            // txtNroIdentificacion
+            // 
+            this.txtNroIdentificacion.Location = new System.Drawing.Point(335, 126);
+            this.txtNroIdentificacion.Mask = "99999999";
+            this.txtNroIdentificacion.Name = "txtNroIdentificacion";
+            this.txtNroIdentificacion.Size = new System.Drawing.Size(117, 20);
+            this.txtNroIdentificacion.TabIndex = 137;
+            // 
             // ModificarClienteElegido
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(600, 566);
+            this.Controls.Add(this.txtNroIdentificacion);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.checkBaja);
             this.Controls.Add(this.btnVolver);
@@ -491,7 +492,6 @@
             this.Controls.Add(this.textTelefono);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.textMail);
-            this.Controls.Add(this.txtNroIdentificacion);
             this.Controls.Add(this.txtApellido);
             this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.label7);
@@ -549,8 +549,7 @@
 		private System.Windows.Forms.DateTimePicker dateTimePickerFechaNac;
 		private System.Windows.Forms.TextBox textTelefono;
 		private System.Windows.Forms.Label label8;
-		private System.Windows.Forms.TextBox textMail;
-		private System.Windows.Forms.TextBox txtNroIdentificacion;
+        private System.Windows.Forms.TextBox textMail;
 		private System.Windows.Forms.TextBox txtApellido;
 		private System.Windows.Forms.TextBox txtNombre;
 		private System.Windows.Forms.Label label7;
@@ -560,5 +559,6 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.MaskedTextBox txtNroIdentificacion;
 	}
 }
