@@ -477,7 +477,7 @@
             // textTelefono
             // 
             this.textTelefono.Location = new System.Drawing.Point(115, 159);
-            this.textTelefono.Mask = "99999999999";
+            this.textTelefono.Mask = "99999999";
             this.textTelefono.Name = "textTelefono";
             this.textTelefono.Size = new System.Drawing.Size(181, 26);
             this.textTelefono.TabIndex = 117;

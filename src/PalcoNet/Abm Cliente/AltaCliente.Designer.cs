@@ -395,7 +395,7 @@
             // textPiso
             // 
             this.textPiso.Location = new System.Drawing.Point(53, 69);
-            this.textPiso.Mask = "99999";
+            this.textPiso.Mask = "999";
             this.textPiso.Name = "textPiso";
             this.textPiso.Size = new System.Drawing.Size(86, 26);
             this.textPiso.TabIndex = 121;

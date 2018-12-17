@@ -94,7 +94,7 @@ namespace PalcoNet.Abm_Cliente
                 if (!(fila["codigoPostal"] is DBNull))
                     dom.cp = Convert.ToInt32(fila["codigoPostal"]);
                 cli.Cli_Dir = dom;
-                if (dao.EjecutarSP("dropeadores.ExistTarjetaCliente", cli.numeroDocumento) <=0)
+                if (dao.EjecutarSP("dropeadores.ExistTarjetaCliente", cli.numeroDocumento) ==0)
                 {
                     tar.propietario = " ";
                     tar.numero = " ";
@@ -102,9 +102,9 @@ namespace PalcoNet.Abm_Cliente
                 }
                 else
                 {
-                    //tar.propietario = Convert.ToString(fila["propietario"]);
-                    //tar.numero = Convert.ToString(fila["numero"]);
-                    //tar.fechaVencimiento = Convert.ToDateTime(fila["fechaVencimiento"]);
+                    tar.propietario = Convert.ToString(fila["propietario"]);
+                    tar.numero = Convert.ToString(fila["numero1"]);
+                    tar.fechaVencimiento = Convert.ToDateTime(fila["fechaVencimiento"]);
                  
                 }
                 cli.Cli_Tar = tar;
