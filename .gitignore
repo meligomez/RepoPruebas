@@ -3,3 +3,7 @@ src/PalcoNet/bin/Debug
 src/PalcoNet/.vs
 src/PalcoNet/PalcoNet.csproj
 src/PalcoNet/obj/Debug
+*.pdb
+src/PalcoNet/obj/Debug/PalcoNet.csproj.FileListAbsolute.txt
+src/PalcoNet/bin/Debug/PalcoNet.vshost.exe.manifest
+src/PalcoNet/bin/Debug/PalcoNet.vshost.exe.config

@@ -50,7 +50,7 @@ namespace PalcoNet.Generar_Publicacion
 			lblUserLogueado.Text = userLogueado.empresa.Empresa_Cuit;
 			lblEstado.Text = "Borrador";
 			dateTimePickerEspectaculo.Format = DateTimePickerFormat.Custom;
-			dateTimePickerEspectaculo.CustomFormat = "MM/dd/yyyy hh:mm:ss";
+			dateTimePickerEspectaculo.CustomFormat = "dd/MM/yyyy hh:mm:ss";
 
 		}
 
@@ -168,6 +168,12 @@ namespace PalcoNet.Generar_Publicacion
 			{
 				MessageBox.Show("debe escribir una descripcion", "¡Advertencia!",
 				MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				return false;
+			}
+			if(publicacion.existeDescripcion(textDescripcion.Text))
+			{
+				MessageBox.Show("Ya existe una publicacion con esa Descripcion", "¡Advertencia!",
+								MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				return false;
 			}
 			if (textDireccion.Text == "")

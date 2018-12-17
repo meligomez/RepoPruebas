@@ -38,8 +38,8 @@ namespace PalcoNet.Registro_de_Usuario
 				{
 					MessageBox.Show("Contraseña cambiada exitosamente", "¡Correcto!",
 							MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-					panelContenedor vgral = new panelContenedor(userCP);
-					vgral.Show();
+					//panelContenedor vgral = new panelContenedor(userCP);
+					//vgral.Show();
 					this.Hide();
 				}
 			}
