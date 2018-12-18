@@ -43,6 +43,7 @@ namespace Modelo.Dominio
             get { return documento.Tipo; }
             set { documento.Tipo = value; }
         }
+        
 
 		public static int actualizar(Cliente cliente_seleccionado, int nroViejo)
 		{
@@ -62,7 +63,6 @@ namespace Modelo.Dominio
 			string email = cliente_seleccionado.mail;
 			int telefono = cliente_seleccionado.telefono;
 			DateTime fecha_nacimiento = cliente_seleccionado.fechaNacimiento;
-			//string fecha_nacimiento = (cliente_seleccionado.Fecha_nacimiento_struct != null) ? cliente_seleccionado.Fecha_nacimiento : cadena_nula;
 			string calle = cliente_seleccionado.Cli_Dir.calle;
 			int numero = cliente_seleccionado.Cli_Dir.numero;
 			int piso = cliente_seleccionado.Cli_Dir.piso;
@@ -141,6 +141,21 @@ namespace Modelo.Dominio
 			return cant;
 
 		}
+
+
+        public int NroDocu
+        {
+            get { return documento.nroDoc; }
+            set { documento.nroDoc = (int)value; }
+        }
+
+        public string TipoDocu
+        {
+            get { return documento.tipoDoc; }
+            set { documento.tipoDoc = value; }
+        }
+
+
 		public static int updateTarj(Cliente cli)
 		{
 			DataTable dt, dr = new DataTable();

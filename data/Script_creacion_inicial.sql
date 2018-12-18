@@ -1402,8 +1402,8 @@ end
 
 ---------------
 
+USE [GD2C2018]
 GO
-/****** Object:  StoredProcedure [dropeadores].[Usuario_Alta]    Script Date: 07/12/2018 20:00:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1415,7 +1415,6 @@ insert into dropeadores.Usuario(username,password,clienteId,Fecha_Password,cread
 (@user,@password,@idCliente,@fechaCreacion,@creadoPor)
 Select Max(id)as'Id'from [dropeadores].Usuario
 end
-
 
 -----------
 
@@ -1817,7 +1816,6 @@ CREATE PROCEDURE [dropeadores].[ObtenerClienteEspecifico]
 	@tipoDoc nvarchar(50),
 	@nroDoc numeric(18, 0)
 AS
-	--SI RECIBE -1, MUESTRA TODOS LOS HUESPEDES
 
 	IF ((select count(T.Id)
 		from dropeadores.TarjetaCredito T 

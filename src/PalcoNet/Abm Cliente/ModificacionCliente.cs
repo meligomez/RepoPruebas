@@ -61,15 +61,7 @@ namespace PalcoNet.Abm_Cliente
 			DaoSP dao = new DaoSP();
 			DataTable tabla_Cliente;
 			int docVacio = 0;
-			if (numDoc != docVacio)
-			{
-				tabla_Cliente = dao.ObtenerDatosSP("dropeadores.getCliente", numDoc);
-			}
-			else
-			{
-				tabla_Cliente = dao.ObtenerDatosSP("dropeadores.getCliente", docVacio);
-			}
-
+			tabla_Cliente = dao.ObtenerDatosSP("dropeadores.getCliente");
 			var final_rol = "";
 			var posFiltro = true;
 			var filtrosBusqueda = new List<string>();

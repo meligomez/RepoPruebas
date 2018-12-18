@@ -778,10 +778,11 @@
             // textTelefono
             // 
             this.textTelefono.Location = new System.Drawing.Point(105, 253);
-            this.textTelefono.Mask = "9999999999";
+            this.textTelefono.Mask = "99999999";
             this.textTelefono.Name = "textTelefono";
             this.textTelefono.Size = new System.Drawing.Size(177, 26);
             this.textTelefono.TabIndex = 121;
+            this.textTelefono.ValidatingType = typeof(int);
             // 
             // AltaCliente
             // 

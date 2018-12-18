@@ -468,6 +468,7 @@
             this.txtNroIdentificacion.Name = "txtNroIdentificacion";
             this.txtNroIdentificacion.Size = new System.Drawing.Size(117, 20);
             this.txtNroIdentificacion.TabIndex = 137;
+            this.txtNroIdentificacion.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.txtNroIdentificacion_MaskInputRejected);
             // 
             // ModificarClienteElegido
             // 

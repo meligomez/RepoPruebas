@@ -209,12 +209,18 @@ namespace PalcoNet.Abm_Cliente
 					cli.Cli_Tar = tar;
 					//Alta del cliente
 					int resp = usuario.Alta();
-					if (resp != 0)
+					if (resp == -1) 
 					{
 						MessageBox.Show("Error!. No se ha creado el Usuario.", "Error al crear Nuevo Usuario",
 						MessageBoxButtons.OK, MessageBoxIcon.Error);
 						return;
 					}
+                    if (resp == 7)
+                    {
+                        MessageBox.Show("Error!. No se ha creado el Usuario. DNI ingresado anteriormente.", "Error al crear Nuevo Usuario",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
 					if (rolLogueado != "sin Rol")
 					{
 						MessageBox.Show("Cliente " + textNombre.Text + " creado, tiene hasta el día " + (usuario.fechaCreacionPsw.AddDays(2)) + " Para cambiar la password creada por defecto.", "Usuario Creado",
@@ -349,7 +355,7 @@ namespace PalcoNet.Abm_Cliente
             }
             if (textCUIL.Text.Length != 11)
             {
-                MessageBox.Show("Debe ingresar un numero de Cuil valido. XX-XXXXXXXX-X, SIN '-' ", "Error al crear Nuevo Usuario",
+                MessageBox.Show("Debe ingresar un numero de Cuil valido. XX-DNI-X, SIN '-' ", "Error al crear Nuevo Usuario",
                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }   

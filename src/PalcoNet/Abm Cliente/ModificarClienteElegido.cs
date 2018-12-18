@@ -46,16 +46,7 @@ namespace PalcoNet.Abm_Cliente
         {
 
             DaoSP dao = new DaoSP();
-            if (dao.EjecutarSP("dropeadores.ExistTarjetaCliente", nroDoc) != 0)
-            {
-                return dao.ObtenerDatosSP("dropeadores.ObtenerClienteEspecifico", tipoDoc, nroDoc);
-            }
-            else
-            {
-                return dao.ObtenerDatosSP("dropeadores.ObtenerClienteSinTarjeta", tipoDoc, nroDoc);
-                
-            }
-           
+              return dao.ObtenerDatosSP("dropeadores.ObtenerClienteEspecifico", tipoDoc, nroDoc);
         }
 
         public static Cliente obtener(string tipoDoc, int nroDoc)
@@ -80,6 +71,7 @@ namespace PalcoNet.Abm_Cliente
                 tar.fechaVencimiento = archivoDeConfig.getFechaSistema();
                 cli.apellido = Convert.ToString(fila["apellido"]);
                 cli.nombre = Convert.ToString(fila["nombre"]);
+                cli.TipoDocu = Convert.ToString(fila["TipoDocumento"]);
                 cli.numeroDocumento = Convert.ToInt32(fila["numeroDocumento"]);
                 cli.fechaNacimiento = Convert.ToDateTime(fila["fechaNacimiento"]);
                 cli.estado = Convert.ToBoolean(fila["estado"]);
@@ -100,12 +92,23 @@ namespace PalcoNet.Abm_Cliente
                 if (!(fila["codigoPostal"] is DBNull))
                     dom.cp = Convert.ToInt32(fila["codigoPostal"]);
                 cli.Cli_Dir = dom;
-                if (dao.EjecutarSP("dropeadores.ExistTarjetaCliente", cli.numeroDocumento) ==0)
-
+                string query2 = "select count(T.Id) as 'cantidad' from dropeadores.TarjetaCredito T join dropeadores.Cliente C on (C.NumeroDocumento=T.clieteId) where T.clieteId = " + Convert.ToInt32(fila["numeroDocumento"]);
+                DataTable dr = dao.ConsultarConQuery(query2);
+                DataRow roww = dr.Rows[0];
+                int cantDNI = int.Parse(roww["cantidad"].ToString());
+                if (cantDNI == 0)
+                
+               // if (dao.EjecutarSP("dropeadores.ExistTarjetaCliente", cli.numeroDocumento) == 0)
                 {
                     tar.propietario = " ";
                     tar.numero = " ";
-                    tar.fechaVencimiento = archivoDeConfig.getFechaSistema(); 
+                    tar.fechaVencimiento = archivoDeConfig.getFechaSistema();
+                }
+                else
+                {
+                    tar.propietario = Convert.ToString(fila["propietario"]);
+                    tar.numero = Convert.ToString(fila["numero1"]);
+                    tar.fechaVencimiento = Convert.ToDateTime(fila["fechaVencimiento"]);
                 }
 
                 cli.Cli_Tar = tar;
@@ -113,11 +116,15 @@ namespace PalcoNet.Abm_Cliente
             }
             return lista;
         }
-		private void cargarDatos()
+
+         private void cargarDatos()
 		{
+          
 			txtNombre.Text = cliente_seleccionado.nombre;
 			txtApellido.Text = cliente_seleccionado.apellido;
 			txtNroIdentificacion.Text = cliente_seleccionado.numeroDocumento.ToString();
+
+           
             comboTipoDoc.SelectedIndex = (int)cliente_seleccionado.TipoDocu_enum;
 			textCUIL.Text = cliente_seleccionado.cuil;
 			textTelefono.Text = cliente_seleccionado.telefono.ToString();
@@ -160,6 +167,7 @@ namespace PalcoNet.Abm_Cliente
 				cliente_seleccionado.mail = textMail.Text;
 				cliente_seleccionado.telefono = Int32.Parse(textTelefono.Text);
 				cliente_seleccionado.Cli_Dir.calle = textDireccion.Text;
+                cliente_seleccionado.cuil = textCUIL.Text;
 				cliente_seleccionado.Cli_Dir.numero = Int32.Parse(txtNro.Text);
 				if (textPiso.Text != "")
 					cliente_seleccionado.Cli_Dir.piso = Int32.Parse(textPiso.Text);
@@ -173,12 +181,13 @@ namespace PalcoNet.Abm_Cliente
                 cliente_seleccionado.Cli_Tar.numero =(txtTarjNum.Text);
                 cliente_seleccionado.Cli_Tar.fechaVencimiento = DateTime.Parse(dateTimePickerVenc.Text);
 				cliente_seleccionado.estado = checkBaja.Checked;
-                if (Cliente.actualizar(cliente_seleccionado,nroDOCViejo) == 1)
+                int rta= Cliente.actualizar(cliente_seleccionado,nroDOCViejo);
+                if (rta== 1)
 				{
 					MessageBox.Show("Error al modificar el Cliente.", "Error al Modificar Cliente",
 					MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
-                if (Cliente.actualizar(cliente_seleccionado, nroDOCViejo) == 0)
+                if (rta==0)
 				{
 					MessageBox.Show("Cliente Modificado Correctamente.", "Modificar Cliente",
 					MessageBoxButtons.OK, MessageBoxIcon.None);
@@ -186,7 +195,7 @@ namespace PalcoNet.Abm_Cliente
 					this.Close();
 				}
 
-                if (Cliente.actualizar(cliente_seleccionado, nroDOCViejo) == 9)
+                if (rta==9)
                 {
                     MessageBox.Show("Error al modificar el Cliente, dni ya ingresado.", "Error al Modificar Cliente",
                    MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -325,7 +334,7 @@ namespace PalcoNet.Abm_Cliente
                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (textCUIL.Text.Length >= 11)
+            if (textCUIL.Text.Length > 11)
             {
                 MessageBox.Show("Debe ingresar un numero de Cuil valido. XX-XXXXXXXX-X, SIN '-' ", "Error al crear Nuevo Usuario",
                        MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -369,6 +378,11 @@ namespace PalcoNet.Abm_Cliente
 		}
 
         private void txtNroIdentificacion_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtNroIdentificacion_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
         {
 
         }

@@ -53,7 +53,7 @@ namespace Modelo.Dominio
 
 		#endregion
 
-		private DocumentoTipoEnum enumByString(string cadena)
+		public DocumentoTipoEnum enumByString(string cadena)
 		{
 			switch (cadena)
 			{
@@ -63,13 +63,13 @@ namespace Modelo.Dominio
 					return DocumentoTipoEnum.LC;
 				case "LE":
 					return DocumentoTipoEnum.LE;
-				case "Pasaporte":
+				case "PASAPORTE":
 					return DocumentoTipoEnum.Pasaporte;
 			}
 			return DocumentoTipoEnum.DNI;
 		}
 
-		private string stringByEnum(DocumentoTipoEnum enumerador)
+		public string stringByEnum(DocumentoTipoEnum enumerador)
 		{
 			switch (enumerador)
 			{
