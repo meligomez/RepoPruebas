@@ -1282,29 +1282,8 @@ select descripcion from dropeadores.TipoUbicacion where codigo=@codigo
 end
 GO
 /**************FIN getDescripcionCategoriaById*****************/
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE  procedure [dropeadores].[Cli_Alta] 
-(@nombre nvarchar(255),@apellido nvarchar(255),@tipoDoc nvarchar(50),@dni numeric(18,0), @mail varchar(255),@fechaNacimiento datetime,@cuil varchar(255),@telefono numeric(10,0),@cliente_domicilio int,@fechaCreacion datetime)
-as
-begin
-insert into  GD2C2018.[dropeadores].Cliente (numeroDocumento,nombre,apellido,tipoDocumento,cuil,mail,fechaNacimiento,cliente_domicilio,telefono,estado,fechaCreacion)
- values (@dni,@nombre,@apellido,@tipoDoc,@cuil, @mail,@fechaNacimiento,@cliente_domicilio,@telefono,1,@fechaCreacion)
-end
 
-/**************INICIO ExistTarjetaCliente*****************/
-GO
-Create procedure [dropeadores].[ExistTarjetaCliente]
-@dni numeric(18, 0)
-as
-select count(T.Id)
-from dropeadores.TarjetaCredito T 
-join dropeadores.Cliente C on (C.NumeroDocumento=T.clieteId) 
-where T.clieteId=@dni
-/**************FIN ExistTarjetaCliente*****************/
+----------------------------------------------------------------------------------------
 
 
 /**************INICIO ALTA CLIENTE*****************/
