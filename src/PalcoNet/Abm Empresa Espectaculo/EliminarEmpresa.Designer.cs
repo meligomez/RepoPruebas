@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EliminarEmpresa));
             this.label5 = new System.Windows.Forms.Label();
             this.textEmail = new System.Windows.Forms.TextBox();
-            this.textCUIT = new System.Windows.Forms.TextBox();
             this.textRazonSocial = new System.Windows.Forms.TextBox();
             this.text = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -43,6 +42,7 @@
             this.botonBuscar = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
+            this.textCUIT = new System.Windows.Forms.MaskedTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEmpresa)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -64,14 +64,6 @@
             this.textEmail.Name = "textEmail";
             this.textEmail.Size = new System.Drawing.Size(226, 26);
             this.textEmail.TabIndex = 95;
-            // 
-            // textCUIT
-            // 
-            this.textCUIT.Location = new System.Drawing.Point(476, 136);
-            this.textCUIT.Margin = new System.Windows.Forms.Padding(4);
-            this.textCUIT.Name = "textCUIT";
-            this.textCUIT.Size = new System.Drawing.Size(226, 26);
-            this.textCUIT.TabIndex = 94;
             // 
             // textRazonSocial
             // 
@@ -181,19 +173,27 @@
             this.label21.TabIndex = 110;
             this.label21.Text = "XX-XXXXXXXX-XX";
             // 
+            // textCUIT
+            // 
+            this.textCUIT.Location = new System.Drawing.Point(483, 133);
+            this.textCUIT.Mask = "99-99999999-9";
+            this.textCUIT.Name = "textCUIT";
+            this.textCUIT.Size = new System.Drawing.Size(198, 26);
+            this.textCUIT.TabIndex = 119;
+            // 
             // EliminarEmpresa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(845, 522);
+            this.Controls.Add(this.textCUIT);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.botonBuscar);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textEmail);
-            this.Controls.Add(this.textCUIT);
             this.Controls.Add(this.textRazonSocial);
             this.Controls.Add(this.text);
             this.Controls.Add(this.label2);
@@ -217,8 +217,7 @@
 		#endregion
 
 		private System.Windows.Forms.Label label5;
-		private System.Windows.Forms.TextBox textEmail;
-		private System.Windows.Forms.TextBox textCUIT;
+        private System.Windows.Forms.TextBox textEmail;
 		private System.Windows.Forms.TextBox textRazonSocial;
 		private System.Windows.Forms.Label text;
 		private System.Windows.Forms.Label label2;
@@ -230,5 +229,6 @@
         private System.Windows.Forms.Button botonBuscar;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.MaskedTextBox textCUIT;
 	}
 }

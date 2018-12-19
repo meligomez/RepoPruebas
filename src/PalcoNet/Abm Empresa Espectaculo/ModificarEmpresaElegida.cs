@@ -23,6 +23,9 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 			InitializeComponent();
             DaoSP dao = new DaoSP();
             empresa_Seleccionada = obtener(cuit);
+            textCUIT.ReadOnly = true;
+            textRazonSocial.ReadOnly = true;
+          
             if (empresa_Seleccionada == null)
             {
                 MessageBox.Show("Error al cargar el cliente.", "Error al Modificar Cliente",
@@ -33,8 +36,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
 
         private void cargarDatos()
-        {  //empresa_Seleccionada.Empresa_estado = true;
-            textRazonSocial.Text = empresa_Seleccionada.Empresa_razon_social;
+        {   textRazonSocial.Text = empresa_Seleccionada.Empresa_razon_social;
             textCUIT.Text = empresa_Seleccionada.Empresa_Cuit;
             textTelefono.Text = empresa_Seleccionada.Empresa_telefono.ToString();
             textMail.Text = empresa_Seleccionada.Empresa_mail;
@@ -241,24 +243,25 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (textPiso.Text.Trim() == "" || !int.TryParse(textPiso.Text, out value))
+            if (textPiso.Text.Trim() != "" && !int.TryParse(textPiso.Text, out value))
             {
                 MessageBox.Show("Debe ingresar EL PISO .", "Error al crear Nueva empresa",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (textDepto.Text.Trim() == "")
-            {
-                MessageBox.Show("Debe ingresar el DEPARTAMENTO.", "Error al crear Nueva empresa",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if (textLocalidad.Text.Trim() == "")
-            {
-                MessageBox.Show("Debe ingresar la LOCALIDAD.", "Error al crear Nueva empresa",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            } if (textCP.Text.Trim() == "" || !int.TryParse(textCP.Text, out value))
+            //if (textDepto.Text.Trim() == "")
+            //{
+            //    MessageBox.Show("Debe ingresar el DEPARTAMENTO.", "Error al crear Nueva empresa",
+            //            MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return false;
+            //}
+            //if (textLocalidad.Text.Trim() == "")
+            //{
+            //    MessageBox.Show("Debe ingresar la LOCALIDAD.", "Error al crear Nueva empresa",
+            //            MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return false;
+            //}
+            if (textCP.Text.Trim() != "" && !int.TryParse(textCP.Text, out value))
             {
                 MessageBox.Show("Debe ingresar el CODIGO POSTAL.", "Error al crear Nueva empresa",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);

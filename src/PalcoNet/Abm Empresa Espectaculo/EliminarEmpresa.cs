@@ -33,7 +33,8 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
             DaoSP prueba = new DaoSP();
 
-            CargarData.cargarGridView(dataGridViewEmpresa, prueba.ConsultarConQuery("select empresa_Cuit as 'CUIT',empresa_mail as 'MAIL',empresa_razon_social as 'RAZON SOCIAL',empresa_estado from dropeadores.Empresa WHERE empresa_estado=1"));
+           // CargarData.cargarGridView(dataGridViewEmpresa, prueba.ConsultarConQuery("select empresa_Cuit as 'CUIT',empresa_mail as 'MAIL',empresa_razon_social as 'RAZON SOCIAL',empresa_estado from dropeadores.Empresa WHERE empresa_estado=1"));
+            CargarData.cargarGridView(dataGridViewEmpresa, prueba.ConsultarConQuery("select empresa_Cuit as 'CUIT',empresa_mail as 'MAIL',empresa_razon_social as 'RAZON SOCIAL',empresa_estado from dropeadores.Empresa "));
 
             CargarData.AddButtonEliminar(dataGridViewEmpresa);
         
@@ -75,13 +76,15 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             DaoSP dao = new DaoSP();
             DataTable tabla_empresa;
             Empresa emp = new Empresa();
-           tabla_empresa = dao.ObtenerDatosSP("dropeadores.getEmpresa");
+
+            tabla_empresa = dao.ObtenerDatosSP("dropeadores.getEmpresa");
+
             var final_rol = "";
             var posFiltro = true;
             var filtrosBusqueda = new List<string>();
 
-            if (cuit != "") filtrosBusqueda.Add("CUIT LIKE '%" + cuit + "%'");
-            if (razonSocial != "") filtrosBusqueda.Add("'RAZONSOCIAL' LIKE '%" + razonSocial + "%'");
+            if (cuit != "  -        -") filtrosBusqueda.Add("CUIT LIKE '%" + cuit + "%'");
+            if (razonSocial != "") filtrosBusqueda.Add("RAZONSOCIAL LIKE '%" + razonSocial + "%'");
             if (mail != "") filtrosBusqueda.Add("MAIL LIKE '%" + mail + "%'");
             foreach (var filtro in filtrosBusqueda)
             {
@@ -108,7 +111,6 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             }
             return tabla_empresa;
         }
-
 
       
 

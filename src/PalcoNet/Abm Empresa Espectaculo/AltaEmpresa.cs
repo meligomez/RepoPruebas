@@ -87,8 +87,14 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                     }
                     Empresa empresa = new Empresa();
                     Domicilio dom = new Domicilio();
+                    dom.piso = -1;
+                    dom.dpto = "";
+                    dom.localidad = "";
+                    dom.cp = -1;
+                    empresa.Empresa_telefono = -1;
                     empresa.Empresa_Cuit = textCUIT.Text;
                     empresa.Empresa_mail = textMail.Text;
+                    if (textTelefono.Text != "")
                     empresa.Empresa_telefono = int.Parse(textTelefono.Text);
                     empresa.Empresa_razon_social = "RAZON SOCIAL Nº:" + textRazonSocial.Text;
                     empresa.Empresa_estado = true;
@@ -120,6 +126,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                     }
                     MessageBox.Show("Empresa: " + textCUIT.Text + " creada satisfactoriamente.", "Alta de Usuario",
                  MessageBoxButtons.OK);
+                    limpiar();
 
                 }
 
@@ -130,6 +137,21 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             }
         }
 
+        private void limpiar()
+        {
+            textRazonSocial.Text = "";
+            textCUIT.Text = "";
+            textTelefono.Text = "";
+            textMail.Text = "";
+            textCiudad.Text = "";
+            textDireccion.Text = "";
+            txtNro.Text = "";
+            textLocalidad.Text = "";
+            textPiso.Text = "";
+            textDepto.Text = "";
+            textCP.Text = "";
+
+        }
 
         public static bool emailIsValid(string email)
         {
@@ -186,12 +208,12 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (textTelefono.Text.Trim() == "")
-            {
-            	MessageBox.Show("Debe ingresar un TELEFONO.", "Error al crear Nueva empresa",
-            			MessageBoxButtons.OK, MessageBoxIcon.Error);
-            	return false;
-            }
+            //if (textTelefono.Text.Trim() == "")
+            //{
+            //    MessageBox.Show("Debe ingresar un TELEFONO.", "Error al crear Nueva empresa",
+            //            MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return false;
+            //}
             if (textMail.Text.Trim() == "" || !emailIsValid(textMail.Text))
             {
                 MessageBox.Show("Debe ingresar un MAIL valido.", "Error al crear Nueva empresa",
@@ -217,24 +239,25 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (textPiso.Text.Trim() == "" || !int.TryParse(textPiso.Text, out value))
-            {
-                MessageBox.Show("Debe ingresar EL PISO .", "Error al crear Nueva empresa",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if (textDepto.Text.Trim() == "")
-            {
-                MessageBox.Show("Debe ingresar el DEPARTAMENTO.", "Error al crear Nueva empresa",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if (textLocalidad.Text.Trim() == "")
-            {
-                MessageBox.Show("Debe ingresar la LOCALIDAD.", "Error al crear Nueva empresa",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            } if (textCP.Text.Trim() == "" || !int.TryParse(textCP.Text, out value))
+            //if (textPiso.Text.Trim() == "" || !int.TryParse(textPiso.Text, out value))
+            //{
+            //    MessageBox.Show("Debe ingresar EL PISO .", "Error al crear Nueva empresa",
+            //            MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return false;
+            //}
+            //if (textDepto.Text.Trim() == "")
+            //{
+            //    MessageBox.Show("Debe ingresar el DEPARTAMENTO.", "Error al crear Nueva empresa",
+            //            MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return false;
+            //}
+            //if (textLocalidad.Text.Trim() == "")
+            //{
+            //    MessageBox.Show("Debe ingresar la LOCALIDAD.", "Error al crear Nueva empresa",
+            //            MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return false;
+            //}
+           if (textCP.Text.Trim() != "" && !int.TryParse(textCP.Text, out value))
             {
                 MessageBox.Show("Debe ingresar el CODIGO POSTAL.", "Error al crear Nueva empresa",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);

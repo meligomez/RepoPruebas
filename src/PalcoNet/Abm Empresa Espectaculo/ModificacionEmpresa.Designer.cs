@@ -32,7 +32,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.textEmail = new System.Windows.Forms.TextBox();
-            this.textCUIT = new System.Windows.Forms.TextBox();
             this.textRazonSocial = new System.Windows.Forms.TextBox();
             this.text = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -45,6 +44,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.textCUIT = new System.Windows.Forms.MaskedTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEmpresa)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
@@ -76,14 +76,6 @@
             this.textEmail.Name = "textEmail";
             this.textEmail.Size = new System.Drawing.Size(226, 26);
             this.textEmail.TabIndex = 84;
-            // 
-            // textCUIT
-            // 
-            this.textCUIT.Location = new System.Drawing.Point(455, 130);
-            this.textCUIT.Margin = new System.Windows.Forms.Padding(4);
-            this.textCUIT.Name = "textCUIT";
-            this.textCUIT.Size = new System.Drawing.Size(226, 26);
-            this.textCUIT.TabIndex = 79;
             // 
             // textRazonSocial
             // 
@@ -204,12 +196,21 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // textCUIT
+            // 
+            this.textCUIT.Location = new System.Drawing.Point(475, 130);
+            this.textCUIT.Mask = "99-99999999-9";
+            this.textCUIT.Name = "textCUIT";
+            this.textCUIT.Size = new System.Drawing.Size(198, 26);
+            this.textCUIT.TabIndex = 120;
+            // 
             // ModificacionEmpresa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(874, 507);
+            this.Controls.Add(this.textCUIT);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.label9);
@@ -217,7 +218,6 @@
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textEmail);
-            this.Controls.Add(this.textCUIT);
             this.Controls.Add(this.textRazonSocial);
             this.Controls.Add(this.text);
             this.Controls.Add(this.label2);
@@ -242,8 +242,7 @@
 		#endregion
 		private System.Windows.Forms.Label label7;
 		private System.Windows.Forms.Label label5;
-		private System.Windows.Forms.TextBox textEmail;
-		private System.Windows.Forms.TextBox textCUIT;
+        private System.Windows.Forms.TextBox textEmail;
 		private System.Windows.Forms.TextBox textRazonSocial;
 		private System.Windows.Forms.Label text;
 		private System.Windows.Forms.Label label2;
@@ -256,5 +255,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.MaskedTextBox textCUIT;
 	}
 }

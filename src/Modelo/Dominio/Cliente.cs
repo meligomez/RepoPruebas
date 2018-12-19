@@ -11,20 +11,21 @@ namespace Modelo.Dominio
 {
 	public class Cliente
 	{
-		public int numeroDocumento { get; set; }
-		public string nombre { get; set; }
-		public string apellido { get; set; }
-		public string tipoDocumento { get; set; }
-		public string cuil { get; set; }
-		public string mail { get; set; }
-		public bool estado { get; set; }
-		public DateTime fechaNacimiento { get; set; }
-		private DateTime? fecha_nacimiento = null;
-		public DateTime fechaCreacion { get; set; }
-		public int telefono { get; set; }
-        private Documento documento=new Documento();
-		public Domicilio Cli_Dir { get; set; }
-		public Tarjeta Cli_Tar { get; set; }
+        public int numeroDocumento { get; set; }
+        public string nombre { get; set; }
+        public string apellido { get; set; }
+        public string tipoDocumento { get; set; }
+        public string cuil { get; set; }
+        public string mail { get; set; }
+        public bool estado { get; set; }
+        public DateTime fechaNacimiento { get; set; }
+        private DateTime? fecha_nacimiento = null;
+        public DateTime fechaCreacion { get; set; }
+        public int telefono { get; set; }
+        private Documento documento = new Documento();
+        public Domicilio Cli_Dir { get; set; }
+        public Tarjeta Cli_Tar { get; set; }
+        private Tarjeta tarjeta = new Tarjeta();
 
         
 
@@ -43,7 +44,13 @@ namespace Modelo.Dominio
             get { return documento.Tipo; }
             set { documento.Tipo = value; }
         }
-        
+
+        public TarjetaTipoEnum TipoTar_enum
+        {
+            get { return tarjeta.Tipo; }
+            set { tarjeta.Tipo = value; }
+        }
+      
 
 		public static int actualizar(Cliente cliente_seleccionado, int nroViejo)
 		{
@@ -73,6 +80,7 @@ namespace Modelo.Dominio
 			int cp = cliente_seleccionado.Cli_Dir.cp;
 			string propietarioTar = cliente_seleccionado.Cli_Tar.propietario;
 			string numeroTar = cliente_seleccionado.Cli_Tar.numero;
+            string descripcionTar = cliente_seleccionado.Cli_Tar.descripcion;
 			DateTime fecha_vencimiento = cliente_seleccionado.Cli_Tar.fechaVencimiento;
             int campoBaja = (cliente_seleccionado.estado) ? 1 : 1;
             dt = dao.ConsultarConQuery("SELECT cliente_domicilio FROM dropeadores.Cliente WHERE tipoDocumento like " + "'" + tipoDocumento + "' AND numeroDocumento like" + "'" + docViejo + "'");
@@ -97,14 +105,15 @@ namespace Modelo.Dominio
 
                             if (cant == 0)
                                 {
-                                    if (dao.EjecutarSP("dropeadores.insertTarjetaCliente", numeroDocumento, propietarioTar, numeroTar, fecha_vencimiento) > 0)
+                                 if (dao.EjecutarSP("dropeadores.Cliente_Alta_Tarjeta", propietarioTar, numeroTar, fecha_vencimiento, numeroDocumento, descripcionTar) > 0)
+                                        
                                     {
                                         return 0;
                                     }
                                 }
                                 else
                                 {
-                                  if (dao.EjecutarSP("dropeadores.updateTarjetaCliente", numeroDocumento, propietarioTar, numeroTar, fecha_vencimiento) > 0)
+                                    if (dao.EjecutarSP("dropeadores.updateTarjetaCliente", numeroDocumento, propietarioTar, numeroTar, fecha_vencimiento, descripcionTar) > 0)
                                   {
                                         return 0;
                                   }
@@ -153,6 +162,13 @@ namespace Modelo.Dominio
         {
             get { return documento.tipoDoc; }
             set { documento.tipoDoc = value; }
+        }
+
+
+        public string TipoTar
+        {
+            get { return tarjeta.tipoTar; }
+            set { tarjeta.tipoTar = value; }
         }
 
 

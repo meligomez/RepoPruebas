@@ -72,6 +72,9 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label21 = new System.Windows.Forms.Label();
             this.txtNroIdentificacion = new System.Windows.Forms.MaskedTextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
+            this.comboTipoTarj = new System.Windows.Forms.ComboBox();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -113,6 +116,9 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label20);
+            this.groupBox2.Controls.Add(this.label37);
+            this.groupBox2.Controls.Add(this.comboTipoTarj);
             this.groupBox2.Controls.Add(this.txtVenc);
             this.groupBox2.Controls.Add(this.txtTarjNum);
             this.groupBox2.Controls.Add(this.dateTimePickerVenc);
@@ -131,7 +137,7 @@
             // txtVenc
             // 
             this.txtVenc.AutoSize = true;
-            this.txtVenc.Location = new System.Drawing.Point(105, 64);
+            this.txtVenc.Location = new System.Drawing.Point(19, 65);
             this.txtVenc.Name = "txtVenc";
             this.txtVenc.Size = new System.Drawing.Size(101, 13);
             this.txtVenc.TabIndex = 77;
@@ -140,7 +146,7 @@
             // txtTarjNum
             // 
             this.txtTarjNum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtTarjNum.Location = new System.Drawing.Point(339, 24);
+            this.txtTarjNum.Location = new System.Drawing.Point(308, 25);
             this.txtTarjNum.Margin = new System.Windows.Forms.Padding(2);
             this.txtTarjNum.Name = "txtTarjNum";
             this.txtTarjNum.Size = new System.Drawing.Size(151, 20);
@@ -149,7 +155,7 @@
             // dateTimePickerVenc
             // 
             this.dateTimePickerVenc.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePickerVenc.Location = new System.Drawing.Point(268, 59);
+            this.dateTimePickerVenc.Location = new System.Drawing.Point(126, 65);
             this.dateTimePickerVenc.Name = "dateTimePickerVenc";
             this.dateTimePickerVenc.Size = new System.Drawing.Size(143, 20);
             this.dateTimePickerVenc.TabIndex = 76;
@@ -157,7 +163,7 @@
             // labelNum
             // 
             this.labelNum.AutoSize = true;
-            this.labelNum.Location = new System.Drawing.Point(287, 28);
+            this.labelNum.Location = new System.Drawing.Point(248, 27);
             this.labelNum.Name = "labelNum";
             this.labelNum.Size = new System.Drawing.Size(47, 13);
             this.labelNum.TabIndex = 74;
@@ -165,7 +171,7 @@
             // 
             // txtTarjProp
             // 
-            this.txtTarjProp.Location = new System.Drawing.Point(100, 24);
+            this.txtTarjProp.Location = new System.Drawing.Point(87, 24);
             this.txtTarjProp.Name = "txtTarjProp";
             this.txtTarjProp.Size = new System.Drawing.Size(143, 20);
             this.txtTarjProp.TabIndex = 73;
@@ -173,7 +179,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(28, 28);
+            this.label18.Location = new System.Drawing.Point(19, 26);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(60, 13);
             this.label18.TabIndex = 72;
@@ -470,6 +476,36 @@
             this.txtNroIdentificacion.TabIndex = 137;
             this.txtNroIdentificacion.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.txtNroIdentificacion_MaskInputRejected);
             // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(537, 71);
+            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(12, 13);
+            this.label20.TabIndex = 131;
+            this.label20.Text = "*";
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(288, 71);
+            this.label37.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(31, 13);
+            this.label37.TabIndex = 130;
+            this.label37.Text = "Tipo:";
+            // 
+            // comboTipoTarj
+            // 
+            this.comboTipoTarj.FormattingEnabled = true;
+            this.comboTipoTarj.Location = new System.Drawing.Point(329, 68);
+            this.comboTipoTarj.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.comboTipoTarj.Name = "comboTipoTarj";
+            this.comboTipoTarj.Size = new System.Drawing.Size(175, 21);
+            this.comboTipoTarj.TabIndex = 129;
+            // 
             // ModificarClienteElegido
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -561,5 +597,8 @@
 		private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.MaskedTextBox txtNroIdentificacion;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.ComboBox comboTipoTarj;
 	}
 }

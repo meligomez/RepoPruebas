@@ -468,7 +468,7 @@
             // 
             this.nota.AutoSize = true;
             this.nota.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nota.Location = new System.Drawing.Point(321, 386);
+            this.nota.Location = new System.Drawing.Point(562, 26);
             this.nota.Name = "nota";
             this.nota.Size = new System.Drawing.Size(127, 13);
             this.nota.TabIndex = 116;

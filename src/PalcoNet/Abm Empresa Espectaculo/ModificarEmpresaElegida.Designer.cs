@@ -38,6 +38,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textCP = new System.Windows.Forms.MaskedTextBox();
+            this.textPiso = new System.Windows.Forms.MaskedTextBox();
+            this.txtNro = new System.Windows.Forms.MaskedTextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.textCiudad = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -54,9 +57,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.textCUIT = new System.Windows.Forms.MaskedTextBox();
             this.textTelefono = new System.Windows.Forms.MaskedTextBox();
-            this.txtNro = new System.Windows.Forms.MaskedTextBox();
-            this.textPiso = new System.Windows.Forms.MaskedTextBox();
-            this.textCP = new System.Windows.Forms.MaskedTextBox();
             this.label21 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -112,10 +112,10 @@
             // 
             // textRazonSocial
             // 
-            this.textRazonSocial.Location = new System.Drawing.Point(212, 99);
+            this.textRazonSocial.Location = new System.Drawing.Point(170, 96);
             this.textRazonSocial.Margin = new System.Windows.Forms.Padding(4);
             this.textRazonSocial.Name = "textRazonSocial";
-            this.textRazonSocial.Size = new System.Drawing.Size(115, 26);
+            this.textRazonSocial.Size = new System.Drawing.Size(189, 26);
             this.textRazonSocial.TabIndex = 76;
             // 
             // label4
@@ -160,6 +160,30 @@
             this.groupBox1.TabIndex = 72;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de la direccion ";
+            // 
+            // textCP
+            // 
+            this.textCP.Location = new System.Drawing.Point(553, 67);
+            this.textCP.Mask = "00000";
+            this.textCP.Name = "textCP";
+            this.textCP.Size = new System.Drawing.Size(79, 26);
+            this.textCP.TabIndex = 122;
+            // 
+            // textPiso
+            // 
+            this.textPiso.Location = new System.Drawing.Point(66, 65);
+            this.textPiso.Mask = "999999";
+            this.textPiso.Name = "textPiso";
+            this.textPiso.Size = new System.Drawing.Size(87, 26);
+            this.textPiso.TabIndex = 121;
+            // 
+            // txtNro
+            // 
+            this.txtNro.Location = new System.Drawing.Point(626, 30);
+            this.txtNro.Mask = "99999999";
+            this.txtNro.Name = "txtNro";
+            this.txtNro.Size = new System.Drawing.Size(77, 26);
+            this.txtNro.TabIndex = 120;
             // 
             // label7
             // 
@@ -287,7 +311,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(97, 105);
+            this.label3.Location = new System.Drawing.Point(58, 99);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(107, 20);
@@ -309,30 +333,6 @@
             this.textTelefono.Name = "textTelefono";
             this.textTelefono.Size = new System.Drawing.Size(181, 26);
             this.textTelefono.TabIndex = 120;
-            // 
-            // txtNro
-            // 
-            this.txtNro.Location = new System.Drawing.Point(626, 30);
-            this.txtNro.Mask = "99999999";
-            this.txtNro.Name = "txtNro";
-            this.txtNro.Size = new System.Drawing.Size(77, 26);
-            this.txtNro.TabIndex = 120;
-            // 
-            // textPiso
-            // 
-            this.textPiso.Location = new System.Drawing.Point(66, 65);
-            this.textPiso.Mask = "999999";
-            this.textPiso.Name = "textPiso";
-            this.textPiso.Size = new System.Drawing.Size(87, 26);
-            this.textPiso.TabIndex = 121;
-            // 
-            // textCP
-            // 
-            this.textCP.Location = new System.Drawing.Point(553, 67);
-            this.textCP.Mask = "00000";
-            this.textCP.Name = "textCP";
-            this.textCP.Size = new System.Drawing.Size(79, 26);
-            this.textCP.TabIndex = 122;
             // 
             // label21
             // 

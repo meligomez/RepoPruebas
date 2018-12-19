@@ -95,7 +95,7 @@ namespace PalcoNet.Abm_Grado
 
 				if (tipo != "")
 				{
-					tabla_Cliente = dao.ObtenerDatosSP("dropeadores.[getGradoSeleccionado]", tipo);
+                    tabla_Cliente = dao.ObtenerDatosSP("dropeadores.[getGrado]", tipo);
 				}
 
 				if (tipo != "") filtrosBusqueda.Add("DESCRIPCIÓN LIKE '%" + tipo + "%'");

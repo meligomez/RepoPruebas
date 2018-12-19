@@ -40,7 +40,9 @@ namespace PalcoNet.Abm_Cliente
 
 		private void ModificarClienteElegido_Load(object sender, EventArgs e)
 		{
-			cargarDatos();
+            comboTipoTarj.Items.Add("DEBITO");
+            comboTipoTarj.Items.Add("CREDITO");
+            cargarDatos();
 		}
 		 public static DataTable obtenerTabla(string tipoDoc, int nroDoc)
         {
@@ -109,6 +111,7 @@ namespace PalcoNet.Abm_Cliente
                     tar.propietario = Convert.ToString(fila["propietario"]);
                     tar.numero = Convert.ToString(fila["numero1"]);
                     tar.fechaVencimiento = Convert.ToDateTime(fila["fechaVencimiento"]);
+                    cli.TipoTar = Convert.ToString(fila["descripcion"]);
                 }
 
                 cli.Cli_Tar = tar;
@@ -123,8 +126,6 @@ namespace PalcoNet.Abm_Cliente
 			txtNombre.Text = cliente_seleccionado.nombre;
 			txtApellido.Text = cliente_seleccionado.apellido;
 			txtNroIdentificacion.Text = cliente_seleccionado.numeroDocumento.ToString();
-
-           
             comboTipoDoc.SelectedIndex = (int)cliente_seleccionado.TipoDocu_enum;
 			textCUIL.Text = cliente_seleccionado.cuil;
 			textTelefono.Text = cliente_seleccionado.telefono.ToString();
@@ -138,6 +139,7 @@ namespace PalcoNet.Abm_Cliente
             if (cliente_seleccionado.Cli_Tar.numero != "''")
 			txtTarjNum.Text = cliente_seleccionado.Cli_Tar.numero.ToString();
            		dateTimePickerVenc.Value = cliente_seleccionado.Cli_Tar.fechaVencimiento;
+            comboTipoTarj.SelectedIndex = (int)cliente_seleccionado.TipoTar_enum;
             checkBaja.Checked = cliente_seleccionado.estado;
 			if (cliente_seleccionado.Cli_Dir.dpto != "''")
 				textDepto.Text = cliente_seleccionado.Cli_Dir.dpto.ToString();
@@ -180,6 +182,8 @@ namespace PalcoNet.Abm_Cliente
                 cliente_seleccionado.Cli_Tar.propietario = txtTarjProp.Text;
                 cliente_seleccionado.Cli_Tar.numero =(txtTarjNum.Text);
                 cliente_seleccionado.Cli_Tar.fechaVencimiento = DateTime.Parse(dateTimePickerVenc.Text);
+                cliente_seleccionado.Cli_Tar.descripcion = Tarjeta.string_tipo[comboTipoTarj.SelectedIndex];
+					
 				cliente_seleccionado.estado = checkBaja.Checked;
                 int rta= Cliente.actualizar(cliente_seleccionado,nroDOCViejo);
                 if (rta== 1)

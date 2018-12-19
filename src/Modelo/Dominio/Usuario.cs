@@ -12,20 +12,20 @@ namespace Modelo.Dominio
 {
 	public class Usuario
 	{
-		public string creadoPor { get; set; }
-		#region Atributos
-		public int Id { get; set; }
-		public string username { get; set; }
-		public string password { get; set; } //password encriptado con SHA256
-		public Cliente cliente { get; set; }
+        public string creadoPor { get; set; }
+        #region Atributos
+        public int Id { get; set; }
+        public string username { get; set; }
+        public string password { get; set; } //password encriptado con SHA256
+        public Cliente cliente { get; set; }
 
-		public int cambioPsw { get; set; }
+        public int cambioPsw { get; set; }
 
         public Empresa empresa { get; set; }
-			
-		public DateTime fechaCreacionPsw { get; set; }
-		public int estado { get; set; }
-		#endregion
+
+        public DateTime fechaCreacionPsw { get; set; }
+        public int estado { get; set; }
+        #endregion
 
 		#region Propiedades
 		//public string Mail
@@ -74,15 +74,15 @@ namespace Modelo.Dominio
 
 		public int Alta()
 		{
-			int retorno = 9;
-			try
-			{
-				DaoSP dao = new DaoSP();
-				DataTable dt = new DataTable();
-				Usuario usuario = new Usuario();
-				Cliente cli = new Cliente();
-				Domicilio dire = cliente.Cli_Dir;
-				Tarjeta tar = new Tarjeta();
+            int retorno = 9;
+            try
+            {
+                DaoSP dao = new DaoSP();
+                DataTable dt = new DataTable();
+                Usuario usuario = new Usuario();
+                Cliente cli = new Cliente();
+                Domicilio dire = cliente.Cli_Dir;
+                Tarjeta tar = new Tarjeta();
                 string query2 = "select count(*) as 'cantidad' from dropeadores.Cliente where NumeroDocumento =" + cliente.numeroDocumento;
                 DataTable dr = dao.ConsultarConQuery(query2);
                 DataRow roww = dr.Rows[0];
@@ -90,9 +90,9 @@ namespace Modelo.Dominio
                 if (cantDNI == 0)
                 {
 
-                    if (dao.EjecutarSP("dropeadores.Domicilio_Cli_Alta", dire.calle, dire.numero, dire.piso, dire.dpto, dire.localidad, dire.cp) > 0)
+                    if (dao.EjecutarSP("dropeadores.Domicilio_Alta", dire.calle, dire.numero, dire.piso, dire.dpto, dire.localidad, dire.cp,"") > 0)
                     {
-                        dt = dao.ObtenerDatosSP("dropeadores.DireCli_ObtenerId");
+                        dt = dao.ObtenerDatosSP("dropeadores.Dire_ObtenerId");
                         DataRow row = dt.Rows[0];
                         int idDireClienteInsertado = int.Parse(row["Id"].ToString());
                         if (dao.EjecutarSP("dropeadores.Cli_Alta", cliente.nombre, cliente.apellido, cliente.tipoDocumento, cliente.numeroDocumento, cliente.mail, cliente.fechaNacimiento, cliente.cuil, cliente.telefono, idDireClienteInsertado, this.fechaCreacionPsw) > 0)
@@ -120,24 +120,25 @@ namespace Modelo.Dominio
                         }
 
                     }
-                 
+
                 }
                 else
                 {
-                     retorno = 7;
+                    retorno = 7;
                 }
 
 
 
 
-				return retorno;
-			}
-			catch (Exception ex)
-			{
-				return -1;
-			}
-		}
-		public int EditarPsw(Usuario user,string nuevaPsw)
+                return retorno;
+            }
+            catch (Exception ex)
+            {
+                return -1;
+            }
+        }
+        
+        public int EditarPsw(Usuario user, string nuevaPsw)
 		{
 			DaoSP dao = new DaoSP();
 			DataTable dt = new DataTable();
@@ -184,24 +185,24 @@ namespace Modelo.Dominio
 
 
 
-		public int AltaEmpresa()
+        public int AltaEmpresa()
         {
-            int retorno=9;
-			try
-			{
-				DaoSP dao = new DaoSP();
-				DataTable dt = new DataTable();
+            int retorno = 9;
+            try
+            {
+                DaoSP dao = new DaoSP();
+                DataTable dt = new DataTable();
                 Domicilio dom = empresa.Empresa_Dom;
-               
-                
+
+
                 if (dao.EjecutarSP("dropeadores.ExistCuitandRazonSocial", empresa.Empresa_Cuit, empresa.Empresa_razon_social) > 0)
                 {
                     return 0;
                 }
 
-                if (dao.EjecutarSP("dropeadores.Domicilio_empresa_Alta", dom.calle, dom.numero, dom.piso, dom.dpto, dom.localidad, dom.cp, dom.ciudad) > 0)
+                if (dao.EjecutarSP("dropeadores.Domicilio_Alta", dom.calle, dom.numero, dom.piso, dom.dpto, dom.localidad, dom.cp, dom.ciudad) > 0)
                 {
-                    dt = dao.ObtenerDatosSP("dropeadores.DireEmp_ObtenerId");
+                    dt = dao.ObtenerDatosSP("dropeadores.Dire_ObtenerId");
                     DataRow row = dt.Rows[0];
                     int idDomEmpresaInsertado = int.Parse(row["Id"].ToString());
                     if (dao.EjecutarSP("dropeadores.Empresa_Alta", empresa.Empresa_Cuit, empresa.Empresa_mail, empresa.Empresa_telefono, empresa.Empresa_razon_social, idDomEmpresaInsertado) > 0)
@@ -233,8 +234,8 @@ namespace Modelo.Dominio
 
                 }
 
-                   return 0;
-                
+                return 0;
+
             }
             catch (Exception ex)
             {

@@ -22,9 +22,10 @@ namespace Modelo.Dominio
 
 
 
+       
+
         public static bool actualizar(Empresa empresa_Seleccionada)
         {
-
             DaoSP dao = new DaoSP();
             DataTable dt = new DataTable();
             int IDempresa = 000000;
@@ -47,7 +48,7 @@ namespace Modelo.Dominio
                 IDempresa = Convert.ToInt32(row["empresa_domicilio"].ToString());
             }
 
-            if (dao.EjecutarSP("dropeadores.updateDomicilioEmpresa", IDempresa, calle, numero, piso, depto, localidad, ciudad, cp) > 0)
+            if (dao.EjecutarSP("dropeadores.updateDomicilioCliente", IDempresa, calle, numero, piso, depto, localidad, ciudad, cp) > 0)
             {
                 if (dao.EjecutarSP("dropeadores.updateEmpresa", cuit, razonSocial, email, telefono, campoBaja) > 0)
                 {
@@ -61,7 +62,7 @@ namespace Modelo.Dominio
             return false;
         }
 
-        
+                
         public int existEmpresa(string razonSocial, string cuit, string mail)
         {
 
