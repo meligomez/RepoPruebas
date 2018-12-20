@@ -99,8 +99,6 @@ namespace PalcoNet.Abm_Cliente
                 DataRow roww = dr.Rows[0];
                 int cantDNI = int.Parse(roww["cantidad"].ToString());
                 if (cantDNI == 0)
-                
-               // if (dao.EjecutarSP("dropeadores.ExistTarjetaCliente", cli.numeroDocumento) == 0)
                 {
                     tar.propietario = " ";
                     tar.numero = " ";
