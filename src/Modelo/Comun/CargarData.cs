@@ -143,5 +143,16 @@ namespace Modelo.Comun
 			dataGrid.Columns.Add(btnSeleccionar);
 			btnSeleccionar.DisplayIndex = 0;
 		}
+
+        public static void AddCheckColumnFirst(DataGridView dataGrid, string nombreColumna)
+        {
+            //Asignar la propiedad DataSource
+            DataGridViewCheckBoxColumn chkbox = new DataGridViewCheckBoxColumn();
+            dataGrid.Columns.Add(chkbox);
+            chkbox.HeaderText = nombreColumna;
+            chkbox.Name = "seleccion";
+            chkbox.DisplayIndex = 0;
+
+        }
 	}
 }

@@ -117,7 +117,7 @@ namespace PalcoNet.Comprar
 		public void queryComprar()
 		{
             DaoSP tj = new DaoSP();
-            DataTable dt = new DataTable();
+            DataTable dt,da,db = new DataTable();
             Ubicacion ubic = new Ubicacion();
             string tipoDoc = "";
             int nroDoc = 0;
@@ -131,6 +131,9 @@ namespace PalcoNet.Comprar
 
             int cantidadUbicacionesCompradas = ubicacionesSeleccionadas.Count;
             DaoSP dao = new DaoSP();
+            int cantAsientos=0;
+            int cantAsientosTOTALES = 0;
+
             foreach (DataGridViewRow row in dataGridViewCompra.Rows)
             {
                 ubic.fila = Convert.ToChar(row.Cells[0].Value.ToString());
@@ -146,12 +149,26 @@ namespace PalcoNet.Comprar
                         int IDcompra = int.Parse(row2["Id"].ToString());
                         calcularPuntos(IDcompra);
                         dt = tj.ObtenerDatosSP("dropeadores.updatePuntos", usuario.cliente.numeroDocumento);
-
-
-
-                    }
+                     }
                 }
             }
+
+             da = tj.ConsultarConQuery("select COUNT(*) as 'cantUbicacion' from dropeadores.Ubicacion where estado=0 and asiento = " + ubic.asiento + " and fila = " + ubic.fila + " and publicacionId =" + ubic.publicacionId);
+            foreach (DataRow row in da.Rows)
+            {
+                cantAsientos = Convert.ToInt32(row["cantUbicacion"].ToString());
+            }
+             db = tj.ConsultarConQuery("select COUNT(*) as 'cantUbicacion' from dropeadores.Ubicacion where asiento = " + ubic.asiento + " and fila = " + ubic.fila + " and publicacionId =" + ubic.publicacionId);
+            foreach (DataRow row in db.Rows)
+            {
+                cantAsientosTOTALES = Convert.ToInt32(row["cantUbicacion"].ToString());
+            }
+
+            if (cantAsientos == cantAsientosTOTALES)
+            {
+                dao.EjecutarSP("dropeadores.updatePublicacionFinalizada", ubic.fila, ubic.asiento, ubic.publicacionId);
+            }
+
             MessageBox.Show("La compra fue realizada con éxito");
 
 

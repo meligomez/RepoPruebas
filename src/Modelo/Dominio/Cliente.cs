@@ -188,6 +188,7 @@ namespace Modelo.Dominio
 		public static int updateTarj(Cliente cli)
 		{
 			DataTable dt, dr = new DataTable();
+            int cant = 0;
 			DaoSP dao = new DaoSP();
 			string propietarioTar = cli.Cli_Tar.propietario;
 			string numeroTar = cli.Cli_Tar.numero;
@@ -195,20 +196,40 @@ namespace Modelo.Dominio
 			string descripcion = cli.Cli_Tar.descripcion;
 			int numeroDocumento = cli.numeroDocumento;
 
-			if (dao.EjecutarSP("dropeadores.asociarTarjetaCliente", numeroDocumento, propietarioTar, numeroTar, fecha_vencimiento, descripcion) > 0)
-			{
 
-				return 0;
+            dt = dao.ConsultarConQuery("select count(T.Id) as 'Id' from dropeadores.TarjetaCredito T join dropeadores.Cliente C on (C.NumeroDocumento=T.clieteId) where T.clieteId=" + numeroDocumento);
+            foreach (DataRow row in dt.Rows)
+            {
 
-			}
-			else
-			{
+                cant = Convert.ToInt32(row["Id"].ToString());
 
-				return 1;
+            }
 
-			}
+            if (cant == 0)
+            {
+                if (dao.EjecutarSP("dropeadores.Cliente_Alta_Tarjeta", propietarioTar, numeroTar, fecha_vencimiento, numeroDocumento, descripcion) > 0)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return 1;
+                }
+            }
+            else
+            {
+                if (dao.EjecutarSP("dropeadores.asociarTarjetaCliente", numeroDocumento, propietarioTar, numeroTar, fecha_vencimiento, descripcion) > 0)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return 1;
+                }
 
+            }
 
+		
 		}
 	}
 

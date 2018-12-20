@@ -35,7 +35,7 @@ namespace PalcoNet.Comprar
 
             usuario = user;
             string medioDePago = "";
-           // usuario.cliente.numeroDocumento = 35550990;
+            usuario.cliente.numeroDocumento = 3515132;
          
             DateTime today = fech.getFechaSistema();
             DateTime answer = today.AddDays(5);
@@ -60,6 +60,7 @@ namespace PalcoNet.Comprar
             
 
             dtSource = dao.ObtenerDatosSP("dropeadores.getTablaPublicacion", fech.getFechaSistema());
+            maxRecInicial = dtSource.DefaultView.Count;
             maxRec = dtSource.DefaultView.Count;
             txtCantPags.Text = "10";
             FillGrid(int.Parse(txtCantPags.Text));
@@ -82,7 +83,8 @@ namespace PalcoNet.Comprar
 		{
             DaoSP prueba = new DaoSP();
             CargarData.cargarGridView(dataGridViewCompras, dtSource);
-            CargarData.AddButtonSeleccionar(dataGridViewCompras);
+            // CargarData.AddButtonSeleccionar(dataGridViewCompras);
+            CargarData.AddCheckColumnFirst(dataGridViewCompras, "seleccionado");
         }
 
 		private DataTable FiltrarPublicacion(string CatElegidas, string descripcion, DateTime fechaDesde, DateTime fechaHasta, List<String> listaCat)
@@ -137,12 +139,18 @@ namespace PalcoNet.Comprar
                     {
 
                         dtSource.DefaultView.RowFilter = final_rol;
+                        maxRec = dtSource.DefaultView.Count;
                     }
                     else
                     {
                         dtSource = null;
                         dataGridViewCompras.DataSource = null;
+                        maxRec = maxRecInicial;
                     }
+                }
+                else
+                {
+                    maxRec = maxRecInicial;
                 }
                 return dtSource;
             }
@@ -208,6 +216,9 @@ namespace PalcoNet.Comprar
                    MessageBoxButtons.OK);
 
                 dtSource = dao.ObtenerDatosSP("dropeadores.getTablaPublicacion", fech.getFechaSistema());
+                maxRec = dtSource.DefaultView.Count;
+                txtCantPags.Text = "10";
+                FillGrid(int.Parse(txtCantPags.Text));
                 cargarTabla();
             }
 
@@ -243,7 +254,7 @@ namespace PalcoNet.Comprar
 			Cliente cliente = new Cliente();
 			var senderGrid = (DataGridView)sender;
 
-			if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewCheckBoxColumn &&
 				e.RowIndex >= 0)
 			{
 				string descripcion = dataGridViewCompras.CurrentRow.Cells["DESCRIPCION"].Value.ToString();
@@ -257,17 +268,24 @@ namespace PalcoNet.Comprar
 					case DialogResult.Yes:
 						if (dataGridViewCompras.Rows.Count != 0)
 						{
-							String ID = dataGridViewCompras.CurrentRow.Cells["CODIGO"].Value.ToString();
-							Ubicacion ubicacion = new Ubicacion();
-							ubicacion.publicacionId = Convert.ToInt32(ID);
-							ubicacion.fila = Convert.ToChar(fila);
-							ubicacion.asiento = Convert.ToInt32(asiento);
-							ubicacion.precio = decimal.Parse(precio);
-							ubicacionesSeleccionadas.Add(ubicacion);
-							cliente.numeroDocumento = usuario.cliente.numeroDocumento;
-							MessageBox.Show("La ubicación con ID " + ID + " fue añadida");
-							int rowindex = dataGridViewCompras.CurrentCell.RowIndex;
-							dataGridViewCompras.Rows.RemoveAt(rowindex);
+                            //if (!perteneceAlaLista())
+                            //{
+                                String ID = dataGridViewCompras.CurrentRow.Cells["CODIGO"].Value.ToString();
+                                Ubicacion ubicacion = new Ubicacion();
+                                ubicacion.publicacionId = Convert.ToInt32(ID);
+                                ubicacion.fila = Convert.ToChar(fila);
+                                ubicacion.asiento = Convert.ToInt32(asiento);
+                                ubicacion.precio = decimal.Parse(precio);
+                                ubicacionesSeleccionadas.Add(ubicacion);
+                                cliente.numeroDocumento = usuario.cliente.numeroDocumento;
+                                MessageBox.Show("La ubicación con ID " + ID + " fue añadida");
+                                int rowindex = dataGridViewCompras.CurrentCell.RowIndex;
+                                // dataGridViewCompras.Rows.RemoveAt(rowindex);
+                            //}
+                            //else
+                            //{
+                                //mensaje  errror
+                            //}
 						}
 						break;
 
@@ -279,6 +297,7 @@ namespace PalcoNet.Comprar
 		}
 		private int PageCount;
 		private int maxRec = 0;
+        private int maxRecInicial = 0;
 		private int pageSize;
 		private int currentPage;
 		private int recNo;
@@ -343,6 +362,9 @@ namespace PalcoNet.Comprar
                    MessageBoxButtons.OK);
 
                 dtSource = dao.ObtenerDatosSP("dropeadores.getTablaPublicacion", fech.getFechaSistema());
+                maxRec = dtSource.DefaultView.Count;
+                txtCantPags.Text = "10";
+                FillGrid(int.Parse(txtCantPags.Text));
                 cargarTabla();
             }
 
@@ -489,15 +511,50 @@ namespace PalcoNet.Comprar
             LoadPage();
         }
 
+        private bool buscarEnListaDeSeleccionados(string descripcion, string fila, string asiento)
+        {
+            for (int i = 0; i < ubicacionesSeleccionadas.Count; i++)
+            {
+                if (ubicacionesSeleccionadas[i].asiento.ToString() == asiento &&
+                    ubicacionesSeleccionadas[i].publicacionId.ToString() == descripcion &&
+                    ubicacionesSeleccionadas[i].fila.ToString() == fila)
+                {
+                    return true;
+                }
+
+            }
+            return false;
+        }
+				
         private void LoadPage()
         {
             if (final_rol != "" && final_rol.Substring(0, 4) != " AND")
             {
                 final_rol = " AND " + final_rol;
             }
-            DaoSP dao = new DaoSP();
-            dtSource = dao.ConsultarConQuery("SELECT p.id as 'CODIGO', p.descripcion as 'DESCRIPCION', p.fechaEspectaculo as 'FechaEspectaculo', p.direccion as 'DIRECCION', u.fila as 'FILA', u.asiento as 'ASIENTO',rubro_Descripcion as 'RUBRO_DESCRIPCION',u.precio as'PRECIO' FROM dropeadores.Publicacion p join dropeadores.Ubicacion u on (u.publicacionId = p.id) join dropeadores.Grado g on(g.id=p.gradoId) join dropeadores.Rubro r on (r.id=p.rubroId) where p.fechaPublicacion >='" + fech.getFechaSistema() + "' " + final_rol + " order by g.porcentaje desc OFFSET " + pageSize * (currentPage - 1) + " ROWS FETCH NEXT " + pageSize + " ROWS ONLY");
+            DaoSP dao = new DaoSP();                                                                                    
+            dtSource = dao.ConsultarConQuery("SELECT p.id as 'CODIGO', p.descripcion as 'DESCRIPCION', p.fechaEspectaculo as 'FechaEspectaculo', p.direccion as 'DIRECCION', u.fila as 'FILA', u.asiento as 'ASIENTO',rubro_Descripcion as 'RUBRO_DESCRIPCION',u.precio as'PRECIO' FROM dropeadores.Publicacion p join dropeadores.Ubicacion u on (u.publicacionId = p.id) join dropeadores.Grado g on(g.id=p.gradoId) join dropeadores.Rubro r on (r.id=p.rubroId) where p.fechaEspectaculo>=  '" + fech.getFechaSistema() + "'" + "and p.fechaPublicacion >='" + fech.getFechaSistema() + "' " + final_rol + " order by g.porcentaje desc OFFSET " + pageSize * (currentPage - 1) + " ROWS FETCH NEXT " + pageSize + " ROWS ONLY");
             dataGridViewCompras.DataSource = dtSource;
+            foreach (DataGridViewRow row in dataGridViewCompras.Rows)
+            //foreach (DataGridViewRow row in dtSource.Rows)
+            {
+                try
+                {
+                    if (buscarEnListaDeSeleccionados(
+                    row.Cells["CODIGO"].Value.ToString(),
+                    row.Cells["FILA"].Value.ToString(),
+                    row.Cells["ASIENTO"].Value.ToString()))
+                    {
+                        row.Cells[0].Value = true;
+                        // row["seleccionado"] = true;
+                    }
+                }
+			    catch (Exception ex)
+			    {
+                    int i = 1;
+			    }
+                // cant = Convert.ToInt32(row["cantidad"]);
+            }
             DisplayPageInfo();
 
         }
