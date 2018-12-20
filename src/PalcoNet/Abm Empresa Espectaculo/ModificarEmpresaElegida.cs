@@ -17,6 +17,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 	{
         Empresa empresa_Seleccionada;
         string nroCuilViejo = "";
+        string razonSocialVieja = "";
        
         ConfigGlobal archivoDeConfig = new ConfigGlobal();
        
@@ -39,6 +40,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
         private void cargarDatos()
         {   textRazonSocial.Text = empresa_Seleccionada.Empresa_razon_social;
+            razonSocialVieja=Convert.ToString(empresa_Seleccionada.Empresa_razon_social);
             textCUIT.Text = empresa_Seleccionada.Empresa_Cuit;
             nroCuilViejo = Convert.ToString(empresa_Seleccionada.Empresa_Cuit);
             textTelefono.Text = empresa_Seleccionada.Empresa_telefono.ToString();
@@ -145,7 +147,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                     empresa_Seleccionada.Empresa_estado = checkBaja.Checked;
                 }
 
-                if (!Empresa.actualizar(empresa_Seleccionada, nroCuilViejo))
+                if (!Empresa.actualizar(empresa_Seleccionada, nroCuilViejo, razonSocialVieja))
                 {
                     MessageBox.Show("Error al modificar la empresa.", "Error al Modificar empresa",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);

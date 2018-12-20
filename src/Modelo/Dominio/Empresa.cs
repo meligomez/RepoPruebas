@@ -24,7 +24,7 @@ namespace Modelo.Dominio
 
 
 
-        public static bool actualizar(Empresa empresa_Seleccionada, string nroCuilViejo)
+        public static bool actualizar(Empresa empresa_Seleccionada, string nroCuilViejo,string razonSocialVieja)
         {
             DaoSP dao = new DaoSP();
             DataTable dt,da = new DataTable();
@@ -32,6 +32,7 @@ namespace Modelo.Dominio
             int puedeUpdetear = 0;
             int IDempresa = 000000;
             string cuitViejo = nroCuilViejo;
+            string Rzantigua = razonSocialVieja;
             string cuit = empresa_Seleccionada.Empresa_Cuit;
             string razonSocial = empresa_Seleccionada.Empresa_razon_social;
             string email = empresa_Seleccionada.Empresa_mail;
@@ -49,9 +50,9 @@ namespace Modelo.Dominio
             {
                 IDempresa = Convert.ToInt32(row["empresa_domicilio"].ToString());
             }
-            if (cuitViejo != cuit)
+            if ((cuitViejo != cuit) && (Rzantigua!=razonSocial))
             {
-                da = dao.ConsultarConQuery("select count(c.empresa_Cuit) as 'Id' from dropeadores.Empresa c where c.empresa_Cuit like '" + cuit + "' ");
+                da = dao.ConsultarConQuery("select count(c.empresa_Cuit) as 'Id' from dropeadores.Empresa c where c.empresa_Cuit like '" + cuit + "' and c.empresa_razon_social like '"+ razonSocial +"'");
                 foreach (DataRow row in da.Rows)
                 {
 
@@ -64,7 +65,8 @@ namespace Modelo.Dominio
             {
                 puedeUpdetear = 0;
             }
-           //poner if 
+            if (puedeUpdetear == 0)
+            {
                 if (dao.EjecutarSP("dropeadores.updateDomicilioCliente", IDempresa, calle, numero, piso, depto, localidad, ciudad, cp) > 0)
                 {
                     if (dao.EjecutarSP("dropeadores.updateEmpresa", cuit, razonSocial, email, telefono, campoBaja) > 0)
@@ -75,7 +77,7 @@ namespace Modelo.Dominio
                     }
 
                 }
-
+            }
             return false;
         }
 
