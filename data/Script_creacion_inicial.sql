@@ -372,11 +372,11 @@ from gd_esquema.Maestra m
 
 
 						/*Empresa*/
-insert into [dropeadores].Empresa (empresa_Cuit,empresa_mail,empresa_razon_social)
+insert into [dropeadores].Empresa (empresa_Cuit,empresa_mail,empresa_razon_social,empresa_domicilio)
 select distinct Espec_Empresa_Cuit,Espec_Empresa_Mail,Espec_Empresa_Razon_Social
+,(select distinct  id from dropeadores.Domicilio d where d.calle=Espec_Empresa_Dom_Calle and d.codigoPostal=Espec_Empresa_Cod_Postal and d.numero=Espec_Empresa_Nro_Calle)
 from gd_esquema.Maestra m 
 where Espec_Empresa_Cuit is not null
-go
 update  [dropeadores].Empresa set empresa_estado=1
 
 					/*Cliente*/
