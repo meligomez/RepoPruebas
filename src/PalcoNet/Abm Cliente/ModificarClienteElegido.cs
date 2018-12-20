@@ -33,10 +33,7 @@ namespace PalcoNet.Abm_Cliente
 			foreach (string tipo in Documento.string_docu)
 				comboTipoDoc.Items.Add(tipo);
             nroDOCViejo = Convert.ToInt32(cliente_seleccionado.numeroDocumento);
-            //txtNroIdentificacion.ReadOnly = true;
-           // txtNroIdentificacion.Visible = false;
-           //txtNroIdentificacion.BackColor = System.Drawing.SystemColors.Window;
-		}
+          }
 
 		private void ModificarClienteElegido_Load(object sender, EventArgs e)
 		{
@@ -336,7 +333,7 @@ namespace PalcoNet.Abm_Cliente
                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (textCUIL.Text.Length > 11)
+            if (textCUIL.Text.Length >= 9 )
             {
                 MessageBox.Show("Debe ingresar un numero de Cuil valido. XX-XXXXXXXX-X, SIN '-' ", "Error al crear Nuevo Usuario",
                        MessageBoxButtons.OK, MessageBoxIcon.Error);
