@@ -41,6 +41,9 @@
 			this.btnNextPage = new System.Windows.Forms.Button();
 			this.label2 = new System.Windows.Forms.Label();
 			this.txtCantPags = new System.Windows.Forms.MaskedTextBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.comboBox1 = new System.Windows.Forms.ComboBox();
+			this.label4 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.panelNavegacion.SuspendLayout();
@@ -162,7 +165,7 @@
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(18, 115);
+			this.label2.Location = new System.Drawing.Point(410, 115);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(315, 24);
 			this.label2.TabIndex = 96;
@@ -170,7 +173,7 @@
 			// 
 			// txtCantPags
 			// 
-			this.txtCantPags.Location = new System.Drawing.Point(305, 112);
+			this.txtCantPags.Location = new System.Drawing.Point(696, 115);
 			this.txtCantPags.Mask = "99999";
 			this.txtCantPags.Name = "txtCantPags";
 			this.txtCantPags.Size = new System.Drawing.Size(110, 31);
@@ -179,12 +182,45 @@
 			this.txtCantPags.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.txtCantPags_MaskInputRejected);
 			this.txtCantPags.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
 			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(29, 115);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(90, 24);
+			this.label3.TabIndex = 98;
+			this.label3.Text = "Clientes:";
+			this.label3.Visible = false;
+			// 
+			// comboBox1
+			// 
+			this.comboBox1.FormattingEnabled = true;
+			this.comboBox1.Location = new System.Drawing.Point(114, 112);
+			this.comboBox1.Name = "comboBox1";
+			this.comboBox1.Size = new System.Drawing.Size(220, 32);
+			this.comboBox1.TabIndex = 99;
+			this.comboBox1.Visible = false;
+			this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Location = new System.Drawing.Point(139, 62);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(667, 24);
+			this.label4.TabIndex = 100;
+			this.label4.Text = "Debe ingresar una cantidad de paginas que desee para la visualizacion:";
+			this.label4.Visible = false;
+			// 
 			// HistorialCliente
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 24F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.Silver;
 			this.ClientSize = new System.Drawing.Size(885, 533);
+			this.Controls.Add(this.label4);
+			this.Controls.Add(this.comboBox1);
+			this.Controls.Add(this.label3);
 			this.Controls.Add(this.txtCantPags);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.panelNavegacion);
@@ -221,5 +257,8 @@
 		internal System.Windows.Forms.Button btnNextPage;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.MaskedTextBox txtCantPags;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.ComboBox comboBox1;
+		private System.Windows.Forms.Label label4;
 	}
 }

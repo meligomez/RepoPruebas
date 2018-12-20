@@ -60,6 +60,26 @@ namespace Modelo.Comun
 			}
 
 		}
+
+		public static void cargarComboBoxSinSeleccionar(ComboBox combo, DataTable opciones,
+											string _ValueMember, string _DisplayMember)
+		{
+			try
+			{
+				//Vaciar comboBox
+				combo.DataSource = null;
+				combo.ValueMember = _ValueMember;
+				combo.DisplayMember = _DisplayMember;
+				opciones.DefaultView.Sort = _ValueMember;
+				combo.DataSource = opciones;
+				//combo.;
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+
+		}
 		public static void cargarGridView(DataGridView dataGrid, List<Rol> lista)
 		{
 			try

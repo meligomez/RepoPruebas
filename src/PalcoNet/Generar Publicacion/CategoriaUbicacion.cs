@@ -978,7 +978,7 @@ namespace PalcoNet.Generar_Publicacion
 					foreach (DateTime unaFechaEspectaculo in fechasEspectaculos)
 					{
 						publicacion.fechaEspectaculo = unaFechaEspectaculo;
-						if (publicacion.existeFechayHoraSinLote())
+						if (!publicacion.existeFechayHoraSinLote())
 						{
 
 							int idPublicacionInsertado = 0;

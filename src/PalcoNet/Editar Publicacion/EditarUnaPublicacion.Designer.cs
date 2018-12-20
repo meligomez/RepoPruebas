@@ -62,6 +62,8 @@
 			this.lblPrecio = new System.Windows.Forms.Label();
 			this.lblCategoria = new System.Windows.Forms.Label();
 			this.comboCategoria = new System.Windows.Forms.ComboBox();
+			this.label2 = new System.Windows.Forms.Label();
+			this.lblfechaSist = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -391,12 +393,31 @@
 			this.comboCategoria.Visible = false;
 			this.comboCategoria.SelectedIndexChanged += new System.EventHandler(this.comboCategoria_SelectedIndexChanged);
 			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(642, 24);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(182, 24);
+			this.label2.TabIndex = 117;
+			this.label2.Text = "Fecha del sistema:";
+			// 
+			// lblfechaSist
+			// 
+			this.lblfechaSist.AutoSize = true;
+			this.lblfechaSist.Location = new System.Drawing.Point(818, 24);
+			this.lblfechaSist.Name = "lblfechaSist";
+			this.lblfechaSist.Size = new System.Drawing.Size(0, 24);
+			this.lblfechaSist.TabIndex = 118;
+			// 
 			// btnEditPublic
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 24F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.Silver;
 			this.ClientSize = new System.Drawing.Size(1070, 461);
+			this.Controls.Add(this.lblfechaSist);
+			this.Controls.Add(this.label2);
 			this.Controls.Add(this.btnPrecioPorCategoria);
 			this.Controls.Add(this.lblTextoCategoria);
 			this.Controls.Add(this.textPrecio);
@@ -477,5 +498,7 @@
 		private System.Windows.Forms.Label lblPrecio;
 		private System.Windows.Forms.Label lblCategoria;
 		private System.Windows.Forms.ComboBox comboCategoria;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Label lblfechaSist;
 	}
 }

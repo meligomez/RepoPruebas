@@ -36,6 +36,7 @@
 			this.pictureBox3 = new System.Windows.Forms.PictureBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.btnVolver = new System.Windows.Forms.Button();
+			this.comboBox1 = new System.Windows.Forms.ComboBox();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
 			this.SuspendLayout();
@@ -105,12 +106,22 @@
 			this.btnVolver.UseVisualStyleBackColor = true;
 			this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
 			// 
+			// comboBox1
+			// 
+			this.comboBox1.FormattingEnabled = true;
+			this.comboBox1.Location = new System.Drawing.Point(155, 112);
+			this.comboBox1.Name = "comboBox1";
+			this.comboBox1.Size = new System.Drawing.Size(198, 24);
+			this.comboBox1.TabIndex = 106;
+			this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+			// 
 			// CambiarEstadoPublicacion
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.Silver;
 			this.ClientSize = new System.Drawing.Size(1018, 593);
+			this.Controls.Add(this.comboBox1);
 			this.Controls.Add(this.btnVolver);
 			this.Controls.Add(this.label4);
 			this.Controls.Add(this.dataGridView1);
@@ -138,5 +149,6 @@
 		private System.Windows.Forms.PictureBox pictureBox3;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Button btnVolver;
+		private System.Windows.Forms.ComboBox comboBox1;
 	}
 }

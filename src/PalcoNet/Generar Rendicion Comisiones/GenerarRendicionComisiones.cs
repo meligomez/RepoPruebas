@@ -37,10 +37,19 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
 		private void GenerarRendicionComisiones_Load(object sender, EventArgs e)
 		{
 			DaoSP  dao= new DaoSP();
-			DataTable dt2 = dao.ConsultarConQuery("select distinct p.empresaId as 'Empresa' from dropeadores.Compra c join dropeadores.Ubicacion u" +
+			string query = "select distinct p.empresaId as 'Empresa' from dropeadores.Compra c join dropeadores.Ubicacion u" +
 						" on(u.asiento=c.compra_ubicacionAsiento and u.fila=c.compra_ubicacionFila and u.publicacionId=c.compra_ubicacionPublic)" +
-						" join dropeadores.Publicacion p on(p.id = u.publicacionId)");
-			CargarData.cargarComboBox(comboBox1, dt2, "Empresa", "Empresa");
+						" join dropeadores.Publicacion p on(p.id = u.publicacionId)";
+			DataTable dt2 = dao.ConsultarConQuery(query);
+			if(dt2.Rows.Count<=0)
+			{
+				MessageBox.Show("No existen datos");
+			}
+			else
+			{
+				CargarData.cargarComboBoxSinSeleccionar(comboBox1, dt2, "Empresa", "Empresa");
+			}
+			
 		}
 		private bool CheckFillButton()
 		{

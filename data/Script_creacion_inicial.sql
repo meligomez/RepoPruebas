@@ -372,11 +372,11 @@ from gd_esquema.Maestra m
 
 
 						/*Empresa*/
-insert into [dropeadores].Empresa (empresa_Cuit,empresa_mail,empresa_razon_social)
+insert into [dropeadores].Empresa (empresa_Cuit,empresa_mail,empresa_razon_social,empresa_domicilio)
 select distinct Espec_Empresa_Cuit,Espec_Empresa_Mail,Espec_Empresa_Razon_Social
+,(select distinct  id from dropeadores.Domicilio d where d.calle=Espec_Empresa_Dom_Calle and d.codigoPostal=Espec_Empresa_Cod_Postal and d.numero=Espec_Empresa_Nro_Calle)
 from gd_esquema.Maestra m 
 where Espec_Empresa_Cuit is not null
-go
 update  [dropeadores].Empresa set empresa_estado=1
 
 					/*Cliente*/
@@ -501,247 +501,262 @@ WHERE Factura_Nro IS NOT NULL AND c.compra_fecha=m.Compra_Fecha AND compra_numer
 -----------------------------------------------------------------------------------------------------
 						        /* INICIO VALIDACION PROCEDURES */
 -----------------------------------------------------------------------------------------------------
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[altaItem]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='altaItem' AND type='p')
 DROP PROCEDURE [dropeadores].[altaItem]
 GO
-/****** Object:  StoredProcedure [dropeadores].[AltaUbicacion]    Script Date: 12/16/2018 22:30:40 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[AltaUbicacion]') AND type in (N'P', N'PC'))
+/****** Object:  StoredProcedure  AltaUbicacion]    Script Date: 12/16/2018 22:30:40 ******/
+IF EXISTS (SELECT name FROM sysobjects WHERE name='AltaUbicacion' AND type='p')
 DROP PROCEDURE [dropeadores].[AltaUbicacion]
 GO
 /****** Object:  StoredProcedure [dropeadores].[DescontarPuntosPorCompra]    Script Date: 12/16/2018 22:30:40 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[DescontarPuntosPorCompra]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='DescontarPuntosPorCompra' AND type='p')
 DROP PROCEDURE [dropeadores].[DescontarPuntosPorCompra]
 GO
 /****** Object:  StoredProcedure [dropeadores].[EliminarPublicacion]    Script Date: 12/16/2018 22:30:40 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[EliminarPublicacion]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='EliminarPublicacion' AND type='p')
 DROP PROCEDURE [dropeadores].[EliminarPublicacion]
 GO
 /****** Object:  StoredProcedure [dropeadores].[ActualizarPuntaje]    Script Date: 12/16/2018 22:30:40 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[ActualizarPuntaje]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='ActualizarPuntaje' AND type='p')
 DROP PROCEDURE [dropeadores].[ActualizarPuntaje]
 GO
 /****** Object:  StoredProcedure [dropeadores].[getClientesMasPuntosVencidos]    Script Date: 12/16/2018 22:30:40 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[getClientesMasPuntosVencidos]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='getClientesMasPuntosVencidos' AND type='p')
 DROP PROCEDURE [dropeadores].[getClientesMasPuntosVencidos]
 GO
 /****** Object:  StoredProcedure [dropeadores].[GetComprasPorEmpresa]    Script Date: 12/16/2018 22:30:40 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[GetComprasPorEmpresa]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='GetComprasPorEmpresa' AND type='p')
 DROP PROCEDURE [dropeadores].[GetComprasPorEmpresa]
 GO
 /****** Object:  StoredProcedure [dropeadores].[getLocalidadesNoVendidas]    Script Date: 12/16/2018 22:30:40 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[getLocalidadesNoVendidas]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='getLocalidadesNoVendidas' AND type='p')
 DROP PROCEDURE [dropeadores].[getLocalidadesNoVendidas]
 GO
 /****** Object:  StoredProcedure [dropeadores].[getPrecioDeUbicacionPorCategoria]    Script Date: 12/16/2018 22:30:40 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[getPrecioDeUbicacionPorCategoria]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='getPrecioDeUbicacionPorCategoria' AND type='p')
 DROP PROCEDURE [dropeadores].[getPrecioDeUbicacionPorCategoria]
 GO
-/****** Object:  StoredProcedure [dropeadores].[UpdatePrecioUbicacion]    Script Date: 12/16/2018 22:30:40 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[UpdatePrecioUbicacion]') AND type in (N'P', N'PC'))
-DROP PROCEDURE [dropeadores].[UpdatePrecioUbicacion]
-GO
 /****** Object:  StoredProcedure [dropeadores].[altaFactura]    Script Date: 12/16/2018 22:30:40 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[altaFactura]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='altaFactura' AND type='p')
 DROP PROCEDURE [dropeadores].[altaFactura]
 GO
 /****** Object:  StoredProcedure [dropeadores].[getClientesMayorCantCompras]    Script Date: 12/16/2018 22:30:40 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[getClientesMayorCantCompras]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='getClientesMayorCantCompras' AND type='p')
 DROP PROCEDURE [dropeadores].[getClientesMayorCantCompras]
 GO
 /****** Object:  StoredProcedure [dropeadores].[GetFuncionalidades]    Script Date: 12/16/2018 22:30:40 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[GetFuncionalidades]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='GetFuncionalidades' AND type='p')
 DROP PROCEDURE [dropeadores].[GetFuncionalidades]
 GO
 /****** Object:  StoredProcedure [dropeadores].[getFuncionalidadPorRol]    Script Date: 12/16/2018 22:30:40 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[getFuncionalidadPorRol]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='getFuncionalidadPorRol' AND type='p')
 DROP PROCEDURE [dropeadores].[getFuncionalidadPorRol]
 GO
 /****** Object:  StoredProcedure [dropeadores].[altaPublicacion]    Script Date: 12/16/2018 22:30:40 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[altaPublicacion]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='altaPublicacion' AND type='p')
 DROP PROCEDURE [dropeadores].[altaPublicacion]
 GO
 /****** Object:  StoredProcedure [dropeadores].[AltaRolPorFuncionalidad]    Script Date: 12/16/2018 22:30:40 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[AltaRolPorFuncionalidad]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='AltaRolPorFuncionalidad' AND type='p')
 DROP PROCEDURE [dropeadores].[AltaRolPorFuncionalidad]
 GO
 /****** Object:  StoredProcedure [dropeadores].[altaTipoUbicacion]    Script Date: 12/16/2018 22:30:40 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[altaTipoUbicacion]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='altaTipoUbicacion' AND type='p')
 DROP PROCEDURE [dropeadores].[altaTipoUbicacion]
 GO
 /****** Object:  StoredProcedure [dropeadores].[buscarCodigoTipoUbicacion]    Script Date: 12/16/2018 22:30:40 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[buscarCodigoTipoUbicacion]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='buscarCodigoTipoUbicacion' AND type='p')
 DROP PROCEDURE [dropeadores].[buscarCodigoTipoUbicacion]
 GO
 
 /****** Object:  StoredProcedure [dropeadores].[getIdByDescripcion]    Script Date: 12/16/2018 22:30:40 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[getIdByDescripcion]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='getIdByDescripcion' AND type='p')
 DROP PROCEDURE [dropeadores].[getIdByDescripcion]
 GO
 /****** Object:  StoredProcedure [dropeadores].[getDescripcionCategoriaById]    Script Date: 12/16/2018 22:30:40 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[getDescripcionCategoriaById]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='getDescripcionCategoriaById' AND type='p')
 DROP PROCEDURE [dropeadores].[getDescripcionCategoriaById]
 GO
 /****** Object:  StoredProcedure [dropeadores].[Alta_Rol]    Script Date: 12/16/2018 22:30:40 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[Alta_Rol]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='Alta_Rol' AND type='p')
 DROP PROCEDURE [dropeadores].[Alta_Rol]
 GO
 /****** Object:  StoredProcedure [dropeadores].[Rol_ObtenerId]    Script Date: 12/16/2018 22:30:40 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[Rol_ObtenerId]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='Rol_ObtenerId' AND type='p')
 DROP PROCEDURE [dropeadores].[Rol_ObtenerId]
 GO
 /****** Object:  StoredProcedure [dropeadores].[obtenerRolByName]    Script Date: 12/16/2018 22:30:40 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[obtenerRolByName]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='obtenerRolByName' AND type='p')
 DROP PROCEDURE [dropeadores].[obtenerRolByName]
 GO
 /****** Object:  StoredProcedure [dropeadores].[obtenerUsuarioByUsername]    Script Date: 12/16/2018 22:30:40 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[obtenerUsuarioByUsername]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='obtenerUsuarioByUsername' AND type='p')
 DROP PROCEDURE [dropeadores].[obtenerUsuarioByUsername]
 GO
 /****** Object:  StoredProcedure [dropeadores].[pasarAInhabilitado]    Script Date: 12/16/2018 22:30:40 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[pasarAInhabilitado]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='pasarAInhabilitado' AND type='p')
 DROP PROCEDURE [dropeadores].[pasarAInhabilitado]
 GO
 /****** Object:  StoredProcedure [dropeadores].[Domicilio_Alta]    Script Date: 12/16/2018 22:30:40 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[Domicilio_Alta]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='Domicilio_Alta' AND type='p')
 DROP PROCEDURE [dropeadores].[Domicilio_Alta]
 GO
 GO
 /****** Object:  StoredProcedure [dropeadores].[Usuario_Alta_Empresa]    Script Date: 19/12/2018 12:26:16 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[Usuario_Alta_Empresa]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='Usuario_Alta_Empresa' AND type='p')
 DROP PROCEDURE [dropeadores].[Usuario_Alta_Empresa]
 GO
 /****** Object:  StoredProcedure [dropeadores].[Usuario_Alta]    Script Date: 19/12/2018 12:26:16 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[Usuario_Alta]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='Usuario_Alta' AND type='p')
 DROP PROCEDURE [dropeadores].[Usuario_Alta]
 GO
 /****** Object:  StoredProcedure [dropeadores].[updateUbicacion]    Script Date: 19/12/2018 12:26:16 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[updateUbicacion]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='updateUbicacion' AND type='p')
 DROP PROCEDURE [dropeadores].[updateUbicacion]
 GO
 /****** Object:  StoredProcedure [dropeadores].[updateTarjetaCliente]    Script Date: 19/12/2018 12:26:16 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[updateTarjetaCliente]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='updateTarjetaCliente' AND type='p')
 DROP PROCEDURE [dropeadores].[updateTarjetaCliente]
 GO
 /****** Object:  StoredProcedure [dropeadores].[updatePuntos]    Script Date: 19/12/2018 12:26:16 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[updatePuntos]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='updatePuntos' AND type='p')
 DROP PROCEDURE [dropeadores].[updatePuntos]
 GO
 /****** Object:  StoredProcedure [dropeadores].[updateGrado]    Script Date: 19/12/2018 12:26:16 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[updateGrado]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='updateGrado' AND type='p')
 DROP PROCEDURE [dropeadores].[updateGrado]
 GO
 /****** Object:  StoredProcedure [dropeadores].[updateEmpresa]    Script Date: 19/12/2018 12:26:16 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[updateEmpresa]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='updateEmpresa' AND type='p')
 DROP PROCEDURE [dropeadores].[updateEmpresa]
 GO
 /****** Object:  StoredProcedure [dropeadores].[updateDomicilioCliente]    Script Date: 19/12/2018 12:26:16 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[updateDomicilioCliente]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='updateDomicilioCliente' AND type='p')
 DROP PROCEDURE [dropeadores].[updateDomicilioCliente]
 GO
 /****** Object:  StoredProcedure [dropeadores].[updateCliente]    Script Date: 19/12/2018 12:26:16 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[updateCliente]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='updateCliente' AND type='p')
 DROP PROCEDURE [dropeadores].[updateCliente]
 GO
 /****** Object:  StoredProcedure [dropeadores].[obtenerUsuarioByUsername]    Script Date: 19/12/2018 12:26:16 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[obtenerUsuarioByUsername]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='obtenerUsuarioByUsername' AND type='p')
 DROP PROCEDURE [dropeadores].[obtenerUsuarioByUsername]
 GO
 /****** Object:  StoredProcedure [dropeadores].[obtenerIDcompra]    Script Date: 19/12/2018 12:26:16 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[obtenerIDcompra]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='obtenerIDcompra' AND type='p')
 DROP PROCEDURE [dropeadores].[obtenerIDcompra]
 GO
 /****** Object:  StoredProcedure [dropeadores].[ObtenerGradoEspecifico]    Script Date: 19/12/2018 12:26:16 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[ObtenerGradoEspecifico]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='ObtenerGradoEspecifico' AND type='p')
 DROP PROCEDURE [dropeadores].[ObtenerGradoEspecifico]
 GO
 /****** Object:  StoredProcedure [dropeadores].[ObtenerEmpresaEspecifica]    Script Date: 19/12/2018 12:26:16 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[ObtenerEmpresaEspecifica]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='ObtenerEmpresaEspecifica' AND type='p')
 DROP PROCEDURE [dropeadores].[ObtenerEmpresaEspecifica]
 GO
 /****** Object:  StoredProcedure [dropeadores].[ObtenerClienteEspecifico]    Script Date: 19/12/2018 12:26:16 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[ObtenerClienteEspecifico]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='ObtenerClienteEspecifico' AND type='p')
 DROP PROCEDURE [dropeadores].[ObtenerClienteEspecifico]
 GO
 /****** Object:  StoredProcedure [dropeadores].[insertPuntos]    Script Date: 19/12/2018 12:26:16 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[insertPuntos]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='insertPuntos' AND type='p')
 DROP PROCEDURE [dropeadores].[insertPuntos]
 GO
 /****** Object:  StoredProcedure [dropeadores].[insertCompra]    Script Date: 19/12/2018 12:26:16 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[insertCompra]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='insertCompra' AND type='p')
 DROP PROCEDURE [dropeadores].[insertCompra]
 GO
 /****** Object:  StoredProcedure [dropeadores].[Grado_Alta]    Script Date: 19/12/2018 12:26:16 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[Grado_Alta]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='Grado_Alta' AND type='p')
 DROP PROCEDURE [dropeadores].[Grado_Alta]
 GO
 /****** Object:  StoredProcedure [dropeadores].[getUbicacion]    Script Date: 19/12/2018 12:26:16 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[getUbicacion]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='getUbicacion' AND type='p')
 DROP PROCEDURE [dropeadores].[getUbicacion]
 GO
 /****** Object:  StoredProcedure [dropeadores].[getTablaPublicacion]    Script Date: 19/12/2018 12:26:16 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[getTablaPublicacion]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='getTablaPublicacion' AND type='p')
 DROP PROCEDURE [dropeadores].[getTablaPublicacion]
 GO
 /****** Object:  StoredProcedure [dropeadores].[getGrado]    Script Date: 19/12/2018 12:26:16 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[getGrado]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='getGrado' AND type='p')
 DROP PROCEDURE [dropeadores].[getGrado]
 GO
 /****** Object:  StoredProcedure [dropeadores].[getEmpresa]    Script Date: 19/12/2018 12:26:16 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[getEmpresa]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='getEmpresa' AND type='p')
 DROP PROCEDURE [dropeadores].[getEmpresa]
 GO
 /****** Object:  StoredProcedure [dropeadores].[getCliente]    Script Date: 19/12/2018 12:26:16 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[getCliente]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='getCliente' AND type='p')
 DROP PROCEDURE [dropeadores].[getCliente]
 GO
 /****** Object:  StoredProcedure [dropeadores].[Empresa_Alta]    Script Date: 19/12/2018 12:26:16 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[Empresa_Alta]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='Empresa_Alta' AND type='p')
 DROP PROCEDURE [dropeadores].[Empresa_Alta]
 GO
 /****** Object:  StoredProcedure [dropeadores].[Emp_ObtenerId]    Script Date: 19/12/2018 12:26:16 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[Emp_ObtenerId]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='Emp_ObtenerId' AND type='p')
 DROP PROCEDURE [dropeadores].[Emp_ObtenerId]
 GO
 /****** Object:  StoredProcedure [dropeadores].[Domicilio_Alta]    Script Date: 19/12/2018 12:26:16 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[Domicilio_Alta]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='Domicilio_Alta' AND type='p')
 DROP PROCEDURE [dropeadores].[Domicilio_Alta]
 GO
 /****** Object:  StoredProcedure [dropeadores].[Dire_ObtenerId]    Script Date: 19/12/2018 12:26:16 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[Dire_ObtenerId]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='Dire_ObtenerId' AND type='p')
 DROP PROCEDURE [dropeadores].[Dire_ObtenerId]
 GO
 /****** Object:  StoredProcedure [dropeadores].[deleteGrado]    Script Date: 19/12/2018 12:26:16 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[deleteGrado]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='deleteGrado' AND type='p')
 DROP PROCEDURE [dropeadores].[deleteGrado]
 GO
 /****** Object:  StoredProcedure [dropeadores].[deleteEmpresa]    Script Date: 19/12/2018 12:26:16 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[deleteEmpresa]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='deleteEmpresa' AND type='p')
 DROP PROCEDURE [dropeadores].[deleteEmpresa]
 GO
 /****** Object:  StoredProcedure [dropeadores].[deleteCliente]    Script Date: 19/12/2018 12:26:17 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[deleteCliente]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='deleteCliente' AND type='p')
 DROP PROCEDURE [dropeadores].[deleteCliente]
 GO
 /****** Object:  StoredProcedure [dropeadores].[Cliente_Alta_Tarjeta]    Script Date: 19/12/2018 12:26:17 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[Cliente_Alta_Tarjeta]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='Cliente_Alta_Tarjeta' AND type='p')
 DROP PROCEDURE [dropeadores].[Cliente_Alta_Tarjeta]
 GO
 /****** Object:  StoredProcedure [dropeadores].[Cli_ObtenerId]    Script Date: 19/12/2018 12:26:17 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[Cli_ObtenerId]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='Cli_ObtenerId' AND type='p')
 DROP PROCEDURE [dropeadores].[Cli_ObtenerId]
 GO
 /****** Object:  StoredProcedure [dropeadores].[Cli_Alta]    Script Date: 19/12/2018 12:26:17 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[Cli_Alta]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='Cli_Alta' AND type='p')
 DROP PROCEDURE [dropeadores].[Cli_Alta]
 GO
 /****** Object:  StoredProcedure [dropeadores].[asociarTarjetaCliente]    Script Date: 19/12/2018 12:26:17 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[asociarTarjetaCliente]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='asociarTarjetaCliente' AND type='p')
 DROP PROCEDURE [dropeadores].[asociarTarjetaCliente]
 GO
 
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dropeadores].[ExistCuitandRazonSocial]') AND type in (N'P', N'PC'))
+IF EXISTS (SELECT name FROM sysobjects WHERE name='updatePublicacionFinalizada' AND type='p')
+/****** Object:  StoredProcedure [dropeadores].[updatePublicacionFinalizada]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[updatePublicacionFinalizada]
+
+IF EXISTS (SELECT name FROM sysobjects WHERE name='login' AND type='p')
+/****** Object:  StoredProcedure [dropeadores].[login]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[login]
+
+IF EXISTS (SELECT name FROM sysobjects WHERE name='Usuario_UpdatePsw' AND type='p')
+/****** Object:  StoredProcedure [dropeadores].[Usuario_UpdatePsw]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[Usuario_UpdatePsw]
+
+IF EXISTS (SELECT name FROM sysobjects WHERE name='UpdatePrecioUbicacion' AND type='p')
+/****** Object:  StoredProcedure [dropeadores].[UpdatePrecioUbicacion]    Script Date: 17/12/2018 1:44:20 ******/
+DROP PROCEDURE [dropeadores].[UpdatePrecioUbicacion]
+
+IF EXISTS (SELECT name FROM sysobjects WHERE name='ExistCuitandRazonSocial' AND type='p')
 /****** Object:  StoredProcedure [dropeadores].[ExistCuitandRazonSocial]    Script Date: 17/12/2018 1:44:20 ******/
 DROP PROCEDURE [dropeadores].[ExistCuitandRazonSocial]
+
+
+
 
 -----------------------------------------------------------------------------------------------------
 						        /* FIN VALIDACION DE PROCEDURES */
@@ -1121,17 +1136,6 @@ end
 
 /**************FIN UpdatePrecioUbicacion*****************/
 
-/**************FIN UpdatePrecioUbicacion*****************/
-GO
-create procedure [dropeadores].[UpdatePrecioUbicacion] (@codigoPublicacion int, @codigoTipoUbicacion int , @precio decimal(12,2))
-	as
-	begin
-	update dropeadores.Ubicacion set precio=@precio where publicacionId= @codigoPublicacion and tipoUbicacion=@codigoTipoUbicacion
-	end
-GO
-
-  /**************FIN UpdatePrecioUbicacion*****************/
-
 
   /**************INICIO altaFactura*****************/
 GO
@@ -1325,7 +1329,7 @@ end
 
 /**************INICIO ALTA TARJETA*****************/
 
-USE [GD2C2018]
+
 GO
 /****** Object:  StoredProcedure [dropeadores].[Cliente_Alta_Tarjeta]    Script Date: 17/12/2018 1:46:45 ******/
 SET ANSI_NULLS ON
@@ -1342,7 +1346,7 @@ end
 
 /**************INICIO ALTA USUARIO*****************/
 
-USE [GD2C2018]
+
 GO
 SET ANSI_NULLS ON
 GO
@@ -1359,7 +1363,7 @@ end
 
 /**************INICIO ALTA DOMICILIO*****************/
 
-USE [GD2C2018]
+
 GO
 SET ANSI_NULLS ON
 GO
@@ -1556,7 +1560,6 @@ AS
 
 /**************INICIO ALTA GET CLIENTE *****************/
 
-USE [GD2C2018]
 GO
 /****** Object:  StoredProcedure [dropeadores].[getCliente]    Script Date: 17/12/2018 1:56:15 ******/
 SET ANSI_NULLS ON
@@ -1572,7 +1575,7 @@ END
 
 /**************INICIO ALTA INSERT PUNTOS *****************/
 
-USE [GD2C2018]
+
 GO
 /****** Object:  StoredProcedure [dropeadores].[insertPuntos]    Script Date: 17/12/2018 2:16:38 ******/
 SET ANSI_NULLS ON
@@ -1695,7 +1698,6 @@ CREATE PROCEDURE [dropeadores].[obtenerIDcompra]
 
 /**************INICIO CLIENTE ESPECIFICO *****************/
 
-USE [GD2C2018]
 GO
 /****** Object:  StoredProcedure [dropeadores].[ObtenerClienteEspecifico]    Script Date: 19/12/2018 12:19:20 ******/
 SET ANSI_NULLS ON
@@ -2024,7 +2026,6 @@ AS
 
 /**************INICIO EXISTE CUIT Y RAZON SOCIAL   *****************/
 
-USE [GD2C2018]
 GO
 /****** Object:  StoredProcedure [dropeadores].[ExistCuitandRazonSocial]    Script Date: 19/12/2018 10:51:50 ******/
 SET ANSI_NULLS ON
@@ -2039,7 +2040,24 @@ select count(e.empresa_Cuit)
 from dropeadores.Empresa e where e.empresa_Cuit LIKE @cuit or e.empresa_razon_social LIKE @razonSocial
 
 /**************FIN EXISTE CUIT Y RAZON SOCIAL   *****************/
+/**************INICIO ACTUALIZAR PUBLICACION A ESTADO FINALIZADO  *****************/
 
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dropeadores].[updatePublicacionFinalizada]
+			@id int
+			
+AS
+	BEGIN
+			UPDATE dropeadores.Publicacion
+				SET estado = 2 
+				where id = @id
+	
+	END
+/**************FINACTUALIZAR PUBLICACION A ESTADO FINALIZADO   *****************/
 -----------------------------------------------------------------------------------------------------
 										/* FIN DE CREACION DE PROCEDURES */
 -----------------------------------------------------------------------------------------------------

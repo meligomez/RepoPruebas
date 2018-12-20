@@ -44,7 +44,7 @@
 			// txtNombreRol
 			// 
 			this.txtNombreRol.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-			this.txtNombreRol.Location = new System.Drawing.Point(186, 110);
+			this.txtNombreRol.Location = new System.Drawing.Point(190, 112);
 			this.txtNombreRol.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
 			this.txtNombreRol.Name = "txtNombreRol";
 			this.txtNombreRol.Size = new System.Drawing.Size(254, 28);

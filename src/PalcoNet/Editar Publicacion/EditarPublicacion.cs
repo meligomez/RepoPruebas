@@ -52,23 +52,62 @@ namespace PalcoNet.Editar_Publicacion
 
 		private void EditarPublicacion_Load(object sender, EventArgs e)
 		{
-			DataTable dt = new DataTable();
-			DaoSP dao = new DaoSP();
-			//ESTADO EN CERO INDICA QUE ES BORRADOR!.
-			string query = "SELECT p.id as 'Codigo',r.rubro_Descripcion as 'Rubro',g.tipo as 'Grado',p.descripcion as 'Descr. Espectaculo',stock,fechaPublicacion as 'Fecha Publicacion',fechaEspectaculo as 'Fecha Espectaculo',direccion as 'Direccion Espec.'FROM dropeadores.Publicacion p " +
-				" join dropeadores.Rubro r on(r.id=p.rubroId)" +
-				" join dropeadores.Grado g on(g.id=p.gradoId)"+
-				" where empresaId= '" + userLogueado.empresa.Empresa_Cuit + "' and p.estado=0";
-			dt = dao.ConsultarConQuery(query);
-			if(dt.Rows.Count<=0)
+			if(userLogueado.empresa.Empresa_Cuit == "0")
 			{
-				MessageBox.Show("No existen publicaciones en estado Borrador para editar.");
+				comboBox1.Visible = true;
+				DaoSP dao2 = new DaoSP();
+				DataTable dt2 = dao2.ConsultarConQuery("select distinct empresaId as 'Empresa' from dropeadores.Publicacion p "+
+					" join dropeadores.Empresa e on(e.empresa_Cuit=p.empresaId)"+
+					" where e.empresa_estado = 1 and p.estado=0");
+				if (dt2.Rows.Count <= 0)
+				{
+					MessageBox.Show("No existen publicaciones en estado Borrador para editar.");
+				}
+				else
+				{
+					CargarData.cargarComboBoxSinSeleccionar(comboBox1, dt2, "Empresa", "Empresa");
+				}
+			
+
+				DataTable dt = new DataTable();
+				DaoSP dao = new DaoSP();
+				//ESTADO EN CERO INDICA QUE ES BORRADOR!.
+				string query = "SELECT p.id as 'Codigo',r.rubro_Descripcion as 'Rubro',g.tipo as 'Grado',p.descripcion as 'Descr. Espectaculo',stock,fechaPublicacion as 'Fecha Publicacion',fechaEspectaculo as 'Fecha Espectaculo',direccion as 'Direccion Espec.'FROM dropeadores.Publicacion p " +
+					" join dropeadores.Rubro r on(r.id=p.rubroId)" +
+					" join dropeadores.Grado g on(g.id=p.gradoId)" +
+					" where empresaId= '" +comboBox1.SelectedValue+ "' and p.estado=0";
+				dt = dao.ConsultarConQuery(query);
+				if (dt.Rows.Count <= 0)
+				{
+					MessageBox.Show("No existen publicaciones en estado Borrador para editar.");
+				}
+				else
+				{
+					CargarData.cargarGridView(dataGridView1, dt);
+					lblEmpleado.Text = userLogueado.empresa.Empresa_Cuit;
+					CargarData.AddButtonEditColumn(dataGridView1);
+				}
 			}
 			else
 			{
-				CargarData.cargarGridView(dataGridView1, dt);
-				lblEmpleado.Text = userLogueado.empresa.Empresa_Cuit;
-				CargarData.AddButtonEditColumn(dataGridView1);
+				DataTable dt = new DataTable();
+				DaoSP dao = new DaoSP();
+				//ESTADO EN CERO INDICA QUE ES BORRADOR!.
+				string query = "SELECT p.id as 'Codigo',r.rubro_Descripcion as 'Rubro',g.tipo as 'Grado',p.descripcion as 'Descr. Espectaculo',stock,fechaPublicacion as 'Fecha Publicacion',fechaEspectaculo as 'Fecha Espectaculo',direccion as 'Direccion Espec.'FROM dropeadores.Publicacion p " +
+					" join dropeadores.Rubro r on(r.id=p.rubroId)" +
+					" join dropeadores.Grado g on(g.id=p.gradoId)" +
+					" where empresaId= '" + userLogueado.empresa.Empresa_Cuit + "' and p.estado=0";
+				dt = dao.ConsultarConQuery(query);
+				if (dt.Rows.Count <= 0)
+				{
+					MessageBox.Show("No existen publicaciones en estado Borrador para editar.");
+				}
+				else
+				{
+					CargarData.cargarGridView(dataGridView1, dt);
+					lblEmpleado.Text = userLogueado.empresa.Empresa_Cuit;
+					CargarData.AddButtonEditColumn(dataGridView1);
+				}
 			}
 			
 		}
@@ -76,6 +115,32 @@ namespace PalcoNet.Editar_Publicacion
 		private void btnVolver_Click(object sender, EventArgs e)
 		{
 			this.Hide();
+		}
+
+		private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (userLogueado.empresa.Empresa_Cuit == "0")
+			{
+				dataGridView1.DataSource = null;
+				DataTable dt = new DataTable();
+				DaoSP dao = new DaoSP();
+				//ESTADO EN CERO INDICA QUE ES BORRADOR!.
+				string query = "SELECT p.id as 'Codigo',r.rubro_Descripcion as 'Rubro',g.tipo as 'Grado',p.descripcion as 'Descr. Espectaculo',stock,fechaPublicacion as 'Fecha Publicacion',fechaEspectaculo as 'Fecha Espectaculo',direccion as 'Direccion Espec.'FROM dropeadores.Publicacion p " +
+					" join dropeadores.Rubro r on(r.id=p.rubroId)" +
+					" join dropeadores.Grado g on(g.id=p.gradoId)" +
+					" where empresaId= '" + comboBox1.SelectedValue + "' and p.estado=0";
+				dt = dao.ConsultarConQuery(query);
+				if (dt.Rows.Count <= 0)
+				{
+					MessageBox.Show("No existen publicaciones en estado Borrador para editar.");
+				}
+				else
+				{
+					CargarData.cargarGridView(dataGridView1, dt);
+					lblEmpleado.Text = userLogueado.empresa.Empresa_Cuit;
+					CargarData.AddButtonEditColumn(dataGridView1);
+				}
+			}
 		}
 	}
 }

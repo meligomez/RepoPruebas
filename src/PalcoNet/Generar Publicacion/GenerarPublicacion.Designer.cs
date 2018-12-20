@@ -57,6 +57,8 @@
 			this.label3 = new System.Windows.Forms.Label();
 			this.btnSubirTxt = new System.Windows.Forms.Button();
 			this.textStock = new System.Windows.Forms.MaskedTextBox();
+			this.label5 = new System.Windows.Forms.Label();
+			this.lblfechasis = new System.Windows.Forms.Label();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.SuspendLayout();
@@ -345,6 +347,25 @@
 			this.textStock.TabIndex = 112;
 			this.textStock.ValidatingType = typeof(int);
 			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.Font = new System.Drawing.Font("Raleway", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label5.Location = new System.Drawing.Point(314, 82);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(146, 24);
+			this.label5.TabIndex = 113;
+			this.label5.Text = "fecha Sistema:";
+			// 
+			// lblfechasis
+			// 
+			this.lblfechasis.AutoSize = true;
+			this.lblfechasis.Font = new System.Drawing.Font("Raleway", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblfechasis.Location = new System.Drawing.Point(466, 82);
+			this.lblfechasis.Name = "lblfechasis";
+			this.lblfechasis.Size = new System.Drawing.Size(0, 24);
+			this.lblfechasis.TabIndex = 114;
+			// 
 			// GenerarPublicacion
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -352,6 +373,8 @@
 			this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
 			this.BackColor = System.Drawing.Color.Silver;
 			this.ClientSize = new System.Drawing.Size(653, 640);
+			this.Controls.Add(this.lblfechasis);
+			this.Controls.Add(this.label5);
 			this.Controls.Add(this.textStock);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.label3);
@@ -419,5 +442,7 @@
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Button btnSubirTxt;
 		private System.Windows.Forms.MaskedTextBox textStock;
+		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.Label lblfechasis;
 	}
 }
