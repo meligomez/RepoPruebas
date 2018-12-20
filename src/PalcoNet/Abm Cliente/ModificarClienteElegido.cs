@@ -33,9 +33,9 @@ namespace PalcoNet.Abm_Cliente
 			foreach (string tipo in Documento.string_docu)
 				comboTipoDoc.Items.Add(tipo);
             nroDOCViejo = Convert.ToInt32(cliente_seleccionado.numeroDocumento);
-            txtNroIdentificacion.ReadOnly = true;
+            //txtNroIdentificacion.ReadOnly = true;
            // txtNroIdentificacion.Visible = false;
-           txtNroIdentificacion.BackColor = System.Drawing.SystemColors.Window;
+           //txtNroIdentificacion.BackColor = System.Drawing.SystemColors.Window;
 		}
 
 		private void ModificarClienteElegido_Load(object sender, EventArgs e)

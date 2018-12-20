@@ -16,15 +16,17 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 	public partial class ModificarEmpresaElegida : Form
 	{
         Empresa empresa_Seleccionada;
+        string nroCuilViejo = "";
+       
         ConfigGlobal archivoDeConfig = new ConfigGlobal();
-        
+       
 		public ModificarEmpresaElegida(string cuit)
 		{
 			InitializeComponent();
             DaoSP dao = new DaoSP();
             empresa_Seleccionada = obtener(cuit);
-            textCUIT.ReadOnly = true;
-            textRazonSocial.ReadOnly = true;
+            //textCUIT.ReadOnly = true;
+            //textRazonSocial.ReadOnly = true;
           
             if (empresa_Seleccionada == null)
             {
@@ -38,6 +40,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
         private void cargarDatos()
         {   textRazonSocial.Text = empresa_Seleccionada.Empresa_razon_social;
             textCUIT.Text = empresa_Seleccionada.Empresa_Cuit;
+            nroCuilViejo = Convert.ToString(empresa_Seleccionada.Empresa_Cuit);
             textTelefono.Text = empresa_Seleccionada.Empresa_telefono.ToString();
             textMail.Text = empresa_Seleccionada.Empresa_mail;
             textCiudad.Text = empresa_Seleccionada.Empresa_Dom.ciudad;
@@ -142,7 +145,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                     empresa_Seleccionada.Empresa_estado = checkBaja.Checked;
                 }
 
-                if (!Empresa.actualizar(empresa_Seleccionada))
+                if (!Empresa.actualizar(empresa_Seleccionada, nroCuilViejo))
                 {
                     MessageBox.Show("Error al modificar la empresa.", "Error al Modificar empresa",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);

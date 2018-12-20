@@ -42,7 +42,7 @@
             this.botonBuscar = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
-            this.textCUIT = new System.Windows.Forms.MaskedTextBox();
+            this.textCUIT = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEmpresa)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -175,11 +175,11 @@
             // 
             // textCUIT
             // 
-            this.textCUIT.Location = new System.Drawing.Point(483, 133);
-            this.textCUIT.Mask = "99-99999999-9";
+            this.textCUIT.Location = new System.Drawing.Point(467, 136);
+            this.textCUIT.Margin = new System.Windows.Forms.Padding(4);
             this.textCUIT.Name = "textCUIT";
-            this.textCUIT.Size = new System.Drawing.Size(198, 26);
-            this.textCUIT.TabIndex = 119;
+            this.textCUIT.Size = new System.Drawing.Size(226, 26);
+            this.textCUIT.TabIndex = 111;
             // 
             // EliminarEmpresa
             // 
@@ -229,6 +229,6 @@
         private System.Windows.Forms.Button botonBuscar;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.MaskedTextBox textCUIT;
+        private System.Windows.Forms.TextBox textCUIT;
 	}
 }

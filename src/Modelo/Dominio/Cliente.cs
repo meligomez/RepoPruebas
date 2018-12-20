@@ -56,16 +56,16 @@ namespace Modelo.Dominio
 		{
 
 			DaoSP dao = new DaoSP();
-
+            int puedeUpdetear = 0;
             int docViejo = nroViejo;
 			DataTable dt, dr,da = new DataTable();
              int cant = 0;
 			int IDcliente = 000000;
-			//string cadena_nula = "";
 			string nombre = cliente_seleccionado.nombre;
 			string apellido = cliente_seleccionado.apellido;
 			string tipoDocumento = cliente_seleccionado.tipoDocumento;
 			int numeroDocumento = cliente_seleccionado.numeroDocumento;
+            int numeroDocumentoViejo = nroViejo;
 			string cuil = cliente_seleccionado.cuil;
 			string email = cliente_seleccionado.mail;
 			int telefono = cliente_seleccionado.telefono;
@@ -75,7 +75,6 @@ namespace Modelo.Dominio
 			int piso = cliente_seleccionado.Cli_Dir.piso;
 			string depto = cliente_seleccionado.Cli_Dir.dpto;
 			string localidad = cliente_seleccionado.Cli_Dir.localidad;
-            
             string ciudad = cliente_seleccionado.Cli_Dir.ciudad;
 			int cp = cliente_seleccionado.Cli_Dir.cp;
 			string propietarioTar = cliente_seleccionado.Cli_Tar.propietario;
@@ -83,75 +82,89 @@ namespace Modelo.Dominio
             string descripcionTar = cliente_seleccionado.Cli_Tar.descripcion;
 			DateTime fecha_vencimiento = cliente_seleccionado.Cli_Tar.fechaVencimiento;
             int campoBaja = (cliente_seleccionado.estado) ? 1 : 1;
+            //si es 0 puede updetear el cliente ya que no existe
+            if (numeroDocumentoViejo != numeroDocumento)
+            {
+                da = dao.ConsultarConQuery("select count(c.numeroDocumento) as 'Id' from dropeadores.Cliente c where c.numeroDocumento=" + numeroDocumento + "AND c.TipoDocumento LIKE '" + tipoDocumento + "'" );
+                foreach (DataRow row in da.Rows)
+                {
+
+                    cant = Convert.ToInt32(row["Id"].ToString());
+
+                }
+                puedeUpdetear=cant;
+            }
+            else
+            {
+                puedeUpdetear = 0;
+            }
             dt = dao.ConsultarConQuery("SELECT cliente_domicilio FROM dropeadores.Cliente WHERE tipoDocumento like " + "'" + tipoDocumento + "' AND numeroDocumento like" + "'" + docViejo + "'");
-           foreach (DataRow row in dt.Rows)
+            foreach (DataRow row in dt.Rows)
             {
                 IDcliente = Convert.ToInt32(row["cliente_domicilio"].ToString());
                 
             }
-           
+            if (puedeUpdetear==0)
+            {
                 if (dao.EjecutarSP("dropeadores.updateDomicilioCliente", IDcliente, calle, numero, piso, depto, localidad, " ", cp) > 0)
                 {
-                   if (dao.EjecutarSP("dropeadores.updateCliente", numeroDocumento,nombre, apellido, tipoDocumento, cuil, email, fecha_nacimiento, IDcliente, telefono, campoBaja) > 0)
+                    if (dao.EjecutarSP("dropeadores.updateCliente", numeroDocumento, nombre, apellido, tipoDocumento, cuil, email, fecha_nacimiento, IDcliente, telefono, campoBaja) > 0)
+                    {
+
+                        dt = dao.ConsultarConQuery("select count(T.Id) as 'Id' from dropeadores.TarjetaCredito T join dropeadores.Cliente C on (C.NumeroDocumento=T.clieteId) where T.clieteId=" + numeroDocumento);
+                        foreach (DataRow row in dt.Rows)
                         {
 
-                            dt = dao.ConsultarConQuery("select count(T.Id) as 'Id' from dropeadores.TarjetaCredito T join dropeadores.Cliente C on (C.NumeroDocumento=T.clieteId) where T.clieteId=" + numeroDocumento );
-                            foreach (DataRow row in dt.Rows)
+                            cant = Convert.ToInt32(row["Id"].ToString());
+
+                        }
+
+                        if (cant == 0)
+                        {
+                            if (dao.EjecutarSP("dropeadores.Cliente_Alta_Tarjeta", propietarioTar, numeroTar, fecha_vencimiento, numeroDocumento, descripcionTar) > 0)
                             {
-
-                                cant = Convert.ToInt32(row["Id"].ToString());
-
+                                return 0;
+                            }
+                        }
+                        else
+                        {
+                            if (dao.EjecutarSP("dropeadores.updateTarjetaCliente", numeroDocumento, propietarioTar, numeroTar, fecha_vencimiento, descripcionTar) > 0)
+                            {
+                                return 0;
                             }
 
-                            if (cant == 0)
-                                {
-                                 if (dao.EjecutarSP("dropeadores.Cliente_Alta_Tarjeta", propietarioTar, numeroTar, fecha_vencimiento, numeroDocumento, descripcionTar) > 0)
-                                        
-                                    {
-                                        return 0;
-                                    }
-                                }
-                                else
-                                {
-                                    if (dao.EjecutarSP("dropeadores.updateTarjetaCliente", numeroDocumento, propietarioTar, numeroTar, fecha_vencimiento, descripcionTar) > 0)
-                                  {
-                                        return 0;
-                                  }
-                           
-                                }
+                        }
 
                     }
 
                 }
-            
+            }
            
 
 			return 1;
 		}
 
-      
-		internal int existEmpresa(string cuil, int numDni)
-		{
-
-			DataTable dt, dr, da = new DataTable();
-			int cant = 0;
-			DaoSP dao = new DaoSP();
-			dt = dao.ConsultarConQuery("select count(c.numeroDocumento) as 'cantidad' from dropeadores.Cliente c where c.estado=1 and c.cuil LIKE" + "'" + cuil + "'");
-			dr = dao.ConsultarConQuery("select count(c.numeroDocumento) as 'cantidad' from dropeadores.Cliente c where c.estado=1 and c.numeroDocumento=" + numDni);
-			foreach (DataRow row in dt.Rows)
-			{
-				cant = Convert.ToInt32(row["cantidad"]);
-			}
-			foreach (DataRow row in dr.Rows)
-			{
-				cant = cant + Convert.ToInt32(row["cantidad"]);
-			}
-
-			return cant;
-
-		}
-
-
+        //public bool existeELcliente(string tipo, int numeroDoc)
+        //{
+        //    DataTable dt, dr = new DataTable();
+        //    int cant = 0;
+        //    DaoSP dao = new DaoSP();
+        //    dt = dao.ConsultarConQuery("select count(c.numeroDocumento) as 'cantidad' from dropeadores.Cliente c where c.estado=1 and c.cuil LIKE" + "'" + tipo + "' and c.numeroDocumento=" + numDni);
+        //    foreach (DataRow row in dt.Rows)
+        //    {
+        //        cant = Convert.ToInt32(row["cantidad"]);
+        //    }
+        //    if (cant > 0)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+          
+        //}
+        
         public int NroDocu
         {
             get { return documento.nroDoc; }
