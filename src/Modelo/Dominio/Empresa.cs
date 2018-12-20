@@ -45,12 +45,13 @@ namespace Modelo.Dominio
             string ciudad = empresa_Seleccionada.Empresa_Dom.ciudad;
             int cp = empresa_Seleccionada.Empresa_Dom.cp;
             int campoBaja = (empresa_Seleccionada.Empresa_estado) ? 1 : 1;
-            dt = dao.ConsultarConQuery("SELECT empresa_domicilio FROM dropeadores.Empresa WHERE empresa_Cuit like " + "'" + cuit + "'");
+            dt = dao.ConsultarConQuery("SELECT empresa_domicilio from dropeadores.Empresa c where c.empresa_Cuit like '" + cuit + "' and c.empresa_razon_social like '" + razonSocial + "'");
+            
             foreach (DataRow row in dt.Rows)
             {
                 IDempresa = Convert.ToInt32(row["empresa_domicilio"].ToString());
             }
-            if ((cuitViejo != cuit) && (Rzantigua!=razonSocial))
+            if ((cuitViejo != cuit) || (Rzantigua!=razonSocial))
             {
                 da = dao.ConsultarConQuery("select count(c.empresa_Cuit) as 'Id' from dropeadores.Empresa c where c.empresa_Cuit like '" + cuit + "' and c.empresa_razon_social like '"+ razonSocial +"'");
                 foreach (DataRow row in da.Rows)
@@ -63,6 +64,7 @@ namespace Modelo.Dominio
             }
             else
             {
+
                 puedeUpdetear = 0;
             }
             if (puedeUpdetear == 0)

@@ -33,7 +33,6 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
             DaoSP prueba = new DaoSP();
 
-           // CargarData.cargarGridView(dataGridViewEmpresa, prueba.ConsultarConQuery("select empresa_Cuit as 'CUIT',empresa_mail as 'MAIL',empresa_razon_social as 'RAZON SOCIAL',empresa_estado from dropeadores.Empresa WHERE empresa_estado=1"));
             CargarData.cargarGridView(dataGridViewEmpresa, prueba.ConsultarConQuery("select empresa_Cuit as 'CUIT',empresa_mail as 'MAIL',empresa_razon_social as 'RAZON SOCIAL',empresa_estado from dropeadores.Empresa "));
 
             CargarData.AddButtonEliminar(dataGridViewEmpresa);
@@ -101,7 +100,6 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             if (tabla_empresa != null && cant >= 1)
             {
 
-                // error cuando probas por filtrar por 2 campos y alguno es incorrecto
                 tabla_empresa.DefaultView.RowFilter = final_rol;
             }
             else
@@ -128,7 +126,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                     return;
                 }
                 string cuitDelete = dataGridViewEmpresa.CurrentRow.Cells["CUIT"].Value.ToString();
-                string razonSocial = dataGridViewEmpresa.CurrentRow.Cells["RAZON SOCIAL"].Value.ToString();
+                string razonSocial = dataGridViewEmpresa.CurrentRow.Cells["RAZONSOCIAL"].Value.ToString();
                 DialogResult dr = MessageBox.Show("Desea dar de Baja a la empresa, cuit " + cuitDelete + " " + razonSocial + "?",
                 "", MessageBoxButtons.YesNo);
                 switch (dr)
