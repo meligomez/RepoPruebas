@@ -48,12 +48,21 @@ namespace PalcoNet.Abm_Rol
 					}
 					else
 					{
-						RolXFunc rolxfunc = new RolXFunc();
-						if (rolxfunc.insertarRolPorFunc(txtNombreRol.Text, dgvFuncionalidades) >= 0)
+						if(rol.existenFuncionalidadesYaAsignadasAOtroRol(dgvFuncionalidades))
 						{
-							MessageBox.Show("Rol creado satisfactoriamente.", "¡Correcto!",
-								MessageBoxButtons.OK, MessageBoxIcon.None);
+							MessageBox.Show("Ya existe otro rol con esas funcionalidades.", "¡Error!",
+									MessageBoxButtons.OK, MessageBoxIcon.None);
 						}
+						else
+						{
+							RolXFunc rolxfunc = new RolXFunc();
+							if (rolxfunc.insertarRolPorFunc(txtNombreRol.Text, dgvFuncionalidades) >= 0)
+							{
+								MessageBox.Show("Rol creado satisfactoriamente.", "¡Correcto!",
+									MessageBoxButtons.OK, MessageBoxIcon.None);
+							}
+						}
+						
 					}
 				}
 

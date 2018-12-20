@@ -1,4 +1,5 @@
 ﻿using Modelo.Base;
+using Modelo.Comun;
 using Modelo.Dominio;
 using System;
 using System.Collections.Generic;
@@ -22,25 +23,68 @@ namespace PalcoNet.Historial_Cliente
             InitializeComponent();
         }
 		private void HistorialCliente_Load(object sender, EventArgs e)
-		{ 	
-			dtSource = this.getCompras(this.userLog.cliente.numeroDocumento);
+		{
+			if (this.userLog.cliente.numeroDocumento == 0 )
+			{
+				MessageBox.Show("Debe elegir un cliente para buscar su historial.");
+				DataTable dt = new DataTable();
+				DaoSP dao = new DaoSP();
+				dt=dao.ConsultarConQuery(" select distinct compra_numero_documento as 'NumeroDocumento' from dropeadores.Compra c join dropeadores.Cliente cli"+
+					" on(cli.NumeroDocumento=c.compra_numero_documento) where cli.estado = 1");
+				CargarData.cargarComboBoxSinSeleccionar(comboBox1, dt, "NumeroDocumento", "NumeroDocumento");
+				label3.Visible = true;
+				comboBox1.Visible = true;
+			}
+			else
+			{
+				label2.Visible = true;
+				txtCantPags.Visible = true;
+				dtSource = this.getCompras(this.userLog.cliente.numeroDocumento);
+			}
+			
 			
 		}
 		public DataTable getCompras(int numeroDoc)
 		{
-			Compra comprasCliente = new Compra();
 			DataTable dtPremios = new DataTable();
-			DaoSP dao = new DaoSP();
-			string query = "SELECT factura, compra_fecha as 'Fecha' ,compra_cantidad as 'Cantidad',"
-				+ " compra_precio as 'Precio' ,compra_ubicacionFila as 'Fila' ,compra_ubicacionAsiento as 'Asiento' , p.descripcion, t.descripcion as 'Medio de Pago'"
-				+ "  from dropeadores.Compra c"
-				+ " join dropeadores.Publicacion p on( c.compra_ubicacionPublic=p.id)"
-				+ " JOIN dropeadores.TarjetaCredito t on( t.id = c.compra_TarjetaId)"
-				+ " WHERE compra_numero_documento="
-				+ numeroDoc;
-			dtPremios = dao.ConsultarConQuery(query);
-			return dtPremios;
+			try
+			{
+				
+						Compra comprasCliente = new Compra();
+						
+						DaoSP dao = new DaoSP();
+						string query = "SELECT factura, compra_fecha as 'Fecha' ,compra_cantidad as 'Cantidad',"
+							+ " compra_precio as 'Precio' ,compra_ubicacionFila as 'Fila' ,compra_ubicacionAsiento as 'Asiento' , p.descripcion, t.descripcion as 'Medio de Pago'"
+							+ "  from dropeadores.Compra c"
+							+ " join dropeadores.Publicacion p on( c.compra_ubicacionPublic=p.id)"
+							+ " JOIN dropeadores.TarjetaCredito t on( t.id = c.compra_TarjetaId)"
+							+ " WHERE compra_numero_documento="
+							+ numeroDoc;
+						dtPremios = dao.ConsultarConQuery(query);
+					
+					
+					
+				
+				return dtPremios;
+			}
+			catch (Exception e)
+			{
+
+				throw e;
+			}
+		
 		}
+
+		private bool validarData()
+		{
+			//if(comboBox1.SelectedValue.ToString().Contains("Seleccione"))
+			//{
+			//	MessageBox.Show("Seleeccione un cliente válido.");
+			//	return false;
+			//}
+			return true;
+		}
+
 		//Variables necesarias para el manejo de paginado
 		private DataTable dtSource;
 		private int PageCount;
@@ -227,6 +271,13 @@ namespace PalcoNet.Historial_Cliente
 		private void btnVolver_Click(object sender, EventArgs e)
 		{
 			this.Hide();
+		}
+
+		private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			dataGridView1.DataSource = null;
+			label2.Visible = true;
+			dtSource = this.getCompras(int.Parse(comboBox1.SelectedValue.ToString()));
 		}
 	}
 }

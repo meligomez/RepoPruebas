@@ -30,6 +30,8 @@ namespace PalcoNet.Editar_Publicacion
 
 		private void EditarUnaPublicacion_Load(object sender, EventArgs e)
 		{
+			ConfigGlobal cg = new ConfigGlobal();
+			lblfechaSist.Text = cg.getFechaSistema().ToString();
 			DataTable dtGrado = new DataTable();
 			DataTable dtRubro = new DataTable();
 			DaoSP dao = new DaoSP();

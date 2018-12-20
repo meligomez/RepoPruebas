@@ -58,6 +58,47 @@ namespace Modelo.Dominio
 
 		}
 
+		public bool existenFuncionalidadesYaAsignadasAOtroRol(DataGridView dgvFuncionalidades)
+		{
+			//List<int> ChkedRow = new List<int>();
+			//List<int> cantFuncionalidadesPorRol = new List<int>();
+			//RolXFunc funcPorRols = new RolXFunc();
+			//Rol r = new Rol();
+			//int i;
+			//try
+			//{
+			//	List<Funcionalidad> f = new List<Funcionalidad>();
+			//	List<int> idsFuncionalidades = new List<int>();
+			//	//idsFuncionalidades = funcPorRols.getFuncionalidadesPorRol(rolId);
+			//	for (i = 1; i <= dgvFuncionalidades.RowCount; i++)
+			//	{
+			//			//lo voy seleccionando al q cumpla
+			//			dgvFuncionalidades.Rows[i - 1].Cells["seleccion"].Value = true;
+			//			ChkedRow.Add(i - 1);
+			//	}
+			//	DataTable dt = new DataTable();
+			//	DaoSP dao = new DaoSP();
+			//	dt = dao.ConsultarConQuery("SELECT COUNT(funcionalidadId) from dropeadores.FuncionalidadXRol group by rolId");
+			//	if(dt.Rows.Count>0)
+			//	{
+			//		foreach (int unaCantidad in dt.Rows)
+			//		{
+			//			cantFuncionalidadesPorRol.Add(unaCantidad);
+			//		}
+			//	}
+			//	if (cantFuncionalidadesPorRol.Contains(dgvFuncionalidades.RowCount))
+			//	{
+			//		//tengo q buscar de esos q estan si hay alguno q sea la funcionalidad buscada 
+			//	}
+			//catch(Exception e)
+			//{
+			//	throw e;
+			//}
+			return true;
+		}
+
+
+
 		//public string Usr
 		//{
 		//    get { return usr; }

@@ -55,6 +55,8 @@ namespace PalcoNet.Canje_Puntos
 				
 				MessageBox.Show("No existen puntos asociados al cliente, o no existen premios para la cantidad de puntos asociados.", "Error al cargar los puntos",
 								MessageBoxButtons.OK, MessageBoxIcon.Error);
+				btnCanjear.Visible = false;
+				cbxPremios.Visible = false;
 			}
 			else
 			{
