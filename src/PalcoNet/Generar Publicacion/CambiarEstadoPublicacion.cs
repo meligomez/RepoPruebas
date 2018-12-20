@@ -63,7 +63,15 @@ namespace PalcoNet.Generar_Publicacion
 				DataTable dt2 = dao2.ConsultarConQuery("select distinct empresaId as 'Empresa' from dropeadores.Publicacion p " +
 					" join dropeadores.Empresa e on(e.empresa_Cuit=p.empresaId)" +
 					" where e.empresa_estado = 1 and p.estado=0");
-				CargarData.cargarComboBox(comboBox1, dt2, "Empresa", "Empresa");
+				if (dt2.Rows.Count <= 0)
+				{
+					MessageBox.Show("No existen publicaciones en estado Borrador para editar.");
+				}
+				else
+				{
+					CargarData.cargarComboBox(comboBox1, dt2, "Empresa", "Empresa");
+				}
+				
 
 
 			

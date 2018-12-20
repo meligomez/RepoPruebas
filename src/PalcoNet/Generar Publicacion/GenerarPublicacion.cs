@@ -32,7 +32,9 @@ namespace PalcoNet.Generar_Publicacion
 
 		private void CategoriaUbicacion_Load(object sender, EventArgs e)
 		{
-		
+
+			ConfigGlobal cg = new ConfigGlobal();
+			lblfechasis.Text= cg.getFechaSistema().ToString();
 				//Necesito en empresa un metodo que dado el id me devuelva la razon social.
 				DataTable dtGrado = new DataTable();
 				DataTable dtRubro = new DataTable();
@@ -119,7 +121,27 @@ namespace PalcoNet.Generar_Publicacion
 
 
 		}
+		public bool existeFechayHoraSinLote(DateTime fecha)
+		{
+			Publicacion p = new Publicacion();
+			try
+			{
+				DaoSP dao = new DaoSP();
+				DataTable dt = new DataTable();
+				string query = "SELECT fechaEspectaculo from dropeadores.Publicacion WHERE datepart(YEAR,fechaEspectaculo)= " + (fecha).Year
+					+ " AND datepart(month,fechaEspectaculo) =" + fecha.Month
+					+ " AND datepart(DAY,fechaEspectaculo) =" + fecha.Day
+					+ " AND datepart(HOUR,fechaEspectaculo) =" + fecha.Hour;
+				dt = dao.ConsultarConQuery(query);
+				return dt.Rows.Count > 0;
+			}
+			catch (Exception ex)
+			{
 
+				throw ex;
+			}
+
+		}
 		private bool validarData()
 		{
 			if(userLogueado.empresa.Empresa_Cuit=="0")
@@ -143,7 +165,11 @@ namespace PalcoNet.Generar_Publicacion
 						MessageBox.Show("Valide las fechas, la fecha de publicacion es mayor que algunas fechas del espectaculo.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 						return false;
 					}
-					
+					if (fechasValidas.Any(fechEsp => existeFechayHoraSinLote(fechEsp)))
+					{
+						MessageBox.Show("Valide las fechas, existen fechas en las que hay otros espectaculos.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+						return false;
+					}
 				}
 			}
 			if ((dateTimePickerPublicacion.Value) < cg.getFechaSistema())
